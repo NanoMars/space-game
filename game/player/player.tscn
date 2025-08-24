@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkf7mjen6nt18"]
+
+[ext_resource type="Script" uid="uid://bsg0au27h3f7j" path="res://game/player/player.gd" id="1_obar5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_o3jxj"]
+radius = 0.478543
+
+[sub_resource type="SphereMesh" id="SphereMesh_0f027"]
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_obar5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_o3jxj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_0f027")
