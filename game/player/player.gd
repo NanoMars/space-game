@@ -4,6 +4,12 @@ extends CharacterBody3D
 @export var acceleration: float = 10.0
 @export var deceleration: float = 10.0
 
+@onready var health: Health = $Health
+
+func _ready() -> void:
+	if health:
+		health.died.connect(_on_died)
+
 func _physics_process(delta: float) -> void:
 
 	var input_vector: Vector2 = Vector2(
@@ -21,3 +27,6 @@ func _physics_process(delta: float) -> void:
 	velocity.z = move_toward(velocity.z, target_velocity.z, rate * delta)
 
 	move_and_slide()
+
+func _on_died(from: Node) -> void:
+	queue_free()
