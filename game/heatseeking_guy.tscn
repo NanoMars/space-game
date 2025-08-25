@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8wttr2bqvly5"]
+
+[ext_resource type="Script" uid="uid://c7oy4e0b7q2pe" path="res://game/heatseeking_guy.gd" id="1_06yso"]
+[ext_resource type="Material" uid="uid://dabisbs8xfnhw" path="res://game/basicenemymaterial.tres" id="1_s4oog"]
+[ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_yospj"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_0fifv"]
+radius = 0.632324
+
+[sub_resource type="SphereMesh" id="SphereMesh_8rqhx"]
+material = ExtResource("1_s4oog")
+
+[node name="RigidBody3D" type="RigidBody3D" groups=["enemies"]]
+script = ExtResource("1_06yso")
+
+[node name="Health" parent="." instance=ExtResource("2_yospj")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_0fifv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_8rqhx")

@@ -30,3 +30,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_died(from: Node) -> void:
 	queue_free()
+
+func damage(amount: float, from: Node = null) -> void:
+	if health and health.has_method("damage"):
+		health.damage(amount, from)

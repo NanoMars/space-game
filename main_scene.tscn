@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=4 format=3 uid="uid://s488jtj1i4ci"]
 
 [ext_resource type="PackedScene" uid="uid://dkf7mjen6nt18" path="res://game/player/player.tscn" id="1_0f027"]
+[ext_resource type="PackedScene" uid="uid://c8wttr2bqvly5" path="res://game/heatseeking_guy.tscn" id="2_2c62f"]
+
+[sub_resource type="Environment" id="Environment_0f027"]
+background_mode = 1
 
 [node name="Node3D" type="Node3D"]
 
@@ -20,3 +24,11 @@ light_color = Color(0.454902, 0.670588, 0.807843, 1)
 light_energy = 1.867
 light_indirect_energy = 2.114
 light_specular = 0.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0f027")
+
+[node name="RigidBody3D" parent="." instance=ExtResource("2_2c62f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5333, 0, -7.43516)
+linear_damp = 5.0
+speed = 3000.0

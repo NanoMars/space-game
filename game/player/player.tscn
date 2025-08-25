@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dkf7mjen6nt18"]
+[gd_scene load_steps=6 format=3 uid="uid://dkf7mjen6nt18"]
 
 [ext_resource type="Script" uid="uid://bsg0au27h3f7j" path="res://game/player/player.gd" id="1_obar5"]
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_b2mth"]
@@ -6,9 +6,13 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_o3jxj"]
 radius = 0.478543
 
-[sub_resource type="SphereMesh" id="SphereMesh_0f027"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b2mth"]
+shading_mode = 0
 
-[node name="CharacterBody3D" type="CharacterBody3D"]
+[sub_resource type="SphereMesh" id="SphereMesh_0f027"]
+material = SubResource("StandardMaterial3D_b2mth")
+
+[node name="CharacterBody3D" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_obar5")
 
 [node name="Health" parent="." instance=ExtResource("2_b2mth")]
