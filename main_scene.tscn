@@ -1,29 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=5 format=3 uid="uid://s488jtj1i4ci"]
 
 [ext_resource type="PackedScene" uid="uid://dkf7mjen6nt18" path="res://game/player/player.tscn" id="1_0f027"]
 [ext_resource type="PackedScene" uid="uid://c8wttr2bqvly5" path="res://game/heatseeking_guy.tscn" id="2_2c62f"]
+[ext_resource type="PackedScene" uid="uid://dlgvodlq4gicv" path="res://game/UI.tscn" id="3_gyfs4"]
 
 [sub_resource type="Environment" id="Environment_0f027"]
 background_mode = 1
 
 [node name="Node3D" type="Node3D"]
 
-[node name="Camera3D2" type="Camera3D" parent="."]
-transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 3.47895, 0)
+[node name="Camera3D2" type="Camera3D" parent="." groups=["camera"]]
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 4, 0)
 projection = 1
-size = 10.0
+size = 9.29751
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("1_0f027")]
 move_speed = 10.0
 acceleration = 30.0
 deceleration = 30.0
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.849736, -0.0254323, -0.526594, 0.527208, 0.040991, 0.848747, 0, -0.998836, 0.0482397, -2.95238, 5.56767, 0)
-light_color = Color(0.454902, 0.670588, 0.807843, 1)
-light_energy = 1.867
-light_indirect_energy = 2.114
-light_specular = 0.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0f027")
@@ -32,3 +26,7 @@ environment = SubResource("Environment_0f027")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5333, 0, -7.43516)
 linear_damp = 5.0
 speed = 3000.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" parent="CanvasLayer" instance=ExtResource("3_gyfs4")]

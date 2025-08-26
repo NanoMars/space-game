@@ -6,6 +6,8 @@ extends Enemy
 
 
 func _ready() -> void:
+	super._ready()
+	
 	contact_monitor = true
 	max_contacts_reported = 8
 	body_entered.connect(_on_body_entered)
@@ -16,12 +18,8 @@ func _physics_process(delta: float) -> void:
 		apply_force(Vector3(direction.x, 0.0, direction.y) * speed * delta)
 
 func _on_body_entered(body: Node) -> void:
-	print("Body entered: ", body.name)
 	if body.is_in_group("player"):
-		print("Player detected: ", body.name)
 		if body.has_method("damage"):
-			print("Damaging player: ", body.name)
 			body.damage(damage_dealt, self)
 			if health and health.has_method("die"):
-				print("Killing self")
 				health.die(self)

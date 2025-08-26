@@ -6,6 +6,16 @@ extends CharacterBody3D
 
 @onready var health: Health = $Health
 
+@onready var cam: Camera3D = get_tree().get_first_node_in_group("camera") as Camera3D
+@onready var ortho_size: float = cam.size  # In 4.x this is the *diameter* on the locked axis
+@onready var viewport_aspect: float = cam.get_viewport().size.aspect() # width / height
+@onready var keep_height: bool = cam.keep_aspect == Camera3D.KeepAspect.KEEP_HEIGHT
+
+# Compute half extents in world units based on keep_aspect
+@onready var half_height: float = (ortho_size * 0.5) if keep_height else (ortho_size * 0.5) / viewport_aspect
+@onready var half_width: float  = (half_height * viewport_aspect) if keep_height else (ortho_size * 0.5)
+@onready var clamp_center: Vector2 = Vector2(cam.global_position.x, cam.global_position.z) # Static center for clamping
+
 func _ready() -> void:
 	if health:
 		health.died.connect(_on_died)
@@ -28,7 +38,20 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-func _on_died(from: Node) -> void:
+	var pos := global_position
+	pos.x = clamp(
+		pos.x,
+		clamp_center.x - half_width,
+		clamp_center.x + half_width
+	)
+	pos.z = clamp(
+		pos.z,
+		clamp_center.y - half_height,
+		clamp_center.y + half_height
+	)
+	global_position = pos
+
+func _on_died(_from: Node) -> void:
 	queue_free()
 
 func damage(amount: float, from: Node = null) -> void:

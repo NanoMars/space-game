@@ -28,4 +28,3 @@ func damage(amount: float, from: Node = null) -> void:
 
 func die(from: Node = null) -> void:
 	emit_signal("died", from)
-	print("Health died: ", get_parent().name)

@@ -7,7 +7,6 @@ class_name Enemy
 func _ready() -> void:
 	if health:
 		health.died.connect(_on_died)
-		print("Health connected")
 
 func damage(amount: float, from: Node = null) -> void:
 	if health and health.has_method("damage"):
@@ -15,4 +14,3 @@ func damage(amount: float, from: Node = null) -> void:
 
 func _on_died(from: Node) -> void:
 	queue_free()
-	print("Enemy died: ", self.name)
