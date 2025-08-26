@@ -5,6 +5,14 @@ signal damaged(amount: float, from: Node)
 signal died(from: Node)
 signal health_changed(new_health: float)
 
+var trigger_pulled: bool:
+	get:
+		return _trigger_pulled
+	set(value):
+		_trigger_pulled = value
+
+var _trigger_pulled: bool = true
+
 @export var max_health: float = 100.0
 var health: float:
 	get:
