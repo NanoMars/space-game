@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dkf7mjen6nt18"]
+[gd_scene load_steps=6 format=3 uid="uid://dkf7mjen6nt18"]
 
 [ext_resource type="Script" uid="uid://bsg0au27h3f7j" path="res://game/player/player.gd" id="1_obar5"]
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_b2mth"]
-[ext_resource type="Script" uid="uid://8lv5csj6m6m4" path="res://game/player/weapon.gd" id="3_8soms"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_o3jxj"]
 radius = 0.478543
@@ -14,6 +13,7 @@ shading_mode = 0
 material = SubResource("StandardMaterial3D_b2mth")
 
 [node name="CharacterBody3D" type="CharacterBody3D" groups=["player"]]
+collision_layer = 3
 script = ExtResource("1_obar5")
 
 [node name="Health" parent="." instance=ExtResource("2_b2mth")]
@@ -26,4 +26,3 @@ mesh = SubResource("SphereMesh_0f027")
 
 [node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.503508)
-script = ExtResource("3_8soms")
