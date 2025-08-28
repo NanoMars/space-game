@@ -14,6 +14,8 @@ material = ExtResource("1_s4oog")
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_06yso")
+speed = 1.5
+damage_dealt = 10.0
 
 [node name="Health" parent="." instance=ExtResource("2_yospj")]
 

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponStats" load_steps=5 format=3 uid="uid://blxmdv45ssyxh"]
+
+[ext_resource type="Script" uid="uid://tr3qy35bjgd2" path="res://game/weapon/sine_pattern.gd" id="1_kkqhp"]
+[ext_resource type="PackedScene" uid="uid://ce8lm1647q0xr" path="res://game/weapon/player_projectile.tscn" id="2_t4eyu"]
+[ext_resource type="Script" uid="uid://bypy263lii80f" path="res://game/weapon/weapon_stats.gd" id="3_8tmc7"]
+
+[sub_resource type="Resource" id="Resource_anr75"]
+script = ExtResource("1_kkqhp")
+shots = 2
+sine_step = 0.1
+sin_angle = 5.0
+metadata/_custom_type_script = "uid://tr3qy35bjgd2"
+
+[resource]
+script = ExtResource("3_8tmc7")
+damage = 1.0
+fire_rate = 60.0
+projectile_speed = 15.0
+projectile_scene = ExtResource("2_t4eyu")
+fire_pattern = SubResource("Resource_anr75")
+metadata/_custom_type_script = "uid://bypy263lii80f"

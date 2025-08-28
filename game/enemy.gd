@@ -3,6 +3,7 @@ class_name Enemy
 @onready var health: Health = $Health
 
 @export var point_value: int = 100
+var dead: bool = false
 
 func _ready() -> void:
 	if health:
@@ -14,7 +15,12 @@ func damage(amount: float, from: Node = null) -> void:
 		health.damage(amount, from)
 
 func _on_died(_from: Node) -> void:
+	if dead:
+		return
+	dead = true
 	SoundManager.play_sound(SoundManager.enemy_death)
+	ScoreManager.score += point_value
+	print("dead")
 	queue_free()
 
 func _damaged(_amount: float, _source: Node) -> void:

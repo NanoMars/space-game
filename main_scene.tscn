@@ -16,8 +16,8 @@ size = 9.29751
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("1_0f027")]
 move_speed = 10.0
-acceleration = 30.0
-deceleration = 30.0
+acceleration = 50.0
+deceleration = 50.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0f027")
@@ -25,7 +25,7 @@ environment = SubResource("Environment_0f027")
 [node name="RigidBody3D" parent="." instance=ExtResource("2_2c62f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5333, 0, -7.43516)
 linear_damp = 5.0
-speed = 3000.0
+speed = 1500.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

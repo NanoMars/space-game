@@ -12,7 +12,7 @@ shading_mode = 0
 material = SubResource("StandardMaterial3D_vivvd")
 radius = 0.1
 height = 0.2
-radial_segments = 4
+radial_segments = 6
 rings = 2
 
 [node name="RigidBody3D" type="RigidBody3D"]

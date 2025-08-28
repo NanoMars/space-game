@@ -6,10 +6,8 @@ class_name Weapon
 		
 		if shot_timer && value != _firing:
 			if _firing:
-				print("Stopped firing")
 				shot_timer.stop()
 			else:
-				print("Started firing")
 				shot_timer.start()
 				
 		_firing = value

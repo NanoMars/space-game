@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlgvodlq4gicv"]
+[gd_scene load_steps=6 format=3 uid="uid://dlgvodlq4gicv"]
 
 [ext_resource type="Script" uid="uid://bdqhv1vauenlf" path="res://game/gameui.gd" id="1_ogh4a"]
+[ext_resource type="FontFile" uid="uid://c7d4yqi0hw8gh" path="res://game/assets/m42.TTF" id="2_brkp5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfnil"]
 bg_color = Color(1, 1, 1, 1)
@@ -43,3 +44,20 @@ grow_vertical = 0
 theme = SubResource("Theme_brkp5")
 value = 75.0
 show_percentage = false
+
+[node name="ScoreLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -122.0
+offset_top = 50.0
+offset_right = -50.0
+offset_bottom = 24.0
+grow_horizontal = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 40
+theme_override_fonts/font = ExtResource("2_brkp5")
+theme_override_font_sizes/font_size = 25
+text = "124523"
+horizontal_alignment = 2
