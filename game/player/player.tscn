@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dkf7mjen6nt18"]
+[gd_scene load_steps=12 format=3 uid="uid://dkf7mjen6nt18"]
 
 [ext_resource type="Script" uid="uid://bsg0au27h3f7j" path="res://game/player/player.gd" id="1_obar5"]
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_b2mth"]
 [ext_resource type="Script" uid="uid://dy1kcyvsje554" path="res://game/weapon/weapon.gd" id="3_8soms"]
+[ext_resource type="Script" uid="uid://b74jnsjx6ore1" path="res://game/weapon/cone_pattern.gd" id="4_4ste8"]
 [ext_resource type="Script" uid="uid://bypy263lii80f" path="res://game/weapon/weapon_stats.gd" id="4_a4w0n"]
+[ext_resource type="PackedScene" uid="uid://ce8lm1647q0xr" path="res://game/weapon/projectile.tscn" id="5_anr75"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_o3jxj"]
 radius = 0.478543
@@ -14,12 +16,19 @@ shading_mode = 0
 [sub_resource type="SphereMesh" id="SphereMesh_0f027"]
 material = SubResource("StandardMaterial3D_b2mth")
 
+[sub_resource type="Resource" id="Resource_epvkq"]
+script = ExtResource("4_4ste8")
+cone_deg = null
+metadata/_custom_type_script = "uid://b74jnsjx6ore1"
+
 [sub_resource type="Resource" id="Resource_5fytw"]
 script = ExtResource("4_a4w0n")
 damage = 10.0
 fire_rate = 3.0
 spread_deg = 0.0
 projectile_speed = 60.0
+projectile_scene = ExtResource("5_anr75")
+fire_pattern = SubResource("Resource_epvkq")
 metadata/_custom_type_script = "uid://bypy263lii80f"
 
 [node name="CharacterBody3D" type="CharacterBody3D" groups=["player"]]
