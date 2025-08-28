@@ -4,6 +4,17 @@ class_name Projectile
 var weapon_stats: WeaponStats
 var last_position: Vector3
 
+# Camera bounds (same logic as player.gd)
+@onready var cam: Camera3D = get_tree().get_first_node_in_group("camera") as Camera3D
+@onready var ortho_size: float = (cam.size if cam else 0.0)  # In 4.x this is the diameter on the locked axis
+@onready var viewport_aspect: float = (cam.get_viewport().size.aspect() if cam else 1.0) # width / height
+@onready var keep_height: bool = (cam and cam.keep_aspect == Camera3D.KeepAspect.KEEP_HEIGHT)
+
+# Compute half extents in world units based on keep_aspect
+@onready var half_height: float = ( (ortho_size * 0.5) if keep_height else (ortho_size * 0.5) / viewport_aspect ) if cam else 0.0
+@onready var half_width: float  = ( (half_height * viewport_aspect) if keep_height else (ortho_size * 0.5) ) if cam else 0.0
+@onready var clamp_center: Vector2 = (Vector2(cam.global_position.x, cam.global_position.z) if cam else Vector2.ZERO) # Static center for bounds
+
 func _ready() -> void:
 	contact_monitor = true
 	max_contacts_reported = 8
@@ -41,6 +52,15 @@ func _physics_process(_delta: float) -> void:
 				remove_projectile()
 	# Update for next
 	last_position = global_position
+
+	# Despawn if outside camera bounds (same region as player clamp)
+	if cam:
+		var pos := global_position
+		if pos.x < clamp_center.x - half_width \
+		or pos.x > clamp_center.x + half_width \
+		or pos.z < clamp_center.y - half_height \
+		or pos.z > clamp_center.y + half_height:
+			remove_projectile()
 
 func remove_projectile() -> void:
 	queue_free()

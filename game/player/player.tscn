@@ -18,7 +18,7 @@ material = SubResource("StandardMaterial3D_b2mth")
 
 [sub_resource type="Resource" id="Resource_anr75"]
 script = ExtResource("4_4ste8")
-shots = 2
+shots = 1
 sine_step = 0.05
 sin_angle = 30.0
 metadata/_custom_type_script = "uid://tr3qy35bjgd2"
@@ -26,7 +26,7 @@ metadata/_custom_type_script = "uid://tr3qy35bjgd2"
 [sub_resource type="Resource" id="Resource_epvkq"]
 script = ExtResource("4_a4w0n")
 damage = 10.0
-fire_rate = 60.0
+fire_rate = 30.0
 projectile_speed = 3.0
 projectile_scene = ExtResource("5_anr75")
 fire_pattern = SubResource("Resource_anr75")
