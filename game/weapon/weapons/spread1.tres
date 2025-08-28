@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="WeaponStats" load_steps=5 format=3 uid="uid://c58aaj1af0oat"]
+
+[ext_resource type="Script" uid="uid://b74jnsjx6ore1" path="res://game/weapon/cone_pattern.gd" id="1_ntgdr"]
+[ext_resource type="PackedScene" uid="uid://ce8lm1647q0xr" path="res://game/weapon/player_projectile.tscn" id="2_psrau"]
+[ext_resource type="Script" uid="uid://bypy263lii80f" path="res://game/weapon/weapon_stats.gd" id="3_1r740"]
+
+[sub_resource type="Resource" id="Resource_4ste8"]
+script = ExtResource("1_ntgdr")
+cone_deg = 15.0
+shots = 5
+metadata/_custom_type_script = "uid://b74jnsjx6ore1"
+
+[resource]
+script = ExtResource("3_1r740")
+damage = 10.0
+fire_rate = 3.0
+projectile_speed = 60.0
+projectile_scene = ExtResource("2_psrau")
+fire_pattern = SubResource("Resource_4ste8")
+metadata/_custom_type_script = "uid://bypy263lii80f"

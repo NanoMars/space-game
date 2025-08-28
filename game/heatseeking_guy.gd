@@ -24,5 +24,4 @@ func _on_body_entered(body: Node) -> void:
 			if health and health.has_method("die"):
 				health.die(self)
 
-func _damaged(_amount: float, _source: Node) -> void:
-	SoundManager.play_sound(SoundManager.damage_sound)
+
