@@ -1,11 +1,15 @@
 extends Node
 
 var damage_sound: DefinedSound = DefinedSound.new()
+var player_gunshot: DefinedSound = DefinedSound.new()
 
 
 func _ready() -> void:
 	damage_sound.sound = preload("res://game/sound/damage1.ogg")
 	damage_sound.volume = 1.0
+
+	player_gunshot.sound = preload("res://game/sound/Gunshot.wav")
+	player_gunshot.volume = 1.0
 
 func play_sound(sound: DefinedSound) -> void:
 	var audio_player := AudioStreamPlayer.new()

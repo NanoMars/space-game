@@ -39,7 +39,7 @@ func _process(delta: float) -> void:
 	_time += delta
 
 func fire_once() -> void:
-	print("Firing weapon")
+	SoundManager.play_sound(SoundManager.player_gunshot)
 	if not weapon_stats or not fire_pattern:
 		return
 
