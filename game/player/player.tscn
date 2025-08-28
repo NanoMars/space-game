@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bsg0au27h3f7j" path="res://game/player/player.gd" id="1_obar5"]
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_b2mth"]
 [ext_resource type="Script" uid="uid://dy1kcyvsje554" path="res://game/weapon/weapon.gd" id="3_8soms"]
-[ext_resource type="Script" uid="uid://d4mbseddbxj7n" path="res://game/weapon/fire_pattern.gd" id="4_4ste8"]
+[ext_resource type="Script" uid="uid://tr3qy35bjgd2" path="res://game/weapon/sine_pattern.gd" id="4_4ste8"]
 [ext_resource type="Script" uid="uid://bypy263lii80f" path="res://game/weapon/weapon_stats.gd" id="4_a4w0n"]
 [ext_resource type="PackedScene" uid="uid://ce8lm1647q0xr" path="res://game/weapon/player_projectile.tscn" id="5_anr75"]
 
@@ -18,13 +18,16 @@ material = SubResource("StandardMaterial3D_b2mth")
 
 [sub_resource type="Resource" id="Resource_anr75"]
 script = ExtResource("4_4ste8")
-metadata/_custom_type_script = "uid://d4mbseddbxj7n"
+shots = 2
+sine_step = 0.05
+sin_angle = 30.0
+metadata/_custom_type_script = "uid://tr3qy35bjgd2"
 
 [sub_resource type="Resource" id="Resource_epvkq"]
 script = ExtResource("4_a4w0n")
 damage = 10.0
-fire_rate = 15.0
-projectile_speed = 10.0
+fire_rate = 60.0
+projectile_speed = 3.0
 projectile_scene = ExtResource("5_anr75")
 fire_pattern = SubResource("Resource_anr75")
 metadata/_custom_type_script = "uid://bypy263lii80f"
