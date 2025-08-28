@@ -32,7 +32,7 @@ fire_pattern = SubResource("Resource_4ste8")
 metadata/_custom_type_script = "uid://bypy263lii80f"
 
 [node name="CharacterBody3D" type="CharacterBody3D" groups=["player"]]
-collision_layer = 2
+collision_layer = 0
 script = ExtResource("1_obar5")
 
 [node name="Health" parent="." instance=ExtResource("2_b2mth")]

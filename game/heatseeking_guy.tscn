@@ -16,7 +16,7 @@ collision_mask = 3
 script = ExtResource("1_06yso")
 
 [node name="Health" parent="." instance=ExtResource("2_yospj")]
-max_health = 1.0
+max_health = 100000.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_0fifv")
