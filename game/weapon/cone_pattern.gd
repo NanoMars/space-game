@@ -1,6 +1,6 @@
 extends FirePattern
 class_name ConePattern
-
+ 
 @export var cone_deg: float = 15.0
 @export var shots: int = 5
 

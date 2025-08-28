@@ -5,6 +5,7 @@ extends CharacterBody3D
 @export var deceleration: float = 10.0
 
 @onready var health: Health = $Health
+@onready var weapon: Weapon = $Weapon
 
 @onready var cam: Camera3D = get_tree().get_first_node_in_group("camera") as Camera3D
 @onready var ortho_size: float = cam.size  # In 4.x this is the *diameter* on the locked axis
@@ -50,6 +51,11 @@ func _physics_process(delta: float) -> void:
 		clamp_center.y + half_height
 	)
 	global_position = pos
+
+	# Poll "shoot" action from Input Map
+	var shoot_pressed := Input.is_action_pressed("shoot") 
+	if weapon:
+		weapon.firing = shoot_pressed
 
 func _on_died(_from: Node) -> void:
 	queue_free()
