@@ -4,8 +4,8 @@
 [ext_resource type="Material" uid="uid://dabisbs8xfnhw" path="res://game/basicenemymaterial.tres" id="1_s4oog"]
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_yospj"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_0fifv"]
-radius = 0.632324
+[sub_resource type="SphereShape3D" id="SphereShape3D_06yso"]
+radius = 0.6
 
 [sub_resource type="SphereMesh" id="SphereMesh_8rqhx"]
 material = ExtResource("1_s4oog")
@@ -14,13 +14,14 @@ material = ExtResource("1_s4oog")
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_06yso")
-speed = 1.5
+speed = 500.0
 damage_dealt = 10.0
 
 [node name="Health" parent="." instance=ExtResource("2_yospj")]
+max_health = 30.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CylinderShape3D_0fifv")
+shape = SubResource("SphereShape3D_06yso")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_8rqhx")
