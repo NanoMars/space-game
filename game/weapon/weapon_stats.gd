@@ -1,3 +1,4 @@
+# weapon_stats.gd
 extends Resource
 class_name WeaponStats
 

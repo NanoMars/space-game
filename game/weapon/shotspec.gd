@@ -1,3 +1,4 @@
+#shotspec.gd
 extends RefCounted
 class_name ShotSpec
 

@@ -1,3 +1,4 @@
+# sine_pattern.gd
 extends FirePattern
 class_name SinePattern
 

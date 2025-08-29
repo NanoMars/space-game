@@ -1,3 +1,4 @@
+# fire_pattern.gds
 extends Resource
 class_name FirePattern
 

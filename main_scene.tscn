@@ -1,9 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=4 format=3 uid="uid://s488jtj1i4ci"]
 
 [ext_resource type="PackedScene" uid="uid://dkf7mjen6nt18" path="res://game/player/player.tscn" id="1_0f027"]
-[ext_resource type="PackedScene" uid="uid://c8wttr2bqvly5" path="res://game/heatseeking_guy.tscn" id="2_2c62f"]
 [ext_resource type="PackedScene" uid="uid://dlgvodlq4gicv" path="res://game/UI.tscn" id="3_gyfs4"]
-[ext_resource type="Script" uid="uid://cwt804rf647p8" path="res://temp_spawner_script.gd" id="4_d5x1h"]
 
 [sub_resource type="Environment" id="Environment_0f027"]
 background_mode = 2
@@ -26,15 +24,3 @@ environment = SubResource("Environment_0f027")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" parent="CanvasLayer" instance=ExtResource("3_gyfs4")]
-
-[node name="Marker3D" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.67525)
-script = ExtResource("4_d5x1h")
-enemy_to_spawn = ExtResource("2_2c62f")
-velocity_variance = 5.0
-
-[node name="Timer" type="Timer" parent="Marker3D"]
-wait_time = 3.0
-autostart = true
-
-[connection signal="timeout" from="Marker3D/Timer" to="Marker3D" method="_spawn_enemy"]

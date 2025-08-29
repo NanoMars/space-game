@@ -1,3 +1,4 @@
+# projectile.gd
 extends RigidBody3D
 class_name Projectile
 
