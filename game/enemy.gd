@@ -14,12 +14,13 @@ func damage(amount: float, from: Node = null) -> void:
 	if health and health.has_method("damage"):
 		health.damage(amount, from)
 
-func _on_died(_from: Node) -> void:
+func _on_died(from: Node) -> void:
 	if dead:
 		return
 	dead = true
+	if from != self:
+		ScoreManager.score += point_value
 	SoundManager.play_sound(SoundManager.enemy_death)
-	ScoreManager.score += point_value
 	print("dead")
 	queue_free()
 

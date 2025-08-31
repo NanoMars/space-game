@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c8wttr2bqvly5"]
+[gd_scene load_steps=9 format=3 uid="uid://c8wttr2bqvly5"]
 
 [ext_resource type="Script" uid="uid://c7oy4e0b7q2pe" path="res://game/heatseeking_guy.gd" id="1_06yso"]
 [ext_resource type="Material" uid="uid://dabisbs8xfnhw" path="res://game/basicenemymaterial.tres" id="1_s4oog"]
@@ -10,6 +10,16 @@ radius = 0.6
 [sub_resource type="SphereMesh" id="SphereMesh_8rqhx"]
 material = ExtResource("1_s4oog")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_375ik"]
+shading_mode = 0
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_bpy71"]
+material = SubResource("StandardMaterial3D_375ik")
+
+[sub_resource type="MultiMesh" id="MultiMesh_jh6pn"]
+mesh = SubResource("SphereMesh_bpy71")
+
 [node name="RigidBody3D" type="RigidBody3D" groups=["enemies"]]
 collision_layer = 4
 collision_mask = 3
@@ -20,8 +30,16 @@ damage_dealt = 10.0
 [node name="Health" parent="." instance=ExtResource("2_yospj")]
 max_health = 30.0
 
+[node name="Sprite3D" type="Sprite3D" parent="."]
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_06yso")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_8rqhx")
+
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+multimesh = SubResource("MultiMesh_jh6pn")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]

@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 SoundManager="*res://game/sound/sound_manager.gd"
 ScoreManager="*res://game/score_manager.gd"
 
+[debug]
+
+settings/stdout/print_fps=true
+
 [display]
 
 window/stretch/mode="canvas_items"

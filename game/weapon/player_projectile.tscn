@@ -1,19 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://ce8lm1647q0xr"]
+[gd_scene load_steps=4 format=3 uid="uid://ce8lm1647q0xr"]
 
 [ext_resource type="Script" uid="uid://dv8s77c07mfnd" path="res://game/weapon/projectile.gd" id="1_w3f7m"]
+[ext_resource type="Texture2D" uid="uid://ds3301b2vpee" path="res://game/assets/circle.png" id="2_h3368"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ujx76"]
 radius = 0.125865
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vivvd"]
-shading_mode = 0
-
-[sub_resource type="SphereMesh" id="SphereMesh_i8rby"]
-material = SubResource("StandardMaterial3D_vivvd")
-radius = 0.1
-height = 0.2
-radial_segments = 6
-rings = 2
 
 [node name="RigidBody3D" type="RigidBody3D"]
 collision_layer = 0
@@ -22,8 +13,11 @@ script = ExtResource("1_w3f7m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_ujx76")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_i8rby")
+disabled = true
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, 0, 0)
+billboard = 1
+texture = ExtResource("2_h3368")
