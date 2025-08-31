@@ -1,0 +1,6 @@
+[gd_resource type="NoiseTexture2D" format=3 uid="uid://68hw6kyw6m1k"]
+
+[resource]
+width = 128
+height = 128
+as_normal_map = true
