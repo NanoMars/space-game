@@ -5,6 +5,7 @@ colors = PackedColorArray(0.0788149, 0.078815, 0.0788149, 1, 0.408329, 0.408329,
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_rb35u"]
 noise_type = 3
+seed = 1
 
 [resource]
 width = 64
