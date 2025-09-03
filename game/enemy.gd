@@ -18,11 +18,12 @@ func damage(amount: float, from: Node = null) -> void:
 func _on_died(from: Node) -> void:
 	if dead:
 		return
+	died.emit(self)
 	dead = true
 	if from != self:
 		ScoreManager.score += point_value
 	SoundManager.play_sound(SoundManager.enemy_death)
-	died.emit(self)
+	
 	queue_free()
 
 func _damaged(_amount: float, _source: Node) -> void:

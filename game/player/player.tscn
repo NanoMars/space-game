@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://blxmdv45ssyxh" path="res://game/weapon/weapons/narrow_sine.tres" id="4_a4w0n"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_o3jxj"]
-radius = 0.478543
+radius = 0.01
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b2mth"]
 shading_mode = 0

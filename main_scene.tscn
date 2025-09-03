@@ -79,7 +79,7 @@ size = Vector2(500, 500)
 
 [node name="Node3D" type="Node3D"]
 
-[node name="Spawner" type="Node" parent="." node_paths=PackedStringArray("spawn_points")]
+[node name="Spawner" type="Node" parent="." node_paths=PackedStringArray("spawn_points") groups=["spawner"]]
 script = ExtResource("1_hq1ik")
 min_spawn_delay = 0.4
 max_spawn_delay = 0.8
@@ -123,7 +123,6 @@ environment = SubResource("Environment_0f027")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, -0.000105183, -0.00010178, 0.000105183, 1, -9.50741e-05, 0.00010178, 9.50741e-05, 1, 0.00960159, -7.28319, 0.0177956)
-visible = false
 mesh = SubResource("PlaneMesh_hq1ik")
 metadata/_edit_lock_ = true
 

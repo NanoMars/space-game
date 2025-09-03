@@ -37,6 +37,7 @@ enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
 player=""
 enemies=""
 camera=""
+spawner=""
 
 [input]
 

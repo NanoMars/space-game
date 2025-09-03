@@ -61,3 +61,20 @@ theme_override_fonts/font = ExtResource("2_brkp5")
 theme_override_font_sizes/font_size = 25
 text = "124523"
 horizontal_alignment = 2
+
+[node name="EnemyCountLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -95.5
+offset_top = 50.0
+offset_right = 95.5
+offset_bottom = 38.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 40
+theme_override_fonts/font = ExtResource("2_brkp5")
+theme_override_font_sizes/font_size = 25
+text = "30 left"
+horizontal_alignment = 2
