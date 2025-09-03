@@ -24,7 +24,7 @@ mesh = SubResource("SphereMesh_bpy71")
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_06yso")
-speed = 500.0
+speed = 200.0
 damage_dealt = 10.0
 
 [node name="Health" parent="." instance=ExtResource("2_yospj")]

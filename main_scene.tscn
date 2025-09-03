@@ -1,18 +1,28 @@
-[gd_scene load_steps=15 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=18 format=3 uid="uid://s488jtj1i4ci"]
 
 [ext_resource type="PackedScene" uid="uid://dkf7mjen6nt18" path="res://game/player/player.tscn" id="1_0f027"]
+[ext_resource type="Script" uid="uid://c8wg56r7a643h" path="res://game/enemyspawning/spawner.gd" id="1_hq1ik"]
+[ext_resource type="Script" uid="uid://b5htysbr1cbiw" path="res://game/enemyspawning/enemyType.gd" id="2_nfk4m"]
 [ext_resource type="PackedScene" uid="uid://c8wttr2bqvly5" path="res://game/heatseeking_guy.tscn" id="3_d5x1h"]
 [ext_resource type="PackedScene" uid="uid://dlgvodlq4gicv" path="res://game/UI.tscn" id="3_gyfs4"]
 [ext_resource type="Shader" uid="uid://b44xvd07s31ri" path="res://game/assets/terrain.gdshader" id="4_d5x1h"]
 [ext_resource type="Texture2D" uid="uid://bbhgvkbr5lw07" path="res://game/assets/terrain/height.tres" id="5_8mm7a"]
 
+[sub_resource type="Resource" id="Resource_66tet"]
+script = ExtResource("2_nfk4m")
+name = "eye"
+scene = ExtResource("3_d5x1h")
+weight = 1.0
+metadata/_custom_type_script = "uid://b5htysbr1cbiw"
+
 [sub_resource type="Environment" id="Environment_0f027"]
 background_mode = 2
+fog_light_energy = 0.0
 
 [sub_resource type="Gradient" id="Gradient_8mm7a"]
 interpolation_mode = 1
 offsets = PackedFloat32Array(0, 0.524138)
-colors = PackedColorArray(0, 0, 0, 1, 0.903598, 0.903598, 0.903598, 1)
+colors = PackedColorArray(0.221302, 0.221302, 0.221302, 1, 0.903598, 0.903598, 0.903598, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_hq1ik"]
 noise_type = 3
@@ -38,6 +48,8 @@ noise_type = 3
 seed = 1
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7ycvg"]
+width = 4096
+height = 4096
 invert = true
 seamless = true
 seamless_blend_skirt = 0.339
@@ -54,8 +66,8 @@ shader_parameter/height_tex = ExtResource("5_8mm7a")
 shader_parameter/tile_scale = 0.0
 shader_parameter/scroll_speed = -0.5
 shader_parameter/height_scale = 0.004
-shader_parameter/layers_min = 16
-shader_parameter/layers_max = 64
+shader_parameter/layers_min = 128
+shader_parameter/layers_max = 128
 shader_parameter/binary_refine = true
 shader_parameter/refine_steps = 8
 shader_parameter/roughness_val = 0.8
@@ -67,7 +79,30 @@ size = Vector2(500, 500)
 
 [node name="Node3D" type="Node3D"]
 
-[node name="Node" type="Node" parent="."]
+[node name="Spawner" type="Node" parent="." node_paths=PackedStringArray("spawn_points")]
+script = ExtResource("1_hq1ik")
+min_spawn_delay = 0.4
+max_spawn_delay = 0.8
+enemy_types = Array[ExtResource("2_nfk4m")]([SubResource("Resource_66tet")])
+spawn_points = [NodePath("Marker3D"), NodePath("Marker3D2"), NodePath("Marker3D3"), NodePath("Marker3D4"), NodePath("Marker3D5"), NodePath("Marker3D6")]
+
+[node name="Marker3D" type="Marker3D" parent="Spawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.90711, 0, 7.28049)
+
+[node name="Marker3D2" type="Marker3D" parent="Spawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.23884, 0, 7.28049)
+
+[node name="Marker3D3" type="Marker3D" parent="Spawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.21278, 0, 7.28049)
+
+[node name="Marker3D4" type="Marker3D" parent="Spawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0995893, 0, 7.28049)
+
+[node name="Marker3D5" type="Marker3D" parent="Spawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.42361, 0, 7.28049)
+
+[node name="Marker3D6" type="Marker3D" parent="Spawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.54163, 0, 7.28049)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -86,17 +121,15 @@ deceleration = 50.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0f027")
 
-[node name="RigidBody3D" parent="." instance=ExtResource("3_d5x1h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 19.7645)
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, -0.000105183, -0.00010178, 0.000105183, 1, -9.50741e-05, 0.00010178, 9.50741e-05, 1, 0.00960159, -7.28319, 0.0177956)
+visible = false
 mesh = SubResource("PlaneMesh_hq1ik")
 metadata/_edit_lock_ = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-1, 6.70699e-09, -8.71651e-08, 0, 0.997053, 0.076719, 8.74228e-08, 0.076719, -0.997053, 0, 2.14119, -4.24151)
-light_energy = 5.34
+light_energy = 11.548
 light_indirect_energy = 3.189
 light_negative = true
 light_specular = 0.0
@@ -104,7 +137,7 @@ metadata/_edit_lock_ = true
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.14119, -4.24151)
-light_energy = 1.037
+light_energy = 1.117
 light_indirect_energy = 3.189
 light_specular = 0.0
 metadata/_edit_lock_ = true
