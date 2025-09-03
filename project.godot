@@ -26,7 +26,9 @@ settings/stdout/print_fps=true
 
 [display]
 
-window/stretch/mode="canvas_items"
+window/size/viewport_width=426
+window/size/viewport_height=240
+window/stretch/mode="viewport"
 
 [editor_plugins]
 

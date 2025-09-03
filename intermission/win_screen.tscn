@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://dat7srefm4ijx"]
+
+[ext_resource type="Script" uid="uid://h531hpff7fyb" path="res://intermission_background.gd" id="1_pkd2t"]
+[ext_resource type="Shader" uid="uid://ctwajixa25p54" path="res://intermission/dither.gdshader" id="2_4qxri"]
+[ext_resource type="Texture2D" uid="uid://dxxiviexlrmmb" path="res://icon.svg" id="2_tc2mx"]
+
+[sub_resource type="Gradient" id="Gradient_4qxri"]
+offsets = PackedFloat32Array(0, 0.177033)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tc2mx"]
+noise_type = 3
+frequency = 0.0119
+offset = Vector3(1000, 0, 320)
+fractal_type = 2
+fractal_weighted_strength = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dyldh"]
+width = 426
+height = 1920
+in_3d_space = true
+generate_mipmaps = false
+color_ramp = SubResource("Gradient_4qxri")
+noise = SubResource("FastNoiseLite_tc2mx")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tc2mx"]
+shader = ExtResource("2_4qxri")
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 1680.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.125)
+texture = SubResource("NoiseTexture2D_dyldh")
+expand_mode = 1
+script = ExtResource("1_pkd2t")
+noise_speed = Vector3(45, 0, 5)
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 159.0
+offset_top = 78.0
+offset_right = 287.0
+offset_bottom = 206.0
+texture = ExtResource("2_tc2mx")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_tc2mx")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

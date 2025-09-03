@@ -10,6 +10,7 @@ class_name Spawner
 @export var auto_prepare_on_ready: bool = true
 
 var _alive := 0
+var _enemies_spawned: int = 0
 var _spawn_bag: Array[EnemyType] = []
 var _spawn_timer: float = 0.0
 var _next_delay: float = 0.4
@@ -91,7 +92,11 @@ func _try_spawn_tick():
 		return
 	if _alive >= concurrent_cap:
 		return
-	
+	if _enemies_spawned >= total_kills:
+		return
+
+
+	_enemies_spawned += 1
 	var pt := _pick_spawn_point()
 	if pt == null:
 		return

@@ -1,0 +1,30 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://3cudps0p8v2w"]
+
+[ext_resource type="FontFile" uid="uid://c34mefa01f57l" path="res://game/assets/Awexbmp.ttf" id="1_hkhih"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1fafe"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_616dn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hkhih"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_355u3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_22a63"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yewcr"]
+
+[resource]
+BoxContainer/constants/separation = 16
+Button/colors/font_color = Color(1, 0.61, 0.61, 1)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/fonts/font = ExtResource("1_hkhih")
+Button/styles/disabled = SubResource("StyleBoxEmpty_1fafe")
+Button/styles/focus = SubResource("StyleBoxEmpty_616dn")
+Button/styles/hover = SubResource("StyleBoxEmpty_hkhih")
+Button/styles/normal = SubResource("StyleBoxEmpty_355u3")
+Button/styles/pressed = SubResource("StyleBoxEmpty_22a63")
+HSeparator/constants/separation = 8
+HSeparator/styles/separator = SubResource("StyleBoxEmpty_yewcr")
+Label/fonts/font = ExtResource("1_hkhih")

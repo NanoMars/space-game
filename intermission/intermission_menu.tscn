@@ -1,0 +1,171 @@
+[gd_scene load_steps=13 format=3 uid="uid://c5151n8v6645w"]
+
+[ext_resource type="Script" uid="uid://h531hpff7fyb" path="res://intermission_background.gd" id="1_3b4nm"]
+[ext_resource type="Script" uid="uid://bsste0045nkbd" path="res://intermission/intermission_menu.gd" id="1_yvdn4"]
+[ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://intermission/button_theme.tres" id="2_0i6aa"]
+[ext_resource type="Shader" uid="uid://s4clk6hl5ixd" path="res://intermission/buttonshader.gdshader" id="2_d7pyx"]
+[ext_resource type="Shader" uid="uid://b66latbe5eymd" path="res://intermission/vignette.gdshader" id="3_x37ni"]
+
+[sub_resource type="Gradient" id="Gradient_0i6aa"]
+offsets = PackedFloat32Array(0, 0.41853, 0.571885, 0.728435, 1)
+colors = PackedColorArray(0.746685, 0.460621, 0, 1, 0.771379, 0.124178, 0, 1, 0.711037, 0, 0.245001, 1, 0.549961, 0.225413, 1.92523e-07, 1, 0.517647, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_x37ni"]
+frequency = 0.0332
+fractal_type = 3
+fractal_lacunarity = 2.29
+fractal_gain = 0.66
+domain_warp_type = 2
+domain_warp_fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d7pyx"]
+width = 426
+height = 240
+in_3d_space = true
+color_ramp = SubResource("Gradient_0i6aa")
+noise = SubResource("FastNoiseLite_x37ni")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1heoq"]
+shader = ExtResource("2_d7pyx")
+shader_parameter/normal_offset = 1.5
+shader_parameter/time_influence = 2.5
+shader_parameter/y_div = 5.6
+shader_parameter/opacity = 1.0
+shader_parameter/seed = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yvdn4"]
+shader = ExtResource("2_d7pyx")
+shader_parameter/normal_offset = 1.5
+shader_parameter/time_influence = 2.5
+shader_parameter/y_div = 5.6
+shader_parameter/opacity = 1.0
+shader_parameter/seed = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d7pyx"]
+shader = ExtResource("3_x37ni")
+shader_parameter/outerRadius = -0.17
+shader_parameter/fadeDistance = 2.106
+shader_parameter/MainAlpha = 0.779
+shader_parameter/effect_color = Color(0.25098, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vmbcd"]
+shader = ExtResource("2_d7pyx")
+shader_parameter/normal_offset = 1.5
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 2.87
+shader_parameter/opacity = 1.0
+shader_parameter/seed = 0.0
+
+[node name="Control" type="Control" node_paths=PackedStringArray("mod_list", "decision_list")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yvdn4")
+mod_list = NodePath("mod_select")
+decision_list = NodePath("decisions")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.00206)
+texture = SubResource("NoiseTexture2D_d7pyx")
+script = ExtResource("1_3b4nm")
+
+[node name="mod_select" type="VBoxContainer" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_1heoq")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -39.0
+offset_top = -35.5
+offset_right = 39.0
+offset_bottom = 35.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_0i6aa")
+
+[node name="Button" type="Button" parent="mod_select"]
+use_parent_material = true
+layout_mode = 2
+theme = ExtResource("2_0i6aa")
+text = "Option 1"
+
+[node name="Button2" type="Button" parent="mod_select"]
+use_parent_material = true
+layout_mode = 2
+theme = ExtResource("2_0i6aa")
+text = "Option 2
+"
+
+[node name="Button3" type="Button" parent="mod_select"]
+use_parent_material = true
+layout_mode = 2
+theme = ExtResource("2_0i6aa")
+text = "Option 3"
+
+[node name="decisions" type="VBoxContainer" parent="."]
+material = SubResource("ShaderMaterial_yvdn4")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -39.0
+offset_top = -23.0
+offset_right = 39.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_0i6aa")
+
+[node name="Button" type="Button" parent="decisions"]
+use_parent_material = true
+layout_mode = 2
+theme = ExtResource("2_0i6aa")
+text = "END IT HERE"
+
+[node name="Button2" type="Button" parent="decisions"]
+use_parent_material = true
+layout_mode = 2
+theme = ExtResource("2_0i6aa")
+text = "CONTINUE"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_d7pyx")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.00152)
+mouse_filter = 2
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="."]
+material = SubResource("ShaderMaterial_vmbcd")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 16.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme = ExtResource("2_0i6aa")
+text = "YOUR SCORE IS 1234"
+
+[connection signal="pressed" from="decisions/Button2" to="." method="_on_continue_pressed"]

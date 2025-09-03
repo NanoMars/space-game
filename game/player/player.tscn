@@ -31,3 +31,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00260431, -0.00110555, 0.5
 gizmo_extents = 1.65
 script = ExtResource("3_8soms")
 weapon_stats = ExtResource("4_a4w0n")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.4655, 0)
+light_energy = 0.5
+light_size = 0.044
+omni_range = 16.0
