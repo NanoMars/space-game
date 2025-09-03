@@ -2,6 +2,7 @@ extends Control
 
 @export var mod_list: VBoxContainer
 @export var decision_list: VBoxContainer
+@export var main_scene: PackedScene
 
 @export var tween_time: float = 0.5
 
@@ -18,6 +19,12 @@ func _on_continue_pressed() -> void:
 		t_in.tween_property(mod_list.material, "shader_parameter/opacity", 1.0, tween_time)
 
 func _ready() -> void:
+
+	for child in mod_list.get_children():
+		print("Mod button found: ", child.name, "of class: ", child.get_class())
+		if child.get_class() == "Button":
+			child.pressed.connect(_on_mod_button_pressed.bind(child))
+			print("Connected mod button: ", child.name)
 	# Start with mod list hidden and decision list faded in.
 	if mod_list:
 		mod_list.hide()
@@ -29,3 +36,8 @@ func _ready() -> void:
 			decision_list.material.set_shader_parameter("opacity", 0.0)
 			var t := create_tween()
 			t.tween_property(decision_list.material, "shader_parameter/opacity", 1.0, tween_time)
+			
+
+func _on_mod_button_pressed(button: Button) -> void:
+	print("Mod button pressed: ", button.name)
+	get_tree().change_scene_to_packed(main_scene)

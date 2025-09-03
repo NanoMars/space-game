@@ -1,14 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://c5151n8v6645w"]
+[gd_scene load_steps=14 format=3 uid="uid://c5151n8v6645w"]
 
 [ext_resource type="Script" uid="uid://h531hpff7fyb" path="res://intermission_background.gd" id="1_3b4nm"]
 [ext_resource type="Script" uid="uid://bsste0045nkbd" path="res://intermission/intermission_menu.gd" id="1_yvdn4"]
 [ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://intermission/button_theme.tres" id="2_0i6aa"]
+[ext_resource type="PackedScene" uid="uid://s488jtj1i4ci" path="res://main_scene.tscn" id="2_1heoq"]
 [ext_resource type="Shader" uid="uid://s4clk6hl5ixd" path="res://intermission/buttonshader.gdshader" id="2_d7pyx"]
 [ext_resource type="Shader" uid="uid://b66latbe5eymd" path="res://intermission/vignette.gdshader" id="3_x37ni"]
 
 [sub_resource type="Gradient" id="Gradient_0i6aa"]
-offsets = PackedFloat32Array(0, 0.41853, 0.571885, 0.728435, 1)
-colors = PackedColorArray(0.746685, 0.460621, 0, 1, 0.771379, 0.124178, 0, 1, 0.711037, 0, 0.245001, 1, 0.549961, 0.225413, 1.92523e-07, 1, 0.517647, 0, 0, 1)
+offsets = PackedFloat32Array(0.00797448, 0.41853, 0.571885, 0.728435, 1)
+colors = PackedColorArray(0.75, 0.4625, 0, 1, 0.77, 0.128333, 0, 1, 0.711037, 0, 0.245001, 1, 0.549961, 0.225413, 1.92523e-07, 1, 0.52, 0, 0, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_x37ni"]
 frequency = 0.0332
@@ -66,6 +67,7 @@ grow_vertical = 2
 script = ExtResource("1_yvdn4")
 mod_list = NodePath("mod_select")
 decision_list = NodePath("decisions")
+main_scene = ExtResource("2_1heoq")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1

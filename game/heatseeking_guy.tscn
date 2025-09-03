@@ -45,8 +45,8 @@ multimesh = SubResource("MultiMesh_jh6pn")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.4655, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.4655, 0)
 light_color = Color(1, 0, 0, 1)
-light_energy = 0.3
+light_energy = 0.4
 light_size = 0.044
 omni_range = 14.0
