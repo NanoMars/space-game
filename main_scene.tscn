@@ -1,19 +1,21 @@
-[gd_scene load_steps=21 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=23 format=3 uid="uid://s488jtj1i4ci"]
 
-[ext_resource type="PackedScene" uid="uid://dkf7mjen6nt18" path="res://game/player/player.tscn" id="1_0f027"]
-[ext_resource type="Script" uid="uid://c8wg56r7a643h" path="res://game/enemyspawning/spawner.gd" id="1_hq1ik"]
-[ext_resource type="Script" uid="uid://b5htysbr1cbiw" path="res://game/enemyspawning/enemyType.gd" id="2_nfk4m"]
-[ext_resource type="PackedScene" uid="uid://c8wttr2bqvly5" path="res://game/heatseeking_guy.tscn" id="3_d5x1h"]
-[ext_resource type="PackedScene" uid="uid://dlgvodlq4gicv" path="res://game/UI.tscn" id="3_gyfs4"]
-[ext_resource type="Shader" uid="uid://b44xvd07s31ri" path="res://game/assets/terrain.gdshader" id="4_d5x1h"]
-[ext_resource type="Texture2D" uid="uid://bbhgvkbr5lw07" path="res://game/assets/terrain/height.tres" id="5_8mm7a"]
-[ext_resource type="Shader" uid="uid://dawlanyidv1xr" path="res://intermission/test.gdshader" id="8_66tet"]
-[ext_resource type="Texture2D" uid="uid://cjdxiqij7aekk" path="res://game/assets/pallette.png" id="9_7ycvg"]
+[ext_resource type="Script" uid="uid://c8wg56r7a643h" path="res://game/enemyspawning/spawner.gd" id="1_2lkib"]
+[ext_resource type="Script" uid="uid://b5htysbr1cbiw" path="res://game/enemyspawning/enemyType.gd" id="2_g514i"]
+[ext_resource type="PackedScene" uid="uid://c8wttr2bqvly5" path="res://game/heatseeking_guy.tscn" id="3_vmg3t"]
+[ext_resource type="PackedScene" uid="uid://c5151n8v6645w" path="res://intermission/intermission_menu.tscn" id="4_a0mud"]
+[ext_resource type="AudioStream" uid="uid://b5ml4ihjwayt0" path="res://game/assets/spooky_riser.wav" id="5_vlbvj"]
+[ext_resource type="PackedScene" uid="uid://dlgvodlq4gicv" path="res://game/UI.tscn" id="6_fd1kl"]
+[ext_resource type="PackedScene" uid="uid://dkf7mjen6nt18" path="res://game/player/player.tscn" id="7_42yoh"]
+[ext_resource type="Shader" uid="uid://b44xvd07s31ri" path="res://game/assets/terrain.gdshader" id="8_mphju"]
+[ext_resource type="Texture2D" uid="uid://bbhgvkbr5lw07" path="res://game/assets/terrain/height.tres" id="9_yrt05"]
+[ext_resource type="Shader" uid="uid://dawlanyidv1xr" path="res://intermission/test.gdshader" id="10_jo72c"]
+[ext_resource type="Texture2D" uid="uid://cjdxiqij7aekk" path="res://game/assets/pallette.png" id="11_h8riy"]
 
 [sub_resource type="Resource" id="Resource_66tet"]
-script = ExtResource("2_nfk4m")
+script = ExtResource("2_g514i")
 name = "eye"
-scene = ExtResource("3_d5x1h")
+scene = ExtResource("3_vmg3t")
 weight = 1.0
 metadata/_custom_type_script = "uid://b5htysbr1cbiw"
 
@@ -61,10 +63,10 @@ noise = SubResource("FastNoiseLite_rb35u")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8mm7a"]
 render_priority = 0
-shader = ExtResource("4_d5x1h")
+shader = ExtResource("8_mphju")
 shader_parameter/albedo_tex = SubResource("NoiseTexture2D_nfk4m")
 shader_parameter/normal_tex = SubResource("NoiseTexture2D_7ycvg")
-shader_parameter/height_tex = ExtResource("5_8mm7a")
+shader_parameter/height_tex = ExtResource("9_yrt05")
 shader_parameter/tile_scale = 0.0
 shader_parameter/scroll_speed = -0.3
 shader_parameter/height_scale = 0.004
@@ -80,18 +82,19 @@ material = SubResource("ShaderMaterial_8mm7a")
 size = Vector2(500, 500)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wr18j"]
-shader = ExtResource("8_66tet")
-shader_parameter/palette = ExtResource("9_7ycvg")
+shader = ExtResource("10_jo72c")
+shader_parameter/palette = ExtResource("11_h8riy")
 
 [node name="Node3D" type="Node3D"]
 
 [node name="Spawner" type="Node" parent="." node_paths=PackedStringArray("spawn_points") groups=["spawner"]]
-script = ExtResource("1_hq1ik")
+script = ExtResource("1_2lkib")
 total_kills = 5
 min_spawn_delay = 0.4
 max_spawn_delay = 0.8
-enemy_types = Array[ExtResource("2_nfk4m")]([SubResource("Resource_66tet")])
+enemy_types = Array[ExtResource("2_g514i")]([SubResource("Resource_66tet")])
 spawn_points = [NodePath("Marker3D"), NodePath("Marker3D2"), NodePath("Marker3D3"), NodePath("Marker3D4"), NodePath("Marker3D5"), NodePath("Marker3D6")]
+intermission = ExtResource("4_a0mud")
 
 [node name="Marker3D" type="Marker3D" parent="Spawner"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.90711, 0, 7.28049)
@@ -111,16 +114,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.42361, 0, 7.28049)
 [node name="Marker3D6" type="Marker3D" parent="Spawner"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.54163, 0, 7.28049)
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Spawner"]
+stream = ExtResource("5_vlbvj")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Control" parent="CanvasLayer" instance=ExtResource("3_gyfs4")]
+[node name="Control" parent="CanvasLayer" instance=ExtResource("6_fd1kl")]
 
 [node name="Camera3D2" type="Camera3D" parent="." groups=["camera"]]
 transform = Transform3D(-1, -8.74228e-08, 4.37114e-08, 4.37114e-08, 1.91069e-15, 1, -8.74228e-08, 1, 1.91069e-15, 0, 4, 0)
 projection = 1
 size = 9.29751
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("1_0f027")]
+[node name="CharacterBody3D" parent="." instance=ExtResource("7_42yoh")]
 move_speed = 10.0
 acceleration = 50.0
 deceleration = 50.0

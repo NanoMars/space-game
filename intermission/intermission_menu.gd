@@ -6,6 +6,8 @@ extends Control
 
 @export var tween_time: float = 0.5
 
+@onready var score_label: Label = $ScoreLabel
+
 func _on_continue_pressed() -> void:
 	# Fade out decision list and fade in mod list in parallel.
 	if mod_list:
@@ -19,7 +21,7 @@ func _on_continue_pressed() -> void:
 		t_in.tween_property(mod_list.material, "shader_parameter/opacity", 1.0, tween_time)
 
 func _ready() -> void:
-
+	score_label.text = "End here to score " + str(ScoreManager.score) + ""
 	for child in mod_list.get_children():
 		print("Mod button found: ", child.name, "of class: ", child.get_class())
 		if child.get_class() == "Button":
@@ -39,5 +41,5 @@ func _ready() -> void:
 			
 
 func _on_mod_button_pressed(button: Button) -> void:
-	print("Mod button pressed: ", button.name)
-	get_tree().change_scene_to_packed(main_scene)
+	print("trying to change scene to: ", main_scene)
+	get_tree().change_scene_to_file("res://main_scene.tscn")

@@ -8,6 +8,7 @@ class_name Spawner
 @export var enemy_types: Array[EnemyType] = []
 @export var spawn_points: Array[Marker3D] = []
 @export var auto_prepare_on_ready: bool = true
+@export var intermission: PackedScene
 
 var _alive := 0
 var _enemies_spawned: int = 0
@@ -18,6 +19,7 @@ var _remaining_to_spawn: int = 0
 var _killed: int = 0
 var _rng := RandomNumberGenerator.new()
 var _wave_prepared := false
+var _changing_scenes := false
 
 signal enemies_left(value: int)
 
@@ -88,12 +90,13 @@ func _prepare_wave():
 	_wave_prepared = true
 
 func _try_spawn_tick():
+	if _enemies_spawned >= total_kills:
+		return
 	if _remaining_to_spawn <= 0:
 		return
 	if _alive >= concurrent_cap:
 		return
-	if _enemies_spawned >= total_kills:
-		return
+	
 
 
 	_enemies_spawned += 1
@@ -129,3 +132,13 @@ func _on_enemy_died():
 	enemies_left.emit(total_kills - _killed)
 	if _killed >= total_kills:
 		_wave_prepared = false
+	if total_kills - _killed <= 0:
+		change_scene_to_intermission()
+
+func change_scene_to_intermission() -> void:
+	if _changing_scenes:
+		return
+	_changing_scenes = true
+	$AudioStreamPlayer.play()
+	await $AudioStreamPlayer.finished
+	get_tree().change_scene_to_packed(intermission)
