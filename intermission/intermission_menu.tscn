@@ -1,12 +1,16 @@
-[gd_scene load_steps=15 format=3 uid="uid://c5151n8v6645w"]
+[gd_scene load_steps=22 format=3 uid="uid://c5151n8v6645w"]
 
 [ext_resource type="Script" uid="uid://h531hpff7fyb" path="res://intermission_background.gd" id="1_3b4nm"]
 [ext_resource type="Script" uid="uid://bsste0045nkbd" path="res://intermission/intermission_menu.gd" id="1_yvdn4"]
 [ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://intermission/button_theme.tres" id="2_0i6aa"]
-[ext_resource type="PackedScene" uid="uid://s488jtj1i4ci" path="res://main_scene.tscn" id="2_1heoq"]
 [ext_resource type="Shader" uid="uid://s4clk6hl5ixd" path="res://intermission/buttonshader.gdshader" id="2_d7pyx"]
 [ext_resource type="Shader" uid="uid://b66latbe5eymd" path="res://intermission/vignette.gdshader" id="3_x37ni"]
+[ext_resource type="Script" uid="uid://3scsxn16mp8e" path="res://intermission/mod_select.gd" id="5_vmbcd"]
+[ext_resource type="Script" uid="uid://bkeoml7x3rkuu" path="res://game/modifier/Modifier.gd" id="6_dt5tg"]
+[ext_resource type="PackedScene" uid="uid://c8wttr2bqvly5" path="res://game/heatseeking_guy.tscn" id="7_8h137"]
+[ext_resource type="Script" uid="uid://b5htysbr1cbiw" path="res://game/enemyspawning/enemyType.gd" id="7_s5603"]
 [ext_resource type="AudioStream" uid="uid://brpis3oee1lgf" path="res://game/sound/tunnel.wav" id="7_vmbcd"]
+[ext_resource type="Shader" uid="uid://cuejqmse7fsm1" path="res://intermission/dissolve.gdshader" id="9_dpipn"]
 
 [sub_resource type="Gradient" id="Gradient_0i6aa"]
 offsets = PackedFloat32Array(0.00797448, 0.41853, 0.571885, 0.728435, 1)
@@ -14,7 +18,7 @@ colors = PackedColorArray(0.75, 0.4625, 0, 1, 0.77, 0.128333, 0, 1, 0.711037, 0,
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_x37ni"]
 frequency = 0.0332
-offset = Vector3(0, 0, 82978.3)
+offset = Vector3(0, 0, 295107)
 fractal_type = 3
 fractal_lacunarity = 2.29
 fractal_gain = 0.66
@@ -28,14 +32,6 @@ in_3d_space = true
 color_ramp = SubResource("Gradient_0i6aa")
 noise = SubResource("FastNoiseLite_x37ni")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vmbcd"]
-shader = ExtResource("2_d7pyx")
-shader_parameter/normal_offset = 1.5
-shader_parameter/time_influence = 3.0
-shader_parameter/y_div = 2.87
-shader_parameter/opacity = 1.0
-shader_parameter/seed = 0.0
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1heoq"]
 shader = ExtResource("2_d7pyx")
 shader_parameter/normal_offset = 1.5
@@ -43,6 +39,21 @@ shader_parameter/time_influence = 2.5
 shader_parameter/y_div = 5.6
 shader_parameter/opacity = 1.0
 shader_parameter/seed = 0.0
+
+[sub_resource type="Resource" id="Resource_7pqxr"]
+script = ExtResource("7_s5603")
+scene = ExtResource("7_8h137")
+weight = 1.0
+metadata/_custom_type_script = "uid://b5htysbr1cbiw"
+
+[sub_resource type="Resource" id="Resource_dpipn"]
+script = ExtResource("6_dt5tg")
+display_name = "Add enemy"
+stackable = true
+max_stacks = 5
+score_multiplier = 0.5
+enemy_to_spawn = SubResource("Resource_7pqxr")
+metadata/_custom_type_script = "uid://bkeoml7x3rkuu"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yvdn4"]
 shader = ExtResource("2_d7pyx")
@@ -59,6 +70,20 @@ shader_parameter/fadeDistance = 2.106
 shader_parameter/MainAlpha = 0.779
 shader_parameter/effect_color = Color(0.25098, 0, 0, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vmbcd"]
+shader = ExtResource("2_d7pyx")
+shader_parameter/normal_offset = 1.5
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 2.87
+shader_parameter/opacity = 1.0
+shader_parameter/seed = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s5603"]
+shader = ExtResource("9_dpipn")
+shader_parameter/opacity = 0.0
+shader_parameter/seed = 0.0
+shader_parameter/dissolve_color = Color(0, 0, 0, 1)
+
 [node name="Control" type="Control" node_paths=PackedStringArray("mod_list", "decision_list")]
 layout_mode = 3
 anchors_preset = 15
@@ -69,7 +94,6 @@ grow_vertical = 2
 script = ExtResource("1_yvdn4")
 mod_list = NodePath("mod_select")
 decision_list = NodePath("decisions")
-main_scene = ExtResource("2_1heoq")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -82,23 +106,7 @@ scale = Vector2(1, 1.00206)
 texture = SubResource("NoiseTexture2D_d7pyx")
 script = ExtResource("1_3b4nm")
 
-[node name="ScoreLabel" type="Label" parent="."]
-material = SubResource("ShaderMaterial_vmbcd")
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -86.0
-offset_top = 16.0
-offset_right = 86.0
-offset_bottom = 32.0
-grow_horizontal = 2
-scale = Vector2(0.998616, 1)
-theme = ExtResource("2_0i6aa")
-text = "YOUR SCORE IS 1234"
-
 [node name="mod_select" type="VBoxContainer" parent="."]
-visible = false
 material = SubResource("ShaderMaterial_1heoq")
 layout_mode = 1
 anchors_preset = 8
@@ -113,27 +121,11 @@ offset_bottom = 35.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_0i6aa")
-
-[node name="Button" type="Button" parent="mod_select"]
-use_parent_material = true
-layout_mode = 2
-theme = ExtResource("2_0i6aa")
-text = "Option 1"
-
-[node name="Button2" type="Button" parent="mod_select"]
-use_parent_material = true
-layout_mode = 2
-theme = ExtResource("2_0i6aa")
-text = "Option 2
-"
-
-[node name="Button3" type="Button" parent="mod_select"]
-use_parent_material = true
-layout_mode = 2
-theme = ExtResource("2_0i6aa")
-text = "Option 3"
+script = ExtResource("5_vmbcd")
+mod_list = Array[ExtResource("6_dt5tg")]([SubResource("Resource_dpipn")])
 
 [node name="decisions" type="VBoxContainer" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_yvdn4")
 layout_mode = 1
 anchors_preset = 8
@@ -173,8 +165,34 @@ scale = Vector2(1, 1.00152)
 mouse_filter = 2
 metadata/_edit_lock_ = true
 
+[node name="ScoreLabel" type="Label" parent="."]
+material = SubResource("ShaderMaterial_vmbcd")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -86.0
+offset_top = 16.0
+offset_right = 86.0
+offset_bottom = 32.0
+grow_horizontal = 2
+scale = Vector2(0.998616, 1)
+theme = ExtResource("2_0i6aa")
+text = "YOUR SCORE IS 1234"
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_vmbcd")
 autoplay = true
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_s5603")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
 
 [connection signal="pressed" from="decisions/Button2" to="." method="_on_continue_pressed"]

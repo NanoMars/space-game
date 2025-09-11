@@ -1,15 +1,14 @@
 extends Node
 class_name Spawner
 
-@export var total_kills: int = 30
-@export var concurrent_cap: int = 8
 @export var min_spawn_delay: float = 1.0
 @export var max_spawn_delay: float = 5.0
-@export var enemy_types: Array[EnemyType] = []
 @export var spawn_points: Array[Marker3D] = []
 @export var auto_prepare_on_ready: bool = true
 @export var intermission: PackedScene
+@export var debug_label: Label
 
+var run_started: bool = false
 var _alive := 0
 var _enemies_spawned: int = 0
 var _spawn_bag: Array[EnemyType] = []
@@ -20,19 +19,36 @@ var _killed: int = 0
 var _rng := RandomNumberGenerator.new()
 var _wave_prepared := false
 var _changing_scenes := false
+var _enemies_left: int:
+	get:
+		return ScoreManager.total_kills - _killed
 
 signal enemies_left(value: int)
+signal enemy_died(transform: Transform3D)
+signal enemy_spawned(enemy: Node)
 
 func _ready() -> void:
 	_rng.randomize()
 	if auto_prepare_on_ready:
 		_prepare_wave()
+	
+	var timer := Timer.new()
+	timer.wait_time = 1.0
+	timer.one_shot = true
+	timer.autostart = true
+	add_child(timer)
+	timer.timeout.connect(_on_start_run)
+
+func _on_start_run() -> void:
+	run_started = true
 
 func _process(delta: float) -> void:
+	if not run_started:
+		return
 	# Auto-prepare once as a fallback if not prepared and data is present
-	if not _wave_prepared and not enemy_types.is_empty() and not spawn_points.is_empty():
+	if not _wave_prepared and not ScoreManager.enemy_types.is_empty() and not spawn_points.is_empty():
 		_prepare_wave()
-	if _killed >= total_kills:
+	if _killed >= ScoreManager.total_kills:
 		_wave_prepared = false
 		return
 	_spawn_timer -= delta
@@ -42,17 +58,17 @@ func _process(delta: float) -> void:
 		_spawn_timer = _next_delay
 
 func _prepare_wave():
-	if enemy_types.is_empty():
+	if ScoreManager.enemy_types.is_empty():
 		return
 
 	var sum_w := 0.0
-	for t in enemy_types:
+	for t in ScoreManager.enemy_types:
 		sum_w += max(t.weight, 0.0)
 
 	var ideals: Array[float] = []
-	for t in enemy_types:
+	for t in ScoreManager.enemy_types:
 		var w = max(t.weight, 0.0)
-		ideals.append(w / sum_w * float(total_kills))
+		ideals.append(w / sum_w * float(ScoreManager.total_kills))
 
 	var floors: Array[int] = []
 	var fracs: Array[float] = []
@@ -63,24 +79,20 @@ func _prepare_wave():
 		fracs.append(v - float(f))
 		used += f
 
-	var remainder := total_kills - used
+	var remainder := ScoreManager.total_kills - used
 	var indecies := []
-	indecies.resize(enemy_types.size())
+	indecies.resize(ScoreManager.enemy_types.size())
 	for i in indecies.size():
 		indecies[i] = i
-	indecies.sort_custom(func(a,b):
-		if fracs[a] == fracs[b]:
-			return enemy_types[a].name < enemy_types[b].name
-		return fracs[a] > fracs[b]
-	)
+	indecies.shuffle()
 
 	for i in range(remainder):
 		floors[indecies[i % indecies.size()]] += 1
 
 	_spawn_bag.clear()
-	for i in enemy_types.size():
+	for i in ScoreManager.enemy_types.size():
 		for j in floors[i]:
-			_spawn_bag.append(enemy_types[i])
+			_spawn_bag.append(ScoreManager.enemy_types[i])
 
 	_spawn_bag.shuffle()
 
@@ -90,11 +102,13 @@ func _prepare_wave():
 	_wave_prepared = true
 
 func _try_spawn_tick():
-	if _enemies_spawned >= total_kills:
+	if not run_started:
+		return
+	if _enemies_spawned >= ScoreManager.total_kills:
 		return
 	if _remaining_to_spawn <= 0:
 		return
-	if _alive >= concurrent_cap:
+	if _alive >= ScoreManager.concurrent_cap:
 		return
 	
 
@@ -110,9 +124,9 @@ func _try_spawn_tick():
 		return
 	self.add_child(inst)
 	inst.global_position = pt.global_position
-
+	enemy_spawned.emit(inst)
 	
-	inst.tree_exited.connect(_on_enemy_died)
+	inst.tree_exited.connect(_on_enemy_died.bind(inst.global_transform))
 	
 	_alive += 1
 	_remaining_to_spawn -= 1
@@ -124,21 +138,34 @@ func _pick_spawn_point() -> Marker3D:
 	var sel := spawn_points[idx]
 	return sel
 
-func _on_enemy_died():
-	print("[Spawner] _on_enemy_died called")
+func _on_enemy_died(transform: Transform3D) -> void:
 	_alive = max(0, _alive - 1)
 	_killed += 1
-	print("[Spawner] Enemy died. alive=", _alive, " killed=", _killed, "/", total_kills)
-	enemies_left.emit(total_kills - _killed)
-	if _killed >= total_kills:
+	enemies_left.emit(_enemies_left)
+	enemy_died.emit(transform)
+	if _killed >= ScoreManager.total_kills:
 		_wave_prepared = false
-	if total_kills - _killed <= 0:
+	debug_label.text = "Enemies left: " + str(_enemies_left)
+	if _enemies_left <= 0:
+		debug_label.text = "All enemies defeated! Transitioning..."
 		change_scene_to_intermission()
 
 func change_scene_to_intermission() -> void:
+	debug_label.text = "Changing scene to intermission..."
 	if _changing_scenes:
+		debug_label.text = "Already changing scenes, aborting..."
 		return
+	debug_label.text = "Playing sound and changing scene..."
 	_changing_scenes = true
 	$AudioStreamPlayer.play()
 	await $AudioStreamPlayer.finished
+	debug_label.text = "Changing scene now..."
 	get_tree().change_scene_to_packed(intermission)
+	debug_label.text = "Scene changed."
+	debug_label.text = "Playing sound and changing scene..."
+	_changing_scenes = true
+	$AudioStreamPlayer.play()
+	await $AudioStreamPlayer.finished
+	debug_label.text = "Changing scene now..."
+	get_tree().change_scene_to_packed(intermission)
+	debug_label.text = "Scene changed."

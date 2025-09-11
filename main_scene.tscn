@@ -1,23 +1,13 @@
-[gd_scene load_steps=23 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=19 format=3 uid="uid://s488jtj1i4ci"]
 
-[ext_resource type="Script" uid="uid://c8wg56r7a643h" path="res://game/enemyspawning/spawner.gd" id="1_2lkib"]
-[ext_resource type="Script" uid="uid://b5htysbr1cbiw" path="res://game/enemyspawning/enemyType.gd" id="2_g514i"]
-[ext_resource type="PackedScene" uid="uid://c8wttr2bqvly5" path="res://game/heatseeking_guy.tscn" id="3_vmg3t"]
-[ext_resource type="PackedScene" uid="uid://c5151n8v6645w" path="res://intermission/intermission_menu.tscn" id="4_a0mud"]
-[ext_resource type="AudioStream" uid="uid://b5ml4ihjwayt0" path="res://game/assets/spooky_riser.wav" id="5_vlbvj"]
+[ext_resource type="PackedScene" uid="uid://c0utlmtqcar20" path="res://game/modifier/modifier_caller.tscn" id="1_66tet"]
+[ext_resource type="PackedScene" uid="uid://tt1rrpyhclj1" path="res://game/enemyspawning/spawner.tscn" id="2_7ycvg"]
 [ext_resource type="PackedScene" uid="uid://dlgvodlq4gicv" path="res://game/UI.tscn" id="6_fd1kl"]
 [ext_resource type="PackedScene" uid="uid://dkf7mjen6nt18" path="res://game/player/player.tscn" id="7_42yoh"]
 [ext_resource type="Shader" uid="uid://b44xvd07s31ri" path="res://game/assets/terrain.gdshader" id="8_mphju"]
 [ext_resource type="Texture2D" uid="uid://bbhgvkbr5lw07" path="res://game/assets/terrain/height.tres" id="9_yrt05"]
 [ext_resource type="Shader" uid="uid://dawlanyidv1xr" path="res://intermission/test.gdshader" id="10_jo72c"]
 [ext_resource type="Texture2D" uid="uid://cjdxiqij7aekk" path="res://game/assets/pallette.png" id="11_h8riy"]
-
-[sub_resource type="Resource" id="Resource_66tet"]
-script = ExtResource("2_g514i")
-name = "eye"
-scene = ExtResource("3_vmg3t")
-weight = 1.0
-metadata/_custom_type_script = "uid://b5htysbr1cbiw"
 
 [sub_resource type="Environment" id="Environment_0f027"]
 background_mode = 2
@@ -87,35 +77,9 @@ shader_parameter/palette = ExtResource("11_h8riy")
 
 [node name="Node3D" type="Node3D"]
 
-[node name="Spawner" type="Node" parent="." node_paths=PackedStringArray("spawn_points") groups=["spawner"]]
-script = ExtResource("1_2lkib")
-total_kills = 5
-min_spawn_delay = 0.4
-max_spawn_delay = 0.8
-enemy_types = Array[ExtResource("2_g514i")]([SubResource("Resource_66tet")])
-spawn_points = [NodePath("Marker3D"), NodePath("Marker3D2"), NodePath("Marker3D3"), NodePath("Marker3D4"), NodePath("Marker3D5"), NodePath("Marker3D6")]
-intermission = ExtResource("4_a0mud")
+[node name="ModifierCaller" parent="." instance=ExtResource("1_66tet")]
 
-[node name="Marker3D" type="Marker3D" parent="Spawner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.90711, 0, 7.28049)
-
-[node name="Marker3D2" type="Marker3D" parent="Spawner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.23884, 0, 7.28049)
-
-[node name="Marker3D3" type="Marker3D" parent="Spawner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.21278, 0, 7.28049)
-
-[node name="Marker3D4" type="Marker3D" parent="Spawner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0995893, 0, 7.28049)
-
-[node name="Marker3D5" type="Marker3D" parent="Spawner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.42361, 0, 7.28049)
-
-[node name="Marker3D6" type="Marker3D" parent="Spawner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.54163, 0, 7.28049)
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Spawner"]
-stream = ExtResource("5_vlbvj")
+[node name="Spawner" parent="." instance=ExtResource("2_7ycvg")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

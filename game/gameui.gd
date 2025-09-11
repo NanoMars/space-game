@@ -19,6 +19,9 @@ func _ready() -> void:
 	ScoreManager.score_multiplier_changed.connect(_on_score_multiplier_changed)
 	multiplier_label.text = "X" + str(ScoreManager.score_multiplier)
 
+	enemy_count_label.text = str(spawner._enemies_left) + " left"
+	print("text = " + enemy_count_label.text)
+
 func _on_health_changed(new_health: float) -> void:
 	health_bar.value = new_health / player_health.max_health * health_bar.max_value
 

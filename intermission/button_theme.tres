@@ -1,12 +1,22 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://3cudps0p8v2w"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://3cudps0p8v2w"]
 
 [ext_resource type="FontFile" uid="uid://c34mefa01f57l" path="res://game/assets/Awexbmp.ttf" id="1_hkhih"]
+[ext_resource type="Texture2D" uid="uid://1ajk10keexwp" path="res://game/assets/circleblur.png" id="2_hkhih"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1fafe"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_616dn"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_355u3"]
+texture = ExtResource("2_hkhih")
+modulate_color = Color(1, 1, 1, 0.117647)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hkhih"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_22a63"]
+load_path = "res://.godot/imported/circleblur.png-c975c87a170c000641d2a0292e8ee06c.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yewcr"]
+texture = SubResource("CompressedTexture2D_22a63")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hkhih"]
+texture = SubResource("CompressedTexture2D_22a63")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_355u3"]
 
@@ -16,13 +26,14 @@
 
 [resource]
 BoxContainer/constants/separation = 16
-Button/colors/font_color = Color(1, 0.61, 0.61, 1)
+Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
 Button/colors/font_hover_color = Color(1, 1, 1, 1)
 Button/fonts/font = ExtResource("1_hkhih")
 Button/styles/disabled = SubResource("StyleBoxEmpty_1fafe")
-Button/styles/focus = SubResource("StyleBoxEmpty_616dn")
-Button/styles/hover = SubResource("StyleBoxEmpty_hkhih")
+Button/styles/focus = SubResource("StyleBoxTexture_355u3")
+Button/styles/hover = SubResource("StyleBoxTexture_yewcr")
+Button/styles/hover_pressed = SubResource("StyleBoxTexture_hkhih")
 Button/styles/normal = SubResource("StyleBoxEmpty_355u3")
 Button/styles/pressed = SubResource("StyleBoxEmpty_22a63")
 HSeparator/constants/separation = 8
