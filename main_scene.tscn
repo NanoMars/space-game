@@ -75,7 +75,7 @@ size = Vector2(500, 500)
 shader = ExtResource("10_jo72c")
 shader_parameter/palette = ExtResource("11_h8riy")
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node3D" groups=["game_root"]]
 
 [node name="ModifierCaller" parent="." instance=ExtResource("1_66tet")]
 

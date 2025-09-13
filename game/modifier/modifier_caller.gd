@@ -5,6 +5,7 @@ func _ready() -> void:
 	if spawner:
 		spawner.enemy_died.connect(_on_enemy_died)
 		spawner.enemy_spawned.connect(_on_enemy_spawned)
+	
 
 func _on_enemy_died(transform: Transform3D) -> void:
 	for mod in ScoreManager.active_modifiers:

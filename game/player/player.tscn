@@ -8,11 +8,11 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_o3jxj"]
 radius = 0.01
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b2mth"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a4w0n"]
 shading_mode = 0
 
 [sub_resource type="SphereMesh" id="SphereMesh_0f027"]
-material = SubResource("StandardMaterial3D_b2mth")
+material = SubResource("StandardMaterial3D_a4w0n")
 
 [node name="CharacterBody3D" type="CharacterBody3D" groups=["player"]]
 collision_layer = 2

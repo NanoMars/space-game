@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhrvl7mrmdym7"]
+
+[ext_resource type="Script" uid="uid://d2qfgtw21oyxx" path="res://game/enemies/doppleganger/doppleganger.gd" id="1_nokfo"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7wyts"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b2mth"]
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_tckfg"]
+material = SubResource("StandardMaterial3D_b2mth")
+
+[node name="RigidBody3D" type="RigidBody3D"]
+script = ExtResource("1_nokfo")
+delay = 1.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_7wyts")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_tckfg")

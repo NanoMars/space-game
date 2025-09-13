@@ -41,6 +41,9 @@ func _ready() -> void:
 
 func _on_start_run() -> void:
 	run_started = true
+	for mod in ScoreManager.active_modifiers:
+		var game_root = get_tree().get_first_node_in_group("game_root") as Node3D
+		mod.on_run_start(game_root)
 
 func _process(delta: float) -> void:
 	if not run_started:
