@@ -21,6 +21,8 @@ func _on_continue_pressed() -> void:
 		t_in.tween_property(mod_list.material, "shader_parameter/opacity", 1.0, tween_time)
 
 func _ready() -> void:
+	MusicPlayer.lowpass_enabled = true
+	MusicPlayer.playing_music = true
 	score_label.text = "End here to score " + str(ScoreManager.score) + ""
 	for child in mod_list.get_children():
 		print("Mod button found: ", child.name, "of class: ", child.get_class())

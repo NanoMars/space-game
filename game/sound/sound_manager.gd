@@ -6,6 +6,7 @@ var player_gunshot: DefinedSound = DefinedSound.new()
 var enemy_death: DefinedSound = DefinedSound.new()
 
 
+
 func _ready() -> void:
 	damage_sound.sound = preload("res://game/sound/damage1.ogg")
 	damage_sound.volume = 0

@@ -20,7 +20,7 @@ colors = PackedColorArray(0.75, 0.4625, 0, 1, 0.77, 0.128333, 0, 1, 0.711037, 0,
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_x37ni"]
 frequency = 0.0332
-offset = Vector3(0, 0, 390652)
+offset = Vector3(0, 0, 404926)
 fractal_type = 3
 fractal_lacunarity = 2.29
 fractal_gain = 0.66
@@ -193,6 +193,7 @@ text = "YOUR SCORE IS 1234"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_vmbcd")
+volume_db = -11.49
 autoplay = true
 
 [node name="ColorRect2" type="ColorRect" parent="."]

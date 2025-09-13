@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 SoundManager="*res://game/sound/sound_manager.gd"
 ScoreManager="*res://game/score_manager.gd"
+MusicPlayer="*res://game/sound/music/music_player.gd"
 
 [debug]
 

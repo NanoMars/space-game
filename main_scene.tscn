@@ -1,5 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=20 format=3 uid="uid://s488jtj1i4ci"]
 
+[ext_resource type="Script" uid="uid://biqxkgtmda56e" path="res://game/sound/music/music_setter.gd" id="1_7ycvg"]
 [ext_resource type="PackedScene" uid="uid://c0utlmtqcar20" path="res://game/modifier/modifier_caller.tscn" id="1_66tet"]
 [ext_resource type="PackedScene" uid="uid://tt1rrpyhclj1" path="res://game/enemyspawning/spawner.tscn" id="2_7ycvg"]
 [ext_resource type="PackedScene" uid="uid://dlgvodlq4gicv" path="res://game/UI.tscn" id="6_fd1kl"]
@@ -76,6 +77,7 @@ shader = ExtResource("10_jo72c")
 shader_parameter/palette = ExtResource("11_h8riy")
 
 [node name="Node3D" type="Node3D" groups=["game_root"]]
+script = ExtResource("1_7ycvg")
 
 [node name="ModifierCaller" parent="." instance=ExtResource("1_66tet")]
 
