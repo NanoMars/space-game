@@ -61,5 +61,6 @@ func _on_died(_from: Node) -> void:
 	queue_free()
 
 func damage(amount: float, from: Node = null) -> void:
+	SoundManager.play_sound(SoundManager.player_hurt)
 	if health and health.has_method("damage"):
 		health.damage(amount, from)

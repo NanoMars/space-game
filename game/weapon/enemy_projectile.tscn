@@ -7,7 +7,7 @@
 radius = 0.125865
 
 [node name="Enemy Projectile" type="RigidBody3D"]
-collision_layer = 3
+collision_layer = 0
 collision_mask = 7
 script = ExtResource("1_128we")
 

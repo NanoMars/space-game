@@ -15,8 +15,7 @@ shading_mode = 0
 material = SubResource("StandardMaterial3D_a4w0n")
 
 [node name="CharacterBody3D" type="CharacterBody3D" groups=["player"]]
-collision_layer = 7
-collision_mask = 7
+collision_layer = 2
 script = ExtResource("1_obar5")
 
 [node name="Health" parent="." instance=ExtResource("2_b2mth")]

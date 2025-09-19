@@ -4,6 +4,7 @@ var damage_sound: DefinedSound = DefinedSound.new()
 var damage_sound_2: DefinedSound = DefinedSound.new()
 var player_gunshot: DefinedSound = DefinedSound.new()
 var enemy_death: DefinedSound = DefinedSound.new()
+var player_hurt: DefinedSound = DefinedSound.new()
 
 
 
@@ -19,6 +20,9 @@ func _ready() -> void:
 
 	enemy_death.sound = preload("res://game/sound/enemydeath.wav")
 	enemy_death.volume = -5
+
+	player_hurt.sound = preload("res://game/sound/playerhurt.wav")
+	player_hurt.volume = -1
 
 
 func play_sound(sound: DefinedSound) -> void:
