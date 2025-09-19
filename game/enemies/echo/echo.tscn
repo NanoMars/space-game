@@ -1,15 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://cqlucyg0ogdps"]
+[gd_scene load_steps=11 format=3 uid="uid://cqlucyg0ogdps"]
 
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="1_7yt0h"]
 [ext_resource type="Script" uid="uid://brckhxn4j3vh1" path="res://game/enemies/echo/echo.gd" id="1_aly6b"]
-[ext_resource type="Material" uid="uid://dabisbs8xfnhw" path="res://game/basicenemymaterial.tres" id="2_fecne"]
 [ext_resource type="Script" uid="uid://dy1kcyvsje554" path="res://game/weapon/weapon.gd" id="4_7ihf2"]
 [ext_resource type="Script" uid="uid://b74jnsjx6ore1" path="res://game/weapon/cone_pattern.gd" id="5_fstwr"]
 [ext_resource type="PackedScene" uid="uid://dj40a3gnwqbyq" path="res://game/weapon/enemy_projectile.tscn" id="6_7ihf2"]
+[ext_resource type="Texture2D" uid="uid://8p4m1eucl2ax" path="res://game/assets/eyeball.png" id="7_7ihf2"]
 [ext_resource type="Script" uid="uid://bypy263lii80f" path="res://game/weapon/weapon_stats.gd" id="7_ij02q"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_aly6b"]
-material = ExtResource("2_fecne")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8e35v"]
 radius = 0.7
@@ -39,14 +36,13 @@ axis_lock_angular_z = true
 linear_damp = 0.4
 script = ExtResource("1_aly6b")
 speed = 275.0
-sine_size = 0.1
+zspeed = 0.4
+z_goal_pos = 3.5
+sine_size = 0.35
 weapon_node = NodePath("Weapon")
 
 [node name="Health" parent="." instance=ExtResource("1_7yt0h")]
 max_health = 50.0
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_aly6b")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_8e35v")
@@ -55,5 +51,11 @@ shape = SubResource("SphereShape3D_8e35v")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7)
 script = ExtResource("4_7ihf2")
 weapon_stats = SubResource("Resource_u37ft")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.49, 0, 0, 0, 0.49, 0, 0, 0, 0.49, 0, 0, 0)
+extra_cull_margin = 1.0
+billboard = 1
+texture = ExtResource("7_7ihf2")
 
 [connection signal="damaged" from="Health" to="." method="_on_health_damaged"]
