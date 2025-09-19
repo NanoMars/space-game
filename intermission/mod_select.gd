@@ -37,4 +37,3 @@ func _on_mod_button_pressed(mod: Modifier, _button: Button) -> void:
 	# always increase difficulty when picking a modifier
 	ScoreManager.total_kills = ScoreManager.total_kills * 1.5
 	ScoreManager.concurrent_cap = int(ScoreManager.concurrent_cap * 1.5)
-	print("Active modifiers: ", ScoreManager.active_modifiers)

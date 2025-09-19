@@ -34,9 +34,7 @@ func _ready() -> void:
 	last_position = global_position
 
 func _on_body_entered(body: Node) -> void:
-	print("hit", body.name, "asdf")
 	if body.has_method("damage"):
-		print("hit", body.name)
 		body.damage((weapon_stats.damage if weapon_stats and typeof(weapon_stats.damage) == TYPE_FLOAT else 0.0), self)
 		remove_projectile()
 
@@ -46,7 +44,6 @@ func _physics_process(_delta: float) -> void:
 	if last_position.distance_to(current_pos) > 0.0001:
 		# Debug: show ray start/end and distance moved this frame
 		var moved_dist := last_position.distance_to(current_pos)
-		print("Projectile raycast from ", last_position, " to ", current_pos, " (dist: ", moved_dist, ")")
 
 		var space_state := get_world_3d().direct_space_state
 		var query := PhysicsRayQueryParameters3D.create(last_position, current_pos)
@@ -57,13 +54,10 @@ func _physics_process(_delta: float) -> void:
 			var collider: Node = result.get("collider")
 			var hit_pos: Vector3 = result.get("position")
 			var hit_normal: Vector3 = result.get("normal")
-			print(self.name, "Projectile Raycast hit: ", (collider.name if collider else "Unknown"), " at ", hit_pos, " normal ", hit_normal)
 
 			if collider and collider.has_method("damage"):
 				collider.damage((weapon_stats.damage if weapon_stats and typeof(weapon_stats.damage) == TYPE_FLOAT else 0.0), self)
 				remove_projectile()
-		else:
-			print(self.name, "Projectile Raycast no hit")
 
 	# Update for next
 	last_position = global_position

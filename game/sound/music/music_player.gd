@@ -58,6 +58,3 @@ func _process(delta: float) -> void:
 	else:
 		AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index("Music"), 0, false)
 
-	print("lowpass: ", playing_dynamic_lowpass, " volume: ", playing_dynamic_volume)
-	print("cutoff: ", AudioServer.get_bus_effect(AudioServer.get_bus_index("Music"), 0).get_cutoff())
-	print("volume_db: ", audio_player.volume_db)

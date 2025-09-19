@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://srqfibyqkhj6"]
+[gd_scene load_steps=16 format=3 uid="uid://srqfibyqkhj6"]
 
 [ext_resource type="FontFile" uid="uid://c34mefa01f57l" path="res://game/assets/Awexbmp.ttf" id="1_5g7am"]
 [ext_resource type="Script" uid="uid://dmnqr71057txj" path="res://game/UI/game_over/game_over.gd" id="1_iuany"]
 [ext_resource type="Shader" uid="uid://s4clk6hl5ixd" path="res://intermission/buttonshader.gdshader" id="1_uf6er"]
 [ext_resource type="Script" uid="uid://dasomuhj8owef" path="res://game/UI/game_over/text_defenition.gd" id="2_1nprd"]
 [ext_resource type="Script" uid="uid://biqxkgtmda56e" path="res://game/sound/music/music_setter.gd" id="3_uf6er"]
+[ext_resource type="PackedScene" uid="uid://s488jtj1i4ci" path="res://main_scene.tscn" id="3_xejjg"]
 [ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://intermission/button_theme.tres" id="6_1nprd"]
 
 [sub_resource type="Resource" id="Resource_xejjg"]
@@ -68,7 +69,7 @@ shader_parameter/y_div = 1.8
 shader_parameter/opacity = 1.0
 shader_parameter/seed = 0.0
 
-[node name="Control" type="Control" node_paths=PackedStringArray("label_to_write")]
+[node name="Control" type="Control" node_paths=PackedStringArray("label_to_write", "buttons", "button_container", "blackout_rect")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -78,6 +79,10 @@ grow_vertical = 2
 script = ExtResource("1_iuany")
 texts = Array[ExtResource("2_1nprd")]([SubResource("Resource_xejjg"), SubResource("Resource_pkkeu"), SubResource("Resource_smeeh"), SubResource("Resource_x2y4k"), SubResource("Resource_i8xu8")])
 label_to_write = NodePath("Label")
+buttons = [NodePath("HBoxContainer/TryAgain"), NodePath("HBoxContainer/GiveUp")]
+button_container = NodePath("HBoxContainer")
+game_scene = ExtResource("3_xejjg")
+blackout_rect = NodePath("ColorRect2")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -88,6 +93,11 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
+[node name="Music Setter" type="Node" parent="."]
+script = ExtResource("3_uf6er")
+lowpass_enabled = true
+playing_music = false
+
 [node name="Label" type="Label" parent="."]
 material = SubResource("ShaderMaterial_uf6er")
 layout_mode = 1
@@ -96,9 +106,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -38.5
+offset_left = -74.5
 offset_top = -8.0
-offset_right = 38.5
+offset_right = 74.5
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -108,25 +118,45 @@ text = "you died..."
 horizontal_alignment = 1
 visible_ratio = -0.0909091
 
-[node name="Music Setter" type="Node" parent="."]
-script = ExtResource("3_uf6er")
-playing_music = false
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -71.5
+offset_top = 12.0
+offset_right = 71.5
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
 
-[node name="Button" type="Button" parent="."]
+[node name="TryAgain" type="Button" parent="HBoxContainer"]
 material = SubResource("ShaderMaterial_xejjg")
-layout_mode = 0
-offset_left = 130.0
-offset_top = 137.0
-offset_right = 205.0
-offset_bottom = 153.0
+layout_mode = 2
+focus_neighbor_right = NodePath("../GiveUp")
 theme = ExtResource("6_1nprd")
 text = "try again"
 
-[node name="Button2" type="Button" parent="."]
+[node name="GiveUp" type="Button" parent="HBoxContainer"]
 material = SubResource("ShaderMaterial_xejjg")
-offset_left = 211.0
-offset_top = 135.0
-offset_right = 314.0
-offset_bottom = 151.0
+layout_mode = 2
+focus_neighbor_left = NodePath("../TryAgain")
 theme = ExtResource("6_1nprd")
 text = "give up 5"
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[connection signal="pressed" from="HBoxContainer/TryAgain" to="." method="_on_try_again_pressed"]

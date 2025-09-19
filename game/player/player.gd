@@ -17,6 +17,9 @@ extends CharacterBody3D
 @onready var half_width: float  = (half_height * viewport_aspect) if keep_height else (ortho_size * 0.5)
 @onready var clamp_center: Vector2 = Vector2(cam.global_position.x, cam.global_position.z) # Static center for clamping
 
+@export var dead_scene: PackedScene
+@export var shiny_rect: ColorRect
+
 func _ready() -> void:
 	if health:
 		health.died.connect(_on_died)
@@ -58,6 +61,7 @@ func _physics_process(delta: float) -> void:
 		weapon.firing = shoot_pressed
 
 func _on_died(_from: Node) -> void:
+
 	queue_free()
 
 func damage(amount: float, from: Node = null) -> void:

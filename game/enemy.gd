@@ -22,7 +22,6 @@ func _on_died(from: Node) -> void:
 	dead = true
 	if from != self:
 		ScoreManager.score += point_value
-		print(self.name, " died, adding ", point_value, " * ", ScoreManager.score_multiplier, " = ", point_value * ScoreManager.score_multiplier, " to score. Total now ", ScoreManager.score)
 	SoundManager.play_sound(SoundManager.enemy_death)
 	
 	queue_free()

@@ -39,5 +39,4 @@ func _on_body_entered(body: Node) -> void:
 
 
 func _on_health_damaged(amount:float, from:Node) -> void:
-	print("shoot")
 	weapon_node.fire_once()

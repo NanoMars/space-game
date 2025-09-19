@@ -25,10 +25,8 @@ func _ready() -> void:
 	MusicPlayer.playing_music = true
 	score_label.text = "End here to score " + str(ScoreManager.score) + ""
 	for child in mod_list.get_children():
-		print("Mod button found: ", child.name, "of class: ", child.get_class())
 		if child.get_class() == "Button":
 			child.pressed.connect(_on_mod_button_pressed.bind(child))
-			print("Connected mod button: ", child.name)
 	# Start with mod list hidden and decision list faded in.
 	if mod_list:
 		mod_list.hide()
@@ -43,5 +41,4 @@ func _ready() -> void:
 			
 
 func _on_mod_button_pressed(button: Button) -> void:
-	print("trying to change scene to: ", main_scene)
 	get_tree().change_scene_to_file("res://main_scene.tscn")

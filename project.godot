@@ -21,10 +21,6 @@ SoundManager="*res://game/sound/sound_manager.gd"
 ScoreManager="*res://game/score_manager.gd"
 MusicPlayer="*res://game/sound/music/music_player.gd"
 
-[debug]
-
-settings/stdout/print_fps=true
-
 [display]
 
 window/size/viewport_width=426
