@@ -32,6 +32,10 @@ metadata/_custom_type_script = "uid://bypy263lii80f"
 [node name="RigidBody3D" type="RigidBody3D" node_paths=PackedStringArray("weapon_node")]
 collision_layer = 4
 collision_mask = 3
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
 linear_damp = 0.4
 script = ExtResource("1_aly6b")
 speed = 275.0

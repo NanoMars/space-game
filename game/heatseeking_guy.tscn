@@ -10,6 +10,9 @@ radius = 0.7
 [node name="RigidBody3D" type="RigidBody3D" groups=["enemies"]]
 collision_layer = 4
 collision_mask = 3
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_z = true
 script = ExtResource("1_06yso")
 speed = 200.0
 damage_dealt = 10.0

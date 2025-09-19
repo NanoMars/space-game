@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c5151n8v6645w"]
+[gd_scene load_steps=28 format=3 uid="uid://c5151n8v6645w"]
 
 [ext_resource type="Script" uid="uid://h531hpff7fyb" path="res://intermission_background.gd" id="1_3b4nm"]
 [ext_resource type="Script" uid="uid://bsste0045nkbd" path="res://intermission/intermission_menu.gd" id="1_yvdn4"]
@@ -13,6 +13,7 @@
 [ext_resource type="Shader" uid="uid://cuejqmse7fsm1" path="res://intermission/dissolve.gdshader" id="9_dpipn"]
 [ext_resource type="PackedScene" uid="uid://dhrvl7mrmdym7" path="res://game/enemies/doppleganger/doppleganger.tscn" id="9_gldry"]
 [ext_resource type="Script" uid="uid://br7ayqjve2drn" path="res://game/modifier/modifiers/add_dopple.gd" id="10_diied"]
+[ext_resource type="PackedScene" uid="uid://bx56mhuthy1oe" path="res://game/enemies/laserthing/laserthing.tscn" id="11_diied"]
 
 [sub_resource type="Gradient" id="Gradient_0i6aa"]
 offsets = PackedFloat32Array(0.00797448, 0.41853, 0.571885, 0.728435, 1)
@@ -20,7 +21,7 @@ colors = PackedColorArray(0.75, 0.4625, 0, 1, 0.77, 0.128333, 0, 1, 0.711037, 0,
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_x37ni"]
 frequency = 0.0332
-offset = Vector3(0, 0, 906714)
+offset = Vector3(0, 0, 946495)
 fractal_type = 3
 fractal_lacunarity = 2.29
 fractal_gain = 0.66
@@ -65,6 +66,21 @@ stackable = false
 max_stacks = 5
 score_multiplier = 0.7
 metadata/_custom_type_script = "uid://br7ayqjve2drn"
+
+[sub_resource type="Resource" id="Resource_d21pq"]
+script = ExtResource("7_s5603")
+scene = ExtResource("11_diied")
+weight = 0.5
+metadata/_custom_type_script = "uid://b5htysbr1cbiw"
+
+[sub_resource type="Resource" id="Resource_1vesd"]
+script = ExtResource("6_dt5tg")
+display_name = "Add Laser"
+stackable = true
+max_stacks = 5
+score_multiplier = 0.5
+enemy_to_spawn = SubResource("Resource_d21pq")
+metadata/_custom_type_script = "uid://bkeoml7x3rkuu"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yvdn4"]
 shader = ExtResource("2_d7pyx")
@@ -133,7 +149,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_0i6aa")
 script = ExtResource("5_vmbcd")
-mod_list = Array[ExtResource("6_dt5tg")]([SubResource("Resource_dpipn"), SubResource("Resource_nel6a")])
+mod_list = Array[ExtResource("6_dt5tg")]([SubResource("Resource_dpipn"), SubResource("Resource_nel6a"), SubResource("Resource_1vesd")])
 
 [node name="decisions" type="VBoxContainer" parent="."]
 visible = false
