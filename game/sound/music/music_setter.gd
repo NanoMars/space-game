@@ -1,4 +1,4 @@
-extends Node3D
+extends Node
 
 @export var lowpass_enabled: bool = false
 @export var playing_music: bool = true

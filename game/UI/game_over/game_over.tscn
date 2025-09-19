@@ -1,0 +1,106 @@
+[gd_scene load_steps=13 format=3 uid="uid://srqfibyqkhj6"]
+
+[ext_resource type="FontFile" uid="uid://c34mefa01f57l" path="res://game/assets/Awexbmp.ttf" id="1_5g7am"]
+[ext_resource type="Script" uid="uid://dmnqr71057txj" path="res://game/UI/game_over/game_over.gd" id="1_iuany"]
+[ext_resource type="Shader" uid="uid://s4clk6hl5ixd" path="res://intermission/buttonshader.gdshader" id="1_uf6er"]
+[ext_resource type="Script" uid="uid://dasomuhj8owef" path="res://game/UI/game_over/text_defenition.gd" id="2_1nprd"]
+[ext_resource type="Script" uid="uid://biqxkgtmda56e" path="res://game/sound/music/music_setter.gd" id="3_uf6er"]
+
+[sub_resource type="Resource" id="Resource_xejjg"]
+script = ExtResource("2_1nprd")
+text = "you died..."
+write_in_time = 3.0
+wait_time = 1.0
+write_out_time = 0.5
+metadata/_custom_type_script = "uid://dasomuhj8owef"
+
+[sub_resource type="Resource" id="Resource_pkkeu"]
+script = ExtResource("2_1nprd")
+text = "with a score of 1000"
+write_in_time = 2.0
+wait_time = 1.0
+write_out_time = 0.5
+metadata/_custom_type_script = "uid://dasomuhj8owef"
+
+[sub_resource type="Resource" id="Resource_smeeh"]
+script = ExtResource("2_1nprd")
+text = "and on round 3"
+write_in_time = 2.0
+wait_time = 1.0
+write_out_time = 0.5
+metadata/_custom_type_script = "uid://dasomuhj8owef"
+
+[sub_resource type="Resource" id="Resource_x2y4k"]
+script = ExtResource("2_1nprd")
+text = "what a shame."
+write_in_time = 5.0
+wait_time = 1.0
+write_out_time = 0.5
+metadata/_custom_type_script = "uid://dasomuhj8owef"
+
+[sub_resource type="Resource" id="Resource_i8xu8"]
+script = ExtResource("2_1nprd")
+text = "would you like to try again?"
+write_in_time = 2.0
+wait_time = 1.0
+write_out_time = 0.5
+metadata/_custom_type_script = "uid://dasomuhj8owef"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uf6er"]
+shader = ExtResource("1_uf6er")
+shader_parameter/normal_offset = 0.8
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 1.8
+shader_parameter/opacity = 1.0
+shader_parameter/seed = 0.0
+
+[sub_resource type="Theme" id="Theme_4yg3d"]
+default_font = ExtResource("1_5g7am")
+Label/font_sizes/font_size = 16
+Label/fonts/font = ExtResource("1_5g7am")
+
+[node name="Control" type="Control" node_paths=PackedStringArray("label_to_write")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_iuany")
+texts = Array[ExtResource("2_1nprd")]([SubResource("Resource_xejjg"), SubResource("Resource_pkkeu"), SubResource("Resource_smeeh"), SubResource("Resource_x2y4k"), SubResource("Resource_i8xu8")])
+label_to_write = NodePath("Label")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+material = SubResource("ShaderMaterial_uf6er")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.5
+offset_top = -8.0
+offset_right = 38.5
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(38, 8)
+theme = SubResource("Theme_4yg3d")
+text = "you died..."
+horizontal_alignment = 1
+visible_ratio = -0.0909091
+
+[node name="Music Setter" type="Node" parent="."]
+script = ExtResource("3_uf6er")
+playing_music = false
+
+[node name="Timer" type="Timer" parent="."]

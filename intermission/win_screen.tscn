@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dat7srefm4ijx"]
+[gd_scene load_steps=7 format=3 uid="uid://dat7srefm4ijx"]
 
 [ext_resource type="Script" uid="uid://h531hpff7fyb" path="res://intermission_background.gd" id="1_pkd2t"]
 [ext_resource type="Shader" uid="uid://ctwajixa25p54" path="res://intermission/dither.gdshader" id="2_4qxri"]
-[ext_resource type="Texture2D" uid="uid://dxxiviexlrmmb" path="res://icon.svg" id="2_tc2mx"]
 
 [sub_resource type="Gradient" id="Gradient_4qxri"]
 offsets = PackedFloat32Array(0, 0.177033)
@@ -10,7 +9,7 @@ offsets = PackedFloat32Array(0, 0.177033)
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_tc2mx"]
 noise_type = 3
 frequency = 0.0119
-offset = Vector3(175231, 0, 19672.9)
+offset = Vector3(254580, 0, 28509.3)
 fractal_type = 2
 fractal_weighted_strength = 1.0
 
@@ -46,15 +45,6 @@ texture = SubResource("NoiseTexture2D_dyldh")
 expand_mode = 1
 script = ExtResource("1_pkd2t")
 noise_speed = Vector3(45, 0, 5)
-
-[node name="TextureRect2" type="TextureRect" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 159.0
-offset_top = 78.0
-offset_right = 287.0
-offset_bottom = 206.0
-texture = ExtResource("2_tc2mx")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_tc2mx")
