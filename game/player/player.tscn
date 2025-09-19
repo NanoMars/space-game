@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://blxmdv45ssyxh" path="res://game/weapon/weapons/narrow_sine.tres" id="4_a4w0n"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_o3jxj"]
-radius = 0.01
+radius = 0.4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a4w0n"]
 shading_mode = 0
@@ -15,12 +15,14 @@ shading_mode = 0
 material = SubResource("StandardMaterial3D_a4w0n")
 
 [node name="CharacterBody3D" type="CharacterBody3D" groups=["player"]]
-collision_layer = 2
+collision_layer = 7
+collision_mask = 7
 script = ExtResource("1_obar5")
 
 [node name="Health" parent="." instance=ExtResource("2_b2mth")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000307858, -0.00223905, 0.00119328)
 shape = SubResource("SphereShape3D_o3jxj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

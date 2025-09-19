@@ -4,6 +4,7 @@ extends Enemy
 @export var speed: float = 3.0
 @export var damage_dealt: float = 20.0
 
+@export var weapon_node: Marker3D
 
 func _ready() -> void:
 	super._ready()
@@ -17,12 +18,6 @@ func _physics_process(delta: float) -> void:
 		var direction: Vector2 = Vector2(player.position.x - position.x, player.position.z - position.z).normalized()
 		apply_force(Vector3(direction.x, 0.0, direction.y) * speed * delta)
 
-	# Face the direction of momentum on the XZ plane
-	var v: Vector3 = linear_velocity
-	v.y = 0.0
-	if v.length_squared() > 0.0001:
-		look_at(position + v, Vector3.UP)
-
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):
 		if body.has_method("damage"):
@@ -31,3 +26,8 @@ func _on_body_entered(body: Node) -> void:
 				health.die(self)
 
 
+
+
+func _on_health_damaged(amount:float, from:Node) -> void:
+	print("shoot")
+	weapon_node.fire_once()
