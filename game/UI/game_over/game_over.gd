@@ -4,7 +4,7 @@ extends Control
 @export var label_to_write: Label
 @export var buttons: Array[Button] = []
 @export var button_container: HBoxContainer
-@export var game_scene: PackedScene
+@export_file("*.tscn") var gameas_scene: String
 @export var blackout_rect: ColorRect
 var ctx: Dictionary[String, int] = {}
 
@@ -84,4 +84,4 @@ func _on_try_again_pressed() -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_property(blackout_rect, "modulate:a", 1.0, 1.0)
 	await tween.finished
-	get_tree().change_scene_to_packed(game_scene)
+	get_tree().change_scene_to_packed(load(gameas_scene))

@@ -1,11 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://srqfibyqkhj6"]
+[gd_scene load_steps=15 format=3 uid="uid://srqfibyqkhj6"]
 
 [ext_resource type="FontFile" uid="uid://c34mefa01f57l" path="res://game/assets/Awexbmp.ttf" id="1_5g7am"]
 [ext_resource type="Script" uid="uid://dmnqr71057txj" path="res://game/UI/game_over/game_over.gd" id="1_iuany"]
 [ext_resource type="Shader" uid="uid://s4clk6hl5ixd" path="res://intermission/buttonshader.gdshader" id="1_uf6er"]
 [ext_resource type="Script" uid="uid://dasomuhj8owef" path="res://game/UI/game_over/text_defenition.gd" id="2_1nprd"]
 [ext_resource type="Script" uid="uid://biqxkgtmda56e" path="res://game/sound/music/music_setter.gd" id="3_uf6er"]
-[ext_resource type="PackedScene" uid="uid://s488jtj1i4ci" path="res://main_scene.tscn" id="3_xejjg"]
 [ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://intermission/button_theme.tres" id="6_1nprd"]
 
 [sub_resource type="Resource" id="Resource_xejjg"]
@@ -81,7 +80,7 @@ texts = Array[ExtResource("2_1nprd")]([SubResource("Resource_xejjg"), SubResourc
 label_to_write = NodePath("Label")
 buttons = [NodePath("HBoxContainer/TryAgain"), NodePath("HBoxContainer/GiveUp")]
 button_container = NodePath("HBoxContainer")
-game_scene = ExtResource("3_xejjg")
+gameas_scene = "uid://s488jtj1i4ci"
 blackout_rect = NodePath("ColorRect2")
 
 [node name="ColorRect" type="ColorRect" parent="."]
