@@ -41,4 +41,5 @@ func _ready() -> void:
 			
 
 func _on_mod_button_pressed(button: Button) -> void:
+	ScoreManager.currentRound += 1
 	get_tree().change_scene_to_file("res://main_scene.tscn")

@@ -33,10 +33,13 @@ var total_kills: int:
 var _total_kills: int = 10
 var concurrent_cap: int = 3
 
+var currentRound: int = 1
+
 var enemy_types: Array[EnemyType] = []
 
 func _ready() -> void:
 	score = 0
+	currentRound = 1
 	var basic_enemy := EnemyType.new()
 	basic_enemy.scene = preload("res://game/heatseeking_guy.tscn")
 	basic_enemy.weight = 1.0

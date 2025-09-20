@@ -6,8 +6,12 @@ extends Control
 @export var button_container: HBoxContainer
 @export var game_scene: PackedScene
 @export var blackout_rect: ColorRect
+var ctx: Dictionary[String, int] = {}
+
 
 func _ready() -> void:
+	ctx["Score"] = ScoreManager.score
+	ctx["Round"] = ScoreManager.currentRound
 	blackout_rect.visible = false
 	blackout_rect.modulate.a = 0.0
 	label_to_write.position = Vector2(138.5, 100)
@@ -44,9 +48,12 @@ func animate_text() -> void:
 	timer.one_shot = true
 	add_child(timer)
 	for t in texts:
+		var label_text = t.text
+		label_text = label_text.format(ctx)
 		label_to_write.visible_characters = 0
-		label_to_write.text = t.text
-		var goal_characters = t.text.length()
+		label_to_write.text = label_text
+		print("label_text: " + label_text)
+		var goal_characters = label_text.length()
 		var char_time_in = t.write_in_time / float(goal_characters)
 		var char_time_out = t.write_out_time / float(goal_characters)
 

@@ -18,7 +18,7 @@ metadata/_custom_type_script = "uid://dasomuhj8owef"
 
 [sub_resource type="Resource" id="Resource_pkkeu"]
 script = ExtResource("2_1nprd")
-text = "with a score of 1000"
+text = "with a score of {Score}"
 write_in_time = 2.0
 wait_time = 1.0
 write_out_time = 0.5
@@ -26,7 +26,7 @@ metadata/_custom_type_script = "uid://dasomuhj8owef"
 
 [sub_resource type="Resource" id="Resource_smeeh"]
 script = ExtResource("2_1nprd")
-text = "and on round 3"
+text = "and on round {Round}"
 write_in_time = 2.0
 wait_time = 1.0
 write_out_time = 0.5
@@ -116,7 +116,8 @@ pivot_offset = Vector2(38, 8)
 theme = SubResource("Theme_4yg3d")
 text = "you died..."
 horizontal_alignment = 1
-visible_ratio = -0.0909091
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -145,7 +146,7 @@ material = SubResource("ShaderMaterial_xejjg")
 layout_mode = 2
 focus_neighbor_left = NodePath("../TryAgain")
 theme = ExtResource("6_1nprd")
-text = "give up 5"
+text = "give up"
 
 [node name="ColorRect2" type="ColorRect" parent="."]
 visible = false
