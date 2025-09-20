@@ -127,8 +127,11 @@ func _try_spawn_tick():
 
 	var enemy_type: EnemyType = _spawn_bag[_spawn_bag.size() - _remaining_to_spawn]
 	var inst: Node3D = enemy_type.scene.instantiate()
+
 	if inst == null:
 		return
+
+	inst.add_to_group("enemies")
 	self.add_child(inst)
 	inst.global_position = pt.global_position
 	enemy_spawned.emit(inst)

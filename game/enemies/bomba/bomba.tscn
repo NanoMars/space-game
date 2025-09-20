@@ -1,0 +1,63 @@
+[gd_scene load_steps=11 format=3 uid="uid://btt8gq4384pld"]
+
+[ext_resource type="Script" uid="uid://dsotnh5yqji3m" path="res://game/enemies/bomba/bomba.gd" id="1_uqx8p"]
+[ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_ysm8u"]
+[ext_resource type="Texture2D" uid="uid://c3jjg7x15tjum" path="res://game/enemies/bomba/bomb.png" id="3_uqx8p"]
+[ext_resource type="Script" uid="uid://dy1kcyvsje554" path="res://game/weapon/weapon.gd" id="4_vo84h"]
+[ext_resource type="Script" uid="uid://b74jnsjx6ore1" path="res://game/weapon/cone_pattern.gd" id="5_tb1su"]
+[ext_resource type="Script" uid="uid://bypy263lii80f" path="res://game/weapon/weapon_stats.gd" id="6_5list"]
+[ext_resource type="PackedScene" uid="uid://b3nteirchqlvu" path="res://game/enemies/bomba/bomba_projectile.tscn" id="6_uccrh"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_06yso"]
+radius = 0.7
+
+[sub_resource type="Resource" id="Resource_uccrh"]
+script = ExtResource("5_tb1su")
+cone_deg = 360.0
+shots = 60
+metadata/_custom_type_script = "uid://b74jnsjx6ore1"
+
+[sub_resource type="Resource" id="Resource_rata5"]
+script = ExtResource("6_5list")
+damage = 30.0
+fire_rate = 3.0
+projectile_speed = 15.0
+projectile_scene = ExtResource("6_uccrh")
+fire_pattern = SubResource("Resource_uccrh")
+metadata/_custom_type_script = "uid://bypy263lii80f"
+
+[node name="RigidBody3D" type="RigidBody3D" groups=["enemies"]]
+collision_layer = 0
+collision_mask = 3
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+linear_damp = 2.0
+script = ExtResource("1_uqx8p")
+speed = 600.0
+beeps_to_explode = 35
+initial_beep_interval = 1.5
+beep_acceleration = 0.85
+
+[node name="Health" parent="." instance=ExtResource("2_ysm8u")]
+max_health = 50.0
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(-1.83588e-08, 0.42, -1.83588e-08, 0, -1.83588e-08, -0.42, -0.42, -1.83588e-08, 8.02488e-16, 0.2, 0, -0.1)
+texture = ExtResource("3_uqx8p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_06yso")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.4655, 0)
+light_color = Color(1, 0, 0, 1)
+light_energy = 0.4
+light_size = 0.044
+omni_range = 14.0
+
+[node name="Weapon" type="Marker3D" parent="."]
+script = ExtResource("4_vo84h")
+weapon_stats = SubResource("Resource_rata5")

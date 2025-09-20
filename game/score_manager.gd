@@ -43,7 +43,8 @@ func _ready() -> void:
 
 
 func reset() -> void:
-	score = 0
+	
+	concurrent_cap = 3
 	score_multiplier = 1.0
 	active_modifiers.clear()
 	total_kills = 10
@@ -53,3 +54,4 @@ func reset() -> void:
 	basic_enemy.scene = preload("res://game/heatseeking_guy.tscn")
 	basic_enemy.weight = 1.0
 	enemy_types.append(basic_enemy)
+	score = 0

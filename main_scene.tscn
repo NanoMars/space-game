@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=21 format=3 uid="uid://s488jtj1i4ci"]
 
 [ext_resource type="Script" uid="uid://biqxkgtmda56e" path="res://game/sound/music/music_setter.gd" id="1_7ycvg"]
 [ext_resource type="PackedScene" uid="uid://c0utlmtqcar20" path="res://game/modifier/modifier_caller.tscn" id="1_66tet"]
@@ -8,6 +8,7 @@
 [ext_resource type="Shader" uid="uid://b44xvd07s31ri" path="res://game/assets/terrain.gdshader" id="8_mphju"]
 [ext_resource type="Texture2D" uid="uid://bbhgvkbr5lw07" path="res://game/assets/terrain/height.tres" id="9_yrt05"]
 [ext_resource type="Shader" uid="uid://dawlanyidv1xr" path="res://intermission/test.gdshader" id="10_jo72c"]
+[ext_resource type="PackedScene" uid="uid://btt8gq4384pld" path="res://game/enemies/bomba/bomba.tscn" id="10_wr18j"]
 [ext_resource type="Texture2D" uid="uid://cjdxiqij7aekk" path="res://game/assets/pallette.png" id="11_h8riy"]
 
 [sub_resource type="Environment" id="Environment_0f027"]
@@ -136,3 +137,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="RigidBody3D" parent="." instance=ExtResource("10_wr18j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.89762, 0, -4.34828)

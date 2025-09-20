@@ -9,6 +9,8 @@ var player_hurt: DefinedSound = DefinedSound.new()
 var talk_1: DefinedSound = DefinedSound.new()
 var talk_2: DefinedSound = DefinedSound.new()
 
+var bomb_beep: DefinedSound = DefinedSound.new()
+
 
 
 func _ready() -> void:
@@ -28,10 +30,13 @@ func _ready() -> void:
 	player_hurt.volume = -1
 
 	talk_1.sound = preload("res://game/sound/talk1.wav")
-	talk_1.volume = 0
+	talk_1.volume = 10
 
 	talk_2.sound = preload("res://game/sound/talk2.wav")
-	talk_2.volume = 0
+	talk_2.volume = 10
+
+	bomb_beep.sound = preload("res://game/sound/bomb_beep.wav")
+	bomb_beep.volume = 0
 
 
 func play_sound(sound: DefinedSound) -> void:
