@@ -55,7 +55,7 @@ func _physics_process(_delta: float) -> void:
 			var hit_pos: Vector3 = result.get("position")
 			var hit_normal: Vector3 = result.get("normal")
 
-			if collider and collider.has_method("damage"):
+			if collider and collider.has_method("damage"):	
 				collider.damage((weapon_stats.damage if weapon_stats and typeof(weapon_stats.damage) == TYPE_FLOAT else 0.0), self)
 				remove_projectile()
 
