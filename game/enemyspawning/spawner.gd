@@ -23,6 +23,8 @@ var _enemies_left: int:
 	get:
 		return ScoreManager.total_kills - _killed
 
+@onready var player: Node = get_tree().get_first_node_in_group("player")
+
 signal enemies_left(value: int)
 signal enemy_died(transform: Transform3D)
 signal enemy_spawned(enemy: Node)
@@ -38,6 +40,8 @@ func _ready() -> void:
 	timer.autostart = true
 	add_child(timer)
 	timer.timeout.connect(_on_start_run)
+
+
 
 func _on_start_run() -> void:
 	run_started = true
@@ -154,6 +158,9 @@ func _on_enemy_died(transform: Transform3D) -> void:
 		change_scene_to_intermission()
 
 func change_scene_to_intermission() -> void:
+	#detect if player doesn't exist or is dead
+	if not player or player.dead == true:
+		return
 	debug_label.text = "Changing scene to intermission..."
 	if _changing_scenes:
 		debug_label.text = "Already changing scenes, aborting..."

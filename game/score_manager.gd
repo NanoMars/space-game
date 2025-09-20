@@ -38,8 +38,17 @@ var currentRound: int = 1
 var enemy_types: Array[EnemyType] = []
 
 func _ready() -> void:
+	reset()
+	print("enemy_types: " + str(enemy_types))
+
+
+func reset() -> void:
 	score = 0
+	score_multiplier = 1.0
+	active_modifiers.clear()
+	total_kills = 10
 	currentRound = 1
+	enemy_types.clear()
 	var basic_enemy := EnemyType.new()
 	basic_enemy.scene = preload("res://game/heatseeking_guy.tscn")
 	basic_enemy.weight = 1.0

@@ -17,8 +17,10 @@ extends CharacterBody3D
 @onready var half_width: float  = (half_height * viewport_aspect) if keep_height else (ortho_size * 0.5)
 @onready var clamp_center: Vector2 = Vector2(cam.global_position.x, cam.global_position.z) # Static center for clamping
 
-@export var dead_scene: PackedScene
-@export var shiny_rect: ColorRect
+@export var shiny_thing_scene: PackedScene
+
+var dead: bool = false
+signal died(from: Node)
 
 func _ready() -> void:
 	if health:
@@ -61,8 +63,19 @@ func _physics_process(delta: float) -> void:
 		weapon.firing = shoot_pressed
 
 func _on_died(_from: Node) -> void:
-
+	if dead:
+		return
+	
+	dead = true
+	$MeshInstance3D.visible = false
+	self.move_speed = 0.0
+	self.velocity = Vector3.ZERO
+	var shiny_thing_instance = shiny_thing_scene.instantiate()
+	shiny_thing_instance.global_position = self.global_position
+	get_parent().add_child(shiny_thing_instance)
 	queue_free()
+
+	
 
 func damage(amount: float, from: Node = null) -> void:
 	SoundManager.play_sound(SoundManager.player_hurt)

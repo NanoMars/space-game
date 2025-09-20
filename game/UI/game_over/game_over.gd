@@ -78,6 +78,7 @@ func animate_text() -> void:
 
 
 func _on_try_again_pressed() -> void:
+	ScoreManager.reset()
 	print("Try Again Pressed")
 	blackout_rect.visible = true
 	var tween = get_tree().create_tween()
