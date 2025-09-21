@@ -68,7 +68,7 @@ shader_parameter/y_div = 1.8
 shader_parameter/opacity = 1.0
 shader_parameter/seed = 0.0
 
-[node name="Control" type="Control" node_paths=PackedStringArray("label_to_write", "buttons", "button_container", "blackout_rect")]
+[node name="Control" type="Control" node_paths=PackedStringArray("label_to_write", "buttons", "button_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -80,8 +80,8 @@ texts = Array[ExtResource("2_1nprd")]([SubResource("Resource_xejjg"), SubResourc
 label_to_write = NodePath("Label")
 buttons = [NodePath("HBoxContainer/TryAgain"), NodePath("HBoxContainer/GiveUp")]
 button_container = NodePath("HBoxContainer")
-gameas_scene = "uid://s488jtj1i4ci"
-blackout_rect = NodePath("ColorRect2")
+game_scene = "uid://s488jtj1i4ci"
+main_menu_scene = "uid://cwhe2iy3exa36"
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -147,16 +147,5 @@ focus_neighbor_left = NodePath("../TryAgain")
 theme = ExtResource("6_1nprd")
 text = "give up"
 
-[node name="ColorRect2" type="ColorRect" parent="."]
-visible = false
-modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
-
 [connection signal="pressed" from="HBoxContainer/TryAgain" to="." method="_on_try_again_pressed"]
+[connection signal="pressed" from="HBoxContainer/GiveUp" to="." method="_on_give_up_pressed"]

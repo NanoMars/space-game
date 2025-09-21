@@ -4,16 +4,14 @@ extends Control
 @export var label_to_write: Label
 @export var buttons: Array[Button] = []
 @export var button_container: HBoxContainer
-@export_file("*.tscn") var gameas_scene: String
-@export var blackout_rect: ColorRect
+@export_file("*.tscn") var game_scene: String
+@export_file("*.tscn") var main_menu_scene: String
 var ctx: Dictionary[String, int] = {}
 
 
 func _ready() -> void:
 	ctx["Score"] = ScoreManager.score
 	ctx["Round"] = ScoreManager.currentRound
-	blackout_rect.visible = false
-	blackout_rect.modulate.a = 0.0
 	label_to_write.position = Vector2(138.5, 100)
 	for b in buttons:
 		var sm := b.material as ShaderMaterial
@@ -79,9 +77,9 @@ func animate_text() -> void:
 
 func _on_try_again_pressed() -> void:
 	ScoreManager.reset()
-	print("Try Again Pressed")
-	blackout_rect.visible = true
-	var tween = get_tree().create_tween()
-	tween.tween_property(blackout_rect, "modulate:a", 1.0, 1.0)
-	await tween.finished
-	SceneManager.change_scene(gameas_scene, {"transition": "fade"})
+	SceneManager.change_scene(game_scene, {"transition": "fade"})
+
+
+func _on_give_up_pressed() -> void:
+	ScoreManager.reset()
+	SceneManager.change_scene(main_menu_scene, {"transition": "fade"})
