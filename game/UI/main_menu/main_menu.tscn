@@ -1,32 +1,122 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwhe2iy3exa36"]
+[gd_scene load_steps=11 format=3 uid="uid://cwhe2iy3exa36"]
 
+[ext_resource type="Script" uid="uid://c75u2713r4bxx" path="res://game/UI/main_menu/canvas_layer_tilt.gd" id="1_3fdy6"]
+[ext_resource type="Texture2D" uid="uid://bd8btatwkpg8v" path="res://game/assets/Space Game Logo.png" id="1_eh0q4"]
 [ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://intermission/button_theme.tres" id="1_nriiq"]
+[ext_resource type="Script" uid="uid://bgmplumq53kcj" path="res://game/UI/main_menu/main_menu.gd" id="1_t4kx0"]
+[ext_resource type="Shader" uid="uid://s4clk6hl5ixd" path="res://intermission/buttonshader.gdshader" id="2_o7bun"]
+[ext_resource type="Theme" uid="uid://c6mssg2ngmqpk" path="res://game/game_ui_theme.tres" id="3_8wgyt"]
+[ext_resource type="Script" uid="uid://biqxkgtmda56e" path="res://game/sound/music/music_setter.gd" id="5_8wgyt"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_eh0q4"]
-viewport_path = NodePath("Sprite3D/SubViewport")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o7bun"]
+shader = ExtResource("2_o7bun")
+shader_parameter/normal_offset = 0.8
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 2.87
+shader_parameter/opacity = 1.0
+shader_parameter/seed = 0.0
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t4kx0"]
+shader = ExtResource("2_o7bun")
+shader_parameter/normal_offset = 0.8
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 2.87
+shader_parameter/opacity = 1.0
+shader_parameter/seed = 100.0
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ab5y6"]
+shader = ExtResource("2_o7bun")
+shader_parameter/normal_offset = 0.8
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 2.87
+shader_parameter/opacity = 1.0
+shader_parameter/seed = 100.0
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-texture = SubResource("ViewportTexture_eh0q4")
-
-[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
-transparent_bg = true
-
-[node name="Button" type="Button" parent="Sprite3D/SubViewport"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -22.5
-offset_top = -8.0
-offset_right = 22.5
-offset_bottom = 8.0
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_t4kx0")
+game_scene = "uid://s488jtj1i4ci"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("1_3fdy6")
+max_shift_px = 8.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/VBoxContainer2"]
+material = SubResource("ShaderMaterial_o7bun")
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+texture = ExtResource("1_eh0q4")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("3_8wgyt")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Start" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+material = SubResource("ShaderMaterial_t4kx0")
+layout_mode = 2
 theme = ExtResource("1_nriiq")
-text = "buton"
+theme_override_font_sizes/font_size = 16
+text = "start"
+alignment = 0
+
+[node name="Settings" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+material = SubResource("ShaderMaterial_ab5y6")
+layout_mode = 2
+theme = ExtResource("1_nriiq")
+theme_override_font_sizes/font_size = 16
+text = "settings"
+alignment = 0
+
+[node name="Credits" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+material = SubResource("ShaderMaterial_ab5y6")
+layout_mode = 2
+theme = ExtResource("1_nriiq")
+theme_override_font_sizes/font_size = 16
+text = "credits"
+alignment = 0
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("5_8wgyt")
+lowpass_enabled = true
+playing_music = false
+
+[connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer2/HBoxContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]

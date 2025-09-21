@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="space game"
-run/main_scene="uid://s488jtj1i4ci"
+run/main_scene="uid://cwhe2iy3exa36"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 SoundManager="*res://game/sound/sound_manager.gd"
 ScoreManager="*res://game/score_manager.gd"
 MusicPlayer="*res://game/sound/music/music_player.gd"
+SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 
 [display]
 
@@ -29,7 +30,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg", "res://addons/scene_manager/plugin.cfg")
 
 [global_group]
 

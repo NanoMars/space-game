@@ -47,7 +47,7 @@ func _physics_process(_delta: float) -> void:
 
 		var space_state := get_world_3d().direct_space_state
 		var query := PhysicsRayQueryParameters3D.create(last_position, current_pos)
-		query.exclude = [self]
+		query.exclude = [self]	
 		var result := space_state.intersect_ray(query)
 
 		if result.size() > 0:

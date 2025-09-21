@@ -1,6 +1,8 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://c6mssg2ngmqpk"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://c6mssg2ngmqpk"]
 
 [ext_resource type="FontFile" uid="uid://c7d4yqi0hw8gh" path="res://game/assets/m42.TTF" id="1_rtfxf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rtfxf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtfxf"]
 bg_color = Color(0, 0, 0, 1)
@@ -9,6 +11,7 @@ bg_color = Color(0, 0, 0, 1)
 bg_color = Color(1, 1, 1, 1)
 
 [resource]
+HSeparator/styles/separator = SubResource("StyleBoxEmpty_rtfxf")
 Label/constants/outline_size = 8
 Label/font_sizes/font_size = 8
 Label/fonts/font = ExtResource("1_rtfxf")
