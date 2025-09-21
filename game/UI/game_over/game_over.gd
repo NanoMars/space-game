@@ -84,4 +84,4 @@ func _on_try_again_pressed() -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_property(blackout_rect, "modulate:a", 1.0, 1.0)
 	await tween.finished
-	get_tree().change_scene_to_packed(load(gameas_scene))
+	SceneManager.change_scene(gameas_scene, {"transition": "fade"})

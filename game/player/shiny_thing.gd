@@ -12,4 +12,4 @@ func _ready() -> void:
 		)
 	await tween.finished
 	await get_tree().create_timer(1.0).timeout
-	get_tree().change_scene_to_packed(transition_scene)
+	SceneManager.change_scene(transition_scene, {"transition": "fade"})

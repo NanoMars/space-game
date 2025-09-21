@@ -6,7 +6,6 @@ class_name Spawner
 @export var spawn_points: Array[Marker3D] = []
 @export var auto_prepare_on_ready: bool = true
 @export var intermission: PackedScene
-@export var debug_label: Label
 
 var run_started: bool = false
 var _alive := 0
@@ -155,30 +154,16 @@ func _on_enemy_died(transform: Transform3D) -> void:
 	enemy_died.emit(transform)
 	if _killed >= ScoreManager.total_kills:
 		_wave_prepared = false
-	debug_label.text = "Enemies left: " + str(_enemies_left)
 	if _enemies_left <= 0:
-		debug_label.text = "All enemies defeated! Transitioning..."
 		change_scene_to_intermission()
 
 func change_scene_to_intermission() -> void:
 	#detect if player doesn't exist or is dead
 	if not player or player.dead == true:
 		return
-	debug_label.text = "Changing scene to intermission..."
 	if _changing_scenes:
-		debug_label.text = "Already changing scenes, aborting..."
 		return
-	debug_label.text = "Playing sound and changing scene..."
 	_changing_scenes = true
 	$AudioStreamPlayer.play()
 	await $AudioStreamPlayer.finished
-	debug_label.text = "Changing scene now..."
-	get_tree().change_scene_to_packed(intermission)
-	debug_label.text = "Scene changed."
-	debug_label.text = "Playing sound and changing scene..."
-	_changing_scenes = true
-	$AudioStreamPlayer.play()
-	await $AudioStreamPlayer.finished
-	debug_label.text = "Changing scene now..."
-	get_tree().change_scene_to_packed(intermission)
-	debug_label.text = "Scene changed."
+	SceneManager.change_scene(intermission, {"transition": "fade"})
