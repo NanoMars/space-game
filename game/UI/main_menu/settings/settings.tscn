@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c3kwexeldtnw8"]
+[gd_scene load_steps=16 format=3 uid="uid://c3kwexeldtnw8"]
 
 [ext_resource type="Script" uid="uid://gudmhx5ekqop" path="res://game/UI/main_menu/settings/settings.gd" id="1_usam0"]
 [ext_resource type="Script" uid="uid://dq6iso25snfxr" path="res://game/UI/main_menu/settings/setting.gd" id="2_4oy3o"]
@@ -6,6 +6,8 @@
 [ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://intermission/button_theme.tres" id="3_l1run"]
 [ext_resource type="Script" uid="uid://c75u2713r4bxx" path="res://game/UI/main_menu/canvas_layer_tilt.gd" id="5_hutm5"]
 [ext_resource type="FastNoiseLite" uid="uid://bg65nvcq4fe05" path="res://game/UI/main_menu/canvas_layer_tilt_noise.tres" id="6_q32gk"]
+[ext_resource type="Texture2D" uid="uid://4tbsi64qv225" path="res://game/assets/vertical_gradient.png" id="7_dgqfo"]
+[ext_resource type="Texture2D" uid="uid://bfk5nh8s5nmn2" path="res://game/assets/reversed_vertical_gradient.png" id="8_6phts"]
 
 [sub_resource type="Resource" id="Resource_hutm5"]
 script = ExtResource("2_4oy3o")
@@ -113,6 +115,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_l1run")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/ScrollContainer"]
 layout_mode = 2
@@ -129,3 +132,32 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("3_l1run")
 theme_override_constants/separation = 20
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer2"]
+visibility_layer = 2
+custom_minimum_size = Vector2(0, 69)
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -5.0
+offset_bottom = 95.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("7_dgqfo")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer2"]
+visibility_layer = 2
+custom_minimum_size = Vector2(0, 69)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -87.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("8_6phts")
+expand_mode = 1

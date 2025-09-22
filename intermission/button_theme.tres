@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=29 format=3 uid="uid://3cudps0p8v2w"]
+[gd_resource type="Theme" load_steps=34 format=3 uid="uid://3cudps0p8v2w"]
 
 [ext_resource type="FontFile" uid="uid://c34mefa01f57l" path="res://game/assets/Awexbmp.ttf" id="1_hkhih"]
 [ext_resource type="Texture2D" uid="uid://1ajk10keexwp" path="res://game/assets/circleblur.png" id="2_hkhih"]
@@ -56,10 +56,20 @@ texture = ExtResource("2_hkhih")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jfr78"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hrmb7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_12wda"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5jlak"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gp7dd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5skr5"]
+
 [resource]
 default_font = ExtResource("1_hkhih")
 default_font_size = 16
-BoxContainer/constants/separation = 8
+BoxContainer/constants/separation = 4
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
 Button/colors/font_hover_color = Color(1, 1, 1, 1)
@@ -92,3 +102,8 @@ SpinBox/styles/up_background_disabled = SubResource("StyleBoxEmpty_evkjq")
 SpinBox/styles/up_background_hovered = SubResource("StyleBoxTexture_hrmb7")
 SpinBox/styles/up_background_pressed = SubResource("StyleBoxEmpty_7mf35")
 SpinBox/styles/up_down_buttons_separator = SubResource("StyleBoxEmpty_jfr78")
+VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_hrmb7")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_12wda")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_5jlak")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_gp7dd")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_5skr5")
