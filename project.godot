@@ -21,6 +21,7 @@ SoundManager="*res://game/sound/sound_manager.gd"
 ScoreManager="*res://game/score_manager.gd"
 MusicPlayer="*res://game/sound/music/music_player.gd"
 SceneManager="*res://addons/scene_manager/SceneManager.tscn"
+Settings="*res://game/UI/main_menu/settings/settings_autoload.gd"
 
 [display]
 

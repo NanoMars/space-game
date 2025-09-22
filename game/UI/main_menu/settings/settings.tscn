@@ -1,8 +1,81 @@
-[gd_scene load_steps=2 format=3 uid="uid://c3kwexeldtnw8"]
+[gd_scene load_steps=14 format=3 uid="uid://c3kwexeldtnw8"]
 
 [ext_resource type="Script" uid="uid://gudmhx5ekqop" path="res://game/UI/main_menu/settings/settings.gd" id="1_usam0"]
+[ext_resource type="Script" uid="uid://dq6iso25snfxr" path="res://game/UI/main_menu/settings/setting.gd" id="2_4oy3o"]
+[ext_resource type="Script" uid="uid://biqxkgtmda56e" path="res://game/sound/music/music_setter.gd" id="2_a3koi"]
+[ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://intermission/button_theme.tres" id="3_l1run"]
+[ext_resource type="Script" uid="uid://c75u2713r4bxx" path="res://game/UI/main_menu/canvas_layer_tilt.gd" id="5_hutm5"]
+[ext_resource type="FastNoiseLite" uid="uid://bg65nvcq4fe05" path="res://game/UI/main_menu/canvas_layer_tilt_noise.tres" id="6_q32gk"]
 
-[node name="Control" type="Control"]
+[sub_resource type="Resource" id="Resource_hutm5"]
+script = ExtResource("2_4oy3o")
+name = "bool"
+type = "bool"
+default_value = false
+value = null
+metadata/_custom_type_script = "uid://dq6iso25snfxr"
+
+[sub_resource type="Resource" id="Resource_q32gk"]
+script = ExtResource("2_4oy3o")
+name = "int"
+type = "int"
+default_value = 0.0
+value = 0.0
+use_limits = false
+lower_limit = 0.0
+upper_limit = 1.0
+metadata/_custom_type_script = "uid://dq6iso25snfxr"
+
+[sub_resource type="Resource" id="Resource_l1run"]
+script = ExtResource("2_4oy3o")
+name = "constrained int"
+type = "int"
+default_value = 5
+value = 5
+use_limits = true
+lower_limit = 0.0
+upper_limit = 10.0
+metadata/_custom_type_script = "uid://dq6iso25snfxr"
+
+[sub_resource type="Resource" id="Resource_dgqfo"]
+script = ExtResource("2_4oy3o")
+name = "float"
+type = "float"
+default_value = 0.0
+value = 0.0
+use_limits = false
+lower_limit = 0.0
+upper_limit = 1.0
+metadata/_custom_type_script = "uid://dq6iso25snfxr"
+
+[sub_resource type="Resource" id="Resource_6phts"]
+script = ExtResource("2_4oy3o")
+name = "constrained float"
+type = "float"
+default_value = 0.0
+value = 0.0
+use_limits = true
+lower_limit = 0.0
+upper_limit = 10.0
+metadata/_custom_type_script = "uid://dq6iso25snfxr"
+
+[sub_resource type="Resource" id="Resource_e8eoo"]
+script = ExtResource("2_4oy3o")
+name = "string"
+type = "string"
+default_value = ""
+value = ""
+metadata/_custom_type_script = "uid://dq6iso25snfxr"
+
+[sub_resource type="Resource" id="Resource_lds1k"]
+script = ExtResource("2_4oy3o")
+name = "color"
+type = "color"
+default_value = Color(0, 1, 1, 1)
+value = Color(0, 1, 1, 1)
+metadata/_custom_type_script = "uid://dq6iso25snfxr"
+
+[node name="Control" type="Control" node_paths=PackedStringArray("container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,3 +83,48 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_usam0")
+settings = Array[ExtResource("2_4oy3o")]([SubResource("Resource_hutm5"), SubResource("Resource_q32gk"), SubResource("Resource_l1run"), SubResource("Resource_dgqfo"), SubResource("Resource_6phts"), SubResource("Resource_e8eoo"), SubResource("Resource_lds1k")])
+custom_theme = ExtResource("3_l1run")
+container = NodePath("CanvasLayer/ScrollContainer/MarginContainer/VBoxContainer")
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("2_a3koi")
+lowpass_enabled = true
+playing_music = false
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("5_hutm5")
+max_shift_px = 8.0
+noise = ExtResource("6_q32gk")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer"]
+clip_contents = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 96
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 96
+theme_override_constants/margin_bottom = 64
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20

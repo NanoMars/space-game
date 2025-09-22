@@ -1,56 +1,44 @@
 extends Node
 
-signal changed(key: StringName, value: Variant)
+var _settings: Array[Setting] = []:
+	set(value):
+		_settings = value
+		# Initialize values from defaults if missing.
+		for s in _settings:
+			if s.value == null:
+				s.value = s.default_value
+		emit_signal("settings_changed")
+		print("Settings autoload updated settings: %s" % _settings)
+	get:
+		return _settings
 
-const FILE_PATH: String = "user://settings.cfg"
+signal settings_changed
 
-var _values: Dictionary = {}
-var _schema: Dictionary = {}
-
-		
-		
-
-func _ready() -> void:
-	_load_file()
-	
-
-func get_value(key: StringName, default: Variant = null) -> Variant:
-	return _values.get(key, default)
-
-func _set_value(key: StringName, value: Variant) -> void:
-	if _schema.has(key) or _values.has(key):
-		_values[key] = value
-		emit_signal("changed", key, value)
-		_save_file()
-	else:
-		push_error("Unknown setting key: %s" % key)
-
-func _get(property: StringName) -> Variant:
-	if property in _values:
-		return _values[property]
+func _find_setting(property: StringName) -> Setting:
+	for s in _settings:
+		if s.name == String(property):
+			return s
 	return null
 
+func has(property: StringName) -> bool:
+	var s := _find_setting(property)
+	return s != null and s.value != null
+
+func _get(property: StringName) -> Variant:
+	var s := _find_setting(property)
+	return s.value if s != null else null
+
 func _set(property: StringName, value: Variant) -> bool:
-	if property in _schema:
-		_values[property] = value
-		emit_signal("changed", property, value)
-		_save_file()
-		return true
-	return false
+	var s := _find_setting(property)
+	if s == null:
+		push_error("Tried to set unknown setting: %s" % property)
+		return false
+	s.value = value
+	emit_signal("settings_changed")
+	return true
 
-func _load_file() -> void:
-	var cfg: ConfigFile = ConfigFile.new()
-	var err = cfg.load(FILE_PATH)
-	if err != OK:
-		return
-	if cfg.has_section("settings"):
-		for k in cfg.get_section_keys("settings"):
-			_values[k] = cfg.get_value("settings", k)
-
-func _save_file() -> void:
-	var cfg: ConfigFile = ConfigFile.new()
-	cfg.set_value("settings", "___marker", true)
-	for k in _values.keys():
-		cfg.set_value("settings", k, _values[k])
-	cfg.erase_section_key("settings", "___marker")
-	cfg.save(FILE_PATH)
+func _process(_delta: float) -> void:
+	var parts: Array = []
+	for s in _settings:
+		parts.append("%s=%s" % [s.name, str(s.value)])
+	print("Settings: { %s }" % ", ".join(parts))
