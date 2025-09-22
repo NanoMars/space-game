@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://biqxkgtmda56e" path="res://game/sound/music/music_setter.gd" id="5_8wgyt"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_t4kx0"]
+frequency = 0.3835
 fractal_octaves = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o7bun"]

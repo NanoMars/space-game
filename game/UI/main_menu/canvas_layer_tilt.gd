@@ -37,12 +37,16 @@ func _process(delta: float) -> void:
 		n.x = noise.get_noise_2d(time, 0.0)
 		n.y = noise.get_noise_2d(0.0, time)
 	else:
-		n = Vector2(
+		var part_1: Vector2 = Vector2(
 			((mouse.x / max(size.x, 1.0)) * 2.0) - 1.0,
 			((mouse.y / max(size.y, 1.0)) * 2.0) - 1.0
 		)
+		var part_2 = Vector2(
+			noise.get_noise_2d(time, 0.0),
+			noise.get_noise_2d(0.0, time)
+		)
+		n = (part_1 + part_2) * 0.5
 	n = n.clamp(Vector2(-1, -1), Vector2(1, 1))
-	print("n: " + str(n), "mode: " + str(controller_connected))
 	
 
 	_target_rot = Vector2(-n.y, n.x) * deg_to_rad(max_rot_deg) # pitch then yaw
@@ -57,7 +61,7 @@ func _process(delta: float) -> void:
 	transform = xf
 
 
-func _on_joy_connection_changed(device: int, connected: bool) -> void:
+func _on_joy_connection_changed(_device: int, _connected: bool) -> void:
 	controller_connected = Input.get_connected_joypads().size() > 0
 	controller_connection_changed.emit(controller_connected)
 
