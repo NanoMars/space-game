@@ -1,42 +1,68 @@
-# Node: CanvasLayer or your top Control
 extends CanvasLayer
 
-@export var max_rot_deg := 6.0      # how much it can tilt left right and up down
-@export var max_shift_px := 24.0    # how much it can nudge
-@export var ease_speed := 10.0      # higher is snappier
-@export var use_z_rotation := true  # add a small z roll for extra depth
+@export var max_rot_deg := 6.0
+@export var max_shift_px := 24.0
+@export var ease_speed := 10.0
+@export var use_z_rotation := true
+@export var noise: FastNoiseLite
 
-var _target_rot := Vector2.ZERO     # x = pitch up down, y = yaw left right
+
+
+signal controller_connection_changed(connected: bool)
+var controller_connected := false
+
+var _target_rot := Vector2.ZERO
 var _current_rot := Vector2.ZERO
 var _target_pos := Vector2.ZERO
 var _current_pos := Vector2.ZERO
+var time: float = 0.0
 
-func _ready() -> void:
-	# CanvasLayer: children are already in canvas space
-	pass
+
+
+func _ready() -> void:	
+	controller_connected = Input.get_connected_joypads().size() > 0
+	Input.joy_connection_changed.connect(_on_joy_connection_changed)
+
+	
 
 func _process(delta: float) -> void:
+	
+	time += delta
 	var r := get_viewport().get_visible_rect()
 	var size := Vector2(r.size)
 	var mouse := get_viewport().get_mouse_position()
 
-	# normalize mouse to [-1, 1] with 0,0 at center
-	var n := Vector2(
-		((mouse.x / max(size.x, 1.0)) * 2.0) - 1.0,
-		((mouse.y / max(size.y, 1.0)) * 2.0) - 1.0
-	)
+	var n: Vector2
+	if controller_connected:
+		n.x = noise.get_noise_2d(time, 0.0)
+		n.y = noise.get_noise_2d(0.0, time)
+	else:
+		n = Vector2(
+			((mouse.x / max(size.x, 1.0)) * 2.0) - 1.0,
+			((mouse.y / max(size.y, 1.0)) * 2.0) - 1.0
+		)
 	n = n.clamp(Vector2(-1, -1), Vector2(1, 1))
+	print("n: " + str(n), "mode: " + str(controller_connected))
+	
 
-	# set targets
 	_target_rot = Vector2(-n.y, n.x) * deg_to_rad(max_rot_deg) # pitch then yaw
 	_target_pos = Vector2(n.x, n.y) * max_shift_px
 
-	# smooth
 	var t: float = clamp(ease_speed * delta, 0.0, 1.0)
 	_current_rot = _current_rot.lerp(_target_rot, t)
 	_current_pos = _current_pos.lerp(_target_pos, t)
 
-	# apply transform (CanvasLayer transform)
 	var rot_z = (_current_rot.x * 0.35 + _current_rot.y * 0.35) if use_z_rotation else 0.0
 	var xf := Transform2D(rot_z, _current_pos)
 	transform = xf
+
+
+func _on_joy_connection_changed(device: int, connected: bool) -> void:
+	controller_connected = Input.get_connected_joypads().size() > 0
+	controller_connection_changed.emit(controller_connected)
+
+func has_controller_connected() -> bool:
+	return controller_connected
+
+func get_connected_controller_count() -> int:
+	return Input.get_connected_joypads().size()
