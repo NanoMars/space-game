@@ -8,7 +8,6 @@ var _settings: Array[Setting] = []:
 			if s.value == null:
 				s.value = s.default_value
 		emit_signal("settings_changed")
-		print("Settings autoload updated settings: %s" % _settings)
 	get:
 		return _settings
 
@@ -36,9 +35,4 @@ func _set(property: StringName, value: Variant) -> bool:
 	s.value = value
 	emit_signal("settings_changed")
 	return true
-
-func _process(_delta: float) -> void:
-	var parts: Array = []
-	for s in _settings:
-		parts.append("%s=%s" % [s.name, str(s.value)])
-	print("Settings: { %s }" % ", ".join(parts))
+	
