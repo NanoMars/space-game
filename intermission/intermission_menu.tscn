@@ -16,12 +16,12 @@
 [ext_resource type="PackedScene" uid="uid://bx56mhuthy1oe" path="res://game/enemies/laserthing/laserthing.tscn" id="11_diied"]
 
 [sub_resource type="Gradient" id="Gradient_0i6aa"]
-offsets = PackedFloat32Array(0.00797448, 0.41853, 0.571885, 0.728435, 1)
+offsets = PackedFloat32Array(0.00551724, 0.41853, 0.571885, 0.728435, 1)
 colors = PackedColorArray(0.75, 0.4625, 0, 1, 0.77, 0.128333, 0, 1, 0.711037, 0, 0.245001, 1, 0.549961, 0.225413, 1.92523e-07, 1, 0.52, 0, 0, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_x37ni"]
 frequency = 0.0332
-offset = Vector3(0, 0, 964424)
+offset = Vector3(0, 0, 983256)
 fractal_type = 3
 fractal_lacunarity = 2.29
 fractal_gain = 0.66

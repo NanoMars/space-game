@@ -32,7 +32,7 @@ shader_parameter/y_div = 2.87
 shader_parameter/opacity = 1.0
 shader_parameter/seed = 100.0
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" node_paths=PackedStringArray("default_focus")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,6 +41,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_t4kx0")
 game_scene = "uid://s488jtj1i4ci"
+default_focus = NodePath("CanvasLayer/MarginContainer/VBoxContainer2/HBoxContainer/VBoxContainer/Start")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -93,6 +94,7 @@ theme_override_constants/separation = 10
 [node name="Start" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
 material = SubResource("ShaderMaterial_t4kx0")
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../Settings")
 theme = ExtResource("1_nriiq")
 theme_override_font_sizes/font_size = 16
 text = "start"
@@ -101,6 +103,8 @@ alignment = 0
 [node name="Settings" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
 material = SubResource("ShaderMaterial_ab5y6")
 layout_mode = 2
+focus_neighbor_top = NodePath("../Start")
+focus_neighbor_bottom = NodePath("../Credits")
 theme = ExtResource("1_nriiq")
 theme_override_font_sizes/font_size = 16
 text = "settings"
@@ -109,6 +113,7 @@ alignment = 0
 [node name="Credits" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
 material = SubResource("ShaderMaterial_ab5y6")
 layout_mode = 2
+focus_neighbor_top = NodePath("../Settings")
 theme = ExtResource("1_nriiq")
 theme_override_font_sizes/font_size = 16
 text = "credits"

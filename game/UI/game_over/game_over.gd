@@ -18,7 +18,14 @@ func _ready() -> void:
 		if sm:
 			sm.set_shader_parameter("opacity", 0.0)
 	await animate_text()
+	await animate_buttons()
+	print("Finished animating text and buttons")
+	buttons[0].grab_focus()
 
+
+
+	
+func animate_buttons() -> void:
 	var fade_in_tween = get_tree().create_tween().set_parallel(true)
 
 	for b in buttons:
@@ -35,11 +42,9 @@ func _ready() -> void:
 
 	var container_tween = get_tree().create_tween()
 	container_tween.tween_property(button_container, "position", Vector2(0, -10), 1.0).as_relative()
-
-
-	
-		
-	
+	await fade_in_tween.finished
+	await label_tween.finished
+	await container_tween.finished
 
 func animate_text() -> void:
 	var timer: Timer = Timer.new()

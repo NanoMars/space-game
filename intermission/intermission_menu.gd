@@ -20,6 +20,8 @@ func _on_continue_pressed() -> void:
 		var t_in := create_tween()
 		t_in.tween_property(mod_list.material, "shader_parameter/opacity", 1.0, tween_time)
 
+	mod_list.get_children()[0].grab_focus()
+
 func _ready() -> void:
 	MusicPlayer.lowpass_enabled = true
 	MusicPlayer.playing_music = true
@@ -38,6 +40,8 @@ func _ready() -> void:
 			decision_list.material.set_shader_parameter("opacity", 0.0)
 			var t := create_tween()
 			t.tween_property(decision_list.material, "shader_parameter/opacity", 1.0, tween_time)
+
+	decision_list.get_children()[0].grab_focus()
 			
 
 func _on_mod_button_pressed(button: Button) -> void:
