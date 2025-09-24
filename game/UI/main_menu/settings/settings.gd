@@ -10,16 +10,13 @@ extends Control
 @export var container: Container
 
 func _ready() -> void:
-	for setting in settings:
-		# Ensure the setting has a stored value.
-		if setting.value == null:
-			setting.value = setting.default_value
 
+	for setting in settings:
 		match setting.type:
 			"bool":
 				var check_button: CheckButton = CheckButton.new()
 				check_button.text = setting.name
-				check_button.set_pressed(bool(setting.value))
+				check_button.set_pressed(setting.value == true)
 				check_button.toggled.connect(func(pressed: bool, setting_name=setting.name):
 					Settings._set(setting_name, pressed)
 				)
@@ -78,11 +75,11 @@ func _ready() -> void:
 					slider_f.theme = custom_theme
 					slider_f.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 					slider_f.drag_ended.connect(func(_value_changed: bool, setting_name=setting.name, slider_ref=slider_f):
-						Settings._set(setting_name, float(slider_ref.value))
+						Settings._set(setting_name, slider_ref.value) 
 					)
 					vbox_f.add_child(label_f)
 					vbox_f.add_child(slider_f)
-					slider_f.value = float(setting.value)
+					slider_f.value = setting.value
 					container.add_child(vbox_f)
 				else:
 					var spin_box_f: SpinBox = SpinBox.new()
@@ -96,9 +93,9 @@ func _ready() -> void:
 					var vbox2_f: VBoxContainer = VBoxContainer.new()
 					vbox2_f.add_child(label2_f)
 					vbox2_f.add_child(spin_box_f)
-					spin_box_f.value = float(setting.value)
+					spin_box_f.value = setting.value
 					spin_box_f.value_changed.connect(func(value: float, setting_name=setting.name):
-						Settings._set(setting_name, float(value))
+						Settings._set(setting_name, value)
 					)
 					container.add_child(vbox2_f)
 			"string":
@@ -137,4 +134,3 @@ func _ready() -> void:
 			_:
 				push_error("Unknown setting type: %s" % setting.type)
 				Settings._set(setting.name, setting.default_value)
-			

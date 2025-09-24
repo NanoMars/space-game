@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c3kwexeldtnw8"]
+[gd_scene load_steps=12 format=3 uid="uid://c3kwexeldtnw8"]
 
 [ext_resource type="Script" uid="uid://gudmhx5ekqop" path="res://game/UI/main_menu/settings/settings.gd" id="1_usam0"]
 [ext_resource type="Script" uid="uid://dq6iso25snfxr" path="res://game/UI/main_menu/settings/setting.gd" id="2_4oy3o"]
@@ -9,72 +9,37 @@
 [ext_resource type="Texture2D" uid="uid://4tbsi64qv225" path="res://game/assets/vertical_gradient.png" id="7_dgqfo"]
 [ext_resource type="Texture2D" uid="uid://bfk5nh8s5nmn2" path="res://game/assets/reversed_vertical_gradient.png" id="8_6phts"]
 
-[sub_resource type="Resource" id="Resource_hutm5"]
-script = ExtResource("2_4oy3o")
-name = "bool"
-type = "bool"
-default_value = false
-value = null
-metadata/_custom_type_script = "uid://dq6iso25snfxr"
-
-[sub_resource type="Resource" id="Resource_q32gk"]
-script = ExtResource("2_4oy3o")
-name = "int"
-type = "int"
-default_value = 0.0
-value = 0.0
-use_limits = false
-lower_limit = 0.0
-upper_limit = 1.0
-metadata/_custom_type_script = "uid://dq6iso25snfxr"
-
-[sub_resource type="Resource" id="Resource_l1run"]
-script = ExtResource("2_4oy3o")
-name = "constrained int"
-type = "int"
-default_value = 5
-value = 5
-use_limits = true
-lower_limit = 0.0
-upper_limit = 10.0
-metadata/_custom_type_script = "uid://dq6iso25snfxr"
-
-[sub_resource type="Resource" id="Resource_dgqfo"]
-script = ExtResource("2_4oy3o")
-name = "float"
-type = "float"
-default_value = 0.0
-value = 0.0
-use_limits = false
-lower_limit = 0.0
-upper_limit = 1.0
-metadata/_custom_type_script = "uid://dq6iso25snfxr"
-
 [sub_resource type="Resource" id="Resource_6phts"]
 script = ExtResource("2_4oy3o")
-name = "constrained float"
+name = "master volume"
 type = "float"
-default_value = 0.0
-value = 0.0
+default_value = 75.0
+value = 75.0
 use_limits = true
 lower_limit = 0.0
-upper_limit = 10.0
+upper_limit = 100.0
 metadata/_custom_type_script = "uid://dq6iso25snfxr"
 
 [sub_resource type="Resource" id="Resource_e8eoo"]
 script = ExtResource("2_4oy3o")
-name = "string"
-type = "string"
-default_value = ""
-value = ""
+name = "sfx volume"
+type = "float"
+default_value = 75.0
+value = 75.0
+use_limits = true
+lower_limit = 0.0
+upper_limit = 100.0
 metadata/_custom_type_script = "uid://dq6iso25snfxr"
 
 [sub_resource type="Resource" id="Resource_lds1k"]
 script = ExtResource("2_4oy3o")
-name = "color"
-type = "color"
-default_value = Color(0, 1, 1, 1)
-value = Color(0, 1, 1, 1)
+name = "music volume"
+type = "float"
+default_value = 50.0
+value = 50.0
+use_limits = true
+lower_limit = 0.0
+upper_limit = 100.0
 metadata/_custom_type_script = "uid://dq6iso25snfxr"
 
 [node name="Control" type="Control" node_paths=PackedStringArray("container")]
@@ -85,7 +50,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_usam0")
-settings = Array[ExtResource("2_4oy3o")]([SubResource("Resource_hutm5"), SubResource("Resource_q32gk"), SubResource("Resource_l1run"), SubResource("Resource_dgqfo"), SubResource("Resource_6phts"), SubResource("Resource_e8eoo"), SubResource("Resource_lds1k")])
+settings = Array[ExtResource("2_4oy3o")]([SubResource("Resource_6phts"), SubResource("Resource_e8eoo"), SubResource("Resource_lds1k")])
 custom_theme = ExtResource("3_l1run")
 container = NodePath("CanvasLayer/ScrollContainer/MarginContainer/VBoxContainer")
 
@@ -134,6 +99,7 @@ theme = ExtResource("3_l1run")
 theme_override_constants/separation = 20
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer2"]
 visibility_layer = 2

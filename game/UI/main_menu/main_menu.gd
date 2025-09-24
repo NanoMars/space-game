@@ -13,4 +13,5 @@ func _ready() -> void:
 		default_focus.grab_focus()
 
 func _on_settings_pressed() -> void:
-	SceneManager.change_scene(settings_scene, {"transition": "fade"})
+	pass
+	#SceneManager.change_scene(settings_scene, {"transition": "fade"})

@@ -2,7 +2,7 @@
 extends Resource
 class_name Setting
 
-
+var game_started: bool = false
 @export var name: String
 @export_enum("bool", "int", "float", "string", "color") var type: String:
 	get:
@@ -12,11 +12,27 @@ class_name Setting
 		_set_thing()
 
 var _type: String = "bool"
-# Stop exporting as raw Variant; we will expose it dynamically with a concrete type.
-var default_value: Variant = null
-var value: Variant = null
+# Replace plain vars with backed properties so "value" follows "default_value" until overridden.
+var _default_value: Variant = null
+var default_value: Variant:
+	get: return _default_value
+	set(v):
+		_default_value = v
+		_clamp_default_if_needed()
+		if _value_is_default:
+			_value = _default_value
 
-# Optional limits (only used for int/float via dynamic property list).
+var _value: Variant = null
+	
+var _value_is_default: bool = true
+var value: Variant:
+	get: 
+		return _value
+	set(v):
+		_value = v
+		_clamp_value_if_needed()
+		_value_is_default = (_value == _default_value)
+
 var _use_limits: bool = false
 var use_limits: bool:
 	get: return _use_limits
@@ -27,6 +43,7 @@ var use_limits: bool:
 		_clamp_value_if_needed()
 
 var _lower_limit: float = 0.0
+	
 var lower_limit: float:
 	get: return _lower_limit
 	set(value):
@@ -38,7 +55,8 @@ var lower_limit: float:
 
 var _upper_limit: float = 1.0
 var upper_limit: float:
-	get: return _upper_limit
+	get: 
+		return _upper_limit
 	set(value):
 		_upper_limit = value
 		if _use_limits and _upper_limit < _lower_limit:
@@ -46,7 +64,6 @@ var upper_limit: float:
 		_clamp_default_if_needed()
 		_clamp_value_if_needed()
 
-# Expose default_value with the correct typed editor in the Inspector.
 func _get_property_list() -> Array:
 	var t := TYPE_NIL
 	match _type:
@@ -65,7 +82,6 @@ func _get_property_list() -> Array:
 
 	var list: Array = []
 
-	# Default value descriptor (with optional range hint for numeric types).
 	var default_desc := {
 		"name": "default_value",
 		"type": t,
@@ -77,26 +93,16 @@ func _get_property_list() -> Array:
 			if _type == "int":
 				default_desc["hint_string"] = "%d,%d,1" % [int(_lower_limit), int(_upper_limit)]
 			else:
-				# Step left out intentionally; users can still type arbitrary precision.
 				default_desc["hint_string"] = "%s,%s" % [str(_lower_limit), str(_upper_limit)]
 	list.append(default_desc)
 
-	# Current value descriptor (mirrors typing and range hints).
 	var value_desc := {
 		"name": "value",
 		"type": t,
-		"usage": PROPERTY_USAGE_DEFAULT,
+		"usage": PROPERTY_USAGE_STORAGE | PROPERTY_USAGE_NO_EDITOR,
 	}
-	if _type == "int" or _type == "float":
-		if _use_limits:
-			value_desc["hint"] = PROPERTY_HINT_RANGE
-			if _type == "int":
-				value_desc["hint_string"] = "%d,%d,1" % [int(_lower_limit), int(_upper_limit)]
-			else:
-				value_desc["hint_string"] = "%s,%s" % [str(_lower_limit), str(_upper_limit)]
 	list.append(value_desc)
 
-	# Limits controls only for numeric types.
 	if _type == "int" or _type == "float":
 		list.append({
 			"name": "use_limits",
@@ -118,49 +124,70 @@ func _get_property_list() -> Array:
 
 	return list
 
-func _set_thing() -> void:
-	print("Setting type changed to ", _type)
-	if default_value == null:
-		match _type:
-			"bool":
-				default_value = false
-			"int":
-				default_value = 0
-			"float":
-				default_value = 0.0
-			"string":
-				default_value = ""
-			"color":
-				default_value = Color.AQUA
-			_:
-				push_error("Unknown setting type: %s" % _type)
-	# Ensure value exists and matches the new type default when missing.
-	if value == null:
+# New: helper to determine the default for the current type.
+func _default_for_type() -> Variant:
+	match _type:
+		"bool":
+			return false
+		"int":
+			return 0
+		"float":
+			return 0.0
+		"string":
+			return ""
+		"color":
+			return Color.AQUA
+		_:
+			return null
+
+# Initialize defaults when the Resource is constructed (works in editor and at runtime).
+func _init():
+	if _default_value == null and _value == null:
+		default_value = _default_for_type()
 		value = default_value
-	# Refresh the inspector so editors match the new type.
+	_clamp_default_if_needed()
+	_clamp_value_if_needed()
+	notify_property_list_changed()
+
+# Do not mutate default_value/value here; only refresh the inspector and clamp.
+func _set_thing() -> void:
 	notify_property_list_changed()
 	_clamp_default_if_needed()
 	_clamp_value_if_needed()
-	print("Default value set to ", default_value)
+	if _value_is_default:
+		_value = _default_value
+func _ready() -> void:
+	game_started = true
 
 func _clamp_default_if_needed() -> void:
-	if not _use_limits or default_value == null:
+	if not _use_limits or _default_value == null or not game_started:
 		return
+	
+	var clamped_default: Variant
 	match _type:
 		"int":
-			default_value = clamp(int(default_value), int(_lower_limit), int(_upper_limit))
+			clamped_default = clamp(int(_default_value), int(_lower_limit), int(_upper_limit))
 		"float":
-			default_value = clamp(float(default_value), float(_lower_limit), float(_upper_limit))
+			clamped_default = clamp(float(_default_value), float(_lower_limit), float(_upper_limit))
 		_:
-			pass
+			return
+	if clamped_default != _default_value:
+		_default_value = clamped_default
 
 func _clamp_value_if_needed() -> void:
-	if not _use_limits or value == null:
+	if not _use_limits or _value == null or not game_started:
 		return
+	
+	var clamped_value: Variant
 	match _type:
 		"int":
-			value = clamp(int(value), int(_lower_limit), int(_upper_limit))
+			clamped_value = clamp(int(_value), int(_lower_limit), int(_upper_limit))
 		"float":
-			value = clamp(float(value), float(_lower_limit), float(_upper_limit))
+			clamped_value = clamp(float(_value), float(_lower_limit), float(_upper_limit))
 		_:
-			pass
+			return
+	
+	# Only update if the value actually changed
+	if clamped_value != _value:
+		
+		_value = clamped_value

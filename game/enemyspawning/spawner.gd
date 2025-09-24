@@ -6,6 +6,7 @@ class_name Spawner
 @export var spawn_points: Array[Marker3D] = []
 @export var auto_prepare_on_ready: bool = true
 @export var intermission: PackedScene
+@export var spooky_riser: AudioStream
 
 var run_started: bool = false
 var _alive := 0
@@ -164,6 +165,4 @@ func change_scene_to_intermission() -> void:
 	if _changing_scenes:
 		return
 	_changing_scenes = true
-	$AudioStreamPlayer.play()
-	await $AudioStreamPlayer.finished
 	SceneManager.change_scene(intermission, {"transition": "fade"})

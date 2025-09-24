@@ -1,16 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://tt1rrpyhclj1"]
+[gd_scene load_steps=3 format=3 uid="uid://tt1rrpyhclj1"]
 
 [ext_resource type="Script" uid="uid://c8wg56r7a643h" path="res://game/enemyspawning/spawner.gd" id="1_21c48"]
 [ext_resource type="PackedScene" uid="uid://c5151n8v6645w" path="res://intermission/intermission_menu.tscn" id="2_nanre"]
-[ext_resource type="AudioStream" uid="uid://cpa8v34wbfsx3" path="res://game/sound/spooky_riser.wav" id="3_b5m15"]
 
-[node name="Spawner" type="Node" node_paths=PackedStringArray("spawn_points", "debug_label") groups=["spawner"]]
+[node name="Spawner" type="Node" node_paths=PackedStringArray("spawn_points") groups=["spawner"]]
 script = ExtResource("1_21c48")
 min_spawn_delay = 0.4
 max_spawn_delay = 0.8
 spawn_points = [NodePath("Marker3D"), NodePath("Marker3D2"), NodePath("Marker3D3"), NodePath("Marker3D4"), NodePath("Marker3D5"), NodePath("Marker3D6")]
 intermission = ExtResource("2_nanre")
-debug_label = NodePath("CanvasLayer/Label")
 
 [node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.90711, 0, 7.28049)
@@ -29,9 +27,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.42361, 0, 7.28049)
 
 [node name="Marker3D6" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.54163, 0, 7.28049)
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_b5m15")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
