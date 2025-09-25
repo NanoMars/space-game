@@ -14,3 +14,7 @@ func _ready() -> void:
 
 func _on_settings_pressed() -> void:
 	SceneManager.change_scene(settings_scene, {"transition": "fade"})
+
+
+func _on_credits_pressed() -> void:
+	SceneManager.change_scene(credits_scene, {"transition": "fade"})

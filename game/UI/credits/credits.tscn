@@ -1,0 +1,93 @@
+[gd_scene load_steps=8 format=3 uid="uid://dil8fypplplvu"]
+
+[ext_resource type="Shader" uid="uid://s4clk6hl5ixd" path="res://intermission/buttonshader.gdshader" id="1_dr0lb"]
+[ext_resource type="Script" uid="uid://cvl0h754ejqp5" path="res://game/UI/credits/credits.gd" id="1_p08u7"]
+[ext_resource type="Script" uid="uid://c75u2713r4bxx" path="res://game/UI/main_menu/canvas_layer_tilt.gd" id="1_tnr47"]
+[ext_resource type="FastNoiseLite" uid="uid://bg65nvcq4fe05" path="res://game/UI/main_menu/canvas_layer_tilt_noise.tres" id="2_p08u7"]
+[ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://intermission/button_theme.tres" id="2_ptx8f"]
+[ext_resource type="Texture2D" uid="uid://dnpyiyywqt0tr" path="res://game/assets/cat thing.png" id="3_tnr47"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p08u7"]
+shader = ExtResource("1_dr0lb")
+shader_parameter/normal_offset = 0.7
+shader_parameter/time_influence = 1.5
+shader_parameter/y_div = 2.87
+shader_parameter/opacity = 1.0
+shader_parameter/seed = 0.0
+
+[node name="Control" type="Control" node_paths=PackedStringArray("return_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_p08u7")
+main_menu_scene = "uid://cwhe2iy3exa36"
+return_button = NodePath("Return")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("1_tnr47")
+noise = ExtResource("2_p08u7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+material = SubResource("ShaderMaterial_p08u7")
+layout_mode = 2
+theme = ExtResource("2_ptx8f")
+text = "game by me"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+texture = ExtResource("3_tnr47")
+expand_mode = 1
+
+[node name="cisco" type="Label" parent="CanvasLayer/VBoxContainer"]
+material = SubResource("ShaderMaterial_p08u7")
+layout_mode = 2
+mouse_filter = 0
+theme = ExtResource("2_ptx8f")
+text = "music by cisco"
+
+[node name="Return" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[connection signal="mouse_entered" from="CanvasLayer/VBoxContainer/cisco" to="." method="_on_cisco_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/VBoxContainer/cisco" to="." method="_on_cisco_mouse_exited"]
