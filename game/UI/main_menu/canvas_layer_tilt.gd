@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 @export var max_rot_deg := 6.0
-@export var max_shift_px := 24.0
+@export var max_shift_px := 8.0
 @export var ease_speed := 10.0
 @export var use_z_rotation := true
 @export var noise: FastNoiseLite

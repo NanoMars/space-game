@@ -14,11 +14,23 @@ var bomb_beep: DefinedSound = DefinedSound.new()
 
 
 func _ready() -> void:
+	assign_sounds()
+
+	Settings.settings_changed.connect(_on_settings_changed)
+	_on_settings_changed()
+
+func _on_settings_changed() -> void:
+	
+	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Master"), Settings._get("master volume"))
+	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Music"), Settings._get("music volume"))
+	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("SFX"), Settings._get("sfx volume"))
+
+func assign_sounds() -> void:
 	damage_sound.sound = preload("res://game/sound/damage1.ogg")
 	damage_sound.volume = 0
 
 	damage_sound_2.sound = preload("res://game/sound/damage2.wav")
-	damage_sound_2.volume = 0
+	damage_sound_2.volume = -7.5
 
 	player_gunshot.sound = preload("res://game/sound/Gunshot.wav")
 	player_gunshot.volume = -20
@@ -39,10 +51,11 @@ func _ready() -> void:
 	bomb_beep.volume = 0
 
 
-func play_sound(sound: DefinedSound) -> void:
+func play_sound(sound: DefinedSound, bus: String = "SFX") -> void:
 	var audio_player := AudioStreamPlayer.new()
 	audio_player.stream = sound.sound
 	audio_player.volume_db = sound.volume
+	audio_player.set_bus(bus)
 	add_child(audio_player)
 	audio_player.play()
 	audio_player.finished.connect(_sound_finished_playing.bind(audio_player))

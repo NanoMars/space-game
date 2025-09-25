@@ -8,9 +8,16 @@ extends Control
 
 @export var custom_theme: Theme
 @export var container: Container
+@export_file("*.tscn") var main_menu_scene: String
+@export var return_button: Button
 
 func _ready() -> void:
-
+	return_button.pressed.connect(_on_return_button_pressed)
+	return_button.visible = Settings.settings_visited
+	if Settings.settings_visited == false:
+		Settings.settings_visited = true
+		SceneManager.change_scene(main_menu_scene, {"transition": "fade", "wait_time": 0.0})
+		return
 	for setting in settings:
 		match setting.type:
 			"bool":
@@ -134,3 +141,8 @@ func _ready() -> void:
 			_:
 				push_error("Unknown setting type: %s" % setting.type)
 				Settings._set(setting.name, setting.default_value)
+	
+
+
+func _on_return_button_pressed() -> void:
+	SceneManager.change_scene(main_menu_scene, {"transition": "fade"})

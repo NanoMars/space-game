@@ -1,10 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://srqfibyqkhj6"]
+[gd_scene load_steps=17 format=3 uid="uid://srqfibyqkhj6"]
 
 [ext_resource type="FontFile" uid="uid://c34mefa01f57l" path="res://game/assets/Awexbmp.ttf" id="1_5g7am"]
 [ext_resource type="Script" uid="uid://dmnqr71057txj" path="res://game/UI/game_over/game_over.gd" id="1_iuany"]
 [ext_resource type="Shader" uid="uid://s4clk6hl5ixd" path="res://intermission/buttonshader.gdshader" id="1_uf6er"]
 [ext_resource type="Script" uid="uid://dasomuhj8owef" path="res://game/UI/game_over/text_defenition.gd" id="2_1nprd"]
 [ext_resource type="Script" uid="uid://biqxkgtmda56e" path="res://game/sound/music/music_setter.gd" id="3_uf6er"]
+[ext_resource type="Script" uid="uid://c75u2713r4bxx" path="res://game/UI/main_menu/canvas_layer_tilt.gd" id="4_pkkeu"]
+[ext_resource type="FastNoiseLite" uid="uid://bg65nvcq4fe05" path="res://game/UI/main_menu/canvas_layer_tilt_noise.tres" id="5_smeeh"]
 [ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://intermission/button_theme.tres" id="6_1nprd"]
 
 [sub_resource type="Resource" id="Resource_xejjg"]
@@ -77,9 +79,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_iuany")
 texts = Array[ExtResource("2_1nprd")]([SubResource("Resource_xejjg"), SubResource("Resource_pkkeu"), SubResource("Resource_smeeh"), SubResource("Resource_x2y4k"), SubResource("Resource_i8xu8")])
-label_to_write = NodePath("Label")
-buttons = [NodePath("HBoxContainer/TryAgain"), NodePath("HBoxContainer/GiveUp")]
-button_container = NodePath("HBoxContainer")
+label_to_write = NodePath("CanvasLayer/Label")
+buttons = [NodePath("CanvasLayer/HBoxContainer/TryAgain"), NodePath("CanvasLayer/HBoxContainer/GiveUp")]
+button_container = NodePath("CanvasLayer/HBoxContainer")
 game_scene = "uid://s488jtj1i4ci"
 main_menu_scene = "uid://cwhe2iy3exa36"
 
@@ -97,9 +99,14 @@ script = ExtResource("3_uf6er")
 lowpass_enabled = true
 playing_music = false
 
-[node name="Label" type="Label" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("4_pkkeu")
+max_rot_deg = 3.0
+max_shift_px = 4.0
+noise = ExtResource("5_smeeh")
+
+[node name="Label" type="Label" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_uf6er")
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -118,8 +125,7 @@ horizontal_alignment = 1
 visible_characters = 0
 visible_ratio = 0.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -133,19 +139,19 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 8
 
-[node name="TryAgain" type="Button" parent="HBoxContainer"]
+[node name="TryAgain" type="Button" parent="CanvasLayer/HBoxContainer"]
 material = SubResource("ShaderMaterial_xejjg")
 layout_mode = 2
 focus_neighbor_right = NodePath("../GiveUp")
 theme = ExtResource("6_1nprd")
 text = "try again"
 
-[node name="GiveUp" type="Button" parent="HBoxContainer"]
+[node name="GiveUp" type="Button" parent="CanvasLayer/HBoxContainer"]
 material = SubResource("ShaderMaterial_xejjg")
 layout_mode = 2
 focus_neighbor_left = NodePath("../TryAgain")
 theme = ExtResource("6_1nprd")
 text = "give up"
 
-[connection signal="pressed" from="HBoxContainer/TryAgain" to="." method="_on_try_again_pressed"]
-[connection signal="pressed" from="HBoxContainer/GiveUp" to="." method="_on_give_up_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/TryAgain" to="." method="_on_try_again_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/GiveUp" to="." method="_on_give_up_pressed"]

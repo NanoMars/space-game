@@ -56,7 +56,6 @@ color = Color(0, 0, 0, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("1_3fdy6")
-max_shift_px = 8.0
 noise = ExtResource("3_ju2o4")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
@@ -128,7 +127,6 @@ alignment = 0
 [node name="Node" type="Node" parent="."]
 script = ExtResource("5_8wgyt")
 lowpass_enabled = true
-playing_music = false
 
 [connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer2/HBoxContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer2/HBoxContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]

@@ -13,36 +13,36 @@
 script = ExtResource("2_4oy3o")
 name = "master volume"
 type = "float"
-default_value = 75.0
-value = 75.0
+default_value = 1.0
+value = 1.0
 use_limits = true
 lower_limit = 0.0
-upper_limit = 100.0
+upper_limit = 1.75
 metadata/_custom_type_script = "uid://dq6iso25snfxr"
 
 [sub_resource type="Resource" id="Resource_e8eoo"]
 script = ExtResource("2_4oy3o")
-name = "sfx volume"
+name = "music volume"
 type = "float"
-default_value = 75.0
-value = 75.0
+default_value = 2.5
+value = 2.5
 use_limits = true
 lower_limit = 0.0
-upper_limit = 100.0
+upper_limit = 5.0
 metadata/_custom_type_script = "uid://dq6iso25snfxr"
 
 [sub_resource type="Resource" id="Resource_lds1k"]
 script = ExtResource("2_4oy3o")
-name = "music volume"
+name = "sfx volume"
 type = "float"
-default_value = 50.0
-value = 50.0
+default_value = 1.0
+value = 1.0
 use_limits = true
 lower_limit = 0.0
-upper_limit = 100.0
+upper_limit = 5.0
 metadata/_custom_type_script = "uid://dq6iso25snfxr"
 
-[node name="Control" type="Control" node_paths=PackedStringArray("container")]
+[node name="Control" type="Control" node_paths=PackedStringArray("container", "return_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -53,11 +53,12 @@ script = ExtResource("1_usam0")
 settings = Array[ExtResource("2_4oy3o")]([SubResource("Resource_6phts"), SubResource("Resource_e8eoo"), SubResource("Resource_lds1k")])
 custom_theme = ExtResource("3_l1run")
 container = NodePath("CanvasLayer/ScrollContainer/MarginContainer/VBoxContainer")
+main_menu_scene = "uid://cwhe2iy3exa36"
+return_button = NodePath("CanvasLayer/ScrollContainer/MarginContainer/VBoxContainer/ReturnButton")
 
 [node name="Node" type="Node" parent="."]
 script = ExtResource("2_a3koi")
 lowpass_enabled = true
-playing_music = false
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -70,7 +71,6 @@ color = Color(0, 0, 0, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("5_hutm5")
-max_shift_px = 8.0
 noise = ExtResource("6_q32gk")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer"]
@@ -98,8 +98,15 @@ size_flags_vertical = 3
 theme = ExtResource("3_l1run")
 theme_override_constants/separation = 20
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+[node name="ReturnButton" type="Button" parent="CanvasLayer/ScrollContainer/MarginContainer/VBoxContainer"]
 visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("3_l1run")
+text = "back to main menu"
+alignment = 0
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer2"]
 visibility_layer = 2

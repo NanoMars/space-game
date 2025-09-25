@@ -1,10 +1,12 @@
-[gd_scene load_steps=28 format=3 uid="uid://c5151n8v6645w"]
+[gd_scene load_steps=30 format=3 uid="uid://c5151n8v6645w"]
 
 [ext_resource type="Script" uid="uid://h531hpff7fyb" path="res://intermission_background.gd" id="1_3b4nm"]
 [ext_resource type="Script" uid="uid://bsste0045nkbd" path="res://intermission/intermission_menu.gd" id="1_yvdn4"]
 [ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://intermission/button_theme.tres" id="2_0i6aa"]
 [ext_resource type="Shader" uid="uid://s4clk6hl5ixd" path="res://intermission/buttonshader.gdshader" id="2_d7pyx"]
 [ext_resource type="Shader" uid="uid://b66latbe5eymd" path="res://intermission/vignette.gdshader" id="3_x37ni"]
+[ext_resource type="Script" uid="uid://c75u2713r4bxx" path="res://game/UI/main_menu/canvas_layer_tilt.gd" id="4_nel6a"]
+[ext_resource type="FastNoiseLite" uid="uid://bg65nvcq4fe05" path="res://game/UI/main_menu/canvas_layer_tilt_noise.tres" id="5_d21pq"]
 [ext_resource type="Script" uid="uid://3scsxn16mp8e" path="res://intermission/mod_select.gd" id="5_vmbcd"]
 [ext_resource type="Script" uid="uid://bkeoml7x3rkuu" path="res://game/modifier/Modifier.gd" id="6_dt5tg"]
 [ext_resource type="PackedScene" uid="uid://cqlucyg0ogdps" path="res://game/enemies/echo/echo.tscn" id="7_gldry"]
@@ -21,7 +23,7 @@ colors = PackedColorArray(0.75, 0.4625, 0, 1, 0.77, 0.128333, 0, 1, 0.711037, 0,
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_x37ni"]
 frequency = 0.0332
-offset = Vector3(0, 0, 986094)
+offset = Vector3(0, 0, 1.00789e+06)
 fractal_type = 3
 fractal_lacunarity = 2.29
 fractal_gain = 0.66
@@ -90,13 +92,6 @@ shader_parameter/y_div = 5.6
 shader_parameter/opacity = 1.0
 shader_parameter/seed = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_d7pyx"]
-shader = ExtResource("3_x37ni")
-shader_parameter/outerRadius = -0.17
-shader_parameter/fadeDistance = 2.106
-shader_parameter/MainAlpha = 0.779
-shader_parameter/effect_color = Color(0.25098, 0, 0, 1)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vmbcd"]
 shader = ExtResource("2_d7pyx")
 shader_parameter/normal_offset = 1.5
@@ -111,7 +106,14 @@ shader_parameter/opacity = 0.0
 shader_parameter/seed = 0.0
 shader_parameter/dissolve_color = Color(0, 0, 0, 1)
 
-[node name="Control" type="Control" node_paths=PackedStringArray("mod_list", "decision_list")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d7pyx"]
+shader = ExtResource("3_x37ni")
+shader_parameter/outerRadius = -0.17
+shader_parameter/fadeDistance = 2.106
+shader_parameter/MainAlpha = 0.779
+shader_parameter/effect_color = Color(0.25098, 0, 0, 1)
+
+[node name="Control" type="Control" node_paths=PackedStringArray("mod_list", "decision_list", "score_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -119,8 +121,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yvdn4")
-mod_list = NodePath("mod_select")
-decision_list = NodePath("decisions")
+mod_list = NodePath("CanvasLayer/mod_select")
+decision_list = NodePath("CanvasLayer/decisions")
+score_label = NodePath("CanvasLayer/ScoreLabel")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -133,9 +136,18 @@ scale = Vector2(1, 1.00206)
 texture = SubResource("NoiseTexture2D_d7pyx")
 script = ExtResource("1_3b4nm")
 
-[node name="mod_select" type="VBoxContainer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_vmbcd")
+volume_db = -11.49
+autoplay = true
+bus = &"Music"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("4_nel6a")
+noise = ExtResource("5_d21pq")
+
+[node name="mod_select" type="VBoxContainer" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_1heoq")
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -151,34 +163,57 @@ theme = ExtResource("2_0i6aa")
 script = ExtResource("5_vmbcd")
 mod_list = Array[ExtResource("6_dt5tg")]([SubResource("Resource_dpipn"), SubResource("Resource_nel6a"), SubResource("Resource_1vesd")])
 
-[node name="decisions" type="VBoxContainer" parent="."]
+[node name="decisions" type="VBoxContainer" parent="CanvasLayer"]
 visible = false
 material = SubResource("ShaderMaterial_yvdn4")
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -39.0
+offset_left = -54.0
 offset_top = -23.0
-offset_right = 39.0
+offset_right = 54.0
 offset_bottom = 23.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_0i6aa")
 
-[node name="Button" type="Button" parent="decisions"]
+[node name="Button" type="Button" parent="CanvasLayer/decisions"]
 use_parent_material = true
 layout_mode = 2
 theme = ExtResource("2_0i6aa")
 text = "END IT HERE"
 
-[node name="Button2" type="Button" parent="decisions"]
+[node name="Button2" type="Button" parent="CanvasLayer/decisions"]
 use_parent_material = true
 layout_mode = 2
 theme = ExtResource("2_0i6aa")
 text = "CONTINUE"
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_vmbcd")
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -86.0
+offset_top = 16.0
+offset_right = 86.0
+offset_bottom = 32.0
+grow_horizontal = 2
+scale = Vector2(0.998616, 1)
+theme = ExtResource("2_0i6aa")
+text = "YOUR SCORE IS 1234"
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_s5603")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_d7pyx")
@@ -192,35 +227,4 @@ scale = Vector2(1, 1.00152)
 mouse_filter = 2
 metadata/_edit_lock_ = true
 
-[node name="ScoreLabel" type="Label" parent="."]
-material = SubResource("ShaderMaterial_vmbcd")
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -86.0
-offset_top = 16.0
-offset_right = 86.0
-offset_bottom = 32.0
-grow_horizontal = 2
-scale = Vector2(0.998616, 1)
-theme = ExtResource("2_0i6aa")
-text = "YOUR SCORE IS 1234"
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_vmbcd")
-volume_db = -11.49
-autoplay = true
-
-[node name="ColorRect2" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_s5603")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
-
-[connection signal="pressed" from="decisions/Button2" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="CanvasLayer/decisions/Button2" to="." method="_on_continue_pressed"]

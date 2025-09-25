@@ -6,7 +6,7 @@ extends Control
 
 @export var tween_time: float = 0.5
 
-@onready var score_label: Label = $ScoreLabel
+@export var score_label: Label
 
 func _on_continue_pressed() -> void:
 	# Fade out decision list and fade in mod list in parallel.

@@ -12,18 +12,26 @@ var _settings: Array[Setting] = []:
 		emit_signal("settings_changed")
 	get:
 		return _settings
+		
 
 signal settings_changed
 
 var _loaded_values: Dictionary = {}
 var _loaded_applied := false
 
+var settings_visited: bool = false
+
 func _ready() -> void:
 	# Save on any change, and try to apply loaded values the first time settings are provided.
+	for s in _settings:
+		print(" - %s: %s" % [s.name, s.value])
 	settings_changed.connect(_on_settings_changed)
 	_load_saved_values()
+	_apply_loaded_values_if_any()
+	# print all setting values
+	print("Current settings:")
 	for s in _settings:
-		print(s.name, " value:", s.value, " default:", s.default_value)
+		print(" - %s: %s" % [s.name, s.value])
 
 func _find_setting(property: StringName) -> Setting:
 	for s in _settings:
