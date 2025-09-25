@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlgvodlq4gicv"]
+[gd_scene load_steps=6 format=3 uid="uid://dlgvodlq4gicv"]
 
 [ext_resource type="Script" uid="uid://bdqhv1vauenlf" path="res://game/gameui.gd" id="1_ogh4a"]
 [ext_resource type="Theme" uid="uid://c6mssg2ngmqpk" path="res://game/game_ui_theme.tres" id="2_brkp5"]
+[ext_resource type="FontFile" uid="uid://d3xv2jvjnv25p" path="res://game/assets/TinyUnicode.ttf" id="3_juvnx"]
 [ext_resource type="Shader" uid="uid://km40hei07ndf" path="res://game/UI/healthVignette.gdshader" id="3_pjh2a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_juvnx"]
@@ -46,14 +47,15 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -119.0
-offset_top = 24.0
-offset_right = -13.0
-offset_bottom = 36.0
+offset_left = -121.0
+offset_top = 19.0
+offset_right = -15.0
+offset_bottom = 32.0
 grow_horizontal = 0
 theme = ExtResource("2_brkp5")
-theme_override_font_sizes/font_size = 4
-text = "x1"
+theme_override_fonts/font = ExtResource("3_juvnx")
+theme_override_font_sizes/font_size = 16
+text = "X1.0"
 horizontal_alignment = 2
 
 [node name="EnemyCountLabel" type="Label" parent="."]
@@ -91,5 +93,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -4.0
+offset_right = -2.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
