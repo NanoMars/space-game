@@ -1,0 +1,75 @@
+[gd_scene load_steps=9 format=3 uid="uid://eq8v6mhgs6ji"]
+
+[ext_resource type="Script" uid="uid://db1gauop2xmpe" path="res://game/UI/loading/loading.gd" id="1_mdmkf"]
+[ext_resource type="Script" uid="uid://biqxkgtmda56e" path="res://game/sound/music/music_setter.gd" id="1_r3nnm"]
+[ext_resource type="Script" uid="uid://xsmc8j8e4cme" path="res://loading/settings_setter.gd" id="2_x5dy3"]
+[ext_resource type="Script" uid="uid://dq6iso25snfxr" path="res://game/UI/main_menu/settings/setting.gd" id="3_x5dy3"]
+
+[sub_resource type="Resource" id="Resource_mdmkf"]
+script = ExtResource("3_x5dy3")
+name = "master volume"
+type = "float"
+default_value = 1.0
+value = 1.0
+use_limits = true
+lower_limit = 0.0
+upper_limit = 1.75
+metadata/_custom_type_script = "uid://dq6iso25snfxr"
+
+[sub_resource type="Resource" id="Resource_ah23o"]
+script = ExtResource("3_x5dy3")
+name = "music volume"
+type = "float"
+default_value = 1.0
+value = 1.0
+use_limits = true
+lower_limit = 0.0
+upper_limit = 5.0
+metadata/_custom_type_script = "uid://dq6iso25snfxr"
+
+[sub_resource type="Resource" id="Resource_boy0v"]
+script = ExtResource("3_x5dy3")
+name = "sfx volume"
+type = "float"
+default_value = 1.0
+value = 1.0
+use_limits = true
+lower_limit = 0.0
+upper_limit = 5.0
+metadata/_custom_type_script = "uid://dq6iso25snfxr"
+
+[sub_resource type="Resource" id="Resource_0oweh"]
+script = ExtResource("3_x5dy3")
+name = "custom cursor"
+type = "bool"
+default_value = true
+value = true
+metadata/_custom_type_script = "uid://dq6iso25snfxr"
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mdmkf")
+main_menu_scene = "uid://cwhe2iy3exa36"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("1_r3nnm")
+lowpass_enabled = true
+playing_music = false
+
+[node name="Node2" type="Node" parent="."]
+script = ExtResource("2_x5dy3")
+settings = Array[ExtResource("3_x5dy3")]([SubResource("Resource_mdmkf"), SubResource("Resource_ah23o"), SubResource("Resource_boy0v"), SubResource("Resource_0oweh")])

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="space game"
-run/main_scene="uid://c3kwexeldtnw8"
+run/main_scene="uid://eq8v6mhgs6ji"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -22,6 +22,7 @@ ScoreManager="*res://game/score_manager.gd"
 MusicPlayer="*res://game/sound/music/music_player.gd"
 SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 Settings="*res://game/UI/main_menu/settings/settings_autoload.gd"
+Cursor="*res://game/UI/cursor/cursor.gd"
 
 [display]
 

@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlcsghc5xfud5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d7y8u"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[node name="CanvasLayer" type="CanvasLayer"]
+layer = 100
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_d7y8u")

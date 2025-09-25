@@ -19,8 +19,6 @@ signal settings_changed
 var _loaded_values: Dictionary = {}
 var _loaded_applied := false
 
-var settings_visited: bool = false
-
 func _ready() -> void:
 	# Save on any change, and try to apply loaded values the first time settings are provided.
 	for s in _settings:
@@ -32,6 +30,7 @@ func _ready() -> void:
 	print("Current settings:")
 	for s in _settings:
 		print(" - %s: %s" % [s.name, s.value])
+	settings_changed.emit()
 
 func _find_setting(property: StringName) -> Setting:
 	for s in _settings:

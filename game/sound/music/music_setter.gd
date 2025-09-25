@@ -6,3 +6,4 @@ extends Node
 func _ready() -> void:
 	MusicPlayer.lowpass_enabled = lowpass_enabled
 	MusicPlayer.playing_music = playing_music
+	

@@ -1,46 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://c3kwexeldtnw8"]
+[gd_scene load_steps=8 format=3 uid="uid://c3kwexeldtnw8"]
 
 [ext_resource type="Script" uid="uid://gudmhx5ekqop" path="res://game/UI/main_menu/settings/settings.gd" id="1_usam0"]
-[ext_resource type="Script" uid="uid://dq6iso25snfxr" path="res://game/UI/main_menu/settings/setting.gd" id="2_4oy3o"]
 [ext_resource type="Script" uid="uid://biqxkgtmda56e" path="res://game/sound/music/music_setter.gd" id="2_a3koi"]
 [ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://intermission/button_theme.tres" id="3_l1run"]
 [ext_resource type="Script" uid="uid://c75u2713r4bxx" path="res://game/UI/main_menu/canvas_layer_tilt.gd" id="5_hutm5"]
 [ext_resource type="FastNoiseLite" uid="uid://bg65nvcq4fe05" path="res://game/UI/main_menu/canvas_layer_tilt_noise.tres" id="6_q32gk"]
 [ext_resource type="Texture2D" uid="uid://4tbsi64qv225" path="res://game/assets/vertical_gradient.png" id="7_dgqfo"]
 [ext_resource type="Texture2D" uid="uid://bfk5nh8s5nmn2" path="res://game/assets/reversed_vertical_gradient.png" id="8_6phts"]
-
-[sub_resource type="Resource" id="Resource_6phts"]
-script = ExtResource("2_4oy3o")
-name = "master volume"
-type = "float"
-default_value = 1.0
-value = 1.0
-use_limits = true
-lower_limit = 0.0
-upper_limit = 1.75
-metadata/_custom_type_script = "uid://dq6iso25snfxr"
-
-[sub_resource type="Resource" id="Resource_e8eoo"]
-script = ExtResource("2_4oy3o")
-name = "music volume"
-type = "float"
-default_value = 2.5
-value = 2.5
-use_limits = true
-lower_limit = 0.0
-upper_limit = 5.0
-metadata/_custom_type_script = "uid://dq6iso25snfxr"
-
-[sub_resource type="Resource" id="Resource_lds1k"]
-script = ExtResource("2_4oy3o")
-name = "sfx volume"
-type = "float"
-default_value = 1.0
-value = 1.0
-use_limits = true
-lower_limit = 0.0
-upper_limit = 5.0
-metadata/_custom_type_script = "uid://dq6iso25snfxr"
 
 [node name="Control" type="Control" node_paths=PackedStringArray("container", "return_button")]
 layout_mode = 3
@@ -50,7 +16,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_usam0")
-settings = Array[ExtResource("2_4oy3o")]([SubResource("Resource_6phts"), SubResource("Resource_e8eoo"), SubResource("Resource_lds1k")])
 custom_theme = ExtResource("3_l1run")
 container = NodePath("CanvasLayer/ScrollContainer/MarginContainer/VBoxContainer")
 main_menu_scene = "uid://cwhe2iy3exa36"
@@ -99,7 +64,6 @@ theme = ExtResource("3_l1run")
 theme_override_constants/separation = 20
 
 [node name="ReturnButton" type="Button" parent="CanvasLayer/ScrollContainer/MarginContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("3_l1run")
