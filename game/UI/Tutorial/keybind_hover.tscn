@@ -1,0 +1,110 @@
+[gd_scene load_steps=25 format=3 uid="uid://0c8r7gtc56k5"]
+
+[ext_resource type="Script" uid="uid://dwmw7405ry2j5" path="res://game/UI/Tutorial/keybind_hover.gd" id="1_836mw"]
+[ext_resource type="Texture2D" uid="uid://cgpa7k04i6rhj" path="res://game/assets/keys/W.png" id="1_qawjk"]
+[ext_resource type="Texture2D" uid="uid://bdhq1kyi8d1q" path="res://game/assets/keys/Up.png" id="2_3cc4x"]
+[ext_resource type="Texture2D" uid="uid://ca3a2mjiavjcq" path="res://game/assets/keys/A.png" id="2_836mw"]
+[ext_resource type="Texture2D" uid="uid://deycqifxk6lkf" path="res://game/assets/keys/S.png" id="3_5afkv"]
+[ext_resource type="Texture2D" uid="uid://c63em86paidfy" path="res://game/assets/keys/Up_Outline.png" id="3_mlybh"]
+[ext_resource type="Texture2D" uid="uid://bf62t2fh3nql8" path="res://game/assets/keys/D.png" id="4_qo8mw"]
+[ext_resource type="Script" uid="uid://6gxmi8526yn1" path="res://game/UI/Tutorial/keybind_display_resource.gd" id="4_y30vy"]
+[ext_resource type="Texture2D" uid="uid://dayh3hmborj7i" path="res://game/assets/keys/Space.png" id="5_1dp2p"]
+[ext_resource type="Texture2D" uid="uid://drp56bxl12s7a" path="res://game/assets/keys/W_Outline.png" id="6_q382r"]
+[ext_resource type="Texture2D" uid="uid://biki7yx28lhh3" path="res://game/assets/keys/Left.png" id="7_h3rnh"]
+[ext_resource type="Texture2D" uid="uid://dcbo3xxxe2cwf" path="res://game/assets/keys/Left_Outline.png" id="8_ym6nw"]
+[ext_resource type="Texture2D" uid="uid://fpw7ajvklu8h" path="res://game/assets/keys/A_Outline.png" id="10_3koyh"]
+[ext_resource type="Texture2D" uid="uid://k5kvpo0odfvy" path="res://game/assets/keys/Right.png" id="11_5sxmt"]
+[ext_resource type="Texture2D" uid="uid://db6c5c3yb7y76" path="res://game/assets/keys/Right_Outline.png" id="12_oojv2"]
+[ext_resource type="Texture2D" uid="uid://dkojovdunj7u5" path="res://game/assets/keys/D_Outline.png" id="14_idfb7"]
+[ext_resource type="Texture2D" uid="uid://osyo3bmrwwpc" path="res://game/assets/keys/Down.png" id="15_q382r"]
+[ext_resource type="Texture2D" uid="uid://d0usp50wu2j04" path="res://game/assets/keys/Down_Outline.png" id="16_h3rnh"]
+[ext_resource type="Texture2D" uid="uid://bdmqd8yyyc44e" path="res://game/assets/keys/S_Outline.png" id="18_ym6nw"]
+[ext_resource type="Texture2D" uid="uid://grw7krpjkr2m" path="res://game/assets/keys/Space_Outline.png" id="19_h3rnh"]
+
+[sub_resource type="Resource" id="Resource_v2wty"]
+script = ExtResource("4_y30vy")
+arrow_pressed_texture = ExtResource("3_mlybh")
+arrow_normal_texture = ExtResource("2_3cc4x")
+wasd_normal_texture = ExtResource("1_qawjk")
+wasd_pressed_texture = ExtResource("6_q382r")
+input_action = "move_forward"
+metadata/_custom_type_script = "uid://6gxmi8526yn1"
+
+[sub_resource type="Resource" id="Resource_d5m2f"]
+script = ExtResource("4_y30vy")
+arrow_pressed_texture = ExtResource("8_ym6nw")
+arrow_normal_texture = ExtResource("7_h3rnh")
+wasd_normal_texture = ExtResource("2_836mw")
+wasd_pressed_texture = ExtResource("10_3koyh")
+input_action = "move_left"
+metadata/_custom_type_script = "uid://6gxmi8526yn1"
+
+[sub_resource type="Resource" id="Resource_7q7p5"]
+script = ExtResource("4_y30vy")
+arrow_pressed_texture = ExtResource("12_oojv2")
+arrow_normal_texture = ExtResource("11_5sxmt")
+wasd_normal_texture = ExtResource("4_qo8mw")
+wasd_pressed_texture = ExtResource("14_idfb7")
+input_action = "move_right"
+metadata/_custom_type_script = "uid://6gxmi8526yn1"
+
+[sub_resource type="Resource" id="Resource_3koyh"]
+script = ExtResource("4_y30vy")
+arrow_pressed_texture = ExtResource("16_h3rnh")
+arrow_normal_texture = ExtResource("15_q382r")
+wasd_normal_texture = ExtResource("3_5afkv")
+wasd_pressed_texture = ExtResource("18_ym6nw")
+input_action = "move_backward"
+metadata/_custom_type_script = "uid://6gxmi8526yn1"
+
+[node name="VBoxContainer" type="VBoxContainer" node_paths=PackedStringArray("keys", "spacebar_rect")]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_836mw")
+keys = {
+SubResource("Resource_v2wty"): NodePath("UpRect"),
+SubResource("Resource_d5m2f"): NodePath("HBoxContainer/LeftRect"),
+SubResource("Resource_7q7p5"): NodePath("HBoxContainer/RightRect"),
+SubResource("Resource_3koyh"): NodePath("HBoxContainer/DownRect")
+}
+spacebar_pressed_texture = ExtResource("19_h3rnh")
+spacebar_rect = NodePath("SpaceRect")
+
+[node name="UpRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("1_qawjk")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="LeftRect" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_836mw")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DownRect" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("3_5afkv")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RightRect" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("4_qo8mw")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SpaceRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(32, 56)
+layout_mode = 2
+size_flags_vertical = 0
+texture = ExtResource("5_1dp2p")
+expand_mode = 1
+stretch_mode = 4

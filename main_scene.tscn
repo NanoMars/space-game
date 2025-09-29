@@ -30,10 +30,10 @@ fractal_ping_pong_strength = 3.0
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nfk4m"]
 width = 1028
 height = 1028
+noise = SubResource("FastNoiseLite_hq1ik")
+color_ramp = SubResource("Gradient_8mm7a")
 seamless = true
 seamless_blend_skirt = 0.54
-color_ramp = SubResource("Gradient_8mm7a")
-noise = SubResource("FastNoiseLite_hq1ik")
 
 [sub_resource type="Gradient" id="Gradient_spdf2"]
 colors = PackedColorArray(0.194349, 0.194349, 0.194349, 1, 0.398793, 0.398793, 0.398793, 1)
@@ -45,12 +45,12 @@ seed = 1
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7ycvg"]
 width = 4096
 height = 4096
-invert = true
-seamless = true
-seamless_blend_skirt = 0.339
-as_normal_map = true
-color_ramp = SubResource("Gradient_spdf2")
 noise = SubResource("FastNoiseLite_rb35u")
+color_ramp = SubResource("Gradient_spdf2")
+seamless = true
+invert = true
+as_normal_map = true
+seamless_blend_skirt = 0.339
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8mm7a"]
 render_priority = 0

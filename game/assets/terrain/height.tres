@@ -10,7 +10,7 @@ seed = 1
 [resource]
 width = 64
 height = 64
+noise = SubResource("FastNoiseLite_rb35u")
+color_ramp = SubResource("Gradient_spdf2")
 seamless = true
 seamless_blend_skirt = 0.327
-color_ramp = SubResource("Gradient_spdf2")
-noise = SubResource("FastNoiseLite_rb35u")

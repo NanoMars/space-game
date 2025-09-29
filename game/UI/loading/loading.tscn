@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://eq8v6mhgs6ji"]
+[gd_scene load_steps=11 format=3 uid="uid://eq8v6mhgs6ji"]
 
 [ext_resource type="Script" uid="uid://db1gauop2xmpe" path="res://game/UI/loading/loading.gd" id="1_mdmkf"]
 [ext_resource type="Script" uid="uid://biqxkgtmda56e" path="res://game/sound/music/music_setter.gd" id="1_r3nnm"]
@@ -46,6 +46,22 @@ default_value = true
 value = true
 metadata/_custom_type_script = "uid://dq6iso25snfxr"
 
+[sub_resource type="Resource" id="Resource_b06ml"]
+script = ExtResource("3_x5dy3")
+name = "tutorial enabled"
+type = "bool"
+default_value = true
+value = true
+metadata/_custom_type_script = "uid://dq6iso25snfxr"
+
+[sub_resource type="Resource" id="Resource_f0xvj"]
+script = ExtResource("3_x5dy3")
+name = "demo mode"
+type = "bool"
+default_value = false
+value = false
+metadata/_custom_type_script = "uid://dq6iso25snfxr"
+
 [node name="Control" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -70,6 +86,6 @@ script = ExtResource("1_r3nnm")
 lowpass_enabled = true
 playing_music = false
 
-[node name="Node2" type="Node" parent="."]
+[node name="settings" type="Node" parent="."]
 script = ExtResource("2_x5dy3")
-settings = Array[ExtResource("3_x5dy3")]([SubResource("Resource_mdmkf"), SubResource("Resource_ah23o"), SubResource("Resource_boy0v"), SubResource("Resource_0oweh")])
+settings = Array[ExtResource("3_x5dy3")]([SubResource("Resource_mdmkf"), SubResource("Resource_ah23o"), SubResource("Resource_boy0v"), SubResource("Resource_0oweh"), SubResource("Resource_b06ml"), SubResource("Resource_f0xvj")])

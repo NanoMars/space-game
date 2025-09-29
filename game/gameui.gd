@@ -54,7 +54,7 @@ func _on_health_changed(new_health: float) -> void:
 		var health_lost = old_health - new_health
 		vignette_rot_speed = clamp(vignette_rot_speed + health_lost * vignette_rot_speed_per_health_lost, 0.0, vignette_max_rot_speed)
 		vignette_scale = clamp(vignette_scale + health_lost * vignette_scale_per_health_lost, 0.0, vignette_max_scale)
-	
+		Engine.time_scale -= health_lost / 100.0
 	old_health = new_health
 
 func _on_score_changed(new_score: int) -> void:
@@ -79,3 +79,6 @@ func _process(delta: float) -> void:
 		vignette_scale = max(vignette_scale - vignette_scale_decay * delta, 0.0)
 	if vignette_mat:
 		vignette_mat.set_shader_parameter("power_px", _base_power_px + vignette_scale)
+
+	if Engine.time_scale < 1.0:
+		Engine.time_scale = lerp(Engine.time_scale, 1.0, delta * 2)

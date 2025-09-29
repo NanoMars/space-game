@@ -6,8 +6,6 @@
 
 [sub_resource type="Resource" id="Resource_anr75"]
 script = ExtResource("1_kkqhp")
-shots = 2
-sine_step = 0.1
 sin_angle = 5.0
 metadata/_custom_type_script = "uid://tr3qy35bjgd2"
 

@@ -34,6 +34,8 @@ func _ready() -> void:
 	if auto_prepare_on_ready:
 		_prepare_wave()
 	
+	if  Settings.get("tutorial enabled") == true or Settings.get("demo mode") == true:
+		return
 	var timer := Timer.new()
 	timer.wait_time = 1.0
 	timer.one_shot = true
