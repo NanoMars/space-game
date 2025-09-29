@@ -16,19 +16,26 @@ class_name Weapon
 		return _firing
 
 var _firing: bool = false
-@export var weapon_stats: WeaponStats
+@export var weapon_stats: WeaponStats:
+	set(value):
+		_weapon_stats = value
+		setup_weapon()
+	get:
+		return _weapon_stats
+var _weapon_stats: WeaponStats = null
 @export var display_mode: bool = false
 var fire_pattern: FirePattern
 var shot_timer: Timer
 var _time: float = 0.0
-
-func _ready() -> void:
+	
+func setup_weapon() -> void:
 	call_deferred("get_projectile_container")
 	if weapon_stats and weapon_stats.fire_pattern:
 		fire_pattern = weapon_stats.fire_pattern
 	if not shot_timer:
 		shot_timer = Timer.new()
 		shot_timer.wait_time = 1.0 / weapon_stats.fire_rate
+		print("Weapon fire rate: ", weapon_stats.fire_rate, " wait time: ", shot_timer.wait_time)
 		shot_timer.one_shot = false
 		shot_timer.autostart = false
 		add_child(shot_timer)

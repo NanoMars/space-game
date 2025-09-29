@@ -1,54 +1,112 @@
-[gd_scene load_steps=11 format=3 uid="uid://j07bpalk35bp"]
+[gd_scene load_steps=37 format=3 uid="uid://j07bpalk35bp"]
 
+[ext_resource type="FontFile" uid="uid://c34mefa01f57l" path="res://game/assets/Awexbmp.ttf" id="1_3vj2k"]
 [ext_resource type="Script" uid="uid://c08gg65gcos58" path="res://game/UI/weapon_select/weapon_display/weapon_display.gd" id="1_nkrsr"]
 [ext_resource type="Script" uid="uid://dy1kcyvsje554" path="res://game/weapon/weapon.gd" id="1_xyuy6"]
-[ext_resource type="Resource" uid="uid://blxmdv45ssyxh" path="res://game/weapon/weapons/narrow_sine.tres" id="3_o4p62"]
+[ext_resource type="Texture2D" uid="uid://1ajk10keexwp" path="res://game/assets/circleblur.png" id="2_wtbmb"]
+[ext_resource type="Texture2D" uid="uid://bdycuy3ieymxg" path="res://game/UI/main_menu/settings/checkbutton/checkbutton_checked.png" id="3_b76h3"]
+[ext_resource type="Texture2D" uid="uid://uior5nxmkd1l" path="res://game/UI/main_menu/settings/checkbutton/checkbutton_checked_disabled.png" id="4_31s3j"]
+[ext_resource type="Texture2D" uid="uid://c008hp1xrrk0" path="res://game/UI/main_menu/settings/checkbutton/checkbutton_unchecked.png" id="5_u08f2"]
+[ext_resource type="Texture2D" uid="uid://bx5q6vn4k0rou" path="res://game/UI/main_menu/settings/checkbutton/checkbutton_unchecked_disabled.png" id="6_ipyvs"]
+[ext_resource type="Texture2D" uid="uid://bfdteocg85lbe" path="res://game/UI/main_menu/settings/slider/grabber_base.png" id="7_y1hbf"]
+[ext_resource type="Texture2D" uid="uid://cyrufrq52thq3" path="res://game/UI/main_menu/settings/slider/grabber_disabled.png" id="8_vehun"]
+[ext_resource type="Texture2D" uid="uid://b8hx4hn61khwg" path="res://game/UI/main_menu/settings/slider/grabber_highlight.png" id="9_hhnji"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y7s8r"]
-bg_color = Color(0, 0, 0, 0.3137255)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1fafe"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xyuy6"]
-draw_center = false
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(1, 1, 1, 0.3529412)
-border_blend = true
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_355u3"]
+texture = ExtResource("2_wtbmb")
+modulate_color = Color(1, 1, 1, 0.117647)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y7s8r"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_22a63"]
+load_path = "res://.godot/imported/circleblur.png-c975c87a170c000641d2a0292e8ee06c.ctex"
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o4p62"]
-bg_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yewcr"]
+texture = SubResource("CompressedTexture2D_22a63")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nkrsr"]
-bg_color = Color(0, 0, 0, 1)
-draw_center = false
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(1, 1, 1, 0.9764706)
-border_blend = true
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hkhih"]
+texture = SubResource("CompressedTexture2D_22a63")
 
-[sub_resource type="Theme" id="Theme_nkrsr"]
-Button/styles/disabled = SubResource("StyleBoxFlat_y7s8r")
-Button/styles/focus = SubResource("StyleBoxFlat_xyuy6")
-Button/styles/hover = SubResource("StyleBoxEmpty_y7s8r")
-Button/styles/normal = SubResource("StyleBoxFlat_o4p62")
-Button/styles/pressed = SubResource("StyleBoxFlat_nkrsr")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_355u3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yewcr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yn6tg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_om1nh"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_yn6tg"]
+color = Color(1, 1, 1, 0.588235)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yn6tg"]
+texture = ExtResource("2_wtbmb")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nd0al"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1spmg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_12i4t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_evkjq"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hrmb7"]
+texture = ExtResource("2_wtbmb")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7mf35"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jfr78"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hrmb7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_12wda"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5jlak"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gp7dd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5skr5"]
+
+[sub_resource type="Theme" id="Theme_3vj2k"]
+default_font = ExtResource("1_3vj2k")
+default_font_size = 16
+BoxContainer/constants/separation = 4
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/fonts/font = ExtResource("1_3vj2k")
+Button/styles/disabled = SubResource("StyleBoxEmpty_1fafe")
+Button/styles/focus = SubResource("StyleBoxTexture_355u3")
+Button/styles/hover = SubResource("StyleBoxTexture_yewcr")
+Button/styles/hover_pressed = SubResource("StyleBoxTexture_hkhih")
+Button/styles/normal = SubResource("StyleBoxEmpty_355u3")
+Button/styles/pressed = SubResource("StyleBoxTexture_hkhih")
+CheckButton/icons/checked = ExtResource("3_b76h3")
+CheckButton/icons/checked_disabled = ExtResource("4_31s3j")
+CheckButton/icons/checked_disabled_mirrored = null
+CheckButton/icons/unchecked = ExtResource("5_u08f2")
+CheckButton/icons/unchecked_disabled = ExtResource("6_ipyvs")
+HSeparator/constants/separation = 8
+HSeparator/styles/separator = SubResource("StyleBoxEmpty_yewcr")
+HSlider/icons/grabber = ExtResource("7_y1hbf")
+HSlider/icons/grabber_disabled = ExtResource("8_vehun")
+HSlider/icons/grabber_highlight = ExtResource("9_hhnji")
+HSlider/styles/grabber_area = SubResource("StyleBoxEmpty_yn6tg")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxEmpty_om1nh")
+HSlider/styles/slider = SubResource("StyleBoxLine_yn6tg")
+Label/fonts/font = ExtResource("1_3vj2k")
+SpinBox/styles/down_background_hovered = SubResource("StyleBoxTexture_yn6tg")
+SpinBox/styles/down_background_pressed = SubResource("StyleBoxEmpty_nd0al")
+SpinBox/styles/field_and_buttons_separator = SubResource("StyleBoxEmpty_1spmg")
+SpinBox/styles/up_background = SubResource("StyleBoxEmpty_12i4t")
+SpinBox/styles/up_background_disabled = SubResource("StyleBoxEmpty_evkjq")
+SpinBox/styles/up_background_hovered = SubResource("StyleBoxTexture_hrmb7")
+SpinBox/styles/up_background_pressed = SubResource("StyleBoxEmpty_7mf35")
+SpinBox/styles/up_down_buttons_separator = SubResource("StyleBoxEmpty_jfr78")
+VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_hrmb7")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_12wda")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_5jlak")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_gp7dd")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_5skr5")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_o4p62"]
 viewport_path = NodePath("SubViewport")
@@ -57,7 +115,7 @@ viewport_path = NodePath("SubViewport")
 custom_minimum_size = Vector2(64, 64)
 offset_right = 8.0
 offset_bottom = 8.0
-theme = SubResource("Theme_nkrsr")
+theme = SubResource("Theme_3vj2k")
 toggle_mode = true
 icon = SubResource("ViewportTexture_o4p62")
 script = ExtResource("1_nkrsr")
@@ -78,7 +136,6 @@ size = 9.29751
 [node name="Weapon" type="Marker3D" parent="SubViewport/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 script = ExtResource("1_xyuy6")
-weapon_stats = ExtResource("3_o4p62")
 display_mode = true
 metadata/_custom_type_script = "uid://dy1kcyvsje554"
 

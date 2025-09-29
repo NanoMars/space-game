@@ -1,9 +1,8 @@
-[gd_scene load_steps=33 format=3 uid="uid://dkf7mjen6nt18"]
+[gd_scene load_steps=32 format=3 uid="uid://dkf7mjen6nt18"]
 
 [ext_resource type="Script" uid="uid://bsg0au27h3f7j" path="res://game/player/player.gd" id="1_obar5"]
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_b2mth"]
 [ext_resource type="Script" uid="uid://dy1kcyvsje554" path="res://game/weapon/weapon.gd" id="3_8soms"]
-[ext_resource type="Resource" uid="uid://blxmdv45ssyxh" path="res://game/weapon/weapons/narrow_sine.tres" id="4_a4w0n"]
 [ext_resource type="PackedScene" uid="uid://sitj6ff7jl6f" path="res://game/player/shiny_thing.tscn" id="5_5fytw"]
 [ext_resource type="PackedScene" uid="uid://0c8r7gtc56k5" path="res://game/UI/Tutorial/keybind_hover.tscn" id="6_4ste8"]
 [ext_resource type="Script" uid="uid://bua7358ojyhvf" path="res://game/UI/Tutorial/ui_follow.gd" id="6_brh81"]
@@ -95,7 +94,6 @@ mesh = SubResource("SphereMesh_0f027")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00260431, -0.00110555, 0.50386)
 gizmo_extents = 1.65
 script = ExtResource("3_8soms")
-weapon_stats = ExtResource("4_a4w0n")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.4655, 0)

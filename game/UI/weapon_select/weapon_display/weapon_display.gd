@@ -6,23 +6,20 @@ class_name WeaponDisplay
 
 @export var weapon_stats: WeaponStats:
 	set(value):
+		print("Setting weapon stats to: %s" % value)
 		if weapon:
 			weapon.weapon_stats = value
+		_weapon_stats = value
+		print("Weapon stats now: ", value, "got: ", weapon_stats, " _weapon_stats: ", _weapon_stats)
 	get:
-		if weapon:
-			return weapon.weapon_stats.value
-		return null
+		return _weapon_stats
+
+var _weapon_stats: WeaponStats
 var id = 0
 
 func _ready() -> void:
 	camera.position.x = 100 * id
 	weapon.position.x = 100 * id
-
-func _on_focus_exited() -> void:
-	weapon.firing = false
-
-
-func _on_focus_entered() -> void:
 	weapon.firing = true
 
 func _on_mouse_entered() -> void:

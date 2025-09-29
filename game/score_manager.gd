@@ -4,6 +4,8 @@ signal score_changed(new_score: int)
 signal score_multiplier_changed(new_multiplier: float)
 signal total_kills_changed(new_total: int)
 
+var player_weapon: WeaponStats
+
 var score: int:
 	set(value):
 		if value != _score:

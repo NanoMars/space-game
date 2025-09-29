@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=21 format=3 uid="uid://s488jtj1i4ci"]
 
 [ext_resource type="Script" uid="uid://biqxkgtmda56e" path="res://game/sound/music/music_setter.gd" id="1_7ycvg"]
 [ext_resource type="PackedScene" uid="uid://c0utlmtqcar20" path="res://game/modifier/modifier_caller.tscn" id="1_66tet"]
 [ext_resource type="PackedScene" uid="uid://tt1rrpyhclj1" path="res://game/enemyspawning/spawner.tscn" id="2_7ycvg"]
+[ext_resource type="Script" uid="uid://po2t06prvofw" path="res://game/camerafix.gd" id="5_wr18j"]
 [ext_resource type="PackedScene" uid="uid://dlgvodlq4gicv" path="res://game/UI.tscn" id="6_fd1kl"]
 [ext_resource type="PackedScene" uid="uid://dkf7mjen6nt18" path="res://game/player/player.tscn" id="7_42yoh"]
 [ext_resource type="Shader" uid="uid://b44xvd07s31ri" path="res://game/assets/terrain.gdshader" id="8_mphju"]
@@ -91,6 +92,7 @@ script = ExtResource("1_7ycvg")
 transform = Transform3D(-1, -8.74228e-08, 4.37114e-08, 4.37114e-08, 1.91069e-15, 1, -8.74228e-08, 1, 1.91069e-15, 0, 4, 0)
 projection = 1
 size = 9.29751
+script = ExtResource("5_wr18j")
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("7_42yoh")]
 move_speed = 10.0

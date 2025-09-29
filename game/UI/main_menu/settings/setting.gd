@@ -4,6 +4,7 @@ class_name Setting
 
 var game_started: bool = false
 @export var name: String
+@export var display: bool = true
 @export_enum("bool", "int", "float", "string", "color") var type: String:
 	get:
 		return _type

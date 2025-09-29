@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://mi67tynng2ha"]
+[gd_scene load_steps=10 format=3 uid="uid://mi67tynng2ha"]
 
 [ext_resource type="Script" uid="uid://c75u2713r4bxx" path="res://game/UI/main_menu/canvas_layer_tilt.gd" id="1_g52pq"]
 [ext_resource type="Script" uid="uid://5efbb5kecqr" path="res://game/UI/weapon_select/weapon_select.gd" id="1_i0fii"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://blxmdv45ssyxh" path="res://game/weapon/weapons/narrow_sine.tres" id="3_jkg8q"]
 [ext_resource type="Resource" uid="uid://c58aaj1af0oat" path="res://game/weapon/weapons/spread1.tres" id="4_yvvyg"]
 [ext_resource type="PackedScene" uid="uid://j07bpalk35bp" path="res://game/UI/weapon_select/weapon_display/weapon_display.tscn" id="5_aeawi"]
+[ext_resource type="PackedScene" uid="uid://cwhe2iy3exa36" path="res://game/UI/main_menu/main_menu.tscn" id="6_yvvyg"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("weapon_display_container")]
 layout_mode = 3
@@ -20,6 +21,8 @@ script = ExtResource("1_i0fii")
 weapons = Array[ExtResource("2_rblcg")]([ExtResource("3_jkg8q"), ExtResource("4_yvvyg")])
 weapon_display_container = NodePath("CanvasLayer/VBoxContainer/HBoxContainer")
 weapon_display_scene = ExtResource("5_aeawi")
+main_menu = ExtResource("6_yvvyg")
+game_scene = "uid://s488jtj1i4ci"
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -44,13 +47,30 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ReturnButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 4
 theme = ExtResource("3_48vym")
-text = "back"
-alignment = 0
+text = "Select Weapon"
+horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("3_48vym")
+
+[node name="StartButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_48vym")
+text = "start"
+
+[node name="ReturnButton" type="Button" parent="CanvasLayer"]
+anchors_preset = -1
+offset_left = 16.0
+offset_top = 16.0
+size_flags_horizontal = 4
+theme = ExtResource("3_48vym")
+text = "back"
+
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

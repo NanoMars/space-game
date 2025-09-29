@@ -6,6 +6,15 @@ extends CharacterBody3D
 
 @onready var health: Health = $Health
 @onready var weapon: Weapon = $Weapon
+var weapon_stats: WeaponStats:
+	set(value):
+		if weapon:
+			weapon.weapon_stats = value
+		_weapon_stats = value
+	get:
+		return _weapon_stats
+
+var _weapon_stats: WeaponStats = null
 
 @onready var cam: Camera3D = get_tree().get_first_node_in_group("camera") as Camera3D
 @onready var ortho_size: float = cam.size  # In 4.x this is the *diameter* on the locked axis
@@ -25,6 +34,9 @@ signal died(from: Node)
 func _ready() -> void:
 	if health:
 		health.died.connect(_on_died)
+	weapon_stats = ScoreManager.player_weapon
+	weapon.weapon_stats = weapon_stats
+	print("Player starting with weapon stats: ", weapon_stats)
 
 func _physics_process(delta: float) -> void:
 

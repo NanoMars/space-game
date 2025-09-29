@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=34 format=3 uid="uid://3cudps0p8v2w"]
+[gd_resource type="Theme" load_steps=33 format=3 uid="uid://3cudps0p8v2w"]
 
 [ext_resource type="FontFile" uid="uid://c34mefa01f57l" path="res://game/assets/Awexbmp.ttf" id="1_hkhih"]
 [ext_resource type="Texture2D" uid="uid://1ajk10keexwp" path="res://game/assets/circleblur.png" id="2_hkhih"]
@@ -26,8 +26,6 @@ texture = SubResource("CompressedTexture2D_22a63")
 texture = SubResource("CompressedTexture2D_22a63")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_355u3"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_22a63"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yewcr"]
 
@@ -79,7 +77,7 @@ Button/styles/focus = SubResource("StyleBoxTexture_355u3")
 Button/styles/hover = SubResource("StyleBoxTexture_yewcr")
 Button/styles/hover_pressed = SubResource("StyleBoxTexture_hkhih")
 Button/styles/normal = SubResource("StyleBoxEmpty_355u3")
-Button/styles/pressed = SubResource("StyleBoxEmpty_22a63")
+Button/styles/pressed = SubResource("StyleBoxTexture_hkhih")
 CheckButton/icons/checked = ExtResource("3_58fwa")
 CheckButton/icons/checked_disabled = ExtResource("4_p3lul")
 CheckButton/icons/checked_disabled_mirrored = null

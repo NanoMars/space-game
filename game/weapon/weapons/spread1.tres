@@ -10,6 +10,7 @@ metadata/_custom_type_script = "uid://b74jnsjx6ore1"
 
 [resource]
 script = ExtResource("3_1r740")
+projectile_speed = 30.0
 projectile_scene = ExtResource("2_psrau")
 fire_pattern = SubResource("Resource_4ste8")
 metadata/_custom_type_script = "uid://bypy263lii80f"
