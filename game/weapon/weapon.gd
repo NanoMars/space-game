@@ -48,7 +48,7 @@ func fire_once() -> void:
 	var wt := global_transform
 	for shot in shots:
 		var projectile_instance: Node3D = weapon_stats.projectile_scene.instantiate()
-
+		projectile_instance.display_mode = display_mode
 		# Convert local shot spec to world
 		var g_dir := (wt.basis * shot.dir).normalized()
 		var g_pos := wt.origin + wt.basis * (shot.offset if shot.has_method("offset") == false else shot.offset) # offset defaults to ZERO

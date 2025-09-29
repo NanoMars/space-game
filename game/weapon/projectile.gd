@@ -16,6 +16,8 @@ var last_position: Vector3
 @onready var half_width: float  = ( (half_height * viewport_aspect) if keep_height else (ortho_size * 0.5) ) if cam else 0.0
 @onready var clamp_center: Vector2 = (Vector2(cam.global_position.x, cam.global_position.z) if cam else Vector2.ZERO) # Static center for bounds
 
+var display_mode: bool = false
+
 func _ready() -> void:
 	contact_monitor = true
 	max_contacts_reported = 8
@@ -65,11 +67,18 @@ func _physics_process(_delta: float) -> void:
 	# Despawn if outside camera bounds (same region as player clamp)
 	if cam:
 		var pos := global_position
-		if pos.x < clamp_center.x - half_width \
-		or pos.x > clamp_center.x + half_width \
-		or pos.z < clamp_center.y - half_height \
-		or pos.z > clamp_center.y + half_height:
-			remove_projectile()
+		if display_mode:
+			# In display mode, only check Z bounds
+			if pos.z < clamp_center.y - half_height \
+			or pos.z > clamp_center.y + half_height:
+				remove_projectile()
+		else:
+			# Normal mode, check both X and Z
+			if pos.x < clamp_center.x - half_width \
+			or pos.x > clamp_center.x + half_width \
+			or pos.z < clamp_center.y - half_height \
+			or pos.z > clamp_center.y + half_height:
+				remove_projectile()
 
 func remove_projectile() -> void:
 	queue_free()
