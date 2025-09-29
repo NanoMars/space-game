@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4og81w38tks"]
+
+[ext_resource type="Script" uid="uid://dy1kcyvsje554" path="res://game/weapon/weapon.gd" id="1_kyx33"]
+[ext_resource type="Resource" uid="uid://blxmdv45ssyxh" path="res://game/weapon/weapons/narrow_sine.tres" id="2_v448t"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Camera3D2" type="Camera3D" parent="." groups=["camera"]]
+transform = Transform3D(-1, -8.74228e-08, 4.37114e-08, 4.37114e-08, 1.91069e-15, 1, -8.74228e-08, 1, 1.91069e-15, 0, 4, 0)
+projection = 1
+size = 9.29751
+
+[node name="Weapon" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+script = ExtResource("1_kyx33")
+weapon_stats = ExtResource("2_v448t")
+display_mode = true
+metadata/_custom_type_script = "uid://dy1kcyvsje554"

@@ -1,9 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://j07bpalk35bp"]
+[gd_scene load_steps=10 format=3 uid="uid://j07bpalk35bp"]
 
 [ext_resource type="Script" uid="uid://c08gg65gcos58" path="res://game/UI/weapon_select/weapon_display/weapon_display.gd" id="1_nkrsr"]
-[ext_resource type="Script" uid="uid://dy1kcyvsje554" path="res://game/weapon/weapon.gd" id="1_xyuy6"]
 [ext_resource type="Resource" uid="uid://c58aaj1af0oat" path="res://game/weapon/weapons/spread1.tres" id="2_pm788"]
-[ext_resource type="Resource" uid="uid://blxmdv45ssyxh" path="res://game/weapon/weapons/narrow_sine.tres" id="3_o4p62"]
+[ext_resource type="PackedScene" uid="uid://b4og81w38tks" path="res://game/UI/weapon_select/weapon_display/node_3d.tscn" id="3_o4p62"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y7s8r"]
 bg_color = Color(0, 0, 0, 0.3137255)
@@ -51,38 +50,17 @@ Button/styles/hover = SubResource("StyleBoxEmpty_y7s8r")
 Button/styles/normal = SubResource("StyleBoxFlat_o4p62")
 Button/styles/pressed = SubResource("StyleBoxFlat_nkrsr")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_pm788"]
-viewport_path = NodePath("SubViewport")
-
 [node name="WeaponDisplay" type="Button" node_paths=PackedStringArray("weapon", "viewport")]
 custom_minimum_size = Vector2(64, 64)
 offset_right = 8.0
 offset_bottom = 8.0
 theme = SubResource("Theme_nkrsr")
 toggle_mode = true
-icon = SubResource("ViewportTexture_pm788")
 script = ExtResource("1_nkrsr")
-weapon = NodePath("SubViewport/Node3D/Weapon")
+weapon = NodePath("")
 weapon_stats = ExtResource("2_pm788")
-viewport = NodePath("SubViewport")
-
-[node name="SubViewport" type="SubViewport" parent="."]
-transparent_bg = true
-size = Vector2i(64, 64)
-
-[node name="Node3D" type="Node3D" parent="SubViewport"]
-
-[node name="Camera3D2" type="Camera3D" parent="SubViewport/Node3D" groups=["camera"]]
-transform = Transform3D(-1, -8.74228e-08, 4.37114e-08, 4.37114e-08, 1.91069e-15, 1, -8.74228e-08, 1, 1.91069e-15, 0, 4, 0)
-projection = 1
-size = 9.29751
-
-[node name="Weapon" type="Marker3D" parent="SubViewport/Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
-script = ExtResource("1_xyuy6")
-weapon_stats = ExtResource("3_o4p62")
-display_mode = true
-metadata/_custom_type_script = "uid://dy1kcyvsje554"
+viewport = NodePath("")
+node3d = ExtResource("3_o4p62")
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
