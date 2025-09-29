@@ -1,4 +1,4 @@
-extends Node3D
+extends Marker3D
 class_name Weapon
 
 @export var firing: bool:
@@ -17,6 +17,7 @@ class_name Weapon
 
 var _firing: bool = false
 @export var weapon_stats: WeaponStats
+@export var display_mode: bool = false
 var fire_pattern: FirePattern
 var shot_timer: Timer
 var _time: float = 0.0
@@ -37,7 +38,8 @@ func _process(delta: float) -> void:
 	_time += delta
 
 func fire_once() -> void:
-	SoundManager.play_sound(SoundManager.player_gunshot)
+	if not display_mode:
+		SoundManager.play_sound(SoundManager.player_gunshot)
 	if not weapon_stats or not fire_pattern:
 		return
 

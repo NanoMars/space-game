@@ -14,11 +14,8 @@ var use_timer: bool = true
 var ui_hidden: bool = false
 
 @onready var spawner: Node = get_tree().get_first_node_in_group("spawner")
-@export var distance_from_player: float = 2.0
-@onready var player: Node3D = get_tree().get_first_node_in_group("player")
 
 @export var sprite_3d: Sprite3D
-@export var return_speed: float = 0.2
 
 func _ready() -> void:
 	if Settings.get("tutorial enabled") == false and Settings.get("demo mode") == false:
@@ -67,35 +64,13 @@ func _process(_delta):
 		sprite_3d.queue_free()
 		
 
-func _physics_process(delta: float) -> void:
-	var goal_position: Vector3 = Vector3(get_goal_position().x, 0, get_goal_position().y) + player.global_position
-	var diff = goal_position - sprite_3d.global_position
-
-	sprite_3d.global_position += diff * delta * return_speed
-
-
 func _on_timer_timeout() -> void:
 	if not use_timer:
 		return
 	showing_wasd = not showing_wasd
 
 
-func get_goal_position() -> Vector2:
-	
-	var x = player.global_position.x
-	var z = player.global_position.z
-	var goal_vector: Vector2 = Vector2(1, 0)
-	
-	if x >= 5.5:
-		goal_vector.x = -1.0
-	elif x <= -5.5:
-		goal_vector.x = 1.0
 
-	if z >= 2.3:
-		goal_vector.y = -1.0
-	elif z <= -2.3:
-		goal_vector.y = 1.0
-	return goal_vector.normalized() * distance_from_player
 	
 		
 

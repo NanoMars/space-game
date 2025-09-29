@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dkf7mjen6nt18"]
+[gd_scene load_steps=33 format=3 uid="uid://dkf7mjen6nt18"]
 
 [ext_resource type="Script" uid="uid://bsg0au27h3f7j" path="res://game/player/player.gd" id="1_obar5"]
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_b2mth"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://blxmdv45ssyxh" path="res://game/weapon/weapons/narrow_sine.tres" id="4_a4w0n"]
 [ext_resource type="PackedScene" uid="uid://sitj6ff7jl6f" path="res://game/player/shiny_thing.tscn" id="5_5fytw"]
 [ext_resource type="PackedScene" uid="uid://0c8r7gtc56k5" path="res://game/UI/Tutorial/keybind_hover.tscn" id="6_4ste8"]
+[ext_resource type="Script" uid="uid://bua7358ojyhvf" path="res://game/UI/Tutorial/ui_follow.gd" id="6_brh81"]
 [ext_resource type="Texture2D" uid="uid://bdhq1kyi8d1q" path="res://game/assets/keys/Up.png" id="7_kjljb"]
 [ext_resource type="Texture2D" uid="uid://c63em86paidfy" path="res://game/assets/keys/Up_Outline.png" id="8_brh81"]
 [ext_resource type="Script" uid="uid://6gxmi8526yn1" path="res://game/UI/Tutorial/keybind_display_resource.gd" id="9_ib3u0"]
@@ -102,11 +103,13 @@ light_energy = 0.5
 light_size = 0.044
 omni_range = 16.0
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="Sprite3D" type="Sprite3D" parent="." node_paths=PackedStringArray("goal_node")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
 top_level = true
 billboard = 1
 texture = SubResource("ViewportTexture_5fytw")
+script = ExtResource("6_brh81")
+goal_node = NodePath("..")
 
 [node name="SubViewport" type="SubViewport" parent="Sprite3D"]
 disable_3d = true
@@ -123,4 +126,3 @@ SubResource("Resource_7q7p5"): NodePath("HBoxContainer/RightRect"),
 SubResource("Resource_3koyh"): NodePath("HBoxContainer/DownRect")
 }
 sprite_3d = NodePath("../..")
-return_speed = 3.0

@@ -67,7 +67,7 @@ theme_override_constants/separation = 20
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("3_l1run")
-text = "back to main menu"
+text = "back"
 alignment = 0
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]

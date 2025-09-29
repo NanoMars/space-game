@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://mi67tynng2ha"]
+
+[ext_resource type="Script" uid="uid://c75u2713r4bxx" path="res://game/UI/main_menu/canvas_layer_tilt.gd" id="1_g52pq"]
+[ext_resource type="Script" uid="uid://5efbb5kecqr" path="res://game/UI/weapon_select/weapon_select.gd" id="1_i0fii"]
+[ext_resource type="FastNoiseLite" uid="uid://bg65nvcq4fe05" path="res://game/UI/main_menu/canvas_layer_tilt_noise.tres" id="2_48vym"]
+[ext_resource type="Script" uid="uid://bypy263lii80f" path="res://game/weapon/weapon_stats.gd" id="2_rblcg"]
+[ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://intermission/button_theme.tres" id="3_48vym"]
+[ext_resource type="Resource" uid="uid://blxmdv45ssyxh" path="res://game/weapon/weapons/narrow_sine.tres" id="3_jkg8q"]
+[ext_resource type="Resource" uid="uid://c58aaj1af0oat" path="res://game/weapon/weapons/spread1.tres" id="4_yvvyg"]
+[ext_resource type="PackedScene" uid="uid://j07bpalk35bp" path="res://game/UI/weapon_select/weapon_display/weapon_display.tscn" id="5_aeawi"]
+
+[node name="Control" type="Control" node_paths=PackedStringArray("weapon_display_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i0fii")
+weapons = Array[ExtResource("2_rblcg")]([ExtResource("3_jkg8q"), ExtResource("4_yvvyg")])
+weapon_display_container = NodePath("CanvasLayer/VBoxContainer/HBoxContainer")
+weapon_display_scene = ExtResource("5_aeawi")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("1_g52pq")
+noise = ExtResource("2_48vym")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+offset_left = 113.0
+offset_top = 78.0
+offset_right = 313.0
+offset_bottom = 162.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ReturnButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("3_48vym")
+text = "back"
+alignment = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
