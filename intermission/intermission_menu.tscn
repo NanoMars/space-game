@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://c5151n8v6645w"]
+[gd_scene load_steps=31 format=3 uid="uid://c5151n8v6645w"]
 
 [ext_resource type="Script" uid="uid://h531hpff7fyb" path="res://intermission_background.gd" id="1_3b4nm"]
 [ext_resource type="Script" uid="uid://bsste0045nkbd" path="res://intermission/intermission_menu.gd" id="1_yvdn4"]
@@ -16,6 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://dhrvl7mrmdym7" path="res://game/enemies/doppleganger/doppleganger.tscn" id="9_gldry"]
 [ext_resource type="Script" uid="uid://br7ayqjve2drn" path="res://game/modifier/modifiers/add_dopple.gd" id="10_diied"]
 [ext_resource type="PackedScene" uid="uid://bx56mhuthy1oe" path="res://game/enemies/laserthing/laserthing.tscn" id="11_diied"]
+[ext_resource type="Theme" uid="uid://c6mssg2ngmqpk" path="res://game/game_ui_theme.tres" id="16_4jr5q"]
+[ext_resource type="FontFile" uid="uid://d3xv2jvjnv25p" path="res://game/assets/TinyUnicode.ttf" id="17_fbdnw"]
 
 [sub_resource type="Gradient" id="Gradient_0i6aa"]
 offsets = PackedFloat32Array(0.00551724, 0.41853, 0.571885, 0.728435, 1)
@@ -23,7 +25,7 @@ colors = PackedColorArray(0.75, 0.4625, 0, 1, 0.77, 0.128333, 0, 1, 0.711037, 0,
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_x37ni"]
 frequency = 0.0332
-offset = Vector3(0, 0, 1.01605e+06)
+offset = Vector3(0, 0, 1054228)
 fractal_type = 3
 fractal_lacunarity = 2.29
 fractal_gain = 0.66
@@ -33,9 +35,9 @@ domain_warp_fractal_type = 2
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d7pyx"]
 width = 426
 height = 240
-in_3d_space = true
-color_ramp = SubResource("Gradient_0i6aa")
 noise = SubResource("FastNoiseLite_x37ni")
+color_ramp = SubResource("Gradient_0i6aa")
+in_3d_space = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1heoq"]
 shader = ExtResource("2_d7pyx")
@@ -48,15 +50,12 @@ shader_parameter/seed = 0.0
 [sub_resource type="Resource" id="Resource_7pqxr"]
 script = ExtResource("7_s5603")
 scene = ExtResource("7_gldry")
-weight = 1.0
 metadata/_custom_type_script = "uid://b5htysbr1cbiw"
 
 [sub_resource type="Resource" id="Resource_dpipn"]
 script = ExtResource("6_dt5tg")
 display_name = "Add Echo"
-stackable = true
 max_stacks = 3
-score_multiplier = 0.5
 enemy_to_spawn = SubResource("Resource_7pqxr")
 metadata/_custom_type_script = "uid://bkeoml7x3rkuu"
 
@@ -65,7 +64,6 @@ script = ExtResource("10_diied")
 doppleganger_scene = ExtResource("9_gldry")
 display_name = "Add Dopple"
 stackable = false
-max_stacks = 5
 score_multiplier = 0.7
 metadata/_custom_type_script = "uid://br7ayqjve2drn"
 
@@ -78,9 +76,6 @@ metadata/_custom_type_script = "uid://b5htysbr1cbiw"
 [sub_resource type="Resource" id="Resource_1vesd"]
 script = ExtResource("6_dt5tg")
 display_name = "Add Laser"
-stackable = true
-max_stacks = 5
-score_multiplier = 0.5
 enemy_to_spawn = SubResource("Resource_d21pq")
 metadata/_custom_type_script = "uid://bkeoml7x3rkuu"
 
@@ -89,14 +84,6 @@ shader = ExtResource("2_d7pyx")
 shader_parameter/normal_offset = 1.5
 shader_parameter/time_influence = 2.5
 shader_parameter/y_div = 5.6
-shader_parameter/opacity = 1.0
-shader_parameter/seed = 0.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vmbcd"]
-shader = ExtResource("2_d7pyx")
-shader_parameter/normal_offset = 1.5
-shader_parameter/time_influence = 3.0
-shader_parameter/y_div = 2.87
 shader_parameter/opacity = 1.0
 shader_parameter/seed = 0.0
 
@@ -113,7 +100,7 @@ shader_parameter/fadeDistance = 2.106
 shader_parameter/MainAlpha = 0.779
 shader_parameter/effect_color = Color(0.25098, 0, 0, 1)
 
-[node name="Control" type="Control" node_paths=PackedStringArray("mod_list", "decision_list", "score_label")]
+[node name="Control" type="Control" node_paths=PackedStringArray("mod_list", "decision_list", "score_label", "multiplier_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -124,6 +111,7 @@ script = ExtResource("1_yvdn4")
 mod_list = NodePath("CanvasLayer/mod_select")
 decision_list = NodePath("CanvasLayer/decisions")
 score_label = NodePath("CanvasLayer/ScoreLabel")
+multiplier_label = NodePath("CanvasLayer/MultiplierLabel")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -146,7 +134,7 @@ bus = &"Music"
 script = ExtResource("4_nel6a")
 noise = ExtResource("5_d21pq")
 
-[node name="mod_select" type="VBoxContainer" parent="CanvasLayer"]
+[node name="mod_select" type="VBoxContainer" parent="CanvasLayer" node_paths=PackedStringArray("mult_label")]
 material = SubResource("ShaderMaterial_1heoq")
 anchors_preset = 8
 anchor_left = 0.5
@@ -162,6 +150,7 @@ grow_vertical = 2
 theme = ExtResource("2_0i6aa")
 script = ExtResource("5_vmbcd")
 mod_list = Array[ExtResource("6_dt5tg")]([SubResource("Resource_dpipn"), SubResource("Resource_nel6a"), SubResource("Resource_1vesd")])
+mult_label = NodePath("../MultiplierLabel")
 
 [node name="decisions" type="VBoxContainer" parent="CanvasLayer"]
 visible = false
@@ -191,20 +180,6 @@ layout_mode = 2
 theme = ExtResource("2_0i6aa")
 text = "CONTINUE"
 
-[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
-material = SubResource("ShaderMaterial_vmbcd")
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -86.0
-offset_top = 16.0
-offset_right = 86.0
-offset_bottom = 32.0
-grow_horizontal = 2
-scale = Vector2(0.998616, 1)
-theme = ExtResource("2_0i6aa")
-text = "YOUR SCORE IS 1234"
-
 [node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_s5603")
 anchors_preset = 15
@@ -214,6 +189,34 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -122.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 28.0
+grow_horizontal = 0
+theme = ExtResource("16_4jr5q")
+text = "124523"
+horizontal_alignment = 2
+
+[node name="MultiplierLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -121.0
+offset_top = 19.0
+offset_right = -15.0
+offset_bottom = 32.0
+grow_horizontal = 0
+theme = ExtResource("16_4jr5q")
+theme_override_fonts/font = ExtResource("17_fbdnw")
+theme_override_font_sizes/font_size = 16
+text = "X1.0"
+horizontal_alignment = 2
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_d7pyx")

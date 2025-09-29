@@ -2,7 +2,7 @@ extends VBoxContainer
 @export var mod_list: Array[Modifier] = []
 @export var button_theme: Theme
 @export var button_count: int = 3
-
+@export var mult_label: Label
 
 func _ready() -> void:
 	for i in button_count:
@@ -10,6 +10,8 @@ func _ready() -> void:
 		var mod: Modifier = mod_list.pick_random()
 		button.text = mod.display_name + " + X" + str(mod.score_multiplier)
 		button.pressed.connect(_on_mod_button_pressed.bind(mod, button))
+		button.mouse_entered.connect(_on_mod_button_mouse_entered.bind(mod, button))
+		button.mouse_exited.connect(_on_mod_button_mouse_exited.bind(mod))
 		button.theme = button_theme
 		button.use_parent_material = true
 		add_child(button)
@@ -37,3 +39,10 @@ func _on_mod_button_pressed(mod: Modifier, _button: Button) -> void:
 	# always increase difficulty when picking a modifier
 	ScoreManager.total_kills = ScoreManager.total_kills * 1.5
 	ScoreManager.concurrent_cap = int(ScoreManager.concurrent_cap * 1.5)
+
+func _on_mod_button_mouse_entered(mod: Modifier, button: Button) -> void:
+	button.grab_focus()
+	mult_label.text = "X" + str(ScoreManager.score_multiplier) + " + X" + str(mod.score_multiplier)
+
+func _on_mod_button_mouse_exited(_mod: Modifier) -> void:
+	mult_label.text = "X" + str(ScoreManager.score_multiplier)
