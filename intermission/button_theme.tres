@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=33 format=3 uid="uid://3cudps0p8v2w"]
+[gd_resource type="Theme" load_steps=36 format=3 uid="uid://3cudps0p8v2w"]
 
 [ext_resource type="FontFile" uid="uid://c34mefa01f57l" path="res://game/assets/Awexbmp.ttf" id="1_hkhih"]
 [ext_resource type="Texture2D" uid="uid://1ajk10keexwp" path="res://game/assets/circleblur.png" id="2_hkhih"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bfdteocg85lbe" path="res://game/UI/main_menu/settings/slider/grabber_base.png" id="7_yn6tg"]
 [ext_resource type="Texture2D" uid="uid://cyrufrq52thq3" path="res://game/UI/main_menu/settings/slider/grabber_disabled.png" id="8_om1nh"]
 [ext_resource type="Texture2D" uid="uid://b8hx4hn61khwg" path="res://game/UI/main_menu/settings/slider/grabber_highlight.png" id="9_12i4t"]
+[ext_resource type="Texture2D" uid="uid://c7kc03kpubhh3" path="res://game/UI/win_screen/textbackground.png" id="10_om1nh"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1fafe"]
 
@@ -24,6 +25,7 @@ texture = SubResource("CompressedTexture2D_22a63")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hkhih"]
 texture = SubResource("CompressedTexture2D_22a63")
+modulate_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_355u3"]
 
@@ -35,6 +37,16 @@ texture = SubResource("CompressedTexture2D_22a63")
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_yn6tg"]
 color = Color(1, 1, 1, 0.588235)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i5wpn"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_om1nh"]
+texture = ExtResource("10_om1nh")
+expand_margin_left = 32.0
+expand_margin_top = 8.0
+expand_margin_right = 32.0
+expand_margin_bottom = 8.0
+modulate_color = Color(0, 0, 0, 0.78431374)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yn6tg"]
 texture = ExtResource("2_hkhih")
@@ -92,6 +104,9 @@ HSlider/styles/grabber_area = SubResource("StyleBoxEmpty_yn6tg")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxEmpty_om1nh")
 HSlider/styles/slider = SubResource("StyleBoxLine_yn6tg")
 Label/fonts/font = ExtResource("1_hkhih")
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_i5wpn")
+LineEdit/styles/normal = SubResource("StyleBoxTexture_om1nh")
+LineEdit/styles/read_only = SubResource("StyleBoxTexture_om1nh")
 SpinBox/styles/down_background_hovered = SubResource("StyleBoxTexture_yn6tg")
 SpinBox/styles/down_background_pressed = SubResource("StyleBoxEmpty_nd0al")
 SpinBox/styles/field_and_buttons_separator = SubResource("StyleBoxEmpty_1spmg")

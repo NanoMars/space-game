@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cwhe2iy3exa36"]
+[gd_scene load_steps=14 format=3 uid="uid://cwhe2iy3exa36"]
 
 [ext_resource type="Script" uid="uid://c75u2713r4bxx" path="res://game/UI/main_menu/canvas_layer_tilt.gd" id="1_3fdy6"]
 [ext_resource type="Texture2D" uid="uid://bd8btatwkpg8v" path="res://game/assets/Space Game Logo.png" id="1_eh0q4"]
@@ -8,6 +8,8 @@
 [ext_resource type="Theme" uid="uid://c6mssg2ngmqpk" path="res://game/game_ui_theme.tres" id="3_8wgyt"]
 [ext_resource type="FastNoiseLite" uid="uid://bg65nvcq4fe05" path="res://game/UI/main_menu/canvas_layer_tilt_noise.tres" id="3_ju2o4"]
 [ext_resource type="Script" uid="uid://biqxkgtmda56e" path="res://game/sound/music/music_setter.gd" id="5_8wgyt"]
+[ext_resource type="Script" uid="uid://14xb5ofioahr" path="res://game/UI/main_menu/go_button.gd" id="9_mkkw8"]
+[ext_resource type="PackedScene" uid="uid://dat7srefm4ijx" path="res://intermission/win_screen.tscn" id="10_1v7oc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o7bun"]
 shader = ExtResource("2_o7bun")
@@ -47,6 +49,7 @@ credits_scene = "uid://dil8fypplplvu"
 default_focus = NodePath("CanvasLayer/MarginContainer/VBoxContainer2/HBoxContainer/VBoxContainer/Start")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -56,6 +59,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("1_3fdy6")
 noise = ExtResource("3_ju2o4")
 
@@ -125,6 +129,16 @@ alignment = 0
 [node name="Node" type="Node" parent="."]
 script = ExtResource("5_8wgyt")
 lowpass_enabled = true
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 159.0
+offset_top = 76.0
+offset_right = 271.0
+offset_bottom = 157.0
+text = "go"
+script = ExtResource("9_mkkw8")
+go_scene = ExtResource("10_1v7oc")
 
 [connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer2/HBoxContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer2/HBoxContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
