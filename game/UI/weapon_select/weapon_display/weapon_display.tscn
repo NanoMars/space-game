@@ -112,6 +112,7 @@ VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_5skr5")
 viewport_path = NodePath("SubViewport")
 
 [node name="WeaponDisplay" type="Button" node_paths=PackedStringArray("weapon", "camera")]
+use_parent_material = true
 custom_minimum_size = Vector2(64, 64)
 offset_right = 8.0
 offset_bottom = 8.0

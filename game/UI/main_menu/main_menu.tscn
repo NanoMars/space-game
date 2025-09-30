@@ -96,7 +96,6 @@ theme_override_constants/separation = 10
 
 [node name="Start" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
 material = SubResource("ShaderMaterial_t4kx0")
-use_parent_material = true
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../Settings")
 theme = ExtResource("1_nriiq")
@@ -106,7 +105,6 @@ alignment = 0
 
 [node name="Settings" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
 material = SubResource("ShaderMaterial_ab5y6")
-use_parent_material = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../Start")
 focus_neighbor_bottom = NodePath("../Credits")
@@ -117,7 +115,6 @@ alignment = 0
 
 [node name="Credits" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
 material = SubResource("ShaderMaterial_ab5y6")
-use_parent_material = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../Settings")
 theme = ExtResource("1_nriiq")

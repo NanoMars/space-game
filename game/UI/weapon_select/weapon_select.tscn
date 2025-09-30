@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://mi67tynng2ha"]
+[gd_scene load_steps=18 format=3 uid="uid://mi67tynng2ha"]
 
 [ext_resource type="Script" uid="uid://c75u2713r4bxx" path="res://game/UI/main_menu/canvas_layer_tilt.gd" id="1_g52pq"]
 [ext_resource type="Script" uid="uid://5efbb5kecqr" path="res://game/UI/weapon_select/weapon_select.gd" id="1_i0fii"]
@@ -9,6 +9,132 @@
 [ext_resource type="Resource" uid="uid://c58aaj1af0oat" path="res://game/weapon/weapons/spread1.tres" id="4_yvvyg"]
 [ext_resource type="PackedScene" uid="uid://j07bpalk35bp" path="res://game/UI/weapon_select/weapon_display/weapon_display.tscn" id="5_aeawi"]
 [ext_resource type="PackedScene" uid="uid://cwhe2iy3exa36" path="res://game/UI/main_menu/main_menu.tscn" id="6_yvvyg"]
+[ext_resource type="Shader" uid="uid://s4clk6hl5ixd" path="res://intermission/buttonshader.gdshader" id="10_lsquf"]
+
+[sub_resource type="Shader" id="Shader_g0chu"]
+code = "shader_type canvas_item;
+
+uniform float normal_offset : hint_range(0, 2, .1) = 1.5;
+uniform float time_influence : hint_range(0, 50) = 3;
+uniform float y_div : hint_range(0, 10, .1) = 2.87;
+
+uniform float opacity : hint_range(0.0, 1.0) = 1;
+uniform float seed = 0.0;
+
+// Random number generator based on pixel position
+float rand(vec2 co){
+    return fract(sin(dot(co.xy, vec2(12.9898,78.233)) + seed) * 43758.5453);
+}
+
+void vertex() {
+    VERTEX.x += sin(VERTEX.y * y_div + round(TIME * time_influence)) * normal_offset;
+    VERTEX.y += sin(VERTEX.x * y_div + round(TIME * time_influence)) * normal_offset;
+}
+
+void fragment(){
+    vec4 tex = texture(TEXTURE, UV);
+    float noise = rand(FRAGCOORD.xy);
+
+    if(noise < opacity){
+        COLOR = tex;
+    } else {
+        COLOR = vec4(0.0, 0.0, 0.0, 0.0);
+    }
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bimp4"]
+shader = SubResource("Shader_g0chu")
+shader_parameter/normal_offset = 0.8
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 1.8
+shader_parameter/opacity = 1.0
+shader_parameter/seed = 0.0
+
+[sub_resource type="Shader" id="Shader_lsquf"]
+code = "shader_type canvas_item;
+
+uniform float normal_offset : hint_range(0, 2, .1) = 1.5;
+uniform float time_influence : hint_range(0, 50) = 3;
+uniform float y_div : hint_range(0, 10, .1) = 2.87;
+
+uniform float opacity : hint_range(0.0, 1.0) = 1;
+uniform float seed = 0.0;
+
+// Random number generator based on pixel position
+float rand(vec2 co){
+    return fract(sin(dot(co.xy, vec2(12.9898,78.233)) + seed) * 43758.5453);
+}
+
+void vertex() {
+    VERTEX.x += sin(VERTEX.y * y_div + round(TIME * time_influence)) * normal_offset;
+    VERTEX.y += sin(VERTEX.x * y_div + round(TIME * time_influence)) * normal_offset;
+}
+
+void fragment(){
+    vec4 tex = texture(TEXTURE, UV);
+    float noise = rand(FRAGCOORD.xy);
+
+    if(noise < opacity){
+        COLOR = tex;
+    } else {
+        COLOR = vec4(0.0, 0.0, 0.0, 0.0);
+    }
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g0chu"]
+shader = SubResource("Shader_lsquf")
+shader_parameter/normal_offset = 0.8
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 1.8
+shader_parameter/opacity = 1.0
+shader_parameter/seed = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_33tv8"]
+shader = ExtResource("10_lsquf")
+shader_parameter/normal_offset = 0.8
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 1.8
+shader_parameter/opacity = 1.0
+shader_parameter/seed = 0.0
+
+[sub_resource type="Shader" id="Shader_j8u17"]
+code = "shader_type canvas_item;
+
+uniform float normal_offset : hint_range(0, 2, .1) = 1.5;
+uniform float time_influence : hint_range(0, 50) = 3;
+uniform float y_div : hint_range(0, 10, .1) = 2.87;
+
+uniform float opacity : hint_range(0.0, 1.0) = 1;
+uniform float seed = 0.0;
+
+// Random number generator based on pixel position
+float rand(vec2 co){
+    return fract(sin(dot(co.xy, vec2(12.9898,78.233)) + seed) * 43758.5453);
+}
+
+void vertex() {
+    VERTEX.x += sin(VERTEX.y * y_div + round(TIME * time_influence)) * normal_offset;
+    VERTEX.y += sin(VERTEX.x * y_div + round(TIME * time_influence)) * normal_offset;
+}
+
+void fragment(){
+    vec4 tex = texture(TEXTURE, UV);
+    float noise = rand(FRAGCOORD.xy);
+
+    if(noise < opacity){
+        COLOR = tex;
+    } else {
+        COLOR = vec4(0.0, 0.0, 0.0, 0.0);
+    }
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6jfhd"]
+shader = SubResource("Shader_j8u17")
+shader_parameter/normal_offset = 0.8
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 1.8
+shader_parameter/opacity = 1.0
+shader_parameter/seed = 0.0
 
 [node name="Control" type="Control" node_paths=PackedStringArray("weapon_display_container")]
 layout_mode = 3
@@ -48,6 +174,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="CanvasLayer/VBoxContainer"]
+material = SubResource("ShaderMaterial_bimp4")
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("3_48vym")
@@ -55,18 +182,20 @@ text = "Select Weapon"
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+material = SubResource("ShaderMaterial_g0chu")
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("3_48vym")
 
 [node name="StartButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+material = SubResource("ShaderMaterial_33tv8")
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("3_48vym")
 text = "start"
 
 [node name="ReturnButton" type="Button" parent="CanvasLayer"]
-anchors_preset = -1
+material = SubResource("ShaderMaterial_6jfhd")
 offset_left = 16.0
 offset_top = 16.0
 size_flags_horizontal = 4
@@ -74,3 +203,4 @@ theme = ExtResource("3_48vym")
 text = "back"
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/ReturnButton" to="." method="_on_return_button_pressed"]
