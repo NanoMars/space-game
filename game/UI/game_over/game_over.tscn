@@ -13,23 +13,18 @@
 script = ExtResource("2_1nprd")
 text = "you died..."
 write_in_time = 3.0
-wait_time = 1.0
 write_out_time = 0.5
 metadata/_custom_type_script = "uid://dasomuhj8owef"
 
 [sub_resource type="Resource" id="Resource_pkkeu"]
 script = ExtResource("2_1nprd")
 text = "with a score of {Score}"
-write_in_time = 2.0
-wait_time = 1.0
 write_out_time = 0.5
 metadata/_custom_type_script = "uid://dasomuhj8owef"
 
 [sub_resource type="Resource" id="Resource_smeeh"]
 script = ExtResource("2_1nprd")
 text = "and on round {Round}"
-write_in_time = 2.0
-wait_time = 1.0
 write_out_time = 0.5
 metadata/_custom_type_script = "uid://dasomuhj8owef"
 
@@ -45,7 +40,6 @@ metadata/_custom_type_script = "uid://dasomuhj8owef"
 script = ExtResource("2_1nprd")
 text = "would you like to try again?"
 write_in_time = 4.0
-wait_time = 1.0
 write_out_time = 0.5
 metadata/_custom_type_script = "uid://dasomuhj8owef"
 

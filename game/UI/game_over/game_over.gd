@@ -46,38 +46,48 @@ func animate_buttons() -> void:
 	await label_tween.finished
 	await container_tween.finished
 
+func wait_or_skip(seconds: float) -> bool:
+	# Returns true if "shoot" was pressed during the wait.
+	var time_left := seconds
+	while time_left > 0.0:
+		await get_tree().process_frame
+		if Input.is_action_just_pressed("shoot"):
+			return true
+		time_left -= get_process_delta_time()
+	return false
+
 func animate_text() -> void:
-	var timer: Timer = Timer.new()
-	timer.one_shot = true
-	add_child(timer)
+	# Removed Timer; we now poll each frame so we can skip instantly.
 	for t in texts:
-		var label_text = t.text
-		label_text = label_text.format(ctx)
+		var label_text = t.text.format(ctx)
 		label_to_write.visible_characters = 0
 		label_to_write.text = label_text
 		print("label_text: " + label_text)
-		var goal_characters = label_text.length()
-		var char_time_in = t.write_in_time / float(goal_characters)
-		var char_time_out = t.write_out_time / float(goal_characters)
 
+		var goal_characters := label_text.length()
+		var char_time_in := t.write_in_time / float(goal_characters)
+		var char_time_out := t.write_out_time / float(goal_characters)
+
+		# Type-in animation (skip completes the line instantly)
 		for i in range(goal_characters + 1):
 			SoundManager.play_sound(SoundManager.talk_1)
 			label_to_write.visible_characters = i
-			timer.wait_time = char_time_in
-			timer.start()
-			await timer.timeout
+			if await wait_or_skip(char_time_in):
+				label_to_write.visible_characters = goal_characters
+				break
 
+		# If not the last text, wait, then type-out (each skippable)
 		if t != texts[-1]:
-			timer.wait_time = t.wait_time
-			timer.start()
-			await timer.timeout
+			# Inter-line wait (skip advances immediately)
+			await wait_or_skip(t.wait_time)
 
+			# Type-out animation (skip clears the line instantly)
 			for i in range(goal_characters, -1, -1):
 				SoundManager.play_sound(SoundManager.talk_2)
 				label_to_write.visible_characters = i
-				timer.wait_time = char_time_out
-				timer.start()
-				await timer.timeout
+				if await wait_or_skip(char_time_out):
+					label_to_write.visible_characters = 0
+					break
 
 
 func _on_try_again_pressed() -> void:
