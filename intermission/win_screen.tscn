@@ -10,18 +10,20 @@
 [ext_resource type="FastNoiseLite" uid="uid://bg65nvcq4fe05" path="res://game/UI/main_menu/canvas_layer_tilt_noise.tres" id="6_yqo6m"]
 
 [sub_resource type="Gradient" id="Gradient_4qxri"]
-offsets = PackedFloat32Array(0, 0.177033)
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.006329114)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_tc2mx"]
 noise_type = 3
 frequency = 0.0119
-offset = Vector3(630405.56, 0, 70242.23)
-fractal_type = 2
+offset = Vector3(-36.851593, 0, 0)
+fractal_type = 0
+fractal_octaves = 1
 fractal_weighted_strength = 1.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dyldh"]
-width = 426
-height = 1920
+width = 30
+height = 650
 generate_mipmaps = false
 noise = SubResource("FastNoiseLite_tc2mx")
 color_ramp = SubResource("Gradient_4qxri")
@@ -72,9 +74,10 @@ scale = Vector2(1, 0.125)
 texture = SubResource("NoiseTexture2D_dyldh")
 expand_mode = 1
 script = ExtResource("1_pkd2t")
-noise_speed = Vector3(45, 0, 5)
+noise_speed = Vector3(10, 0, 0)
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_tc2mx")
 layout_mode = 1
 anchors_preset = 15

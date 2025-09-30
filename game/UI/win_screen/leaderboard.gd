@@ -6,11 +6,19 @@ class_name Leaderboard
 const BASE := "https://eagbixsrqhjswzouqkrr.supabase.co/rest/v1"
 const TABLE := "scores"
 const API_KEY := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVhZ2JpeHNycWhqc3d6b3Vxa3JyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkxODk3MDQsImV4cCI6MjA3NDc2NTcwNH0.HwW0-iiZVcsyYE-O3AMSCX_bRZzjf9MCquCi6VoroEs"  # safe to ship with RLS
-const HEADERS := [
+
+#
+# Use explicit PackedStringArray constants (no concatenation),
+# so they are valid constant expressions in GDScript.
+const HEADERS_GET: PackedStringArray = [
+	"apikey: " + API_KEY,
+	"Authorization: Bearer " + API_KEY
+]
+
+const HEADERS_POST: PackedStringArray = [
 	"apikey: " + API_KEY,
 	"Authorization: Bearer " + API_KEY,
-	"Content-Type: application/json",
-	"Prefer: return=representation"
+	"Content-Type: application/json"
 ]
 
 signal leaderboard_request_completed(data)
@@ -37,7 +45,7 @@ func submit_score(score_name: String, score: int, round_num: int) -> void:
 	}
 	var err = http.request(
 		"%s/%s" % [BASE, TABLE],
-		HEADERS,
+		HEADERS_POST,
 		HTTPClient.METHOD_POST,
 		JSON.stringify(body)
 	)
@@ -54,7 +62,7 @@ func fetch_top(limit: int = 50) -> void:
 		return
 	_request_kind = RequestKind.FETCH
 	var url = "%s/%s?select=*&order=score.desc&limit=%d" % [BASE, TABLE, limit]
-	var err = http.request(url, HEADERS, HTTPClient.METHOD_GET)
+	var err = http.request(url, HEADERS_GET, HTTPClient.METHOD_GET)
 	if err != OK:
 		_request_kind = RequestKind.NONE
 		push_error("HTTPRequest error: %s" % err)

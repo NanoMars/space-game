@@ -1,4 +1,3 @@
-@tool
 extends TextureRect
 
 
@@ -6,3 +5,6 @@ extends TextureRect
 
 func _process(delta: float) -> void:
 	texture.noise.offset += delta * noise_speed
+
+func _ready() -> void:
+	texture.noise.offset = Vector3.ZERO
