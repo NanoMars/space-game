@@ -25,7 +25,7 @@ colors = PackedColorArray(0.75, 0.4625, 0, 1, 0.77, 0.128333, 0, 1, 0.711037, 0,
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_x37ni"]
 frequency = 0.0332
-offset = Vector3(0, 0, 1054228)
+offset = Vector3(0, 0, 1062481.2)
 fractal_type = 3
 fractal_lacunarity = 2.29
 fractal_gain = 0.66
@@ -100,7 +100,7 @@ shader_parameter/fadeDistance = 2.106
 shader_parameter/MainAlpha = 0.779
 shader_parameter/effect_color = Color(0.25098, 0, 0, 1)
 
-[node name="Control" type="Control" node_paths=PackedStringArray("mod_list", "decision_list", "score_label", "multiplier_label")]
+[node name="Control" type="Control" node_paths=PackedStringArray("mod_list", "decision_list", "score_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -111,7 +111,7 @@ script = ExtResource("1_yvdn4")
 mod_list = NodePath("CanvasLayer/mod_select")
 decision_list = NodePath("CanvasLayer/decisions")
 score_label = NodePath("CanvasLayer/ScoreLabel")
-multiplier_label = NodePath("CanvasLayer/MultiplierLabel")
+win_screen_scene = "uid://dat7srefm4ijx"
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -153,7 +153,6 @@ mod_list = Array[ExtResource("6_dt5tg")]([SubResource("Resource_dpipn"), SubReso
 mult_label = NodePath("../MultiplierLabel")
 
 [node name="decisions" type="VBoxContainer" parent="CanvasLayer"]
-visible = false
 material = SubResource("ShaderMaterial_yvdn4")
 anchors_preset = 8
 anchor_left = 0.5
@@ -168,13 +167,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_0i6aa")
 
-[node name="Button" type="Button" parent="CanvasLayer/decisions"]
+[node name="EndButton" type="Button" parent="CanvasLayer/decisions"]
 use_parent_material = true
 layout_mode = 2
 theme = ExtResource("2_0i6aa")
 text = "END IT HERE"
 
-[node name="Button2" type="Button" parent="CanvasLayer/decisions"]
+[node name="ContinueButton" type="Button" parent="CanvasLayer/decisions"]
 use_parent_material = true
 layout_mode = 2
 theme = ExtResource("2_0i6aa")
@@ -191,7 +190,7 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="ScoreLabel" type="Label" parent="CanvasLayer"]
-anchors_preset = -1
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -122.0
@@ -204,7 +203,7 @@ text = "124523"
 horizontal_alignment = 2
 
 [node name="MultiplierLabel" type="Label" parent="CanvasLayer"]
-anchors_preset = -1
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -121.0
@@ -230,4 +229,5 @@ scale = Vector2(1, 1.00152)
 mouse_filter = 2
 metadata/_edit_lock_ = true
 
-[connection signal="pressed" from="CanvasLayer/decisions/Button2" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="CanvasLayer/decisions/EndButton" to="." method="_on_end_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/decisions/ContinueButton" to="." method="_on_continue_pressed"]

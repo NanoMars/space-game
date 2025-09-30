@@ -8,6 +8,8 @@ extends Control
 
 @export var score_label: Label
 
+@export_file("*.tscn") var win_screen_scene: String
+
 func _on_continue_pressed() -> void:
 	# Fade out decision list and fade in mod list in parallel.
 	if mod_list:
@@ -47,3 +49,7 @@ func _ready() -> void:
 func _on_mod_button_pressed(button: Button) -> void:
 	ScoreManager.currentRound += 1
 	SceneManager.change_scene("res://main_scene.tscn", {"transition": "fade"})
+
+
+func _on_end_button_pressed() -> void:
+	SceneManager.change_scene(win_screen_scene, {"transition": "fade", "color": "FFFFFF"})

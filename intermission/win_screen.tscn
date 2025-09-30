@@ -15,7 +15,7 @@ offsets = PackedFloat32Array(0, 0.177033)
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_tc2mx"]
 noise_type = 3
 frequency = 0.0119
-offset = Vector3(565063.94, 0, 63085.55)
+offset = Vector3(630405.56, 0, 70242.23)
 fractal_type = 2
 fractal_weighted_strength = 1.0
 
@@ -41,7 +41,7 @@ expand_margin_right = 32.0
 expand_margin_bottom = 8.0
 modulate_color = Color(0, 0, 0, 0.5882353)
 
-[node name="Control" type="Control" node_paths=PackedStringArray("text_input", "name_select_box", "leaderboard", "leaderboard_box", "name_container", "score_container", "round_container")]
+[node name="Control" type="Control" node_paths=PackedStringArray("text_input", "name_select_box", "leaderboard", "leaderboard_box", "name_container", "score_container", "round_container") groups=["leaderboard_item"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -57,6 +57,8 @@ name_container = NodePath("CanvasLayer/LeaderboardBox/ScrollContainer/HBoxContai
 score_container = NodePath("CanvasLayer/LeaderboardBox/ScrollContainer/HBoxContainer/ScoreContainer")
 round_container = NodePath("CanvasLayer/LeaderboardBox/ScrollContainer/HBoxContainer/RoundContainer")
 label_theme = ExtResource("6_0c3qt")
+main_menu_scene = "uid://cwhe2iy3exa36"
+game_scene = "uid://s488jtj1i4ci"
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -73,7 +75,6 @@ script = ExtResource("1_pkd2t")
 noise_speed = Vector3(45, 0, 5)
 
 [node name="ColorRect" type="ColorRect" parent="."]
-visible = false
 material = SubResource("ShaderMaterial_tc2mx")
 layout_mode = 1
 anchors_preset = 15
@@ -90,6 +91,7 @@ script = ExtResource("5_eeew3")
 noise = ExtResource("6_yqo6m")
 
 [node name="NameSelectBox" type="VBoxContainer" parent="CanvasLayer"]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -119,7 +121,6 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "done"
 
 [node name="LeaderboardBox" type="VBoxContainer" parent="CanvasLayer"]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -143,6 +144,10 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("6_0c3qt")
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/LeaderboardBox/ScrollContainer"]
 layout_mode = 2
@@ -197,7 +202,7 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/LeaderboardBox"]
 layout_mode = 2
 
-[node name="NameSubmitButton" type="Button" parent="CanvasLayer/LeaderboardBox/HBoxContainer"]
+[node name="ReturnButton" type="Button" parent="CanvasLayer/LeaderboardBox/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
 theme = ExtResource("6_0c3qt")
@@ -209,7 +214,7 @@ modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="NameSubmitButton2" type="Button" parent="CanvasLayer/LeaderboardBox/HBoxContainer"]
+[node name="PlayButton" type="Button" parent="CanvasLayer/LeaderboardBox/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
 theme = ExtResource("6_0c3qt")
@@ -217,3 +222,5 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "play again"
 
 [connection signal="pressed" from="CanvasLayer/NameSelectBox/NameSubmitButton" to="." method="_on_name_submit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/LeaderboardBox/HBoxContainer/ReturnButton" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/LeaderboardBox/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]

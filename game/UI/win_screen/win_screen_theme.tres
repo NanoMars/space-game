@@ -77,13 +77,15 @@ texture = ExtResource("2_bpoyf")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jfr78"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hrmb7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37viw"]
+bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_12wda"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5jlak"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gp7dd"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bpoyf"]
+bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5skr5"]
 
@@ -130,8 +132,8 @@ SpinBox/styles/up_background_disabled = SubResource("StyleBoxEmpty_evkjq")
 SpinBox/styles/up_background_hovered = SubResource("StyleBoxTexture_hrmb7")
 SpinBox/styles/up_background_pressed = SubResource("StyleBoxEmpty_7mf35")
 SpinBox/styles/up_down_buttons_separator = SubResource("StyleBoxEmpty_jfr78")
-VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_hrmb7")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_37viw")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_12wda")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_5jlak")
-VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_gp7dd")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_bpoyf")
 VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_5skr5")

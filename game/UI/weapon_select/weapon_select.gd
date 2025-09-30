@@ -43,3 +43,4 @@ func _on_start_button_pressed() -> void:
 		return
 	ScoreManager.player_weapon = selected_weapon
 	SceneManager.change_scene(game_scene)
+	ScoreManager.reset()
