@@ -30,6 +30,7 @@ var _queued_fetch: bool = false
 
 func _ready():
 	add_child(http)
+	http.accept_gzip = false
 	http.request_completed.connect(_on_request_completed)
 
 # Submit a score, then automatically fetch the top results when done.
