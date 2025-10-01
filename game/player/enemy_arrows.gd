@@ -32,7 +32,7 @@ func _process(delta: float) -> void:
 			var arrow: Node2D = enemies_off_screen[e]
 			var dir3d: Vector3 = (e.global_position - global_position).normalized()
 			var dir: Vector2 = Vector2(dir3d.x, dir3d.z).normalized()
-			arrow.rotation = dir.angle() + deg_to_rad(90)
+			arrow.rotation = -dir.angle() + deg_to_rad(90)
 
 	for enemy in to_remove:
 		enemies_off_screen.erase(enemy)
