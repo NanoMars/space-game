@@ -54,7 +54,7 @@ func _process(_delta):
 			all_pressed = false
 	if all_pressed and spacebar_pressed:
 		ui_hidden = true
-		spawner.run_started = true
+		spawner._on_start_run()
 		if Settings.get("demo mode") == false:
 			Settings.set("tutorial enabled", false)
 
