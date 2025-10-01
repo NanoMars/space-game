@@ -6,6 +6,7 @@ class_name Enemy
 var dead: bool = false
 signal died
 
+
 func _ready() -> void:
 	if health:
 		health.died.connect(_on_died)
@@ -14,6 +15,7 @@ func _ready() -> void:
 func damage(amount: float, from: Node = null) -> void:
 	if health and health.has_method("damage"):
 		health.damage(amount, from)
+	
 
 func _on_died(from: Node) -> void:
 	if dead:

@@ -20,7 +20,6 @@ metadata/_custom_type_script = "uid://b74jnsjx6ore1"
 [sub_resource type="Resource" id="Resource_u37ft"]
 script = ExtResource("7_ij02q")
 damage = 1.5
-fire_rate = 3.0
 projectile_speed = -10.0
 projectile_scene = ExtResource("6_7ihf2")
 fire_pattern = SubResource("Resource_ci32u")

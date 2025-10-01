@@ -5,13 +5,17 @@ class_name Weapon
 	set(value):
 		
 		if shot_timer && value != _firing:
-			if _firing:
-				shot_timer.stop()
-			else:
-				shot_timer.start()
-				
-		_firing = value
+			_firing = value
 
+			if _firing:
+				if can_shoot:
+					fire_once()
+					shot_timer.start()
+					print("Starting shot timer")
+			else:
+				pass
+				
+		print("Firing set to: ", _firing)
 	get:
 		return _firing
 
@@ -27,6 +31,8 @@ var _weapon_stats: WeaponStats = null
 var fire_pattern: FirePattern
 var shot_timer: Timer
 var _time: float = 0.0
+
+var can_shoot: bool = true
 	
 func setup_weapon() -> void:
 	call_deferred("get_projectile_container")
@@ -37,14 +43,20 @@ func setup_weapon() -> void:
 		shot_timer.wait_time = 1.0 / weapon_stats.fire_rate
 		print("Weapon fire rate: ", weapon_stats.fire_rate, " wait time: ", shot_timer.wait_time)
 		shot_timer.one_shot = false
-		shot_timer.autostart = false
+		shot_timer.autostart = true
 		add_child(shot_timer)
-		shot_timer.timeout.connect(fire_once)
+		shot_timer.timeout.connect(_shot_timer_timeout)
 
 func _process(delta: float) -> void:
 	_time += delta
 
+func _shot_timer_timeout() -> void:
+	can_shoot = true
+	if firing:
+		fire_once()
+
 func fire_once() -> void:
+	can_shoot = false
 	if not display_mode:
 		SoundManager.play_sound(SoundManager.player_gunshot)
 	if not weapon_stats or not fire_pattern:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dkf7mjen6nt18"]
+[gd_scene load_steps=36 format=3 uid="uid://dkf7mjen6nt18"]
 
 [ext_resource type="Script" uid="uid://bsg0au27h3f7j" path="res://game/player/player.gd" id="1_obar5"]
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_b2mth"]
@@ -72,6 +72,42 @@ wasd_pressed_texture = ExtResource("23_qfwia")
 input_action = "move_backward"
 metadata/_custom_type_script = "uid://6gxmi8526yn1"
 
+[sub_resource type="Resource" id="Resource_kjljb"]
+script = ExtResource("9_ib3u0")
+arrow_pressed_texture = ExtResource("8_brh81")
+arrow_normal_texture = ExtResource("7_kjljb")
+wasd_normal_texture = ExtResource("10_bp242")
+wasd_pressed_texture = ExtResource("11_cgi3i")
+input_action = "move_forward"
+metadata/_custom_type_script = "uid://6gxmi8526yn1"
+
+[sub_resource type="Resource" id="Resource_brh81"]
+script = ExtResource("9_ib3u0")
+arrow_pressed_texture = ExtResource("13_w24bm")
+arrow_normal_texture = ExtResource("12_y6drd")
+wasd_normal_texture = ExtResource("14_22cju")
+wasd_pressed_texture = ExtResource("15_wrff0")
+input_action = "move_left"
+metadata/_custom_type_script = "uid://6gxmi8526yn1"
+
+[sub_resource type="Resource" id="Resource_ib3u0"]
+script = ExtResource("9_ib3u0")
+arrow_pressed_texture = ExtResource("17_uv21l")
+arrow_normal_texture = ExtResource("16_n0jev")
+wasd_normal_texture = ExtResource("18_qxyrc")
+wasd_pressed_texture = ExtResource("19_cy4e0")
+input_action = "move_right"
+metadata/_custom_type_script = "uid://6gxmi8526yn1"
+
+[sub_resource type="Resource" id="Resource_bp242"]
+script = ExtResource("9_ib3u0")
+arrow_pressed_texture = ExtResource("21_bdb11")
+arrow_normal_texture = ExtResource("20_x6a6n")
+wasd_normal_texture = ExtResource("22_p3uph")
+wasd_pressed_texture = ExtResource("23_qfwia")
+input_action = "move_backward"
+metadata/_custom_type_script = "uid://6gxmi8526yn1"
+
 [node name="CharacterBody3D" type="CharacterBody3D" groups=["player"]]
 collision_layer = 2
 axis_lock_linear_y = true
@@ -79,6 +115,7 @@ axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
 script = ExtResource("1_obar5")
+move_speed = 100.0
 shiny_thing_scene = ExtResource("5_5fytw")
 
 [node name="Health" parent="." instance=ExtResource("2_b2mth")]
@@ -121,6 +158,10 @@ keys = {
 SubResource("Resource_v2wty"): NodePath("UpRect"),
 SubResource("Resource_d5m2f"): NodePath("HBoxContainer/LeftRect"),
 SubResource("Resource_7q7p5"): NodePath("HBoxContainer/RightRect"),
-SubResource("Resource_3koyh"): NodePath("HBoxContainer/DownRect")
+SubResource("Resource_3koyh"): NodePath("HBoxContainer/DownRect"),
+SubResource("Resource_kjljb"): NodePath("UpRect"),
+SubResource("Resource_brh81"): NodePath("HBoxContainer/LeftRect"),
+SubResource("Resource_ib3u0"): NodePath("HBoxContainer/RightRect"),
+SubResource("Resource_bp242"): NodePath("HBoxContainer/DownRect")
 }
 sprite_3d = NodePath("../..")

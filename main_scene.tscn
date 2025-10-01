@@ -95,9 +95,7 @@ size = 9.29751
 script = ExtResource("5_wr18j")
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("7_42yoh")]
-move_speed = 10.0
-acceleration = 50.0
-deceleration = 50.0
+move_speed = 600.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0f027")
