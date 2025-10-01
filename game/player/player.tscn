@@ -1,8 +1,9 @@
-[gd_scene load_steps=43 format=3 uid="uid://dkf7mjen6nt18"]
+[gd_scene load_steps=42 format=3 uid="uid://dkf7mjen6nt18"]
 
 [ext_resource type="Script" uid="uid://bsg0au27h3f7j" path="res://game/player/player.gd" id="1_obar5"]
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_b2mth"]
 [ext_resource type="Script" uid="uid://dy1kcyvsje554" path="res://game/weapon/weapon.gd" id="3_8soms"]
+[ext_resource type="ArrayMesh" uid="uid://80nhwrfxwbca" path="res://game/player/player_mesh.tres" id="4_bp242"]
 [ext_resource type="PackedScene" uid="uid://sitj6ff7jl6f" path="res://game/player/shiny_thing.tscn" id="5_5fytw"]
 [ext_resource type="PackedScene" uid="uid://0c8r7gtc56k5" path="res://game/UI/Tutorial/keybind_hover.tscn" id="6_4ste8"]
 [ext_resource type="Script" uid="uid://bua7358ojyhvf" path="res://game/UI/Tutorial/ui_follow.gd" id="6_brh81"]
@@ -28,12 +29,6 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_o3jxj"]
 radius = 0.4
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a4w0n"]
-shading_mode = 0
-
-[sub_resource type="SphereMesh" id="SphereMesh_0f027"]
-material = SubResource("StandardMaterial3D_a4w0n")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_5fytw"]
 viewport_path = NodePath("Sprite3D/SubViewport")
@@ -166,7 +161,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000307858, -0.00223905, 0.0
 shape = SubResource("SphereShape3D_o3jxj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_0f027")
+transform = Transform3D(-0.5, 0, -7.54979e-08, 0, 0.5, 0, 7.54979e-08, 0, -0.5, 0, 0, -0.5)
+mesh = ExtResource("4_bp242")
 
 [node name="Weapon" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00260431, -0.00110555, 0.50386)
