@@ -166,18 +166,20 @@ offset_bottom = 23.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_0i6aa")
+theme_override_constants/separation = 16
 
 [node name="EndButton" type="Button" parent="CanvasLayer/decisions"]
 use_parent_material = true
 layout_mode = 2
 theme = ExtResource("2_0i6aa")
-text = "END IT HERE"
+text = "end it here
+(submit your score)"
 
 [node name="ContinueButton" type="Button" parent="CanvasLayer/decisions"]
 use_parent_material = true
 layout_mode = 2
 theme = ExtResource("2_0i6aa")
-text = "CONTINUE"
+text = "continue"
 
 [node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_s5603")
