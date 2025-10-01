@@ -1,84 +1,17 @@
-[gd_scene load_steps=21 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=8 format=3 uid="uid://s488jtj1i4ci"]
 
-[ext_resource type="Script" uid="uid://biqxkgtmda56e" path="res://game/sound/music/music_setter.gd" id="1_7ycvg"]
 [ext_resource type="PackedScene" uid="uid://c0utlmtqcar20" path="res://game/modifier/modifier_caller.tscn" id="1_66tet"]
 [ext_resource type="PackedScene" uid="uid://tt1rrpyhclj1" path="res://game/enemyspawning/spawner.tscn" id="2_7ycvg"]
-[ext_resource type="Script" uid="uid://po2t06prvofw" path="res://game/camerafix.gd" id="5_wr18j"]
 [ext_resource type="PackedScene" uid="uid://dlgvodlq4gicv" path="res://game/UI.tscn" id="6_fd1kl"]
 [ext_resource type="PackedScene" uid="uid://dkf7mjen6nt18" path="res://game/player/player.tscn" id="7_42yoh"]
-[ext_resource type="Shader" uid="uid://b44xvd07s31ri" path="res://game/assets/terrain.gdshader" id="8_mphju"]
-[ext_resource type="Texture2D" uid="uid://bbhgvkbr5lw07" path="res://game/assets/terrain/height.tres" id="9_yrt05"]
 [ext_resource type="Shader" uid="uid://dawlanyidv1xr" path="res://intermission/test.gdshader" id="10_jo72c"]
 [ext_resource type="Texture2D" uid="uid://cjdxiqij7aekk" path="res://game/assets/pallette.png" id="11_h8riy"]
-
-[sub_resource type="Environment" id="Environment_0f027"]
-background_mode = 2
-fog_light_energy = 0.0
-
-[sub_resource type="Gradient" id="Gradient_8mm7a"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.524138)
-colors = PackedColorArray(0.221302, 0.221302, 0.221302, 1, 0.903598, 0.903598, 0.903598, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_hq1ik"]
-noise_type = 3
-seed = 1
-fractal_type = 3
-fractal_lacunarity = 0.0
-fractal_gain = -0.06
-fractal_ping_pong_strength = 3.0
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nfk4m"]
-width = 1028
-height = 1028
-noise = SubResource("FastNoiseLite_hq1ik")
-color_ramp = SubResource("Gradient_8mm7a")
-seamless = true
-seamless_blend_skirt = 0.54
-
-[sub_resource type="Gradient" id="Gradient_spdf2"]
-colors = PackedColorArray(0.194349, 0.194349, 0.194349, 1, 0.398793, 0.398793, 0.398793, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_rb35u"]
-noise_type = 3
-seed = 1
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7ycvg"]
-width = 4096
-height = 4096
-noise = SubResource("FastNoiseLite_rb35u")
-color_ramp = SubResource("Gradient_spdf2")
-seamless = true
-invert = true
-as_normal_map = true
-seamless_blend_skirt = 0.339
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8mm7a"]
-render_priority = 0
-shader = ExtResource("8_mphju")
-shader_parameter/albedo_tex = SubResource("NoiseTexture2D_nfk4m")
-shader_parameter/normal_tex = SubResource("NoiseTexture2D_7ycvg")
-shader_parameter/height_tex = ExtResource("9_yrt05")
-shader_parameter/tile_scale = 0.0
-shader_parameter/scroll_speed = -0.3
-shader_parameter/height_scale = 0.004
-shader_parameter/layers_min = 128
-shader_parameter/layers_max = 128
-shader_parameter/binary_refine = true
-shader_parameter/refine_steps = 8
-shader_parameter/roughness_val = 0.8
-shader_parameter/metallic_val = 0.0
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_hq1ik"]
-material = SubResource("ShaderMaterial_8mm7a")
-size = Vector2(500, 500)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wr18j"]
 shader = ExtResource("10_jo72c")
 shader_parameter/palette = ExtResource("11_h8riy")
 
-[node name="Node3D" type="Node3D" groups=["game_root"]]
-script = ExtResource("1_7ycvg")
+[node name="Node2D" type="Node2D"]
 
 [node name="ModifierCaller" parent="." instance=ExtResource("1_66tet")]
 
@@ -88,38 +21,10 @@ script = ExtResource("1_7ycvg")
 
 [node name="Control" parent="CanvasLayer" instance=ExtResource("6_fd1kl")]
 
-[node name="Camera3D2" type="Camera3D" parent="." groups=["camera"]]
-transform = Transform3D(-1, -8.74228e-08, 4.37114e-08, 4.37114e-08, 1.91069e-15, 1, -8.74228e-08, 1, 1.91069e-15, 0, 4, 0)
-projection = 1
-size = 9.29751
-script = ExtResource("5_wr18j")
-
 [node name="CharacterBody3D" parent="." instance=ExtResource("7_42yoh")]
-move_speed = 600.0
-shooting_move_speed = 400.0
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_0f027")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, -0.000105183, -0.00010178, 0.000105183, 1, -9.50741e-05, 0.00010178, 9.50741e-05, 1, 0.00960159, -7.28319, 0.0177956)
-mesh = SubResource("PlaneMesh_hq1ik")
-metadata/_edit_lock_ = true
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-1, 6.70699e-09, -8.71651e-08, 0, 0.997053, 0.076719, 8.74228e-08, 0.076719, -0.997053, 0, 2.14119, -4.24151)
-light_energy = 11.548
-light_indirect_energy = 3.189
-light_negative = true
-light_specular = 0.0
-metadata/_edit_lock_ = true
-
-[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.14119, -4.24151)
-light_energy = 0.794
-light_indirect_energy = 3.189
-light_specular = 0.0
-metadata/_edit_lock_ = true
+position = Vector2(213, 120)
+move_speed = 15000.0
+shooting_move_speed = 10000.0
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 

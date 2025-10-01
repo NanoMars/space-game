@@ -29,5 +29,3 @@ func _on_body_entered(body: Node) -> void:
 			body.damage(damage_dealt, self)
 			if health and health.has_method("die"):
 				health.die(self)
-
-

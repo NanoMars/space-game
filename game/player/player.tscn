@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_b2mth"]
 [ext_resource type="Script" uid="uid://dy1kcyvsje554" path="res://game/weapon/weapon.gd" id="3_8soms"]
 [ext_resource type="ArrayMesh" uid="uid://80nhwrfxwbca" path="res://game/player/player_mesh.tres" id="4_bp242"]
-[ext_resource type="PackedScene" uid="uid://sitj6ff7jl6f" path="res://game/player/shiny_thing.tscn" id="5_5fytw"]
 [ext_resource type="PackedScene" uid="uid://0c8r7gtc56k5" path="res://game/UI/Tutorial/keybind_hover.tscn" id="6_4ste8"]
 [ext_resource type="Script" uid="uid://bua7358ojyhvf" path="res://game/UI/Tutorial/ui_follow.gd" id="6_brh81"]
 [ext_resource type="Texture2D" uid="uid://bdhq1kyi8d1q" path="res://game/assets/keys/Up.png" id="7_kjljb"]
@@ -27,11 +26,15 @@
 [ext_resource type="Script" uid="uid://u0bxia362hua" path="res://game/player/enemy_arrows.gd" id="24_brh81"]
 [ext_resource type="PackedScene" uid="uid://745fwpgx24q3" path="res://game/player/enemy_arrows/enemy_arrow.tscn" id="25_ib3u0"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_o3jxj"]
-radius = 0.4
+[sub_resource type="ViewportTexture" id="ViewportTexture_ib3u0"]
+viewport_path = NodePath("Sprite2D/SubViewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_5fytw"]
-viewport_path = NodePath("Sprite3D/SubViewport")
+[sub_resource type="World3D" id="World3D_ib3u0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ib3u0"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_bp242"]
+viewport_path = NodePath("Sprite2D2/SubViewport")
 
 [sub_resource type="Resource" id="Resource_v2wty"]
 script = ExtResource("9_ib3u0")
@@ -141,54 +144,54 @@ wasd_pressed_texture = ExtResource("23_qfwia")
 input_action = "move_backward"
 metadata/_custom_type_script = "uid://6gxmi8526yn1"
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_brh81"]
-viewport_path = NodePath("Sprite3D2/SubViewport")
-
-[node name="CharacterBody3D" type="CharacterBody3D" groups=["player"]]
-collision_layer = 2
-axis_lock_linear_y = true
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
+[node name="CharacterBody2D" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_obar5")
-move_speed = 100.0
-shiny_thing_scene = ExtResource("5_5fytw")
+move_speed = 1000.0
+shooting_move_speed = 250.0
 
 [node name="Health" parent="." instance=ExtResource("2_b2mth")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000307858, -0.00223905, 0.00119328)
-shape = SubResource("SphereShape3D_o3jxj")
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = SubResource("ViewportTexture_ib3u0")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="SubViewport" type="SubViewport" parent="Sprite2D"]
+own_world_3d = true
+world_3d = SubResource("World3D_ib3u0")
+transparent_bg = true
+size = Vector2i(64, 64)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite2D/SubViewport"]
 transform = Transform3D(-0.5, 0, -7.54979e-08, 0, 0.5, 0, 7.54979e-08, 0, -0.5, 0, 0, -0.5)
 mesh = ExtResource("4_bp242")
+skeleton = NodePath("")
+
+[node name="Camera3D" type="Camera3D" parent="Sprite2D/SubViewport"]
+transform = Transform3D(-1, 8.742278e-08, 3.821371e-15, 0, -4.371139e-08, 1, 8.742278e-08, 1, 4.371139e-08, 0, 2.497458, 0)
+projection = 1
+size = 1.25
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ib3u0")
 
 [node name="Weapon" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00260431, -0.00110555, 0.50386)
 gizmo_extents = 1.65
 script = ExtResource("3_8soms")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.4655, 0)
-light_energy = 0.5
-light_size = 0.044
-omni_range = 16.0
-
-[node name="Sprite3D" type="Sprite3D" parent="." node_paths=PackedStringArray("goal_node")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
-top_level = true
-billboard = 1
-texture = SubResource("ViewportTexture_5fytw")
+[node name="Sprite2D2" type="Sprite2D" parent="." node_paths=PackedStringArray("goal_node")]
+position = Vector2(-35.000004, 0)
+scale = Vector2(0.1, 0.1)
+texture = SubResource("ViewportTexture_bp242")
 script = ExtResource("6_brh81")
 goal_node = NodePath("..")
 
-[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+[node name="SubViewport" type="SubViewport" parent="Sprite2D2"]
 disable_3d = true
 transparent_bg = true
 size = Vector2i(200, 192)
 
-[node name="VBoxContainer" parent="Sprite3D/SubViewport" node_paths=PackedStringArray("keys", "sprite_3d") instance=ExtResource("6_4ste8")]
+[node name="VBoxContainer" parent="Sprite2D2/SubViewport" node_paths=PackedStringArray("keys", "sprite_3d") instance=ExtResource("6_4ste8")]
 offset_right = 104.0
 offset_bottom = 101.0
 keys = {
@@ -205,19 +208,17 @@ SubResource("Resource_brh81"): NodePath("HBoxContainer/LeftRect"),
 SubResource("Resource_ib3u0"): NodePath("HBoxContainer/RightRect"),
 SubResource("Resource_bp242"): NodePath("HBoxContainer/DownRect")
 }
-sprite_3d = NodePath("../..")
+sprite_3d = NodePath("")
 
-[node name="Sprite3D2" type="Sprite3D" parent="." node_paths=PackedStringArray("arrow_container")]
-transform = Transform3D(2, 0, 0, 0, -8.742278e-08, -2, 0, 2, -8.742278e-08, 0, 0, 0)
-texture = SubResource("ViewportTexture_brh81")
+[node name="Sprite2D3" type="Sprite2D" parent="." node_paths=PackedStringArray("arrow_container")]
 script = ExtResource("24_brh81")
 enemy_arrow = ExtResource("25_ib3u0")
 arrow_container = NodePath("SubViewport/Node2D")
 
-[node name="SubViewport" type="SubViewport" parent="Sprite3D2"]
+[node name="SubViewport" type="SubViewport" parent="Sprite2D3"]
 disable_3d = true
 transparent_bg = true
 size = Vector2i(161, 161)
 
-[node name="Node2D" type="Node2D" parent="Sprite3D2/SubViewport"]
+[node name="Node2D" type="Node2D" parent="Sprite2D3/SubViewport"]
 position = Vector2(80, 80)
