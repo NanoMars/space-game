@@ -117,7 +117,6 @@ custom_minimum_size = Vector2(64, 64)
 offset_right = 8.0
 offset_bottom = 8.0
 theme = SubResource("Theme_3vj2k")
-toggle_mode = true
 icon = SubResource("ViewportTexture_o4p62")
 script = ExtResource("1_nkrsr")
 weapon = NodePath("SubViewport/Node3D/Weapon")

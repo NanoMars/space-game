@@ -31,16 +31,6 @@ func _on_weapon_display_pressed(weapon_display: WeaponDisplay) -> void:
 		if child != weapon_display:
 			child.button_pressed = false
 	
-	selected_weapon = weapon_display.weapon_stats
-
-	print("Selected weapon: %s" % selected_weapon)
-
-
-func _on_start_button_pressed() -> void:
-	print("Starting game with weapon: %s" % selected_weapon)
-	
-	if not selected_weapon:
-		return
-	ScoreManager.player_weapon = selected_weapon
+	ScoreManager.player_weapon = weapon_display.weapon_stats
 	SceneManager.change_scene(game_scene)
 	ScoreManager.reset()
