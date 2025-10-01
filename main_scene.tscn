@@ -96,6 +96,7 @@ script = ExtResource("5_wr18j")
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("7_42yoh")]
 move_speed = 600.0
+shooting_move_speed = 400.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0f027")

@@ -11,9 +11,9 @@ metadata/_custom_type_script = "uid://tr3qy35bjgd2"
 
 [resource]
 script = ExtResource("3_8tmc7")
-damage = 1.0
+damage = 1.75
 fire_rate = 60.0
-projectile_speed = 15.0
+projectile_speed = 45.0
 projectile_scene = ExtResource("2_t4eyu")
 fire_pattern = SubResource("Resource_anr75")
 metadata/_custom_type_script = "uid://bypy263lii80f"

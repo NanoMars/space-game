@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://745fwpgx24q3"]
+
+[ext_resource type="Texture2D" uid="uid://b5u55u61eowd0" path="res://game/player/enemy_arrows/enemy arrow.png" id="1_11004"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_11004")
+offset = Vector2(0, -60)

@@ -11,11 +11,9 @@ class_name Weapon
 				if can_shoot:
 					fire_once()
 					shot_timer.start()
-					print("Starting shot timer")
 			else:
 				pass
 				
-		print("Firing set to: ", _firing)
 	get:
 		return _firing
 
@@ -41,7 +39,6 @@ func setup_weapon() -> void:
 	if not shot_timer:
 		shot_timer = Timer.new()
 		shot_timer.wait_time = 1.0 / weapon_stats.fire_rate
-		print("Weapon fire rate: ", weapon_stats.fire_rate, " wait time: ", shot_timer.wait_time)
 		shot_timer.one_shot = false
 		shot_timer.autostart = true
 		add_child(shot_timer)

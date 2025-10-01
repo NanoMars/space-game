@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 @export var move_speed: float = 5.0
+@export var shooting_move_speed: float = 2.5
 
 @onready var health: Health = $Health
 @onready var weapon: Weapon = $Weapon
@@ -45,9 +46,10 @@ func _physics_process(delta: float) -> void:
 	if input_vector.length() > 1.0:
 		input_vector = input_vector.normalized()
 
+	var current_move_speed = move_speed if weapon.can_shoot == true else shooting_move_speed
 
-	velocity.x = input_vector.x * move_speed * delta
-	velocity.z = input_vector.y * move_speed * delta
+	velocity.x = input_vector.x * current_move_speed * delta
+	velocity.z = input_vector.y * current_move_speed * delta
 
 	move_and_slide()
 
