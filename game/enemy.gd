@@ -1,4 +1,4 @@
-extends RigidBody3D
+extends RigidBody2D
 class_name Enemy
 @onready var health: Health = $Health
 

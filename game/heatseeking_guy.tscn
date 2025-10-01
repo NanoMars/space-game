@@ -4,34 +4,17 @@
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_yospj"]
 [ext_resource type="Texture2D" uid="uid://dyevwhviftfbc" path="res://game/assets/handthing.png" id="3_06yso"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_06yso"]
-radius = 0.7
+[sub_resource type="CircleShape2D" id="CircleShape2D_m2fxr"]
 
-[node name="RigidBody3D" type="RigidBody3D" groups=["enemies"]]
-collision_layer = 4
-collision_mask = 3
-axis_lock_linear_y = true
-axis_lock_angular_x = true
-axis_lock_angular_z = true
+[node name="RigidBody2D" type="RigidBody2D"]
 script = ExtResource("1_06yso")
-speed = 200.0
-damage_dealt = 10.0
 
 [node name="Health" parent="." instance=ExtResource("2_yospj")]
 max_health = 30.0
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(-1.44248e-08, 0.33, -1.44248e-08, 0, -1.44248e-08, -0.33, -0.33, -1.44248e-08, 6.30526e-16, 0, 0, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_m2fxr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_06yso")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_06yso")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.4655, 0)
-light_color = Color(1, 0, 0, 1)
-light_energy = 0.4
-light_size = 0.044
-omni_range = 14.0

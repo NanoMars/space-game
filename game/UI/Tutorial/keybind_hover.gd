@@ -15,7 +15,7 @@ var ui_hidden: bool = false
 
 @onready var spawner: Node = get_tree().get_first_node_in_group("spawner")
 
-@export var sprite_3d: Sprite3D
+@export var sprite_2d: Sprite2D
 
 func _ready() -> void:
 	if Settings.get("tutorial enabled") == false and Settings.get("demo mode") == false:
@@ -37,7 +37,7 @@ func _ready() -> void:
 
 func _process(_delta):
 	if Settings.get("tutorial enabled") == false and Settings.get("demo mode") == false and not spawner.run_started and not ui_hidden:
-		sprite_3d.queue_free()
+		sprite_2d.queue_free()
 
 	if Input.is_action_just_pressed("shoot"):
 		spacebar_pressed = true
@@ -61,7 +61,7 @@ func _process(_delta):
 		var tween: Tween = create_tween()
 		tween.tween_property(self, "modulate:a", 0.0, 0.5)
 		await tween.finished
-		sprite_3d.queue_free()
+		sprite_2d.queue_free()
 		
 
 func _on_timer_timeout() -> void:

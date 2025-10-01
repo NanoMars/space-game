@@ -1,17 +1,17 @@
 extends Enemy
 
-@onready var player: Node = get_tree().get_first_node_in_group("player")
+@onready var player: Node2D = get_tree().get_first_node_in_group("player") as Node2D
 @export var speed: float = 3.0
 @export var damage_dealt: float = 35.0
 
 @export var damage_tick: float = 0.1
 
-@onready var raycast_l: RayCast3D = $RayCastL
-@onready var raycast_r: RayCast3D = $RayCastR
+@onready var raycast_l: RayCast2D = $RayCastL
+@onready var raycast_r: RayCast2D = $RayCastR
 
 @export var max_x: float = 5.5
 
-@export var weapon_node: Marker3D
+@export var weapon_node: Marker2D
 @export var wave_hz: float = 0.25 # lateral oscillation frequency (cycles per second)
 
 var _time: float = 0.0
@@ -32,7 +32,7 @@ func _ready() -> void:
 	timer.one_shot = false
 	timer.start()
 
-	# Initialize sine wave parameters based on current random x
+	# Initialize sine wave parameters based on current x
 	_omega = TAU * wave_hz
 	if max_x > 0.0 and _omega != 0.0:
 		var s: float = clamp(position.x / max_x, -1.0, 1.0)
@@ -41,11 +41,11 @@ func _ready() -> void:
 		_phase = 0.0
 
 func _physics_process(delta: float) -> void:
-	# Forward movement stays the same
-	var dir := Vector3(0.0, 0.0, -speed).normalized()
+	# Forward movement along -Y (upwards)
+	var dir := Vector2(0.0, -1.0)
 	apply_force(dir * speed * delta)
 
-	# Sine-wave lateral motion between -max_x and max_x
+	# Sine-wave lateral motion between -max_x and max_x on X
 	if max_x > 0.0 and _omega != 0.0:
 		_time += delta
 		var new_x := max_x * sin(_omega * _time + _phase)

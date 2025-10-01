@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://dgxyex4atafq3" path="res://game/assets/heart(1).png" id="3_43rru"]
 [ext_resource type="Shader" uid="uid://cvkrh55abrhwy" path="res://game/enemies/laserthing/laserthing.gdshader" id="4_43rru"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_43rru"]
-size = Vector3(1.56836, 1, 1)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_43rru"]
+size = Vector2(40, 20)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1sskn"]
 shader = ExtResource("4_43rru")
@@ -28,40 +28,26 @@ shader_parameter/fixed_edge_size = 0.0
 shader_parameter/noise_scale = Vector2(1, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_43rru"]
-viewport_path = NodePath("SubViewport")
+viewport_path = NodePath("../SubViewport")
 
-[node name="RigidBody3D" type="RigidBody3D" groups=["enemies"]]
-collision_layer = 4
-collision_mask = 0
-axis_lock_linear_y = true
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
+[node name="RigidBody2D" type="RigidBody2D"]
 script = ExtResource("1_1sskn")
-speed = 10.0
-damage_dealt = 33.0
-damage_tick = 0.033
-wave_hz = 0.175
 
 [node name="Health" parent="." instance=ExtResource("1_gk4nt")]
 max_health = 50.0
 
-[node name="Sprite3D2" type="Sprite3D" parent="."]
-transform = Transform3D(0.3, 0, 0, 0, -1.31134e-08, -0.3, 0, 0.3, -1.31134e-08, 0, 0.0732425, 0)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_43rru")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_43rru")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_43rru")
 
-[node name="RayCastL" type="RayCast3D" parent="."]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.6, 0, 0)
-target_position = Vector3(0, -25, 0)
-collision_mask = 3
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(-1000, 0)
 
-[node name="RayCastR" type="RayCast3D" parent="."]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.6, 0, 0)
-target_position = Vector3(0, -25, 0)
-collision_mask = 3
+[node name="RayCast2D2" type="RayCast2D" parent="."]
+target_position = Vector2(1000, 0)
 
 [node name="SubViewport" type="SubViewport" parent="."]
 disable_3d = true
@@ -78,4 +64,9 @@ grow_vertical = 2
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(30, 0, 0, 0, -8.74228e-09, 30, 0, -0.2, -1.31134e-06, -0.00465155, 0.00312281, -0.0126331)
+texture = SubResource("ViewportTexture_43rru")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+z_index = -1
+scale = Vector2(7, 0.025)
 texture = SubResource("ViewportTexture_43rru")
