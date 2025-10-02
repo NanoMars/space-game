@@ -1,8 +1,16 @@
 extends Enemy  # Ensure Enemy extends RigidBody2D in 2D
 
 @onready var player: Node2D = get_tree().get_first_node_in_group("player") as Node2D
-@export var speed: float = 300.0   # force magnitude or tweak to taste
 @export var damage_dealt: float = 20.0
+
+# Sine-wave parameters
+@export var amplitude: float = 120.0        # pixels
+@export var frequency_hz: float = 0.75      # cycles per second
+@export var vertical_speed: float = 120.0   # pixels per second downward
+@export var raycast_l: RayCast2D
+@export var raycast_r: RayCast2D
+
+var _t: float = 0.0
 
 func _ready() -> void:
 	super._ready()
@@ -11,15 +19,23 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 
 func _physics_process(delta: float) -> void:
-	if player:
-		var direction: Vector2 = (player.global_position - global_position).normalized()
-		# Apply a force toward the player (2D). Remove * delta if you want stronger acceleration.
-		apply_force(direction * speed * delta)
+	_t += delta
+	var w := TAU * frequency_hz
+	var vx := w * amplitude * cos(w * _t)   # d/dt of A*sin(wt) = A*w*cos(wt)
+	var vy := vertical_speed
+	linear_velocity = Vector2(vx, vy)
 
-	# Face the velocity direction in 2D
-	var v: Vector2 = linear_velocity
-	if v.length_squared() > 0.0001:
-		rotation = v.angle()
+	# raycast to detect player
+	if raycast_l.is_colliding():
+		var collider: Node = raycast_l.get_collider()
+		if collider and collider.is_in_group("player"):
+			_on_body_entered(collider)
+	if raycast_r.is_colliding():
+		var collider: Node = raycast_r.get_collider()
+		if collider and collider.is_in_group("player"):
+			_on_body_entered(collider)
+
+
 
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):
@@ -27,11 +43,3 @@ func _on_body_entered(body: Node) -> void:
 			body.damage(damage_dealt, self)
 		if health and health.has_method("die"):
 			health.die(self)
-
-	# if raycast_l.is_colliding():
-	# 	var collider_l: Node = raycast_l.get_collider() as Node
-	# 	_damage_player(collider_l)
-
-	# if raycast_r.is_colliding():
-	# 	var collider_r: Node = raycast_r.get_collider() as Node
-	# 	_damage_player(collider_r)

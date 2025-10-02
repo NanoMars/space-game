@@ -27,12 +27,15 @@ shader_parameter/y_offset = 0.0
 shader_parameter/fixed_edge_size = 0.0
 shader_parameter/noise_scale = Vector2(1, 1)
 
-[node name="RigidBody2D" type="RigidBody2D" groups=["enemies"]]
+[node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("raycast_l", "raycast_r") groups=["enemies"]]
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_1sskn")
-speed = 500.0
+damage_dealt = 50.0
+vertical_speed = 500.0
+raycast_l = NodePath("RayCastL")
+raycast_r = NodePath("RayCastR")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_43rru")
@@ -42,7 +45,6 @@ scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_43rru")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-visible = false
 material = SubResource("ShaderMaterial_1sskn")
 anchors_preset = 8
 anchor_left = 0.5
@@ -60,9 +62,7 @@ grow_vertical = 2
 max_health = 50.0
 
 [node name="RayCastL" type="RayCast2D" parent="."]
-visible = false
 target_position = Vector2(-1000, 0)
 
 [node name="RayCastR" type="RayCast2D" parent="."]
-visible = false
 target_position = Vector2(1000, 0)

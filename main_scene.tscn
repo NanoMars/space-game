@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=9 format=3 uid="uid://s488jtj1i4ci"]
 
 [ext_resource type="PackedScene" uid="uid://c0utlmtqcar20" path="res://game/modifier/modifier_caller.tscn" id="1_66tet"]
 [ext_resource type="PackedScene" uid="uid://tt1rrpyhclj1" path="res://game/enemyspawning/spawner.tscn" id="2_7ycvg"]
 [ext_resource type="PackedScene" uid="uid://dlgvodlq4gicv" path="res://game/UI.tscn" id="6_fd1kl"]
 [ext_resource type="PackedScene" uid="uid://dkf7mjen6nt18" path="res://game/player/player.tscn" id="7_42yoh"]
+[ext_resource type="PackedScene" uid="uid://bx56mhuthy1oe" path="res://game/enemies/laserthing/laserthing.tscn" id="7_nfk4m"]
 [ext_resource type="Shader" uid="uid://dawlanyidv1xr" path="res://intermission/test.gdshader" id="10_jo72c"]
 [ext_resource type="Texture2D" uid="uid://cjdxiqij7aekk" path="res://game/assets/pallette.png" id="11_h8riy"]
 
@@ -44,3 +45,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="RigidBody2D" parent="." instance=ExtResource("7_nfk4m")]
+position = Vector2(232, -26)
+amplitude = 150.0
+frequency_hz = 0.3
+vertical_speed = 20.0
