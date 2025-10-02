@@ -2,7 +2,7 @@ extends FirePattern
 class_name ConePattern
 
 @export var cone_deg: float = 15.0
-@export var shots: int = 5
+@export var shots: int = 15
 
 func get_directions() -> Array[ShotSpec]:
 	var dirs: Array[ShotSpec] = []

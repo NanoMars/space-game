@@ -6,11 +6,12 @@
 
 [sub_resource type="Resource" id="Resource_4ste8"]
 script = ExtResource("1_ntgdr")
+cone_deg = 3.0
 metadata/_custom_type_script = "uid://b74jnsjx6ore1"
 
 [resource]
 script = ExtResource("3_1r740")
-damage = 6.5
+damage = 3.0
 projectile_speed = 3000.0
 projectile_scene = ExtResource("2_psrau")
 fire_pattern = SubResource("Resource_4ste8")

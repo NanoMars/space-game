@@ -182,6 +182,7 @@ input_action = "move_backward"
 metadata/_custom_type_script = "uid://6gxmi8526yn1"
 
 [node name="CharacterBody2D" type="CharacterBody2D" groups=["player"]]
+collision_layer = 5
 script = ExtResource("1_obar5")
 move_speed = 1000.0
 shooting_move_speed = 250.0

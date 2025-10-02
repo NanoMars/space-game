@@ -15,7 +15,8 @@ shader_parameter/palette = ExtResource("11_h8riy")
 
 [node name="ModifierCaller" parent="." instance=ExtResource("1_66tet")]
 
-[node name="Spawner" parent="." instance=ExtResource("2_7ycvg")]
+[node name="Spawner" parent="." node_paths=PackedStringArray("spawn_points") instance=ExtResource("2_7ycvg")]
+spawn_points = [NodePath("Marker2D5"), NodePath("Marker2D3"), NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D4"), null, null]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -27,6 +28,7 @@ move_speed = 15000.0
 shooting_move_speed = 10000.0
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
 material = SubResource("ShaderMaterial_wr18j")

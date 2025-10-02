@@ -20,3 +20,4 @@ texture = ExtResource("2_h3368")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 collision_mask = 2
+hit_from_inside = true
