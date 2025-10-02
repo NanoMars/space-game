@@ -1,7 +1,8 @@
-[gd_scene load_steps=46 format=3 uid="uid://dkf7mjen6nt18"]
+[gd_scene load_steps=47 format=3 uid="uid://dkf7mjen6nt18"]
 
 [ext_resource type="Script" uid="uid://bsg0au27h3f7j" path="res://game/player/player.gd" id="1_obar5"]
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_b2mth"]
+[ext_resource type="PackedScene" uid="uid://sitj6ff7jl6f" path="res://game/player/shiny_thing.tscn" id="2_bp242"]
 [ext_resource type="Script" uid="uid://dy1kcyvsje554" path="res://game/weapon/weapon.gd" id="3_8soms"]
 [ext_resource type="ArrayMesh" uid="uid://80nhwrfxwbca" path="res://game/player/player_mesh.tres" id="4_bp242"]
 [ext_resource type="PackedScene" uid="uid://0c8r7gtc56k5" path="res://game/UI/Tutorial/keybind_hover.tscn" id="6_4ste8"]
@@ -27,7 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://745fwpgx24q3" path="res://game/player/enemy_arrows/enemy_arrow.tscn" id="25_ib3u0"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ib3u0"]
-viewport_path = NodePath("Sprite2D/SubViewport")
+viewport_path = NodePath("PlayerSprite/SubViewport")
 
 [sub_resource type="World3D" id="World3D_ib3u0"]
 
@@ -184,25 +185,26 @@ metadata/_custom_type_script = "uid://6gxmi8526yn1"
 script = ExtResource("1_obar5")
 move_speed = 1000.0
 shooting_move_speed = 250.0
+shiny_thing_scene = ExtResource("2_bp242")
 
 [node name="Health" parent="." instance=ExtResource("2_b2mth")]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="PlayerSprite" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = SubResource("ViewportTexture_ib3u0")
 
-[node name="SubViewport" type="SubViewport" parent="Sprite2D"]
+[node name="SubViewport" type="SubViewport" parent="PlayerSprite"]
 own_world_3d = true
 world_3d = SubResource("World3D_ib3u0")
 transparent_bg = true
 size = Vector2i(64, 64)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite2D/SubViewport"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerSprite/SubViewport"]
 transform = Transform3D(-0.5, 0, -7.54979e-08, 0, 0.5, 0, 7.54979e-08, 0, -0.5, 0, 0, -0.5)
 mesh = ExtResource("4_bp242")
 skeleton = NodePath("")
 
-[node name="Camera3D" type="Camera3D" parent="Sprite2D/SubViewport"]
+[node name="Camera3D" type="Camera3D" parent="PlayerSprite/SubViewport"]
 transform = Transform3D(-1, 8.742278e-08, 3.821371e-15, 0, -4.371139e-08, 1, 8.742278e-08, 1, 4.371139e-08, 0, 2.497458, 0)
 projection = 1
 size = 1.25

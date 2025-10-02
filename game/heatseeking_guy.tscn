@@ -8,6 +8,7 @@
 
 [node name="RigidBody2D" type="RigidBody2D" groups=["enemies"]]
 script = ExtResource("1_06yso")
+speed = 6500.0
 
 [node name="Health" parent="." instance=ExtResource("2_yospj")]
 max_health = 30.0

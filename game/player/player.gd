@@ -72,7 +72,7 @@ func _on_died(_from: Node) -> void:
 		return
 	
 	dead = true
-	$MeshInstance3D.visible = false
+	$PlayerSprite.visible = false
 	self.move_speed = 0.0
 	self.velocity = Vector2.ZERO
 	var shiny_thing_instance = shiny_thing_scene.instantiate()
