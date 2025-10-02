@@ -40,8 +40,8 @@ func _physics_process(delta: float) -> void:
 
 	var current_move_speed = move_speed if weapon.can_shoot == true else shooting_move_speed
 
-	velocity.x = input_vector.x * current_move_speed * delta
-	velocity.y = input_vector.y * current_move_speed * delta
+	velocity.x = -input_vector.x * current_move_speed * delta
+	velocity.y = -input_vector.y * current_move_speed * delta
 
 	move_and_slide()
 

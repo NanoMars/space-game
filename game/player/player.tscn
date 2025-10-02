@@ -210,9 +210,7 @@ size = 1.25
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ib3u0")
 
-[node name="Weapon" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00260431, -0.00110555, 0.50386)
-gizmo_extents = 1.65
+[node name="Marker2D" type="Marker2D" parent="."]
 script = ExtResource("3_8soms")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." node_paths=PackedStringArray("goal_node")]

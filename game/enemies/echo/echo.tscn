@@ -1,29 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://cqlucyg0ogdps"]
+[gd_scene load_steps=6 format=3 uid="uid://cqlucyg0ogdps"]
 
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="1_7yt0h"]
 [ext_resource type="Script" uid="uid://brckhxn4j3vh1" path="res://game/enemies/echo/echo.gd" id="1_aly6b"]
 [ext_resource type="Script" uid="uid://dy1kcyvsje554" path="res://game/weapon/weapon.gd" id="4_7ihf2"]
-[ext_resource type="Script" uid="uid://b74jnsjx6ore1" path="res://game/weapon/cone_pattern.gd" id="5_fstwr"]
-[ext_resource type="PackedScene" uid="uid://dj40a3gnwqbyq" path="res://game/weapon/enemy_projectile.tscn" id="6_7ihf2"]
 [ext_resource type="Texture2D" uid="uid://8p4m1eucl2ax" path="res://game/assets/eyeball.png" id="7_7ihf2"]
-[ext_resource type="Script" uid="uid://bypy263lii80f" path="res://game/weapon/weapon_stats.gd" id="7_ij02q"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8e35v"]
 radius = 0.7
-
-[sub_resource type="Resource" id="Resource_ci32u"]
-script = ExtResource("5_fstwr")
-cone_deg = 5.0
-shots = 1
-metadata/_custom_type_script = "uid://b74jnsjx6ore1"
-
-[sub_resource type="Resource" id="Resource_u37ft"]
-script = ExtResource("7_ij02q")
-damage = 1.5
-projectile_speed = -10.0
-projectile_scene = ExtResource("6_7ihf2")
-fire_pattern = SubResource("Resource_ci32u")
-metadata/_custom_type_script = "uid://bypy263lii80f"
 
 [node name="RigidBody3D" type="RigidBody3D" node_paths=PackedStringArray("weapon_node") groups=["enemies"]]
 collision_layer = 4
@@ -38,18 +21,16 @@ speed = 275.0
 zspeed = 0.4
 z_goal_pos = 3.5
 sine_size = 0.35
-weapon_node = NodePath("Weapon")
+weapon_node = NodePath("Marker2D")
 
 [node name="Health" parent="." instance=ExtResource("1_7yt0h")]
 max_health = 50.0
 
+[node name="Marker2D" type="Marker2D" parent="."]
+script = ExtResource("4_7ihf2")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_8e35v")
-
-[node name="Weapon" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7)
-script = ExtResource("4_7ihf2")
-weapon_stats = SubResource("Resource_u37ft")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(0.49, 0, 0, 0, 0.49, 0, 0, 0, 0.49, 0, 0, 0)

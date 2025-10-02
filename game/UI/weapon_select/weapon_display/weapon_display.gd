@@ -2,7 +2,7 @@ extends Button
 class_name WeaponDisplay
 
 @export var weapon: Weapon
-@export var camera: Camera3D
+@export var camera: Camera2D
 
 @export var weapon_stats: WeaponStats:
 	set(value):

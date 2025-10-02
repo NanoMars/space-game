@@ -1,10 +1,9 @@
-extends Marker3D
+extends Marker2D
 class_name Weapon
 
 @export var firing: bool:
 	set(value):
-		
-		if shot_timer && value != _firing:
+		if shot_timer and value != _firing:
 			_firing = value
 
 			if _firing:
@@ -61,20 +60,33 @@ func fire_once() -> void:
 
 	var shots: Array[ShotSpec] = fire_pattern.get_directions()
 	var container := get_projectile_container()
-	var wt := global_transform
-	for shot in shots:
-		var projectile_instance: Node3D = weapon_stats.projectile_scene.instantiate()
-		projectile_instance.display_mode = display_mode
-		# Convert local shot spec to world
-		var g_dir := (wt.basis * shot.dir).normalized()
-		var g_pos := wt.origin + wt.basis * (shot.offset if shot.has_method("offset") == false else shot.offset) # offset defaults to ZERO
+	var wt: Transform2D = global_transform
 
-		# Build transform: -Z faces g_dir (Godot forward)
-		var shot_basis := Basis.looking_at(g_dir, Vector3.UP)
-		projectile_instance.global_transform = Transform3D(shot_basis, g_pos)
+	for shot in shots:
+		var projectile_instance: Node2D = weapon_stats.projectile_scene.instantiate()
+		projectile_instance.display_mode = display_mode
+
+		# Local spec -> world space
+		var local_dir: Vector2 = Vector2.UP
+		if shot and shot.has_method("get"):
+			var d = shot.get("dir")
+			if typeof(d) == TYPE_VECTOR2:
+				local_dir = d
+
+		var local_off: Vector2 = Vector2.ZERO
+		if shot and shot.has_method("get"):
+			var o = shot.get("offset")
+			if typeof(o) == TYPE_VECTOR2:
+				local_off = o
+
+		var g_dir := local_dir.rotated(global_rotation).normalized()
+		var g_pos := global_position + local_off.rotated(global_rotation)
+
+		# Align projectile so that -Y faces g_dir (projectile.gd uses -global_transform.y)
+		projectile_instance.global_position = g_pos
+		projectile_instance.global_rotation = (g_dir.rotated(PI * 0.5)).angle()
 
 		projectile_instance.weapon_stats = weapon_stats
-
 		container.add_child(projectile_instance)
 
 func get_projectile_container() -> Node:

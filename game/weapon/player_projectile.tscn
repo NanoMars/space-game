@@ -3,26 +3,16 @@
 [ext_resource type="Script" uid="uid://dv8s77c07mfnd" path="res://game/weapon/projectile.gd" id="1_w3f7m"]
 [ext_resource type="Texture2D" uid="uid://ds3301b2vpee" path="res://game/assets/circle.png" id="2_h3368"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_ujx76"]
-radius = 0.125865
+[sub_resource type="CircleShape2D" id="CircleShape2D_h3368"]
 
-[node name="Player Projectile" type="RigidBody3D"]
-collision_layer = 0
-collision_mask = 5
-axis_lock_linear_y = true
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
+[node name="RigidBody2D" type="RigidBody2D"]
 script = ExtResource("1_w3f7m")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_ujx76")
-disabled = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_h3368")
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
-collision_mask = 5
-
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, 0, 0)
-billboard = 1
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.03, 0.03)
 texture = ExtResource("2_h3368")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
