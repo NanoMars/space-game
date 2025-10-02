@@ -123,6 +123,7 @@ weapon = NodePath("SubViewport/Node2D/Weapon")
 camera = NodePath("SubViewport/Node2D/Camera2D")
 
 [node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
 transparent_bg = true
 size = Vector2i(64, 64)
 
@@ -132,6 +133,7 @@ size = Vector2i(64, 64)
 
 [node name="Weapon" type="Marker2D" parent="SubViewport/Node2D"]
 script = ExtResource("1_xyuy6")
+display_mode = true
 metadata/_custom_type_script = "uid://dy1kcyvsje554"
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]

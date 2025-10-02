@@ -1,7 +1,7 @@
-# fire_pattern.gds
+# fire_pattern.gd (2D version)
 extends Resource
 class_name FirePattern
 
-## return an array of unit Vector3 directions (local space) to fire this tick
+## return an array of unit Vector2 directions (local space) to fire this tick
 func get_directions() -> Array[ShotSpec]:
-	return [ShotSpec.new(Vector3.FORWARD)] # default single forward (-Z later after basis transform)
+	return [ShotSpec.new(Vector2.UP)] # default single forward (up in 2D)

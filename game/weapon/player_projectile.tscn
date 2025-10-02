@@ -4,15 +4,19 @@
 [ext_resource type="Texture2D" uid="uid://ds3301b2vpee" path="res://game/assets/circle.png" id="2_h3368"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h3368"]
+radius = 2.0
 
 [node name="RigidBody2D" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("1_w3f7m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_h3368")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.03, 0.03)
+scale = Vector2(0.006, 0.006)
 texture = ExtResource("2_h3368")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+collision_mask = 2

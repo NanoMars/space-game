@@ -6,7 +6,7 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m2fxr"]
 
-[node name="RigidBody2D" type="RigidBody2D"]
+[node name="RigidBody2D" type="RigidBody2D" groups=["enemies"]]
 script = ExtResource("1_06yso")
 
 [node name="Health" parent="." instance=ExtResource("2_yospj")]
