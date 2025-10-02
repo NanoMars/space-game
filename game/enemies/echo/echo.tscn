@@ -3,21 +3,22 @@
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="1_7yt0h"]
 [ext_resource type="Script" uid="uid://brckhxn4j3vh1" path="res://game/enemies/echo/echo.gd" id="1_aly6b"]
 [ext_resource type="Script" uid="uid://dy1kcyvsje554" path="res://game/weapon/weapon.gd" id="4_7ihf2"]
-[ext_resource type="PackedScene" uid="uid://ce8lm1647q0xr" path="res://game/weapon/player_projectile.tscn" id="5_7ihf2"]
 [ext_resource type="Script" uid="uid://b74jnsjx6ore1" path="res://game/weapon/cone_pattern.gd" id="5_fstwr"]
+[ext_resource type="PackedScene" uid="uid://dj40a3gnwqbyq" path="res://game/weapon/enemy_projectile.tscn" id="6_7ihf2"]
 [ext_resource type="Texture2D" uid="uid://8p4m1eucl2ax" path="res://game/assets/eyeball.png" id="7_7ihf2"]
 [ext_resource type="Script" uid="uid://bypy263lii80f" path="res://game/weapon/weapon_stats.gd" id="7_ij02q"]
 
 [sub_resource type="Resource" id="Resource_4ste8"]
 script = ExtResource("5_fstwr")
 cone_deg = 3.0
+shots = 1
 metadata/_custom_type_script = "uid://b74jnsjx6ore1"
 
 [sub_resource type="Resource" id="Resource_fstwr"]
 script = ExtResource("7_ij02q")
-damage = 1.0
-projectile_speed = 3000.0
-projectile_scene = ExtResource("5_7ihf2")
+damage = 5.0
+projectile_speed = -300.0
+projectile_scene = ExtResource("6_7ihf2")
 fire_pattern = SubResource("Resource_4ste8")
 metadata/_custom_type_script = "uid://bypy263lii80f"
 
@@ -29,6 +30,7 @@ lock_rotation = true
 script = ExtResource("1_aly6b")
 speed = 6000.0
 target_y = 64.0
+shoot_every_n_hits = 4
 weapon_node = NodePath("Marker2D")
 
 [node name="Health" parent="." instance=ExtResource("1_7yt0h")]

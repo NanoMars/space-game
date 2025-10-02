@@ -10,6 +10,10 @@ extends Enemy
 @export var target_y: float = 4.0             # baseline Y position to hover around
 @export var vertical_sine_amplitude: float = 0.5
 
+var hit_count: int = 0
+
+@export var shoot_every_n_hits: int = 5
+
 var sine_time: float = 0.0
 
 @export var weapon_node: Marker2D
@@ -45,6 +49,12 @@ func _on_body_entered(body: Node) -> void:
 			if health and health.has_method("die"):
 				health.die(self)
 
-func _on_health_damaged(amount: float, from: Node) -> void:
-	if weapon_node and weapon_node.has_method("fire_once"):
+func damage(_amount: float, _from: Node = null) -> void:
+	# Call Enemy.damage(...) first
+	super(_amount, _from)
+	hit_count += 1
+
+	if weapon_node and weapon_node.has_method("fire_once") and hit_count >= shoot_every_n_hits:
+		hit_count = 0
+		print("Echo shooting in response to hit ", hit_count)
 		weapon_node.fire_once()
