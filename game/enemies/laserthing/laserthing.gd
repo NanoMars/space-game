@@ -3,9 +3,6 @@ extends Enemy
 @onready var player: Node2D = get_tree().get_first_node_in_group("player") as Node2D
 @export var speed: float = 3.0
 @export var damage_dealt: float = 35.0
-
-@export var damage_tick: float = 0.1
-
 @onready var raycast_l: RayCast2D = $RayCastL
 @onready var raycast_r: RayCast2D = $RayCastR
 
@@ -30,13 +27,6 @@ func _ready() -> void:
 	contact_monitor = true
 	max_contacts_reported = 8
 	body_entered.connect(_on_body_entered)
-
-	var timer := Timer.new()
-	add_child(timer)
-	timer.wait_time = damage_tick
-	timer.timeout.connect(_on_timer_timeout)
-	timer.one_shot = false
-	timer.start()
 
 	# Initialize sine wave parameters based on current x
 	_omega = TAU * wave_hz
@@ -74,10 +64,6 @@ func _physics_process(delta: float) -> void:
 		# Fallback clamp if no wave configured
 		position.x = clamp(position.x, min_x, max_x)
 
-func _on_body_entered(body: Node) -> void:
-	_damage_player(body)
-
-func _on_timer_timeout() -> void:
 	if raycast_l.is_colliding():
 		var collider_l: Node = raycast_l.get_collider() as Node
 		_damage_player(collider_l)
@@ -85,3 +71,6 @@ func _on_timer_timeout() -> void:
 	if raycast_r.is_colliding():
 		var collider_r: Node = raycast_r.get_collider() as Node
 		_damage_player(collider_r)
+
+func _on_body_entered(body: Node) -> void:
+	_damage_player(body)

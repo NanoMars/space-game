@@ -28,10 +28,11 @@ shader_parameter/noise_scale = Vector2(1, 1)
 size = Vector2(40, 20)
 
 [node name="RigidBody2D" type="RigidBody2D" groups=["enemies"]]
-collision_layer = 0
+collision_layer = 2
+gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_1sskn")
-speed = -100.0
+speed = 0.0
 wave_hz = 0.167
 
 [node name="ColorRect" type="ColorRect" parent="."]
