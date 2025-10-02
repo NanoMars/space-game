@@ -9,7 +9,7 @@ extends Enemy
 @onready var raycast_l: RayCast2D = $RayCastL
 @onready var raycast_r: RayCast2D = $RayCastR
 
-@export var max_x: float = 5.5
+@export var horizontal_padding: float = 5.5
 
 @export var weapon_node: Marker2D
 @export var wave_hz: float = 0.25 # lateral oscillation frequency (cycles per second)
@@ -17,6 +17,12 @@ extends Enemy
 var _time: float = 0.0
 var _phase: float = 0.0
 var _omega: float = 0.0
+
+func _damage_player(target: Node) -> void:
+	if target and target.is_in_group("player") and target.has_method("damage"):
+		target.damage(damage_dealt, self)
+		if health and health.has_method("die"):
+			health.die(self)
 
 func _ready() -> void:
 	super._ready()
@@ -34,9 +40,15 @@ func _ready() -> void:
 
 	# Initialize sine wave parameters based on current x
 	_omega = TAU * wave_hz
-	if max_x > 0.0 and _omega != 0.0:
-		var s: float = clamp(position.x / max_x, -1.0, 1.0)
-		_phase = asin(s) # picks the phase that matches the current x
+	# Compute bounds from viewport width
+	var vw: float = float(get_viewport_rect().size.x)
+	var min_x: float = horizontal_padding
+	var max_x: float = vw - horizontal_padding
+	var mid: float = (min_x + max_x) * 0.5
+	var amp: float = max((max_x - min_x) * 0.5, 0.0)
+	if amp > 0.0 and _omega != 0.0:
+		var s: float = clamp((position.x - mid) / amp, -1.0, 1.0)
+		_phase = asin(s) # phase that matches the current x relative to [min_x, max_x]
 	else:
 		_phase = 0.0
 
@@ -45,39 +57,31 @@ func _physics_process(delta: float) -> void:
 	var dir := Vector2(0.0, -1.0)
 	apply_force(dir * speed * delta)
 
-	# Sine-wave lateral motion between -max_x and max_x on X
-	if max_x > 0.0 and _omega != 0.0:
+	# Sine-wave lateral motion between [horizontal_padding, viewport_width - horizontal_padding]
+	var vw: float = float(get_viewport_rect().size.x)
+	var min_x: float = horizontal_padding
+	var max_x: float = vw - horizontal_padding
+	var mid: float = (min_x + max_x) * 0.5
+	var amp: float = max((max_x - min_x) * 0.5, 0.0)
+
+	if amp > 0.0 and _omega != 0.0:
 		_time += delta
-		var new_x := max_x * sin(_omega * _time + _phase)
+		var new_x := mid + amp * sin(_omega * _time + _phase)
 		var p := position
 		p.x = new_x
 		position = p
 	else:
 		# Fallback clamp if no wave configured
-		if position.x < -max_x:
-			position.x = -max_x
-		elif position.x > max_x:
-			position.x = max_x
+		position.x = clamp(position.x, min_x, max_x)
 
 func _on_body_entered(body: Node) -> void:
-	if body.is_in_group("player"):
-		if body.has_method("damage"):
-			body.damage(damage_dealt, self)
-			if health and health.has_method("die"):
-				health.die(self)
+	_damage_player(body)
 
 func _on_timer_timeout() -> void:
 	if raycast_l.is_colliding():
-		var collider: Node = raycast_l.get_collider() as Node
-		if collider and collider.is_in_group("player"):
-			if collider.has_method("damage"):
-				collider.damage(damage_dealt, self)
-				if health and health.has_method("die"):
-					health.die(self)
+		var collider_l: Node = raycast_l.get_collider() as Node
+		_damage_player(collider_l)
+
 	if raycast_r.is_colliding():
-		var collider: Node = raycast_r.get_collider() as Node
-		if collider and collider.is_in_group("player"):
-			if collider.has_method("damage"):
-				collider.damage(damage_dealt, self)
-				if health and health.has_method("die"):
-					health.die(self)
+		var collider_r: Node = raycast_r.get_collider() as Node
+		_damage_player(collider_r)

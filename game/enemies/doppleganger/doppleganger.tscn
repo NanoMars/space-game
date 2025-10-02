@@ -1,27 +1,39 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhrvl7mrmdym7"]
+[gd_scene load_steps=6 format=3 uid="uid://dhrvl7mrmdym7"]
 
 [ext_resource type="Script" uid="uid://d2qfgtw21oyxx" path="res://game/enemies/doppleganger/doppleganger.gd" id="1_nokfo"]
+[ext_resource type="ArrayMesh" uid="uid://80nhwrfxwbca" path="res://game/player/player_mesh.tres" id="2_7wyts"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_7wyts"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_tckfg"]
+viewport_path = NodePath("PlayerSprite/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b2mth"]
-shading_mode = 0
+[sub_resource type="World3D" id="World3D_53dlk"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_tckfg"]
-material = SubResource("StandardMaterial3D_b2mth")
+[sub_resource type="CircleShape2D" id="CircleShape2D_7wyts"]
 
-[node name="RigidBody3D" type="RigidBody3D"]
+[node name="RigidBody2D" type="RigidBody2D"]
 collision_layer = 0
-collision_mask = 2
-axis_lock_linear_y = true
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
 script = ExtResource("1_nokfo")
-delay = 1.7
+delay = 1.5
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_7wyts")
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = SubResource("ViewportTexture_tckfg")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_tckfg")
+[node name="SubViewport" type="SubViewport" parent="PlayerSprite"]
+own_world_3d = true
+world_3d = SubResource("World3D_53dlk")
+transparent_bg = true
+size = Vector2i(64, 64)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerSprite/SubViewport"]
+transform = Transform3D(-0.5, 0, -7.54979e-08, 0, 0.5, 0, 7.54979e-08, 0, -0.5, 0, 0, -0.5)
+mesh = ExtResource("2_7wyts")
+skeleton = NodePath("")
+
+[node name="Camera3D" type="Camera3D" parent="PlayerSprite/SubViewport"]
+transform = Transform3D(-1, 8.742278e-08, 3.821371e-15, 0, -4.371139e-08, 1, 8.742278e-08, 1, 4.371139e-08, 0, 2.497458, 0)
+projection = 1
+size = 1.25
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7wyts")

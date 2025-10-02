@@ -11,7 +11,7 @@
 shader = ExtResource("10_jo72c")
 shader_parameter/palette = ExtResource("11_h8riy")
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" groups=["game_root"]]
 
 [node name="ModifierCaller" parent="." instance=ExtResource("1_66tet")]
 

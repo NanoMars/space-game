@@ -1,15 +1,10 @@
 extends RigidBody2D
 class_name Projectile
 
+@export var cull_padding: float = 64.0
+
 var weapon_stats: WeaponStats
 var last_position: Vector2
-
-@onready var cam: Camera2D = get_tree().get_first_node_in_group("camera") as Camera2D
-@onready var viewport_size: Vector2 = Vector2(get_viewport().get_visible_rect().size)
-@onready var zoom: Vector2 = cam.zoom if cam else Vector2.ONE
-@onready var half_width: float = (viewport_size.x * 0.5) * zoom.x
-@onready var half_height: float = (viewport_size.y * 0.5) * zoom.y
-@onready var clamp_center: Vector2 = (cam.get_screen_center_position() if cam and cam.has_method("get_screen_center_position") else (cam.global_position if cam else Vector2.ZERO))
 
 var display_mode: bool = false
 
@@ -52,21 +47,22 @@ func _physics_process(_delta: float) -> void:
 	# Update for next frame
 	last_position = global_position
 
-	# Despawn if outside camera bounds (same region as player clamp)
-	if cam:
-		var pos := global_position
-		if display_mode:
-			# Only check Y bounds
-			if pos.y < clamp_center.y - half_height \
-			or pos.y > clamp_center.y + half_height:
-				remove_projectile()
-		else:
-			# Check both X and Y
-			if pos.x < clamp_center.x - half_width \
-			or pos.x > clamp_center.x + half_width \
-			or pos.y < clamp_center.y - half_height \
-			or pos.y > clamp_center.y + half_height:
-				remove_projectile()
+	# Despawn if outside viewport bounds + exterior padding (no camera)
+	var vp_size := get_viewport().get_visible_rect().size
+	var left := -cull_padding
+	var right := vp_size.x + cull_padding
+	var top := -cull_padding
+	var bottom := vp_size.y + cull_padding
+
+	var pos := global_position
+	if display_mode:
+		# Only check Y bounds with padding
+		if pos.y < top or pos.y > bottom:
+			remove_projectile()
+	else:
+		# Check both X and Y with padding
+		if pos.x < left or pos.x > right or pos.y < top or pos.y > bottom:
+			remove_projectile()
 
 func remove_projectile() -> void:
 	queue_free()
