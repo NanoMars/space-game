@@ -28,7 +28,6 @@ func _ready() -> void:
 		health.died.connect(_on_died)
 	weapon_stats = ScoreManager.player_weapon
 	weapon.weapon_stats = weapon_stats
-	print("Player starting with weapon stats: ", weapon_stats)
 
 func _physics_process(delta: float) -> void:
 	var input_vector: Vector2 = Vector2(

@@ -15,13 +15,14 @@ func _ready() -> void:
 func damage(amount: float, from: Node = null) -> void:
 	if health and health.has_method("damage"):
 		health.damage(amount, from)
-	
+		var camera: Camera2D = get_tree().get_first_node_in_group("camera") as CameraWithShake
+		camera.shake(amount * 1)
 
 func _on_died(from: Node) -> void:
 	if dead:
 		return
 	died.emit(self)
-	dead = true
+	dead = true	
 	if from != self:
 		ScoreManager.score += point_value
 	SoundManager.play_sound(SoundManager.enemy_death)

@@ -31,7 +31,6 @@ func _ready() -> void:
 	timer.timeout.connect(_on_timer_timeout)
 	add_child(timer)
 
-	print("Keybind hover ready")
 
 
 

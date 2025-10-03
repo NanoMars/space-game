@@ -15,7 +15,6 @@ func _ready() -> void:
 		var display := weapon_display_scene.instantiate()
 		display.id = id
 		display.weapon_stats = weapon
-		print("setting display weapon stats to: ", weapon, " got: ", display.weapon_stats)
 		weapon_display_container.add_child(display)
 		display.pressed.connect(_on_weapon_display_pressed.bind(display))
 

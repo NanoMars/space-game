@@ -26,7 +26,6 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node) -> void:
 	if body.has_method("damage"):
-		print("Projectile hit: ", body.name, " with collision")
 		body.damage((weapon_stats.damage if weapon_stats and typeof(weapon_stats.damage) == TYPE_FLOAT else 0.0), self)
 		remove_projectile()
 
@@ -41,7 +40,6 @@ func _physics_process(_delta: float) -> void:
 
 		if result.size() > 0:
 			var collider: Node = result.get("collider")
-			print("Projectile hit: ", collider.name, " with raycast")
 			if collider and collider.has_method("damage"):
 				collider.damage((weapon_stats.damage if weapon_stats and typeof(weapon_stats.damage) == TYPE_FLOAT else 0.0), self)
 				remove_projectile()
