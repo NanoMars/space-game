@@ -90,6 +90,8 @@ func fire_once() -> void:
 		container.add_child(projectile_instance)
 
 func get_projectile_container() -> Node:
+	if display_mode:
+		return self.get_parent()
 	var root := get_tree().root
 	var projectile_parent := root.get_node_or_null("Projectiles")
 	if projectile_parent:

@@ -17,7 +17,7 @@ func _process(delta: float) -> void:
 			spawn_arrow_for_enemy(enemy)
 
 	# Update and cleanup
-	var to_remove: Array[Node2D] = []
+	var to_remove: Array = []  # untyped so we can store invalid refs (null)
 	for enemy in enemies_off_screen.keys():
 		if not is_instance_valid(enemy):
 			to_remove.append(enemy)
@@ -45,16 +45,12 @@ func world_to_screen(p: Vector2) -> Vector2:
 	var cam := vp.get_camera_2d()
 	if cam:
 		return cam.unproject_position(p)
-	# In Godot 4, use the * operator instead of xform()
 	return vp.get_canvas_transform() * p
 
 func is_off_screen(enemy: Node2D) -> bool:
-	# Project world position to screen space and check visible rect.
-	var enemy_pos: Vector2 = enemy.global_position
-	var screen_size: Vector2 = get_viewport().get_visible_rect().size
-	if enemy_pos.x > screen_size.x or enemy_pos.x < 0 or enemy_pos.y > screen_size.y or enemy_pos.y < 0:
-		return true
-	return false
+	var screen_pos: Vector2 = world_to_screen(enemy.global_position)
+	var rect := get_viewport().get_visible_rect()
+	return not rect.has_point(screen_pos)
 
 func spawn_arrow_for_enemy(enemy: Node2D) -> void:
 	if not enemies_off_screen.has(enemy):
@@ -66,13 +62,12 @@ func spawn_arrow_for_enemy(enemy: Node2D) -> void:
 		if animation_player:
 			animation_player.play("spawn")
 
-func despawn_arrow_for_enemy(enemy: Node2D) -> void:
+func despawn_arrow_for_enemy(enemy) -> void:
 	if enemies_off_screen.has(enemy):
-
 		var arrow_instance: Node2D = enemies_off_screen[enemy]
 		var animation_player: AnimationPlayer = arrow_instance.get_child(0)
 		if animation_player:
 			animation_player.play("despawn")
-		await animation_player.animation_finished
+			await animation_player.animation_finished
 		arrow_instance.queue_free()
 		enemies_off_screen.erase(enemy)

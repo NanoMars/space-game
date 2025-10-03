@@ -18,8 +18,6 @@ var _weapon_stats: WeaponStats
 var id = 0
 
 func _ready() -> void:
-	camera.position.x = 100 * id
-	weapon.position.x = 100 * id
 	weapon.firing = true
 
 func _on_mouse_entered() -> void:
