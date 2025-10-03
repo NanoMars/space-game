@@ -1,15 +1,34 @@
-[gd_scene load_steps=8 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=12 format=3 uid="uid://s488jtj1i4ci"]
 
 [ext_resource type="PackedScene" uid="uid://c0utlmtqcar20" path="res://game/modifier/modifier_caller.tscn" id="1_66tet"]
 [ext_resource type="PackedScene" uid="uid://tt1rrpyhclj1" path="res://game/enemyspawning/spawner.tscn" id="2_7ycvg"]
 [ext_resource type="PackedScene" uid="uid://dlgvodlq4gicv" path="res://game/UI.tscn" id="6_fd1kl"]
 [ext_resource type="PackedScene" uid="uid://dkf7mjen6nt18" path="res://game/player/player.tscn" id="7_42yoh"]
+[ext_resource type="Shader" uid="uid://dj265gghil72j" path="res://game/assets/terrain/starfield.gdshader" id="7_nfk4m"]
 [ext_resource type="Shader" uid="uid://dawlanyidv1xr" path="res://intermission/test.gdshader" id="10_jo72c"]
 [ext_resource type="Texture2D" uid="uid://cjdxiqij7aekk" path="res://game/assets/pallette.png" id="11_h8riy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wr18j"]
 shader = ExtResource("10_jo72c")
 shader_parameter/palette = ExtResource("11_h8riy")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_66tet"]
+shader = ExtResource("7_nfk4m")
+shader_parameter/color = Color(0.5, 0.5, 0.5, 1)
+shader_parameter/speed = 1.9499999564136
+shader_parameter/density = 1000.0
+shader_parameter/compression = 0.10000000149012
+shader_parameter/trail_size = 100.0
+shader_parameter/brightness = 10.0
+
+[sub_resource type="Curve" id="Curve_hq1ik"]
+_data = [Vector2(0, 0.13721108), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_nfk4m"]
+_limits = [0.0, 10.0, 0.0, 1.0]
+_data = [Vector2(1e-05, 10), 0.0, 0.0, 0, 0, Vector2(2e-05, 10), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="Node2D" type="Node2D" groups=["game_root"]]
 
@@ -22,15 +41,7 @@ spawn_points = [NodePath("Marker2D5"), NodePath("Marker2D3"), NodePath("Marker2D
 
 [node name="Control" parent="CanvasLayer" instance=ExtResource("6_fd1kl")]
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("7_42yoh")]
-position = Vector2(213, 120)
-move_speed = 15000.0
-shooting_move_speed = 10000.0
-
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_wr18j")
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,9 +49,45 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer2"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("7_42yoh")]
+position = Vector2(213, 120)
+move_speed = 15000.0
+shooting_move_speed = 10000.0
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = -10
+follow_viewport_enabled = true
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
+material = SubResource("ShaderMaterial_66tet")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="CanvasLayer2"]
+visible = false
+position = Vector2(213, 0)
+amount = 10
+lifetime = 0.09999999999999999
+emission_shape = 3
+emission_rect_extents = Vector2(212.85, 1)
+direction = Vector2(0, 1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 2000.0
+initial_velocity_max = 6000.0
+scale_amount_min = 0.0
+scale_amount_max = 3.0
+split_scale = true
+scale_curve_x = SubResource("Curve_hq1ik")
+scale_curve_y = SubResource("Curve_nfk4m")

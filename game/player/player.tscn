@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://dkf7mjen6nt18"]
+[gd_scene load_steps=48 format=3 uid="uid://dkf7mjen6nt18"]
 
 [ext_resource type="Script" uid="uid://bsg0au27h3f7j" path="res://game/player/player.gd" id="1_obar5"]
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_b2mth"]
@@ -181,6 +181,9 @@ wasd_pressed_texture = ExtResource("23_qfwia")
 input_action = "move_backward"
 metadata/_custom_type_script = "uid://6gxmi8526yn1"
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_cgi3i"]
+viewport_path = NodePath("Sprite2D3/SubViewport")
+
 [node name="CharacterBody2D" type="CharacterBody2D" groups=["player"]]
 collision_layer = 5
 script = ExtResource("1_obar5")
@@ -252,6 +255,7 @@ SubResource("Resource_bp242"): NodePath("HBoxContainer/DownRect")
 sprite_2d = NodePath("../..")
 
 [node name="Sprite2D3" type="Sprite2D" parent="." node_paths=PackedStringArray("arrow_container")]
+texture = SubResource("ViewportTexture_cgi3i")
 script = ExtResource("24_brh81")
 enemy_arrow = ExtResource("25_ib3u0")
 arrow_container = NodePath("SubViewport/Node2D")

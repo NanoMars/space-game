@@ -15,7 +15,7 @@
 [ext_resource type="Shader" uid="uid://cuejqmse7fsm1" path="res://intermission/dissolve.gdshader" id="9_dpipn"]
 [ext_resource type="PackedScene" uid="uid://dhrvl7mrmdym7" path="res://game/enemies/doppleganger/doppleganger.tscn" id="9_gldry"]
 [ext_resource type="Script" uid="uid://br7ayqjve2drn" path="res://game/modifier/modifiers/add_dopple.gd" id="10_diied"]
-[ext_resource type="PackedScene" uid="uid://bx56mhuthy1oe" path="res://game/enemies/laserthing/laserthing.tscn" id="11_diied"]
+[ext_resource type="PackedScene" uid="uid://bx56mhuthy1oe" path="res://game/assets/terrain/laserthing.tscn" id="11_diied"]
 [ext_resource type="Theme" uid="uid://c6mssg2ngmqpk" path="res://game/game_ui_theme.tres" id="16_4jr5q"]
 [ext_resource type="FontFile" uid="uid://d3xv2jvjnv25p" path="res://game/assets/TinyUnicode.ttf" id="17_fbdnw"]
 

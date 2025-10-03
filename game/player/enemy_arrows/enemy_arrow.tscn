@@ -1,7 +1,97 @@
-[gd_scene load_steps=2 format=3 uid="uid://745fwpgx24q3"]
+[gd_scene load_steps=6 format=3 uid="uid://745fwpgx24q3"]
 
-[ext_resource type="Texture2D" uid="uid://b5u55u61eowd0" path="res://game/player/enemy_arrows/enemy arrow.png" id="1_11004"]
+[ext_resource type="Texture2D" uid="uid://hgwqirt0adjr" path="res://game/player/enemy_arrows/enemy_arrow(2).png" id="1_11004"]
+
+[sub_resource type="Animation" id="Animation_11004"]
+resource_name = "spawn"
+length = 0.15
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.050000004, 0, 0.46552417, -0.033329878, -0.07410342, 0.016670126, 0.037063245, 0.667, -0.050000004, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.13333334, 0.15)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.050000004, 0, 0.46552417, -0.033329878, -0.07410342, 0.016670126, 0.037063245, 0.667, -0.050000004, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.06666667, 0.15)
+}
+
+[sub_resource type="Animation" id="Animation_xsyy5"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.667, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.667, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_fsp6t"]
+resource_name = "despawn"
+length = 0.15
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 0, 0),
+"points": PackedFloat32Array(0.667, 0, 0, 0.050000004, -0.111164995, 0.06701233, -0.041666668, 0.092637494, 0.008333336, -0.018527502, 1e-05, -0.050000004, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.06666667, 0.15)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 0, 0),
+"points": PackedFloat32Array(0.667, 0, 0, 0.050000004, -0.111164995, 0.06701233, -0.041666668, 0.092637494, 0.008333336, -0.018527502, 1e-05, -0.050000004, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.11666666, 0.15)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fsp6t"]
+_data = {
+&"RESET": SubResource("Animation_xsyy5"),
+&"despawn": SubResource("Animation_fsp6t"),
+&"spawn": SubResource("Animation_11004")
+}
 
 [node name="Sprite2D" type="Sprite2D"]
+scale = Vector2(0.667, 0.667)
 texture = ExtResource("1_11004")
-offset = Vector2(0, -60)
+offset = Vector2(0, -40)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fsp6t")
+}
