@@ -220,11 +220,13 @@ shape = SubResource("CircleShape2D_ib3u0")
 script = ExtResource("3_8soms")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." node_paths=PackedStringArray("goal_node")]
-position = Vector2(-35.000004, 0)
-scale = Vector2(0.1, 0.1)
+position = Vector2(-60, 0)
+scale = Vector2(0.25, 0.25)
 texture = SubResource("ViewportTexture_bp242")
 script = ExtResource("6_brh81")
 goal_node = NodePath("..")
+distance_from_goal = 64.0
+edge_buffer = Vector2(80, 32)
 
 [node name="SubViewport" type="SubViewport" parent="Sprite2D2"]
 disable_3d = true

@@ -41,7 +41,6 @@ var enemy_types: Array[EnemyType] = []
 
 func _ready() -> void:
 	reset()
-	print("enemy_types: " + str(enemy_types))
 
 
 func reset() -> void:

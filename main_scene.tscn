@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=10 format=3 uid="uid://s488jtj1i4ci"]
 
 [ext_resource type="PackedScene" uid="uid://c0utlmtqcar20" path="res://game/modifier/modifier_caller.tscn" id="1_66tet"]
 [ext_resource type="PackedScene" uid="uid://tt1rrpyhclj1" path="res://game/enemyspawning/spawner.tscn" id="2_7ycvg"]
 [ext_resource type="PackedScene" uid="uid://dlgvodlq4gicv" path="res://game/UI.tscn" id="6_fd1kl"]
 [ext_resource type="PackedScene" uid="uid://dkf7mjen6nt18" path="res://game/player/player.tscn" id="7_42yoh"]
 [ext_resource type="Shader" uid="uid://dj265gghil72j" path="res://game/assets/terrain/starfield.gdshader" id="7_nfk4m"]
-[ext_resource type="Script" uid="uid://dly3ct4njplad" path="res://game/camera_shake.gd" id="8_66tet"]
 [ext_resource type="Shader" uid="uid://dawlanyidv1xr" path="res://intermission/test.gdshader" id="10_jo72c"]
 [ext_resource type="Texture2D" uid="uid://cjdxiqij7aekk" path="res://game/assets/pallette.png" id="11_h8riy"]
 
@@ -21,9 +20,6 @@ shader_parameter/density = 1000.0
 shader_parameter/compression = 0.10000000149012
 shader_parameter/trail_size = 100.0
 shader_parameter/brightness = 10.0
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_66tet"]
-frequency = 0.3
 
 [node name="Node2D" type="Node2D" groups=["game_root"]]
 
@@ -79,10 +75,3 @@ color = Color(0, 0, 0, 1)
 [node name="Camera2D" type="Camera2D" parent="." groups=["camera"]]
 position = Vector2(213, 120)
 ignore_rotation = false
-script = ExtResource("8_66tet")
-max_offset = Vector2(2, 2)
-max_offset_k = Vector2(0.3, 0.3)
-max_shake_rotation = 1.0
-max_shake_rotation_k = 0.3
-shake_noise = SubResource("FastNoiseLite_66tet")
-decay = 55.0

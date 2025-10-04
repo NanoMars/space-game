@@ -3,6 +3,7 @@ extends Node2D
 @export var goal_node: Node2D = null
 @export var return_speed: float = 5.0
 @export var distance_from_goal: float = 20.0
+@export var edge_buffer: Vector2 = Vector2(64.0, 32.0)
 
 func _ready() -> void:
 	top_level = true
@@ -20,15 +21,16 @@ func get_goal_offset() -> Vector2:
 	var x := goal_node.global_position.x
 	var y := goal_node.global_position.y
 	var goal_vector := Vector2(1.0, 0.0)
+	var visible_rect: Vector2 = get_viewport().get_visible_rect().size - edge_buffer
 	
-	if x >= 5.5:
+	if x >= visible_rect.x:
 		goal_vector.x = -1.0
-	elif x <= -5.5:
+	elif x <= edge_buffer.x:
 		goal_vector.x = 1.0
 
-	if y >= 2.3:
+	if y >= visible_rect.y:
 		goal_vector.y = -1.0
-	elif y <= -2.3:
+	elif y <= edge_buffer.y:
 		goal_vector.y = 1.0
 
 	return goal_vector.normalized() * distance_from_goal

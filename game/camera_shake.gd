@@ -5,47 +5,40 @@ class_name CameraWithShake
 @export var max_offset_k: Vector2 = Vector2(5.0, 5.0)
 @export var max_shake_rotation: float = 10.0
 @export var max_shake_rotation_k: float = 5.0
-@export var shake_noise: Noise
+#@export var shake_noise: Noise
 @export var decay: float = 5.0
+@export var damp: float = 0.1
+@export var shake_multiplier: float = 3
 
-
-var shake_amount: float = 0.0
-var initial_offset: Vector2
-var initial_rotation: float
-var time: float = 0.0
-
-
-func _ready() -> void:
-	initial_offset = position
-	initial_rotation = rotation
+var shake_offset: Vector2 = Vector2.ZERO
+var shake_offset_velocity: Vector2 = Vector2.ZERO
 
 
 func _physics_process(delta: float) -> void:
-	
-	if shake_amount > 0.0:
-		
-		shake_amount = max(shake_amount - decay * delta, 0.0)
-		time += delta * shake_amount
-		var noise_x: float = shake_noise.get_noise_3d(time, 0.0, 0.0)
-		var noise_y: float = shake_noise.get_noise_3d(0.0, time, 0.0)
-		var noise_rot: float = shake_noise.get_noise_3d(0.0, 0.0, time)
+	if shake_offset_velocity.length() > 0.01 or shake_offset.length() > 0.01:
+		var acc := -decay * shake_offset - damp * shake_offset_velocity
+		shake_offset_velocity += acc * delta
+		shake_offset += shake_offset_velocity * delta
+		var shake_rotation = shake_offset.x
 
-		offset = Vector2(
-			asymptotic_function(noise_x * shake_amount, max_offset.x, max_offset_k.x),
-			asymptotic_function(noise_y * shake_amount, max_offset.y, max_offset_k.y)
-		)
+		var clamped_offset_x = asymptotic_function(shake_offset.x, max_offset.x, max_offset_k.x)
+		var clamped_offset_y = asymptotic_function(shake_offset.y, max_offset.y, max_offset_k.y)
+		var clamped_rotation = asymptotic_function(shake_rotation, max_shake_rotation, max_shake_rotation_k)
 
-		rotation_degrees = asymptotic_function(noise_rot * shake_amount, max_shake_rotation, max_shake_rotation_k)
-
-		print("shake_amount: ", shake_amount)
-
+		offset = Vector2(clamped_offset_x, clamped_offset_y)
+		rotation_degrees = clamped_rotation
 	else:
-		position = initial_offset
-		rotation = initial_rotation
-func asymptotic_function(value: float, max_value: float, k: float) -> float:
-	var signasf = 1.0 if value >= 0.0 else -1.0
-	value = abs(value)
-	return (max_value - (max_value * exp(-k * value))) * signasf
+		shake_offset = Vector2.ZERO
+		shake_offset_velocity = Vector2.ZERO
+		offset = Vector2.ZERO
+		rotation_degrees = 0.0
+	print("Offset: ", offset, " Rotation: ", rotation_degrees, " Velocity: ", shake_offset_velocity, " Shake Offset: ", shake_offset)
 
-func shake(amount: float) -> void:
-	shake_amount += amount
+func asymptotic_function(value: float, max_value: float, k: float) -> float:
+	# var signasf = 1.0 if value >= 0.0 else -1.0
+	# value = abs(value)
+	# return (max_value - (max_value * exp(-k * value))) * signasf
+	return value
+
+func shake(direction: Vector2) -> void:
+	shake_offset_velocity += direction * shake_multiplier

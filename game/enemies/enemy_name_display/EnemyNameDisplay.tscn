@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgl3ka2s41drb"]
+
+[ext_resource type="Script" uid="uid://dwmw7405ry2j5" path="res://game/UI/Tutorial/keybind_hover.gd" id="1_p6tsb"]
+
+[node name="EnemyNameDisplay" type="CanvasLayer"]
+script = ExtResource("1_p6tsb")
