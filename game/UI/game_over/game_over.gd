@@ -20,6 +20,8 @@ func _ready() -> void:
 	await animate_text()
 	await animate_buttons()
 	buttons[0].grab_focus()
+	if Settings.get("demo mode") == false:
+			Settings.set("tutorial enabled", false)
 
 
 

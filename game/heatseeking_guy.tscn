@@ -11,6 +11,7 @@ collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_06yso")
 speed = 6500.0
+enemy_name = "Hand"
 
 [node name="Health" parent="." instance=ExtResource("2_yospj")]
 max_health = 30.0

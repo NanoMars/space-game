@@ -23,6 +23,8 @@ func _ready() -> void:
 	name_select_box.show()
 	leaderboard_box.hide()
 	leaderboard.fetch_top(25)
+	if Settings.get("demo mode") == false:
+			Settings.set("tutorial enabled", false)
 
 
 func _on_name_submit_button_pressed() -> void:

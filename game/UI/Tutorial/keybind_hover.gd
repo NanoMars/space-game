@@ -35,7 +35,7 @@ func _ready() -> void:
 
 
 func _process(_delta):
-	if Settings.get("tutorial enabled") == false and Settings.get("demo mode") == false and not spawner.run_started and not ui_hidden:
+	if Settings.get("tutorial enabled") == false and Settings.get("demo mode") == false and not spawner.run_started and not ui_hidden or ScoreManager.keybinds_shown == true:
 		sprite_2d.queue_free()
 
 	if Input.is_action_just_pressed("shoot"):
@@ -54,12 +54,11 @@ func _process(_delta):
 	if all_pressed and spacebar_pressed:
 		ui_hidden = true
 		spawner._on_start_run()
-		if Settings.get("demo mode") == false:
-			Settings.set("tutorial enabled", false)
 
 		var tween: Tween = create_tween()
 		tween.tween_property(self, "modulate:a", 0.0, 0.5)
 		await tween.finished
+		ScoreManager.keybinds_shown = true
 		sprite_2d.queue_free()
 		
 

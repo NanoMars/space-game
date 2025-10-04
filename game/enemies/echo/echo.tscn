@@ -33,6 +33,7 @@ speed = 6000.0
 target_y = 64.0
 shoot_every_n_hits = 4
 weapon_node = NodePath("Marker2D")
+enemy_name = "Echo"
 
 [node name="Health" parent="." instance=ExtResource("1_7yt0h")]
 max_health = 50.0
