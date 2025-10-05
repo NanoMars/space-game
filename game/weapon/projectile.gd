@@ -8,6 +8,13 @@ var last_position: Vector2
 
 var display_mode: bool = false
 
+@export var trail: Sprite2D = null
+@export var trail_1px: float = 0.015
+@export var trail_size_seconds: float = 0.25
+
+var trail_log: Array[Vector2] = []
+var trail_age: float = 0.0
+
 func _ready() -> void:
 	contact_monitor = true
 	max_contacts_reported = 8
@@ -63,6 +70,14 @@ func _physics_process(_delta: float) -> void:
 		# Check both X and Y with padding
 		if pos.x < left or pos.x > right or pos.y < top or pos.y > bottom:
 			remove_projectile()
+
+	# rotate to face movement direction in 2D
+	var v: Vector2 = linear_velocity
+	rotation = v.angle() + PI / 2
+	var velocity_length = v.length()
+	trail_age += _delta
+	trail.scale.y = trail_1px * velocity_length * min(trail_age, trail_size_seconds)
+
 
 func remove_projectile() -> void:
 	queue_free()

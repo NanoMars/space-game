@@ -7,23 +7,26 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_h3368"]
 radius = 2.0
 
-[node name="RigidBody2D" type="RigidBody2D"]
+[node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("trail")]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_w3f7m")
+trail = NodePath("trail")
+trail_range_max = 2.0
+trail_size_multiplier = 0.25
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_h3368")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.02, 0.02)
+[node name="head" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
 texture = ExtResource("2_pnwyh")
-offset = Vector2(0, -50)
+offset = Vector2(0, -6)
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-scale = Vector2(0.02, 0.02)
+[node name="trail" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.09)
 texture = ExtResource("3_1au6m")
-offset = Vector2(0, 50)
+offset = Vector2(0, 11)
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 collision_mask = 2
