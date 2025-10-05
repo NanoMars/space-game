@@ -34,9 +34,13 @@ func _ready() -> void:
 func _on_body_entered(body: Node) -> void:
 	if body.has_method("damage"):
 		body.damage((weapon_stats.damage if weapon_stats and typeof(weapon_stats.damage) == TYPE_FLOAT else 0.0), self)
-		remove_projectile()
+		queue_free()
+		return
 
 func _physics_process(_delta: float) -> void:
+
+	
+
 	# Raycast from the last position to the current position to catch fast hits
 	var current_pos: Vector2 = global_position
 	if last_position.distance_to(current_pos) > 0.0001:
@@ -49,10 +53,14 @@ func _physics_process(_delta: float) -> void:
 			var collider: Node = result.get("collider")
 			if collider and collider.has_method("damage"):
 				collider.damage((weapon_stats.damage if weapon_stats and typeof(weapon_stats.damage) == TYPE_FLOAT else 0.0), self)
-				remove_projectile()
+				queue_free()
+				return
 
 	# Update for next frame
 	last_position = global_position
+
+
+	
 
 	# Despawn if outside viewport bounds + exterior padding (no camera)
 	var vp_size := get_viewport().get_visible_rect().size
@@ -65,11 +73,13 @@ func _physics_process(_delta: float) -> void:
 	if display_mode:
 		# Only check Y bounds with padding
 		if pos.y < top or pos.y > bottom:
-			remove_projectile()
+			queue_free()
+			return
 	else:
 		# Check both X and Y with padding
 		if pos.x < left or pos.x > right or pos.y < top or pos.y > bottom:
-			remove_projectile()
+			queue_free()
+			return
 
 	# rotate to face movement direction in 2D
 	var v: Vector2 = linear_velocity
@@ -77,7 +87,3 @@ func _physics_process(_delta: float) -> void:
 	var velocity_length = v.length()
 	trail_age += _delta
 	trail.scale.y = trail_1px * velocity_length * min(trail_age, trail_size_seconds)
-
-
-func remove_projectile() -> void:
-	queue_free()

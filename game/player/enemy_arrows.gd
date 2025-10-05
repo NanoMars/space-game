@@ -5,6 +5,7 @@ extends Sprite2D
 
 # Map: enemy_id:int -> { enemy: WeakRef, arrow: Node2D }
 var enemies_off_screen: Dictionary = {}
+var connected_enemies: Array[int] = []
 
 func _key_for(enemy: Object) -> int:
 	return enemy.get_instance_id()
@@ -45,6 +46,7 @@ func _process(delta: float) -> void:
 
 func _on_enemy_tree_exited(id: int) -> void:
 	despawn_arrow_by_id(id)
+	connected_enemies.erase(id)
 
 func is_off_screen(enemy: Node2D) -> bool:
 	# Project world position to screen space and check visible rect.
@@ -66,7 +68,9 @@ func spawn_arrow_for_enemy(enemy: Node2D) -> void:
 	}
 
 	# Bind the id so we can despawn safely even after the node is freed.
-	enemy.tree_exited.connect(_on_enemy_tree_exited.bind(id))
+	if not id in connected_enemies:
+		enemy.tree_exited.connect(_on_enemy_tree_exited.bind(id))
+		connected_enemies.append(id)
 
 	var animation_player := arrow_instance.get_child(0) as AnimationPlayer
 	if animation_player:

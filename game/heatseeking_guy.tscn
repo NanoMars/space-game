@@ -1,17 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8wttr2bqvly5"]
+[gd_scene load_steps=6 format=3 uid="uid://c8wttr2bqvly5"]
 
 [ext_resource type="Script" uid="uid://c7oy4e0b7q2pe" path="res://game/heatseeking_guy.gd" id="1_06yso"]
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_yospj"]
 [ext_resource type="Texture2D" uid="uid://dyevwhviftfbc" path="res://game/assets/handthing.png" id="3_06yso"]
+[ext_resource type="PackedScene" uid="uid://d36xrvxjoyniq" path="res://game/enemies/enemy_shaker_component.tscn" id="4_375ik"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m2fxr"]
 
-[node name="RigidBody2D" type="RigidBody2D" groups=["enemies"]]
+[node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("shaker_component") groups=["enemies"]]
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_06yso")
 speed = 6500.0
 enemy_name = "Hand"
+shaker_component = NodePath("Sprite2D/ShakerComponent2D")
 
 [node name="Health" parent="." instance=ExtResource("2_yospj")]
 max_health = 30.0
@@ -20,5 +22,8 @@ max_health = 30.0
 shape = SubResource("CircleShape2D_m2fxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2.6077032e-07, -3.7252903e-09)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_06yso")
+
+[node name="ShakerComponent2D" parent="Sprite2D" instance=ExtResource("4_375ik")]

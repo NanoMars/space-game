@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="ShakerPreset2D" load_steps=10 format=3 uid="uid://lvehwdmsgulr"]
+
+[ext_resource type="Script" uid="uid://bfm6pj5ivbxmw" path="res://addons/shaker/data/Vector2/BaseShakerType2D.gd" id="1_6lmr6"]
+[ext_resource type="Script" uid="uid://dd7ox1dvjmocd" path="res://addons/shaker/data/Vector2/ShakerTypeSquareWave2D.gd" id="2_is34v"]
+[ext_resource type="Script" uid="uid://dd8rirfnf6tm" path="res://addons/shaker/data/Single/BaseShakerType1D.gd" id="3_4wqms"]
+[ext_resource type="Script" uid="uid://brjawxlkcm5ga" path="res://addons/shaker/data/Single/ShakerTypeSawtoothWave1D.gd" id="4_hxpax"]
+[ext_resource type="Script" uid="uid://cwkss1mgr7jhu" path="res://addons/shaker/data/Vector2/ShakerPreset2D.gd" id="5_62gtw"]
+[ext_resource type="Script" uid="uid://dxnalig1b7nm4" path="res://addons/shaker/data/Vector2/ShakerTypeSineWave2D.gd" id="5_is34v"]
+
+[sub_resource type="Resource" id="Resource_tivfr"]
+script = ExtResource("2_is34v")
+frequency = Vector2(15, 10)
+metadata/_custom_type_script = "uid://dd7ox1dvjmocd"
+
+[sub_resource type="Resource" id="Resource_qyqhv"]
+script = ExtResource("4_hxpax")
+amplitude = 0.35
+metadata/_custom_type_script = "uid://brjawxlkcm5ga"
+
+[sub_resource type="Resource" id="Resource_4wqms"]
+script = ExtResource("5_is34v")
+frequency = Vector2(2, 2.5)
+amplitude = Vector2(0.025, 0.025)
+metadata/_custom_type_script = "uid://dxnalig1b7nm4"
+
+[resource]
+script = ExtResource("5_62gtw")
+PositionShake = Array[ExtResource("1_6lmr6")]([SubResource("Resource_tivfr")])
+RotationShake = Array[ExtResource("3_4wqms")]([SubResource("Resource_qyqhv")])
+ScaleShake = Array[ExtResource("1_6lmr6")]([SubResource("Resource_4wqms")])
+metadata/_custom_type_script = "uid://cwkss1mgr7jhu"

@@ -23,6 +23,7 @@ MusicPlayer="*res://game/sound/music/music_player.gd"
 SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 Settings="*res://game/UI/main_menu/settings/settings_autoload.gd"
 Cursor="*res://game/UI/cursor/cursor.gd"
+Shaker="*res://addons/shaker/src/Shaker.gd"
 
 [display]
 
@@ -34,7 +35,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg", "res://addons/scene_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg", "res://addons/scene_manager/plugin.cfg", "res://addons/shaker/plugin.cfg")
 
 [global_group]
 

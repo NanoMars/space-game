@@ -33,8 +33,10 @@ func _ready() -> void:
 	_rng.randomize()
 	if auto_prepare_on_ready:
 		_prepare_wave()
-	
-	if Settings.get("tutorial enabled") == true or Settings.get("demo mode") == true:
+
+	print("tutorial enabled: ", Settings.get("tutorial enabled") == true, "demo mode: ", Settings.get("demo mode") == true, "keybinds shown: ", ScoreManager.keybinds_shown == true, " ")
+	if Settings.get("tutorial enabled") == true or Settings.get("demo mode") == true and ScoreManager.keybinds_shown == false:
+		print("Delaying run start for tutorial or demo mode")
 		return
 	var timer := Timer.new()
 	timer.wait_time = 1.0

@@ -6,6 +6,8 @@ class_name Enemy
 var dead: bool = false
 signal died
 
+@export var shaker_component: ShakerComponent2D
+
 var enemy_name_display_path: String = "res://game/enemies/enemy_name_display/EnemyNameDisplay.tscn"
 
 
@@ -13,9 +15,7 @@ func _ready() -> void:
 	if health:
 		health.died.connect(_on_died)
 		health.damaged.connect(_damaged)
-		print("tutorial enabled: ", Settings.get("tutorial enabled") == true, "scoremanager seen: ", ScoreManager.enemies_seen.has(enemy_name))
 	if Settings.get("tutorial enabled") == true and not ScoreManager.enemies_seen.has(enemy_name):
-		print("Showing name for enemy: %s" % enemy_name)
 		ScoreManager.enemies_seen.append(enemy_name)
 		var enemy_name_display_scene: PackedScene = load(enemy_name_display_path)
 		var enemy_name_display: Node2D = enemy_name_display_scene.instantiate()
@@ -27,6 +27,8 @@ func _ready() -> void:
 func damage(amount: float, from: Node = null) -> void:
 	if health and health.has_method("damage"):
 		health.damage(amount, from)
+		if shaker_component:
+			shaker_component.play_shake()
 
 func _on_died(from: Node) -> void:
 	if dead:

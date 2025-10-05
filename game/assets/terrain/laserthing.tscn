@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bx56mhuthy1oe"]
+[gd_scene load_steps=8 format=3 uid="uid://bx56mhuthy1oe"]
 
 [ext_resource type="Script" uid="uid://b4s5bdt4j2ihi" path="res://game/enemies/laserthing/laserthing.gd" id="1_1sskn"]
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="1_gk4nt"]
 [ext_resource type="Texture2D" uid="uid://dgxyex4atafq3" path="res://game/assets/heart(1).png" id="3_43rru"]
+[ext_resource type="PackedScene" uid="uid://d36xrvxjoyniq" path="res://game/enemies/enemy_shaker_component.tscn" id="3_erl5w"]
 [ext_resource type="Shader" uid="uid://cvkrh55abrhwy" path="res://game/enemies/laserthing/laserthing.gdshader" id="4_43rru"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_43rru"]
@@ -27,7 +28,7 @@ shader_parameter/y_offset = 0.0
 shader_parameter/fixed_edge_size = 0.0
 shader_parameter/noise_scale = Vector2(1, 1)
 
-[node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("raycast_l", "raycast_r") groups=["enemies"]]
+[node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("raycast_l", "raycast_r", "shaker_component") groups=["enemies"]]
 collision_layer = 2
 collision_mask = 4
 gravity_scale = 0.0
@@ -40,6 +41,7 @@ vertical_speed = 20.0
 raycast_l = NodePath("RayCastL")
 raycast_r = NodePath("RayCastR")
 enemy_name = "Laser"
+shaker_component = NodePath("Sprite2D/ShakerComponent2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_43rru")
@@ -47,6 +49,8 @@ shape = SubResource("RectangleShape2D_43rru")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_43rru")
+
+[node name="ShakerComponent2D" parent="Sprite2D" instance=ExtResource("3_erl5w")]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_1sskn")

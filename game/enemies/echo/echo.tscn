@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cqlucyg0ogdps"]
+[gd_scene load_steps=12 format=3 uid="uid://cqlucyg0ogdps"]
 
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="1_7yt0h"]
 [ext_resource type="Script" uid="uid://brckhxn4j3vh1" path="res://game/enemies/echo/echo.gd" id="1_aly6b"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dj40a3gnwqbyq" path="res://game/weapon/enemy_projectile.tscn" id="6_7ihf2"]
 [ext_resource type="Texture2D" uid="uid://8p4m1eucl2ax" path="res://game/assets/eyeball.png" id="7_7ihf2"]
 [ext_resource type="Script" uid="uid://bypy263lii80f" path="res://game/weapon/weapon_stats.gd" id="7_ij02q"]
+[ext_resource type="PackedScene" uid="uid://d36xrvxjoyniq" path="res://game/enemies/enemy_shaker_component.tscn" id="8_fstwr"]
 
 [sub_resource type="Resource" id="Resource_4ste8"]
 script = ExtResource("5_fstwr")
@@ -24,7 +25,7 @@ metadata/_custom_type_script = "uid://bypy263lii80f"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8e35v"]
 
-[node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("weapon_node")]
+[node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("weapon_node", "shaker_component")]
 collision_layer = 2
 collision_mask = 4
 lock_rotation = true
@@ -34,6 +35,7 @@ target_y = 64.0
 shoot_every_n_hits = 4
 weapon_node = NodePath("Marker2D")
 enemy_name = "Echo"
+shaker_component = NodePath("Sprite2D/ShakerComponent2D")
 
 [node name="Health" parent="." instance=ExtResource("1_7yt0h")]
 max_health = 50.0
@@ -48,3 +50,5 @@ shape = SubResource("CircleShape2D_8e35v")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("7_7ihf2")
+
+[node name="ShakerComponent2D" parent="Sprite2D" instance=ExtResource("8_fstwr")]
