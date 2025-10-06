@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=27 format=3 uid="uid://s488jtj1i4ci"]
 
 [ext_resource type="PackedScene" uid="uid://c0utlmtqcar20" path="res://game/modifier/modifier_caller.tscn" id="1_66tet"]
 [ext_resource type="PackedScene" uid="uid://tt1rrpyhclj1" path="res://game/enemyspawning/spawner.tscn" id="2_7ycvg"]
@@ -16,7 +16,6 @@
 [ext_resource type="Script" uid="uid://b0vrfrfqpq4al" path="res://addons/shaker/data/Single/ShakerTypeSineWave1D.gd" id="14_2jcla"]
 [ext_resource type="Script" uid="uid://cwkss1mgr7jhu" path="res://addons/shaker/data/Vector2/ShakerPreset2D.gd" id="14_84odl"]
 [ext_resource type="Script" uid="uid://c7b4uif626858" path="res://addons/shaker/data/Single/ShakerTypeRandom1D.gd" id="15_m35m6"]
-[ext_resource type="PackedScene" uid="uid://bba4cdnn4qmm6" path="res://game/enemies/line_enemy/line_enemy.tscn" id="17_u0ygc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wr18j"]
 shader = ExtResource("10_jo72c")
@@ -167,6 +166,7 @@ shakerPreset = SubResource("Resource_7th4q")
 metadata/_custom_type_script = "uid://b5fqudd1ivpc4"
 
 [node name="ShootShake" type="Node2D" parent="Camera2D"]
+position = Vector2(3.0517009e-05, -0.0001220697)
 script = ExtResource("8_42l1d")
 intensity = 0.5
 duration = 0.2
@@ -174,12 +174,3 @@ fade_in = 1e-05
 fade_out = 1.6245047
 shakerPreset = SubResource("Resource_6jybn")
 metadata/_custom_type_script = "uid://b5fqudd1ivpc4"
-
-[node name="RigidBody2D" parent="." instance=ExtResource("17_u0ygc")]
-position = Vector2(54, -79)
-
-[node name="RigidBody2D2" parent="." instance=ExtResource("17_u0ygc")]
-position = Vector2(208, -53)
-
-[node name="RigidBody2D3" parent="." instance=ExtResource("17_u0ygc")]
-position = Vector2(308, -68)
