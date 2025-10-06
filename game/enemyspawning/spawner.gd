@@ -35,7 +35,7 @@ func _ready() -> void:
 		_prepare_wave()
 
 	print("tutorial enabled: ", Settings.get("tutorial enabled") == true, "demo mode: ", Settings.get("demo mode") == true, "keybinds shown: ", ScoreManager.keybinds_shown == true, " ")
-	if Settings.get("tutorial enabled") == true or Settings.get("demo mode") == true and ScoreManager.keybinds_shown == false:
+	if (Settings.get("tutorial enabled") == true or Settings.get("demo mode") == true) and ScoreManager.keybinds_shown == false:
 		print("Delaying run start for tutorial or demo mode")
 		return
 	var timer := Timer.new()

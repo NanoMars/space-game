@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://c5151n8v6645w"]
+[gd_scene load_steps=34 format=3 uid="uid://c5151n8v6645w"]
 
 [ext_resource type="Script" uid="uid://h531hpff7fyb" path="res://intermission_background.gd" id="1_3b4nm"]
 [ext_resource type="Script" uid="uid://bsste0045nkbd" path="res://intermission/intermission_menu.gd" id="1_yvdn4"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dhrvl7mrmdym7" path="res://game/enemies/doppleganger/doppleganger.tscn" id="9_gldry"]
 [ext_resource type="Script" uid="uid://br7ayqjve2drn" path="res://game/modifier/modifiers/add_dopple.gd" id="10_diied"]
 [ext_resource type="PackedScene" uid="uid://bx56mhuthy1oe" path="res://game/assets/terrain/laserthing.tscn" id="11_diied"]
+[ext_resource type="PackedScene" uid="uid://bba4cdnn4qmm6" path="res://game/enemies/line_enemy/line_enemy.tscn" id="15_fbdnw"]
 [ext_resource type="Theme" uid="uid://c6mssg2ngmqpk" path="res://game/game_ui_theme.tres" id="16_4jr5q"]
 [ext_resource type="FontFile" uid="uid://d3xv2jvjnv25p" path="res://game/assets/TinyUnicode.ttf" id="17_fbdnw"]
 
@@ -79,6 +80,20 @@ script = ExtResource("6_dt5tg")
 display_name = "Add Laser"
 score_multiplier = 0.6
 enemy_to_spawn = SubResource("Resource_d21pq")
+metadata/_custom_type_script = "uid://bkeoml7x3rkuu"
+
+[sub_resource type="Resource" id="Resource_kfo7d"]
+script = ExtResource("7_s5603")
+scene = ExtResource("15_fbdnw")
+weight = 0.3
+metadata/_custom_type_script = "uid://b5htysbr1cbiw"
+
+[sub_resource type="Resource" id="Resource_4jr5q"]
+script = ExtResource("6_dt5tg")
+display_name = "Add Smiler"
+max_stacks = 3
+score_multiplier = 0.4
+enemy_to_spawn = SubResource("Resource_kfo7d")
 metadata/_custom_type_script = "uid://bkeoml7x3rkuu"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yvdn4"]
@@ -151,7 +166,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_0i6aa")
 script = ExtResource("5_vmbcd")
-mod_list = Array[ExtResource("6_dt5tg")]([SubResource("Resource_dpipn"), SubResource("Resource_nel6a"), SubResource("Resource_1vesd")])
+mod_list = Array[ExtResource("6_dt5tg")]([SubResource("Resource_dpipn"), SubResource("Resource_nel6a"), SubResource("Resource_1vesd"), SubResource("Resource_4jr5q")])
 mult_label = NodePath("../MultiplierLabel")
 
 [node name="decisions" type="VBoxContainer" parent="CanvasLayer"]

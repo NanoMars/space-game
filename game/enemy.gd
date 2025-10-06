@@ -8,6 +8,8 @@ signal died
 
 @export var shaker_component: ShakerComponent2D
 var camera: Camera2D
+var camera_damage_shake: ShakerComponent2D
+var camera_die_shake: ShakerComponent2D
 
 var enemy_name_display_path: String = "res://game/enemies/enemy_name_display/EnemyNameDisplay.tscn"
 
@@ -24,6 +26,10 @@ func _ready() -> void:
 		enemy_name_display.goal_node = self
 		add_child(enemy_name_display)
 		enemy_name_display.global_position = global_position
+	camera = get_tree().get_first_node_in_group("camera") as Camera2D
+	if camera:
+		camera_damage_shake = camera.get_node("EnemyDamageShake") as ShakerComponent2D
+		camera_die_shake = camera.get_node("EnemyDieShake") as ShakerComponent2D
 
 	camera = get_tree().get_first_node_in_group("camera") as Camera2D
 
@@ -32,13 +38,10 @@ func damage(amount: float, from: Node = null) -> void:
 		health.damage(amount, from)
 		if shaker_component:
 			shaker_component.play_shake()
-		var cam_shaker: ShakerComponent2D = null
-		if camera:
-			cam_shaker = camera.find_child("EnemyDamageShake") as ShakerComponent2D
-			print("Found camera shaker: ", cam_shaker != null)
-		if cam_shaker:
-			cam_shaker.play_shake()
-			print("Camera shake played from enemy damage")
+		if camera_damage_shake:
+			camera_damage_shake.play_shake()
+		
+		
 		
 
 func _on_died(from: Node) -> void:
@@ -49,6 +52,8 @@ func _on_died(from: Node) -> void:
 	if from != self:
 		ScoreManager.score += point_value
 	SoundManager.play_sound(SoundManager.enemy_death)
+	if camera_die_shake:
+		camera_die_shake.play_shake()
 	
 	queue_free()
 

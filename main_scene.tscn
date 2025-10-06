@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=28 format=3 uid="uid://s488jtj1i4ci"]
 
 [ext_resource type="PackedScene" uid="uid://c0utlmtqcar20" path="res://game/modifier/modifier_caller.tscn" id="1_66tet"]
 [ext_resource type="PackedScene" uid="uid://tt1rrpyhclj1" path="res://game/enemyspawning/spawner.tscn" id="2_7ycvg"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://b0vrfrfqpq4al" path="res://addons/shaker/data/Single/ShakerTypeSineWave1D.gd" id="14_2jcla"]
 [ext_resource type="Script" uid="uid://cwkss1mgr7jhu" path="res://addons/shaker/data/Vector2/ShakerPreset2D.gd" id="14_84odl"]
 [ext_resource type="Script" uid="uid://c7b4uif626858" path="res://addons/shaker/data/Single/ShakerTypeRandom1D.gd" id="15_m35m6"]
+[ext_resource type="PackedScene" uid="uid://bba4cdnn4qmm6" path="res://game/enemies/line_enemy/line_enemy.tscn" id="17_u0ygc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wr18j"]
 shader = ExtResource("10_jo72c")
@@ -58,6 +59,20 @@ amplitude = Vector2(0.025, 0.025)
 metadata/_custom_type_script = "uid://dxnalig1b7nm4"
 
 [sub_resource type="Resource" id="Resource_fv2he"]
+script = ExtResource("14_84odl")
+PositionShake = Array[ExtResource("9_2jcla")]([SubResource("Resource_ak604"), SubResource("Resource_vimvf"), null])
+RotationShake = Array[ExtResource("13_6jybn")]([SubResource("Resource_m35m6"), SubResource("Resource_u0ygc")])
+ScaleShake = Array[ExtResource("9_2jcla")]([SubResource("Resource_4wqms")])
+metadata/_custom_type_script = "uid://cwkss1mgr7jhu"
+
+[sub_resource type="Resource" id="Resource_7th4q"]
+script = ExtResource("14_84odl")
+PositionShake = Array[ExtResource("9_2jcla")]([SubResource("Resource_ak604"), SubResource("Resource_vimvf"), null])
+RotationShake = Array[ExtResource("13_6jybn")]([SubResource("Resource_m35m6"), SubResource("Resource_u0ygc")])
+ScaleShake = Array[ExtResource("9_2jcla")]([SubResource("Resource_4wqms")])
+metadata/_custom_type_script = "uid://cwkss1mgr7jhu"
+
+[sub_resource type="Resource" id="Resource_6jybn"]
 script = ExtResource("14_84odl")
 PositionShake = Array[ExtResource("9_2jcla")]([SubResource("Resource_ak604"), SubResource("Resource_vimvf"), null])
 RotationShake = Array[ExtResource("13_6jybn")]([SubResource("Resource_m35m6"), SubResource("Resource_u0ygc")])
@@ -120,8 +135,8 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Camera2D" type="Camera2D" parent="." groups=["camera"]]
-position = Vector2(212.99968, 120.00028)
-scale = Vector2(1.000006, 0.9999977)
+position = Vector2(212.99997, 120.00012)
+scale = Vector2(1.0000186, 1.000005)
 ignore_rotation = false
 
 [node name="ShakerComponent2D" type="Node2D" parent="Camera2D"]
@@ -141,3 +156,30 @@ fade_in = 1e-05
 fade_out = 1.6245047
 shakerPreset = SubResource("Resource_fv2he")
 metadata/_custom_type_script = "uid://b5fqudd1ivpc4"
+
+[node name="EnemyDieShake" type="Node2D" parent="Camera2D"]
+script = ExtResource("8_42l1d")
+intensity = 3.0
+duration = 0.4
+fade_in = 1e-05
+fade_out = 1.6245047
+shakerPreset = SubResource("Resource_7th4q")
+metadata/_custom_type_script = "uid://b5fqudd1ivpc4"
+
+[node name="ShootShake" type="Node2D" parent="Camera2D"]
+script = ExtResource("8_42l1d")
+intensity = 0.5
+duration = 0.2
+fade_in = 1e-05
+fade_out = 1.6245047
+shakerPreset = SubResource("Resource_6jybn")
+metadata/_custom_type_script = "uid://b5fqudd1ivpc4"
+
+[node name="RigidBody2D" parent="." instance=ExtResource("17_u0ygc")]
+position = Vector2(54, -79)
+
+[node name="RigidBody2D2" parent="." instance=ExtResource("17_u0ygc")]
+position = Vector2(208, -53)
+
+[node name="RigidBody2D3" parent="." instance=ExtResource("17_u0ygc")]
+position = Vector2(308, -68)

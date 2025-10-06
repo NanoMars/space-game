@@ -30,6 +30,8 @@ var shot_timer: Timer
 var _time: float = 0.0
 
 var can_shoot: bool = true
+var camera: Camera2D
+var camera_shake: ShakerComponent2D
 	
 func setup_weapon() -> void:
 	call_deferred("get_projectile_container")
@@ -42,6 +44,12 @@ func setup_weapon() -> void:
 		shot_timer.autostart = true
 		add_child(shot_timer)
 		shot_timer.timeout.connect(_shot_timer_timeout)
+	call_deferred("_setup_camera")
+
+func _setup_camera() -> void:
+	camera = get_tree().get_first_node_in_group("camera") as Camera2D
+	if camera:
+		camera_shake = camera.get_node("ShootShake") as ShakerComponent2D
 
 func _process(delta: float) -> void:
 	_time += delta
@@ -55,12 +63,13 @@ func fire_once() -> void:
 	can_shoot = false
 	if not display_mode:
 		SoundManager.play_sound(SoundManager.player_gunshot)
+		if camera_shake:
+			camera_shake.play_shake()
 	if not weapon_stats or not fire_pattern:
 		return
 
 	var shots: Array[ShotSpec] = fire_pattern.get_directions()
 	var container := get_projectile_container()
-	var wt: Transform2D = global_transform
 
 	for shot in shots:
 		var projectile_instance: Node2D = weapon_stats.projectile_scene.instantiate()
