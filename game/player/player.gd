@@ -19,6 +19,7 @@ var _weapon_stats: WeaponStats = null
 @onready var cam: Camera2D = get_tree().get_first_node_in_group("camera") as Camera2D
 
 @export var shiny_thing_scene: PackedScene
+@export var shaker_component: ShakerComponent3D
 
 var dead: bool = false
 signal died(from: Node)
@@ -83,3 +84,5 @@ func damage(amount: float, from: Node = null) -> void:
 	SoundManager.play_sound(SoundManager.player_hurt)
 	if health and health.has_method("damage"):
 		health.damage(amount, from)
+		if shaker_component:
+			shaker_component.play_shake()

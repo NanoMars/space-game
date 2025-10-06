@@ -1,12 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=24 format=3 uid="uid://s488jtj1i4ci"]
 
 [ext_resource type="PackedScene" uid="uid://c0utlmtqcar20" path="res://game/modifier/modifier_caller.tscn" id="1_66tet"]
 [ext_resource type="PackedScene" uid="uid://tt1rrpyhclj1" path="res://game/enemyspawning/spawner.tscn" id="2_7ycvg"]
 [ext_resource type="PackedScene" uid="uid://dlgvodlq4gicv" path="res://game/UI.tscn" id="6_fd1kl"]
 [ext_resource type="PackedScene" uid="uid://dkf7mjen6nt18" path="res://game/player/player.tscn" id="7_42yoh"]
 [ext_resource type="Shader" uid="uid://dj265gghil72j" path="res://game/assets/terrain/starfield.gdshader" id="7_nfk4m"]
+[ext_resource type="Script" uid="uid://b5fqudd1ivpc4" path="res://addons/shaker/src/Vector2/shaker_component2D.gd" id="8_42l1d"]
+[ext_resource type="Script" uid="uid://bfm6pj5ivbxmw" path="res://addons/shaker/data/Vector2/BaseShakerType2D.gd" id="9_2jcla"]
 [ext_resource type="Shader" uid="uid://dawlanyidv1xr" path="res://intermission/test.gdshader" id="10_jo72c"]
+[ext_resource type="Script" uid="uid://dxnalig1b7nm4" path="res://addons/shaker/data/Vector2/ShakerTypeSineWave2D.gd" id="10_m35m6"]
 [ext_resource type="Texture2D" uid="uid://cjdxiqij7aekk" path="res://game/assets/pallette.png" id="11_h8riy"]
+[ext_resource type="Script" uid="uid://dd7ox1dvjmocd" path="res://addons/shaker/data/Vector2/ShakerTypeSquareWave2D.gd" id="11_u0ygc"]
+[ext_resource type="Script" uid="uid://dd8rirfnf6tm" path="res://addons/shaker/data/Single/BaseShakerType1D.gd" id="13_6jybn"]
+[ext_resource type="Script" uid="uid://b0vrfrfqpq4al" path="res://addons/shaker/data/Single/ShakerTypeSineWave1D.gd" id="14_2jcla"]
+[ext_resource type="Script" uid="uid://cwkss1mgr7jhu" path="res://addons/shaker/data/Vector2/ShakerPreset2D.gd" id="14_84odl"]
+[ext_resource type="Script" uid="uid://c7b4uif626858" path="res://addons/shaker/data/Single/ShakerTypeRandom1D.gd" id="15_m35m6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wr18j"]
 shader = ExtResource("10_jo72c")
@@ -15,11 +23,45 @@ shader_parameter/palette = ExtResource("11_h8riy")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_66tet"]
 shader = ExtResource("7_nfk4m")
 shader_parameter/color = Color(0.06879826, 0.06879829, 0.068798244, 1)
-shader_parameter/speed = 1.9499999564136
+shader_parameter/speed = 0.86999998055376
 shader_parameter/density = 1000.0
 shader_parameter/compression = 0.10000000149012
 shader_parameter/trail_size = 100.0
 shader_parameter/brightness = 10.0
+
+[sub_resource type="Resource" id="Resource_ak604"]
+script = ExtResource("10_m35m6")
+frequency = Vector2(17.89, 23.84)
+metadata/_custom_type_script = "uid://dxnalig1b7nm4"
+
+[sub_resource type="Resource" id="Resource_vimvf"]
+script = ExtResource("11_u0ygc")
+metadata/_custom_type_script = "uid://dd7ox1dvjmocd"
+
+[sub_resource type="Resource" id="Resource_m35m6"]
+script = ExtResource("14_2jcla")
+frequency = 8.0
+amplitude = 0.01
+metadata/_custom_type_script = "uid://b0vrfrfqpq4al"
+
+[sub_resource type="Resource" id="Resource_u0ygc"]
+script = ExtResource("15_m35m6")
+amplitude = 0.02
+BlendingMode = 4
+metadata/_custom_type_script = "uid://c7b4uif626858"
+
+[sub_resource type="Resource" id="Resource_4wqms"]
+script = ExtResource("10_m35m6")
+frequency = Vector2(2, 2.5)
+amplitude = Vector2(0.025, 0.025)
+metadata/_custom_type_script = "uid://dxnalig1b7nm4"
+
+[sub_resource type="Resource" id="Resource_fv2he"]
+script = ExtResource("14_84odl")
+PositionShake = Array[ExtResource("9_2jcla")]([SubResource("Resource_ak604"), SubResource("Resource_vimvf"), null])
+RotationShake = Array[ExtResource("13_6jybn")]([SubResource("Resource_m35m6"), SubResource("Resource_u0ygc")])
+ScaleShake = Array[ExtResource("9_2jcla")]([SubResource("Resource_4wqms")])
+metadata/_custom_type_script = "uid://cwkss1mgr7jhu"
 
 [node name="Node2D" type="Node2D" groups=["game_root"]]
 
@@ -30,7 +72,8 @@ spawn_points = [NodePath("Marker2D5"), NodePath("Marker2D3"), NodePath("Marker2D
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Control" parent="CanvasLayer" instance=ExtResource("6_fd1kl")]
+[node name="Control" parent="CanvasLayer" node_paths=PackedStringArray("camera_shake") instance=ExtResource("6_fd1kl")]
+camera_shake = NodePath("../../Camera2D/ShakerComponent2D")
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_wr18j")
@@ -73,5 +116,23 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Camera2D" type="Camera2D" parent="." groups=["camera"]]
-position = Vector2(213, 120)
+position = Vector2(212.99968, 120.00028)
+scale = Vector2(1.000006, 0.9999977)
 ignore_rotation = false
+
+[node name="ShakerComponent2D" type="Node2D" parent="Camera2D"]
+script = ExtResource("8_42l1d")
+intensity = 2.0
+duration = 0.3
+fade_in = 1e-05
+fade_out = 1.6245047
+shakerPreset = SubResource("Resource_fv2he")
+metadata/_custom_type_script = "uid://b5fqudd1ivpc4"
+
+[node name="EnemyDamageShake" type="Node2D" parent="Camera2D"]
+script = ExtResource("8_42l1d")
+duration = 0.1
+fade_in = 1e-05
+fade_out = 1.6245047
+shakerPreset = SubResource("Resource_fv2he")
+metadata/_custom_type_script = "uid://b5fqudd1ivpc4"

@@ -1,12 +1,14 @@
-[gd_scene load_steps=52 format=3 uid="uid://dkf7mjen6nt18"]
+[gd_scene load_steps=54 format=3 uid="uid://dkf7mjen6nt18"]
 
 [ext_resource type="Script" uid="uid://bsg0au27h3f7j" path="res://game/player/player.gd" id="1_obar5"]
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_b2mth"]
 [ext_resource type="PackedScene" uid="uid://sitj6ff7jl6f" path="res://game/player/shiny_thing.tscn" id="2_bp242"]
 [ext_resource type="Script" uid="uid://dy1kcyvsje554" path="res://game/weapon/weapon.gd" id="3_8soms"]
 [ext_resource type="ArrayMesh" uid="uid://80nhwrfxwbca" path="res://game/player/player_mesh.tres" id="4_bp242"]
+[ext_resource type="Script" uid="uid://dyyvmbut202rb" path="res://addons/shaker/src/Vector3/shaker_component3D.gd" id="5_cgi3i"]
 [ext_resource type="PackedScene" uid="uid://0c8r7gtc56k5" path="res://game/UI/Tutorial/keybind_hover.tscn" id="6_4ste8"]
 [ext_resource type="Script" uid="uid://bua7358ojyhvf" path="res://game/UI/Tutorial/ui_follow.gd" id="6_brh81"]
+[ext_resource type="Resource" uid="uid://dakufr1eoowxf" path="res://addons/shaker/data/resources/strong_shake3D.tres" id="6_y6drd"]
 [ext_resource type="Texture2D" uid="uid://bdhq1kyi8d1q" path="res://game/assets/keys/Up.png" id="7_kjljb"]
 [ext_resource type="Texture2D" uid="uid://c63em86paidfy" path="res://game/assets/keys/Up_Outline.png" id="8_brh81"]
 [ext_resource type="Script" uid="uid://6gxmi8526yn1" path="res://game/UI/Tutorial/keybind_display_resource.gd" id="9_ib3u0"]
@@ -220,34 +222,45 @@ metadata/_custom_type_script = "uid://6gxmi8526yn1"
 [sub_resource type="ViewportTexture" id="ViewportTexture_cgi3i"]
 viewport_path = NodePath("Sprite2D3/SubViewport")
 
-[node name="CharacterBody2D" type="CharacterBody2D" groups=["player"]]
+[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("shaker_component") groups=["player"]]
 collision_layer = 5
 script = ExtResource("1_obar5")
 move_speed = 1000.0
 shooting_move_speed = 250.0
 shiny_thing_scene = ExtResource("2_bp242")
+shaker_component = NodePath("PlayerSprite/SubViewport/MeshInstance3D/ShakerComponent3D")
 
 [node name="Health" parent="." instance=ExtResource("2_b2mth")]
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
+position = Vector2(-9.313226e-08, 1.15484e-07)
+scale = Vector2(0.50000006, 0.50000006)
 texture = SubResource("ViewportTexture_ib3u0")
 
 [node name="SubViewport" type="SubViewport" parent="PlayerSprite"]
 own_world_3d = true
 world_3d = SubResource("World3D_ib3u0")
 transparent_bg = true
-size = Vector2i(64, 64)
+size = Vector2i(128, 128)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerSprite/SubViewport"]
-transform = Transform3D(-0.5, 0, -7.54979e-08, 0, 0.5, 0, 7.54979e-08, 0, -0.5, 0, 0, -0.5)
+transform = Transform3D(-0.5, -7.782665e-08, 2.8212997e-07, -7.7826826e-08, 0.5, -3.1260163e-07, -2.8212992e-07, -3.1260168e-07, -0.5, 1.4854697e-07, -9.1093284e-08, -0.50000036)
 mesh = ExtResource("4_bp242")
 skeleton = NodePath("")
+
+[node name="ShakerComponent3D" type="Node3D" parent="PlayerSprite/SubViewport/MeshInstance3D"]
+script = ExtResource("5_cgi3i")
+intensity = 0.3
+duration = 0.3
+fade_in = 1e-05
+fade_out = 1.4142143
+shakerPreset = ExtResource("6_y6drd")
+metadata/_custom_type_script = "uid://dyyvmbut202rb"
 
 [node name="Camera3D" type="Camera3D" parent="PlayerSprite/SubViewport"]
 transform = Transform3D(-1, 8.742278e-08, 3.821371e-15, 0, -4.371139e-08, 1, 8.742278e-08, 1, 4.371139e-08, 0, 2.497458, 0)
 projection = 1
-size = 1.25
+size = 2.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ib3u0")
