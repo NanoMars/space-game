@@ -34,7 +34,8 @@ viewport_path = NodePath("PlayerSprite/SubViewport")
 
 [sub_resource type="World3D" id="World3D_ib3u0"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ib3u0"]
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_y6drd"]
+points = PackedVector2Array(0, -6, 8, 7.45, -8, 7.45)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_bp242"]
 viewport_path = NodePath("Sprite2D2/SubViewport")
@@ -263,7 +264,8 @@ projection = 1
 size = 2.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_ib3u0")
+position = Vector2(0, 2)
+shape = SubResource("ConvexPolygonShape2D_y6drd")
 
 [node name="Weapon" type="Marker2D" parent="."]
 script = ExtResource("3_8soms")
