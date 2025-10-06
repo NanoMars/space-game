@@ -1,7 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=25 format=3 uid="uid://s488jtj1i4ci"]
 
 [ext_resource type="PackedScene" uid="uid://c0utlmtqcar20" path="res://game/modifier/modifier_caller.tscn" id="1_66tet"]
 [ext_resource type="PackedScene" uid="uid://tt1rrpyhclj1" path="res://game/enemyspawning/spawner.tscn" id="2_7ycvg"]
+[ext_resource type="Script" uid="uid://biqxkgtmda56e" path="res://game/sound/music/music_setter.gd" id="3_m35m6"]
 [ext_resource type="PackedScene" uid="uid://dlgvodlq4gicv" path="res://game/UI.tscn" id="6_fd1kl"]
 [ext_resource type="PackedScene" uid="uid://dkf7mjen6nt18" path="res://game/player/player.tscn" id="7_42yoh"]
 [ext_resource type="Shader" uid="uid://dj265gghil72j" path="res://game/assets/terrain/starfield.gdshader" id="7_nfk4m"]
@@ -70,6 +71,9 @@ metadata/_custom_type_script = "uid://cwkss1mgr7jhu"
 [node name="Spawner" parent="." node_paths=PackedStringArray("spawn_points") instance=ExtResource("2_7ycvg")]
 spawn_points = [NodePath("Marker2D5"), NodePath("Marker2D3"), NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D4"), null, null]
 
+[node name="MusicSetter" type="Node" parent="."]
+script = ExtResource("3_m35m6")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" parent="CanvasLayer" node_paths=PackedStringArray("camera_shake") instance=ExtResource("6_fd1kl")]
@@ -131,7 +135,8 @@ metadata/_custom_type_script = "uid://b5fqudd1ivpc4"
 
 [node name="EnemyDamageShake" type="Node2D" parent="Camera2D"]
 script = ExtResource("8_42l1d")
-duration = 0.1
+intensity = 1.5
+duration = 0.15
 fade_in = 1e-05
 fade_out = 1.6245047
 shakerPreset = SubResource("Resource_fv2he")

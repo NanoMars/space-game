@@ -225,7 +225,7 @@ viewport_path = NodePath("Sprite2D3/SubViewport")
 [node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("shaker_component") groups=["player"]]
 collision_layer = 5
 script = ExtResource("1_obar5")
-move_speed = 1000.0
+move_speed = 1250.0
 shooting_move_speed = 250.0
 shiny_thing_scene = ExtResource("2_bp242")
 shaker_component = NodePath("PlayerSprite/SubViewport/MeshInstance3D/ShakerComponent3D")
@@ -244,7 +244,7 @@ transparent_bg = true
 size = Vector2i(128, 128)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerSprite/SubViewport"]
-transform = Transform3D(-0.5, -7.782665e-08, 2.8212997e-07, -7.7826826e-08, 0.5, -3.1260163e-07, -2.8212992e-07, -3.1260168e-07, -0.5, 1.4854697e-07, -9.1093284e-08, -0.50000036)
+transform = Transform3D(-0.5, 0, 4.371139e-08, 0, 0.5, 0, -4.371139e-08, 0, -0.5, 1.4854697e-07, -9.1093284e-08, -0.50000036)
 mesh = ExtResource("4_bp242")
 skeleton = NodePath("")
 
