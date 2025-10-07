@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=30 format=3 uid="uid://s488jtj1i4ci"]
 
 [ext_resource type="PackedScene" uid="uid://c0utlmtqcar20" path="res://game/modifier/modifier_caller.tscn" id="1_66tet"]
 [ext_resource type="PackedScene" uid="uid://tt1rrpyhclj1" path="res://game/enemyspawning/spawner.tscn" id="2_7ycvg"]
@@ -6,10 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://dlgvodlq4gicv" path="res://game/UI.tscn" id="6_fd1kl"]
 [ext_resource type="PackedScene" uid="uid://dkf7mjen6nt18" path="res://game/player/player.tscn" id="7_42yoh"]
 [ext_resource type="Shader" uid="uid://dj265gghil72j" path="res://game/assets/terrain/starfield.gdshader" id="7_nfk4m"]
+[ext_resource type="Script" uid="uid://b3y71bpkinjuw" path="res://game/background/background_manager.gd" id="8_7th4q"]
 [ext_resource type="Script" uid="uid://b5fqudd1ivpc4" path="res://addons/shaker/src/Vector2/shaker_component2D.gd" id="8_42l1d"]
 [ext_resource type="Script" uid="uid://bfm6pj5ivbxmw" path="res://addons/shaker/data/Vector2/BaseShakerType2D.gd" id="9_2jcla"]
 [ext_resource type="Shader" uid="uid://dawlanyidv1xr" path="res://intermission/test.gdshader" id="10_jo72c"]
 [ext_resource type="Script" uid="uid://dxnalig1b7nm4" path="res://addons/shaker/data/Vector2/ShakerTypeSineWave2D.gd" id="10_m35m6"]
+[ext_resource type="PackedScene" uid="uid://de3vo8dv04q1i" path="res://game/background/backgrounds/earth.tscn" id="11_84odl"]
 [ext_resource type="Texture2D" uid="uid://cjdxiqij7aekk" path="res://game/assets/pallette.png" id="11_h8riy"]
 [ext_resource type="Script" uid="uid://dd7ox1dvjmocd" path="res://addons/shaker/data/Vector2/ShakerTypeSquareWave2D.gd" id="11_u0ygc"]
 [ext_resource type="Script" uid="uid://dd8rirfnf6tm" path="res://addons/shaker/data/Single/BaseShakerType1D.gd" id="13_6jybn"]
@@ -21,13 +23,18 @@
 shader = ExtResource("10_jo72c")
 shader_parameter/palette = ExtResource("11_h8riy")
 
+[sub_resource type="Curve" id="Curve_ak604"]
+_limits = [0.0, 2.0, 0.0, 15.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(12.0304575, 1.1184776), 0.17522442, 0.17522442, 0, 0, Vector2(15, 2), 0.106419705, 0.0, 0, 0]
+point_count = 3
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_66tet"]
 shader = ExtResource("7_nfk4m")
 shader_parameter/color = Color(0.06879826, 0.06879829, 0.068798244, 1)
-shader_parameter/speed = 0.86999998055376
-shader_parameter/density = 1000.0
+shader_parameter/speed = 1.4999999664719998
+shader_parameter/density = 500.0
 shader_parameter/compression = 0.10000000149012
-shader_parameter/trail_size = 100.0
+shader_parameter/trail_size = 50.0
 shader_parameter/brightness = 10.0
 
 [sub_resource type="Resource" id="Resource_ak604"]
@@ -113,9 +120,14 @@ position = Vector2(213, 120)
 move_speed = 15000.0
 shooting_move_speed = 10000.0
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+[node name="CanvasLayer2" type="CanvasLayer" parent="." node_paths=PackedStringArray("background")]
 layer = -10
 follow_viewport_enabled = true
+script = ExtResource("8_7th4q")
+background_scenes = Dictionary[PackedScene, Curve]({
+ExtResource("11_84odl"): SubResource("Curve_ak604")
+})
+background = NodePath("ColorRect")
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
 material = SubResource("ShaderMaterial_66tet")

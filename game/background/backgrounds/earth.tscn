@@ -1,0 +1,102 @@
+[gd_scene load_steps=8 format=3 uid="uid://de3vo8dv04q1i"]
+
+[ext_resource type="Texture2D" uid="uid://bbeo8hsgdw57k" path="res://game/assets/EarthColor.jpg" id="1_vlnuy"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_f4jw6"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6jybn"]
+albedo_texture = ExtResource("1_vlnuy")
+
+[sub_resource type="SphereMesh" id="SphereMesh_84odl"]
+material = SubResource("StandardMaterial3D_6jybn")
+
+[sub_resource type="Animation" id="Animation_7th4q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../..:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(95, 200)]
+}
+
+[sub_resource type="Animation" id="Animation_u0ygc"]
+resource_name = "earth_spin"
+length = 120.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 120),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.2831855, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../..:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 11.604289, 120),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(95, 200), Vector2(95, 500), Vector2(95, 500)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6jybn"]
+_data = {
+&"RESET": SubResource("Animation_7th4q"),
+&"earth_spin": SubResource("Animation_u0ygc")
+}
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = SubResource("ViewportTexture_f4jw6")
+offset = Vector2(95, 200)
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+
+[node name="Node3D" type="Node3D" parent="SubViewport"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/Node3D"]
+mesh = SubResource("SphereMesh_84odl")
+skeleton = NodePath("../../../..")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+projection = 1
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport/Node3D"]
+transform = Transform3D(0.111347556, 0, -0.9937816, 0, 1, 0, 0.9937816, 0, 0.111347556, -1.9270027, 0, 1.3273735)
+light_energy = 2.677
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+root_node = NodePath("../SubViewport/Node3D")
+libraries = {
+&"": SubResource("AnimationLibrary_6jybn")
+}
+autoplay = "earth_spin"
