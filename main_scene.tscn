@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=35 format=3 uid="uid://s488jtj1i4ci"]
 
 [ext_resource type="PackedScene" uid="uid://c0utlmtqcar20" path="res://game/modifier/modifier_caller.tscn" id="1_66tet"]
 [ext_resource type="PackedScene" uid="uid://tt1rrpyhclj1" path="res://game/enemyspawning/spawner.tscn" id="2_7ycvg"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://cjdxiqij7aekk" path="res://game/assets/pallette.png" id="11_h8riy"]
 [ext_resource type="Script" uid="uid://dd7ox1dvjmocd" path="res://addons/shaker/data/Vector2/ShakerTypeSquareWave2D.gd" id="11_u0ygc"]
 [ext_resource type="Script" uid="uid://dd8rirfnf6tm" path="res://addons/shaker/data/Single/BaseShakerType1D.gd" id="13_6jybn"]
+[ext_resource type="PackedScene" uid="uid://c7hvmxa26cov7" path="res://game/background/backgrounds/galaxy.tscn" id="13_vimvf"]
 [ext_resource type="Script" uid="uid://b0vrfrfqpq4al" path="res://addons/shaker/data/Single/ShakerTypeSineWave1D.gd" id="14_2jcla"]
 [ext_resource type="Script" uid="uid://cwkss1mgr7jhu" path="res://addons/shaker/data/Vector2/ShakerPreset2D.gd" id="14_84odl"]
 [ext_resource type="Script" uid="uid://c7b4uif626858" path="res://addons/shaker/data/Single/ShakerTypeRandom1D.gd" id="15_m35m6"]
@@ -30,6 +31,11 @@ shader_parameter/palette = ExtResource("11_h8riy")
 _limits = [0.0, 2.0, 0.0, 15.0]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(12.0304575, 1.1184776), 0.17522442, 0.17522442, 0, 0, Vector2(15, 2), 0.106419705, 0.0, 0, 0]
 point_count = 3
+
+[sub_resource type="Curve" id="Curve_ghshe"]
+_limits = [0.0, 2.0, 0.0, 15.0]
+_data = [Vector2(0, 0.50128114), 0.0, 0.0, 0, 0, Vector2(15, 0.8343297), 0.062591955, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_66tet"]
 shader = ExtResource("7_nfk4m")
@@ -127,7 +133,8 @@ follow_viewport_enabled = true
 script = ExtResource("8_7th4q")
 background_scenes = Dictionary[PackedScene, Curve]({
 ExtResource("11_84odl"): SubResource("Curve_ak604"),
-ExtResource("10_6jybn"): SubResource("Curve_ak604")
+ExtResource("10_6jybn"): SubResource("Curve_ak604"),
+ExtResource("13_vimvf"): SubResource("Curve_ghshe")
 })
 background = NodePath("ColorRect")
 

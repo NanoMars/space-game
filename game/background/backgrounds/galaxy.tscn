@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c7hvmxa26cov7"]
+[gd_scene load_steps=10 format=3 uid="uid://c7hvmxa26cov7"]
 
 [ext_resource type="Texture2D" uid="uid://1ajk10keexwp" path="res://game/assets/circleblur.png" id="1_bhgos"]
 
@@ -7,14 +7,50 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/path = NodePath("Node2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0.0009999999),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(213, 120)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/GPUParticles2D3:amount_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node2D/GPUParticles2D:amount_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Node2D/GPUParticles2D2:amount_ratio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
 }
 
 [sub_resource type="Animation" id="Animation_u0ygc"]
@@ -24,14 +60,50 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/path = NodePath("Node2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 9.9, 10),
+"times": PackedFloat32Array(0, 60, 124.26667),
 "transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, true, false]
+"update": 0,
+"values": [Vector2(213, 120), Vector2(213, 641.435), Vector2(213, 641.435)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/GPUParticles2D3:amount_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(10.233334, 36.108337),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node2D/GPUParticles2D:amount_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(11.004551, 36.493942),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Node2D/GPUParticles2D2:amount_ratio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(11.004551, 36.871216),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6jybn"]
@@ -39,6 +111,13 @@ _data = {
 &"RESET": SubResource("Animation_7th4q"),
 &"animation": SubResource("Animation_u0ygc")
 }
+
+[sub_resource type="Gradient" id="Gradient_bhgos"]
+offsets = PackedFloat32Array(0, 0.09893048, 0.21925133, 0.328877, 0.48833594, 0.57231724, 0.7200622)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.7876666, 0.01999998, 1, 1, 0.19999999, 0.21333313, 1, 0.7434349, 0.2387, 0.77, 1, 0.6, 0, 0.31000015, 1, 0.43, 0, 0.15049995, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_g8gk2"]
+gradient = SubResource("Gradient_bhgos")
 
 [sub_resource type="Curve" id="Curve_g8gk2"]
 _limits = [0.0, 3.0, 0.0, 1.0]
@@ -67,6 +146,7 @@ tangential_accel_min = 58.999996
 tangential_accel_max = 58.999996
 scale_min = 0.0
 scale_curve = SubResource("CurveTexture_poehh")
+color_ramp = SubResource("GradientTexture1D_g8gk2")
 
 [node name="Node2D" type="Node2D"]
 
@@ -76,8 +156,10 @@ libraries = {
 }
 autoplay = "animation"
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-position = Vector2(223, 135.99997)
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(213, 120)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Node2D"]
 scale = Vector2(0.3, 0.3)
 amount = 1000
 texture = ExtResource("1_bhgos")
@@ -86,8 +168,7 @@ preprocess = 20.0
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_kj3pl")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
-position = Vector2(223, 135.99997)
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="Node2D"]
 rotation = 2.0943952
 scale = Vector2(0.3, 0.3)
 amount = 1000
@@ -97,9 +178,8 @@ preprocess = 20.0
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_kj3pl")
 
-[node name="GPUParticles2D3" type="GPUParticles2D" parent="."]
-position = Vector2(223, 135.99997)
-rotation = 4.1887903
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="Node2D"]
+rotation = -2.094395
 scale = Vector2(0.3, 0.3)
 amount = 1000
 texture = ExtResource("1_bhgos")
