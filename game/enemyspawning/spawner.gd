@@ -3,7 +3,7 @@ class_name Spawner
 
 @export var min_spawn_delay: float = 1.0
 @export var max_spawn_delay: float = 5.0
-@export var spawn_points: Array[Marker3D] = []
+@export var spawn_points: Array[Marker2D] = []
 @export var auto_prepare_on_ready: bool = true
 @export var intermission: PackedScene
 @export var spooky_riser: AudioStream
@@ -23,18 +23,20 @@ var _enemies_left: int:
 	get:
 		return ScoreManager.total_kills - _killed
 
-@onready var player: Node = get_tree().get_first_node_in_group("player")
+@onready var player: Node2D = get_tree().get_first_node_in_group("player") as Node2D
 
 signal enemies_left(value: int)
-signal enemy_died(transform: Transform3D)
+signal enemy_died(transform: Transform2D)
 signal enemy_spawned(enemy: Node)
 
 func _ready() -> void:
 	_rng.randomize()
 	if auto_prepare_on_ready:
 		_prepare_wave()
-	
-	if  Settings.get("tutorial enabled") == true or Settings.get("demo mode") == true:
+
+	print("tutorial enabled: ", Settings.get("tutorial enabled") == true, "demo mode: ", Settings.get("demo mode") == true, "keybinds shown: ", ScoreManager.keybinds_shown == true, " ")
+	if (Settings.get("tutorial enabled") == true or Settings.get("demo mode") == true) and ScoreManager.keybinds_shown == false:
+		print("Delaying run start for tutorial or demo mode")
 		return
 	var timer := Timer.new()
 	timer.wait_time = 1.0
@@ -43,14 +45,12 @@ func _ready() -> void:
 	add_child(timer)
 	timer.timeout.connect(_on_start_run)
 
-
-
 func _on_start_run() -> void:
 	if run_started:
 		return
 	run_started = true
 	for mod in ScoreManager.active_modifiers:
-		var game_root = get_tree().get_first_node_in_group("game_root") as Node3D
+		var game_root = get_tree().get_first_node_in_group("game_root") as Node2D
 		mod.on_run_start(game_root)
 
 func _process(delta: float) -> void:
@@ -75,7 +75,6 @@ func _prepare_wave():
 	var sum_w := 0.0
 	for t in ScoreManager.enemy_types:
 		sum_w += max(t.weight, 0.0)
-
 	var ideals: Array[float] = []
 	for t in ScoreManager.enemy_types:
 		var w = max(t.weight, 0.0)
@@ -111,6 +110,7 @@ func _prepare_wave():
 	_alive = 0
 	_killed = 0
 	_wave_prepared = true
+	
 
 func _try_spawn_tick():
 	if not run_started:
@@ -121,38 +121,44 @@ func _try_spawn_tick():
 		return
 	if _alive >= ScoreManager.concurrent_cap:
 		return
-	
+	if spawn_points.is_empty():
+		return
 
-
-	_enemies_spawned += 1
 	var pt := _pick_spawn_point()
 	if pt == null:
 		return
 
-	var enemy_type: EnemyType = _spawn_bag[_spawn_bag.size() - _remaining_to_spawn]
-	var inst: Node3D = enemy_type.scene.instantiate()
+	var bag_index := _spawn_bag.size() - _remaining_to_spawn
+	if bag_index < 0 or bag_index >= _spawn_bag.size():
+		return
+	var enemy_type: EnemyType = _spawn_bag[bag_index]
+	if enemy_type == null:
+		return
+	if enemy_type.scene == null:
+		return
 
+	var inst: Node2D = enemy_type.scene.instantiate()
 	if inst == null:
 		return
 
+	_enemies_spawned += 1
 	inst.add_to_group("enemies")
 	self.add_child(inst)
 	inst.global_position = pt.global_position
 	enemy_spawned.emit(inst)
 	
 	inst.tree_exited.connect(_on_enemy_died.bind(inst.global_transform))
-	
 	_alive += 1
 	_remaining_to_spawn -= 1
 
-func _pick_spawn_point() -> Marker3D:
+func _pick_spawn_point() -> Marker2D:
 	if spawn_points.is_empty():
 		return null
 	var idx := _rng.randi() % spawn_points.size()
 	var sel := spawn_points[idx]
 	return sel
 
-func _on_enemy_died(transform: Transform3D) -> void:
+func _on_enemy_died(transform: Transform2D) -> void:
 	_alive = max(0, _alive - 1)
 	_killed += 1
 	enemies_left.emit(_enemies_left)
@@ -163,8 +169,10 @@ func _on_enemy_died(transform: Transform3D) -> void:
 		change_scene_to_intermission()
 
 func change_scene_to_intermission() -> void:
-	#detect if player doesn't exist or is dead
-	if not player or player.dead == true:
+	# detect if player doesn't exist or is dead
+	if not player:
+		return
+	if player.dead == true:
 		return
 	if _changing_scenes:
 		return

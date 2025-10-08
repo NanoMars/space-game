@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=3 uid="uid://bx56mhuthy1oe"]
+
+[ext_resource type="Script" uid="uid://b4s5bdt4j2ihi" path="res://game/enemies/laserthing/laserthing.gd" id="1_1sskn"]
+[ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="1_gk4nt"]
+[ext_resource type="Texture2D" uid="uid://dgxyex4atafq3" path="res://game/assets/heart(1).png" id="3_43rru"]
+[ext_resource type="PackedScene" uid="uid://d36xrvxjoyniq" path="res://game/enemies/enemy_shaker_component.tscn" id="3_erl5w"]
+[ext_resource type="Shader" uid="uid://cvkrh55abrhwy" path="res://game/enemies/laserthing/laserthing.gdshader" id="4_43rru"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_43rru"]
+size = Vector2(40, 20)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1sskn"]
+shader = ExtResource("4_43rru")
+shader_parameter/beams = 3
+shader_parameter/energy = 16.12
+shader_parameter/roughness = 10
+shader_parameter/frequency = 10
+shader_parameter/speed = 1.0
+shader_parameter/thickness = 0.037
+shader_parameter/outline_thickness = 0.1
+shader_parameter/beam_difference = 0.0
+shader_parameter/glow = 0.0
+shader_parameter/outline_glow = 0.0
+shader_parameter/color = Color(1, 0, 0, 1)
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/progress = 1.0
+shader_parameter/y_offset = 0.0
+shader_parameter/fixed_edge_size = 0.0
+shader_parameter/noise_scale = Vector2(1, 1)
+
+[node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("raycast_l", "raycast_r", "shaker_component") groups=["enemies"]]
+collision_layer = 2
+collision_mask = 4
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_1sskn")
+damage_dealt = 50.0
+amplitude = 150.0
+frequency_hz = 0.2
+vertical_speed = 20.0
+raycast_l = NodePath("RayCastL")
+raycast_r = NodePath("RayCastR")
+enemy_name = "Laser"
+shaker_component = NodePath("Sprite2D/ShakerComponent2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_43rru")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("3_43rru")
+
+[node name="ShakerComponent2D" parent="Sprite2D" instance=ExtResource("3_erl5w")]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_1sskn")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -468.6
+offset_top = -12.5
+offset_right = 468.6
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Health" parent="." instance=ExtResource("1_gk4nt")]
+max_health = 50.0
+
+[node name="RayCastL" type="RayCast2D" parent="."]
+target_position = Vector2(-1000, 0)
+
+[node name="RayCastR" type="RayCast2D" parent="."]
+target_position = Vector2(1000, 0)

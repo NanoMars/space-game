@@ -119,22 +119,21 @@ offset_bottom = 8.0
 theme = SubResource("Theme_3vj2k")
 icon = SubResource("ViewportTexture_o4p62")
 script = ExtResource("1_nkrsr")
-weapon = NodePath("SubViewport/Node3D/Weapon")
-camera = NodePath("SubViewport/Node3D/Camera3D2")
+weapon = NodePath("SubViewport/Node2D/Weapon")
+camera = NodePath("SubViewport/Node2D/Camera2D")
 
 [node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
 transparent_bg = true
 size = Vector2i(64, 64)
 
-[node name="Node3D" type="Node3D" parent="SubViewport"]
+[node name="Node2D" type="Node2D" parent="SubViewport"]
 
-[node name="Camera3D2" type="Camera3D" parent="SubViewport/Node3D" groups=["camera"]]
-transform = Transform3D(-1, -8.74228e-08, 4.37114e-08, 4.37114e-08, 1.91069e-15, 1, -8.74228e-08, 1, 1.9106827e-15, 0, 4, 0)
-projection = 1
-size = 9.29751
+[node name="Camera2D" type="Camera2D" parent="SubViewport/Node2D"]
+zoom = Vector2(0.75, 0.75)
 
-[node name="Weapon" type="Marker3D" parent="SubViewport/Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+[node name="Weapon" type="Marker2D" parent="SubViewport/Node2D"]
+position = Vector2(0, 30)
 script = ExtResource("1_xyuy6")
 display_mode = true
 metadata/_custom_type_script = "uid://dy1kcyvsje554"

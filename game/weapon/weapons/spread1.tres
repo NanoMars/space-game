@@ -4,14 +4,15 @@
 [ext_resource type="PackedScene" uid="uid://ce8lm1647q0xr" path="res://game/weapon/player_projectile.tscn" id="2_psrau"]
 [ext_resource type="Script" uid="uid://bypy263lii80f" path="res://game/weapon/weapon_stats.gd" id="3_1r740"]
 
-[sub_resource type="Resource" id="Resource_4ste8"]
+[sub_resource type="Resource" id="Resource_ntgdr"]
 script = ExtResource("1_ntgdr")
+shots = 6
 metadata/_custom_type_script = "uid://b74jnsjx6ore1"
 
 [resource]
 script = ExtResource("3_1r740")
-damage = 6.5
-projectile_speed = 55.0
+fire_rate = 2.0
+projectile_speed = 2000.0
 projectile_scene = ExtResource("2_psrau")
-fire_pattern = SubResource("Resource_4ste8")
+fire_pattern = SubResource("Resource_ntgdr")
 metadata/_custom_type_script = "uid://bypy263lii80f"

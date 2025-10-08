@@ -39,9 +39,11 @@ var currentRound: int = 1
 
 var enemy_types: Array[EnemyType] = []
 
+var enemies_seen: Array[String] = []
+var keybinds_shown: bool = false
+
 func _ready() -> void:
 	reset()
-	print("enemy_types: " + str(enemy_types))
 
 
 func reset() -> void:
@@ -57,3 +59,5 @@ func reset() -> void:
 	basic_enemy.weight = 1.0
 	enemy_types.append(basic_enemy)
 	score = 0
+	enemies_seen.clear()
+	keybinds_shown = false

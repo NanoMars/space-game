@@ -1,4 +1,4 @@
-extends Sprite3D
+extends Node
 @export var transition_scene: PackedScene
 @export var rect_with_material: ColorRect
 func _ready() -> void:

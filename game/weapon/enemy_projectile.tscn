@@ -1,30 +1,33 @@
-[gd_scene load_steps=4 format=3 uid="uid://dj40a3gnwqbyq"]
+[gd_scene load_steps=5 format=3 uid="uid://dj40a3gnwqbyq"]
 
 [ext_resource type="Script" uid="uid://dv8s77c07mfnd" path="res://game/weapon/projectile.gd" id="1_128we"]
-[ext_resource type="Texture2D" uid="uid://cwkvxa76qlbun" path="res://game/assets/Asset 1.png" id="2_128we"]
+[ext_resource type="Texture2D" uid="uid://c1d1lr6ygqy16" path="res://game/weapon/TopProjectile.png" id="2_lurep"]
+[ext_resource type="Texture2D" uid="uid://dr7niae1ti5gs" path="res://game/weapon/BottomProjectile.png" id="3_shplk"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_ujx76"]
-radius = 0.125865
+[sub_resource type="CircleShape2D" id="CircleShape2D_128we"]
+radius = 2.0
 
-[node name="Enemy Projectile" type="RigidBody3D"]
+[node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("trail")]
 collision_layer = 0
-collision_mask = 7
-axis_lock_linear_y = true
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
+collision_mask = 4
 script = ExtResource("1_128we")
+trail = NodePath("trail")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_ujx76")
-disabled = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_128we")
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
-collision_mask = 7
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collision_mask = 4
+hit_from_inside = true
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(0.51, 0, 0, 0, 0.51, 0, 0, 0, 0.51, 0, 0, 0)
-billboard = 1
-texture = ExtResource("2_128we")
-region_enabled = true
-region_rect = Rect2(0, 0, 49.437, 89.2557)
+[node name="head" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_lurep")
+offset = Vector2(0, -6)
+
+[node name="trail" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(0.15, 0.09)
+texture = ExtResource("3_shplk")
+offset = Vector2(0, 11)

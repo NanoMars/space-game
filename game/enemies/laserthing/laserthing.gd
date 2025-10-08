@@ -1,83 +1,61 @@
-extends Enemy
+extends Enemy  # Ensure Enemy extends RigidBody2D in 2D
 
-@onready var player: Node = get_tree().get_first_node_in_group("player")
-@export var speed: float = 3.0
-@export var damage_dealt: float = 35.0
+@onready var player: Node2D = get_tree().get_first_node_in_group("player") as Node2D
+@export var damage_dealt: float = 20.0
 
-@export var damage_tick: float = 0.1
+# Sine-wave parameters
+@export var amplitude: float = 120.0        # pixels
+@export var frequency_hz: float = 0.75      # cycles per second
+@export var vertical_speed: float = 120.0   # pixels per second downward
+@export var raycast_l: RayCast2D
+@export var raycast_r: RayCast2D
 
-@onready var raycast_l: RayCast3D = $RayCastL
-@onready var raycast_r: RayCast3D = $RayCastR
-
-@export var max_x: float = 5.5
-
-@export var weapon_node: Marker3D
-@export var wave_hz: float = 0.25 # lateral oscillation frequency (cycles per second)
-
-var _time: float = 0.0
+var _t: float = 0.0
 var _phase: float = 0.0
-var _omega: float = 0.0
+var _center_x: float = 0.0
 
 func _ready() -> void:
 	super._ready()
-	
 	contact_monitor = true
 	max_contacts_reported = 8
 	body_entered.connect(_on_body_entered)
 
-	var timer := Timer.new()
-	add_child(timer)
-	timer.wait_time = damage_tick
-	timer.timeout.connect(_on_timer_timeout)
-	timer.one_shot = false
-	timer.start()
+	# Remove gravity/damp so y stays constant
+	if has_node("."): # RigidBody2D
+		gravity_scale = 0.0
+		linear_damp = 0.0
 
-	# Initialize sine wave parameters based on current random x
-	_omega = TAU * wave_hz
-	if max_x > 0.0 and _omega != 0.0:
-		var s: float = clamp(position.x / max_x, -1.0, 1.0)
-		_phase = asin(s) # picks the phase that matches the current x
-	else:
-		_phase = 0.0
+	# random phase and fixed screen center
+	_phase = randf_range(0.0, TAU)
+	_center_x = get_viewport().get_visible_rect().size.x * 0.5
+
+	# start at the correct x for this phase
+	global_position.x = _center_x + amplitude * sin(_phase)
 
 func _physics_process(delta: float) -> void:
-	# Forward movement stays the same
-	var dir := Vector3(0.0, 0.0, -speed).normalized()
-	apply_force(dir * speed * delta)
+	_t += delta
+	var w := TAU * frequency_hz
 
-	# Sine-wave lateral motion between -max_x and max_x
-	if max_x > 0.0 and _omega != 0.0:
-		_time += delta
-		var new_x := max_x * sin(_omega * _time + _phase)
-		var p := position
-		p.x = new_x
-		position = p
-	else:
-		# Fallback clamp if no wave configured
-		if position.x < -max_x:
-			position.x = -max_x
-		elif position.x > max_x:
-			position.x = max_x
+	# Lock x to sine around center every frame
+	global_position.x = _center_x + amplitude * sin(w * _t + _phase)
+
+	# Only move down at constant speed
+	linear_velocity.x = 0.0
+	linear_velocity.y = vertical_speed
+
+	# raycast to detect player
+	if raycast_l.is_colliding():
+		var collider: Node = raycast_l.get_collider()
+		if collider and collider.is_in_group("player"):
+			_on_body_entered(collider)
+	if raycast_r.is_colliding():
+		var collider: Node = raycast_r.get_collider()
+		if collider and collider.is_in_group("player"):
+			_on_body_entered(collider)
 
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):
 		if body.has_method("damage"):
 			body.damage(damage_dealt, self)
-			if health and health.has_method("die"):
-				health.die(self)
-
-func _on_timer_timeout() -> void:
-	if raycast_l.is_colliding():
-		var collider: Node = raycast_l.get_collider() as Node
-		if collider and collider.is_in_group("player"):
-			if collider.has_method("damage"):
-				collider.damage(damage_dealt, self)
-				if health and health.has_method("die"):
-					health.die(self)
-	if raycast_r.is_colliding():
-		var collider: Node = raycast_r.get_collider() as Node
-		if collider and collider.is_in_group("player"):
-			if collider.has_method("damage"):
-				collider.damage(damage_dealt, self)
-				if health and health.has_method("die"):
-					health.die(self)
+		if health and health.has_method("die"):
+			health.die(self)

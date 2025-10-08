@@ -23,4 +23,3 @@ func _physics_process(delta: float) -> void:
 
 		var vec3_rotation = Vector3(vec2_rotation.x, 180, vec2_rotation.y) + Vector3(angle_velocity.x, 0, angle_velocity.y) * delta
 		rotation_degrees = vec3_rotation
-		print("Parent velocity: ", parent_velocity, " Target angle: ", target_angle, " Current angle: ", vec3_rotation, " Angle velocity: ", angle_velocity)

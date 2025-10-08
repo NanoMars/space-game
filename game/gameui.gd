@@ -22,6 +22,8 @@ var vignette_scale: float = 0.0
 @export var vignette_scale_decay: float = 5.0
 @export var vignette_scale_per_health_lost: float = 5.0
 
+@export var camera_shake: ShakerComponent2D
+
 # Baselines and rotation offset
 var _base_power_px: float = 0.0
 var _base_angle_deg: float = 0.0
@@ -55,6 +57,8 @@ func _on_health_changed(new_health: float) -> void:
 		vignette_rot_speed = clamp(vignette_rot_speed + health_lost * vignette_rot_speed_per_health_lost, 0.0, vignette_max_rot_speed)
 		vignette_scale = clamp(vignette_scale + health_lost * vignette_scale_per_health_lost, 0.0, vignette_max_scale)
 		Engine.time_scale -= health_lost / 100.0
+		if camera_shake:
+			camera_shake.play_shake()
 	old_health = new_health
 
 func _on_score_changed(new_score: int) -> void:

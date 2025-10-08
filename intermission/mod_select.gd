@@ -5,10 +5,22 @@ extends VBoxContainer
 @export var mult_label: Label
 
 func _ready() -> void:
-	for i in button_count:
+	var available_mods: Array[Modifier] = []
+	for mod in mod_list:
+		if not mod.stackable and ScoreManager.active_modifiers.has(mod):
+			continue
+		if mod.stackable and ScoreManager.active_modifiers.has(mod) and mod.stacks >= mod.max_stacks:
+			continue
+		available_mods.append(mod)
+	
+	available_mods.shuffle()
+	for i in range(min(button_count, available_mods.size())):
 		var button := Button.new()
-		var mod: Modifier = mod_list.pick_random()
-		button.text = mod.display_name + " + X" + str(mod.score_multiplier)
+		var mod: Modifier = available_mods[i]
+		var text = mod.display_name + " + X" + str(mod.score_multiplier)
+		if ScoreManager.active_modifiers.has(mod):
+			text += " (" + str(mod.stacks) + "/" + str(mod.max_stacks) + ")"
+		button.text = text
 		button.pressed.connect(_on_mod_button_pressed.bind(mod, button))
 		button.mouse_entered.connect(_on_mod_button_mouse_entered.bind(mod, button))
 		button.mouse_exited.connect(_on_mod_button_mouse_exited.bind(mod))
@@ -37,7 +49,7 @@ func _on_mod_button_pressed(mod: Modifier, _button: Button) -> void:
 			ScoreManager.enemy_types.append(mod.enemy_to_spawn)
 
 	# always increase difficulty when picking a modifier
-	ScoreManager.total_kills = ScoreManager.total_kills * 1.5
+	ScoreManager.total_kills = int(ScoreManager.total_kills * 1.5)
 	ScoreManager.concurrent_cap = int(ScoreManager.concurrent_cap * 1.5)
 
 func _on_mod_button_mouse_entered(mod: Modifier, button: Button) -> void:

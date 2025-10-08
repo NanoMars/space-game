@@ -1,129 +1,106 @@
-[gd_scene load_steps=21 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=30 format=3 uid="uid://s488jtj1i4ci"]
 
-[ext_resource type="Script" uid="uid://biqxkgtmda56e" path="res://game/sound/music/music_setter.gd" id="1_7ycvg"]
 [ext_resource type="PackedScene" uid="uid://c0utlmtqcar20" path="res://game/modifier/modifier_caller.tscn" id="1_66tet"]
 [ext_resource type="PackedScene" uid="uid://tt1rrpyhclj1" path="res://game/enemyspawning/spawner.tscn" id="2_7ycvg"]
-[ext_resource type="Script" uid="uid://po2t06prvofw" path="res://game/camerafix.gd" id="5_wr18j"]
+[ext_resource type="Script" uid="uid://biqxkgtmda56e" path="res://game/sound/music/music_setter.gd" id="3_m35m6"]
 [ext_resource type="PackedScene" uid="uid://dlgvodlq4gicv" path="res://game/UI.tscn" id="6_fd1kl"]
 [ext_resource type="PackedScene" uid="uid://dkf7mjen6nt18" path="res://game/player/player.tscn" id="7_42yoh"]
-[ext_resource type="Shader" uid="uid://b44xvd07s31ri" path="res://game/assets/terrain.gdshader" id="8_mphju"]
-[ext_resource type="Texture2D" uid="uid://bbhgvkbr5lw07" path="res://game/assets/terrain/height.tres" id="9_yrt05"]
+[ext_resource type="Shader" uid="uid://dj265gghil72j" path="res://game/assets/terrain/starfield.gdshader" id="7_nfk4m"]
+[ext_resource type="Script" uid="uid://b3y71bpkinjuw" path="res://game/background/background_manager.gd" id="8_7th4q"]
+[ext_resource type="Script" uid="uid://b5fqudd1ivpc4" path="res://addons/shaker/src/Vector2/shaker_component2D.gd" id="8_42l1d"]
+[ext_resource type="Script" uid="uid://bfm6pj5ivbxmw" path="res://addons/shaker/data/Vector2/BaseShakerType2D.gd" id="9_2jcla"]
 [ext_resource type="Shader" uid="uid://dawlanyidv1xr" path="res://intermission/test.gdshader" id="10_jo72c"]
+[ext_resource type="Script" uid="uid://dxnalig1b7nm4" path="res://addons/shaker/data/Vector2/ShakerTypeSineWave2D.gd" id="10_m35m6"]
+[ext_resource type="PackedScene" uid="uid://de3vo8dv04q1i" path="res://game/background/backgrounds/earth.tscn" id="11_84odl"]
 [ext_resource type="Texture2D" uid="uid://cjdxiqij7aekk" path="res://game/assets/pallette.png" id="11_h8riy"]
-
-[sub_resource type="Environment" id="Environment_0f027"]
-background_mode = 2
-fog_light_energy = 0.0
-
-[sub_resource type="Gradient" id="Gradient_8mm7a"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.524138)
-colors = PackedColorArray(0.221302, 0.221302, 0.221302, 1, 0.903598, 0.903598, 0.903598, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_hq1ik"]
-noise_type = 3
-seed = 1
-fractal_type = 3
-fractal_lacunarity = 0.0
-fractal_gain = -0.06
-fractal_ping_pong_strength = 3.0
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nfk4m"]
-width = 1028
-height = 1028
-noise = SubResource("FastNoiseLite_hq1ik")
-color_ramp = SubResource("Gradient_8mm7a")
-seamless = true
-seamless_blend_skirt = 0.54
-
-[sub_resource type="Gradient" id="Gradient_spdf2"]
-colors = PackedColorArray(0.194349, 0.194349, 0.194349, 1, 0.398793, 0.398793, 0.398793, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_rb35u"]
-noise_type = 3
-seed = 1
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7ycvg"]
-width = 4096
-height = 4096
-noise = SubResource("FastNoiseLite_rb35u")
-color_ramp = SubResource("Gradient_spdf2")
-seamless = true
-invert = true
-as_normal_map = true
-seamless_blend_skirt = 0.339
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8mm7a"]
-render_priority = 0
-shader = ExtResource("8_mphju")
-shader_parameter/albedo_tex = SubResource("NoiseTexture2D_nfk4m")
-shader_parameter/normal_tex = SubResource("NoiseTexture2D_7ycvg")
-shader_parameter/height_tex = ExtResource("9_yrt05")
-shader_parameter/tile_scale = 0.0
-shader_parameter/scroll_speed = -0.3
-shader_parameter/height_scale = 0.004
-shader_parameter/layers_min = 128
-shader_parameter/layers_max = 128
-shader_parameter/binary_refine = true
-shader_parameter/refine_steps = 8
-shader_parameter/roughness_val = 0.8
-shader_parameter/metallic_val = 0.0
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_hq1ik"]
-material = SubResource("ShaderMaterial_8mm7a")
-size = Vector2(500, 500)
+[ext_resource type="Script" uid="uid://dd7ox1dvjmocd" path="res://addons/shaker/data/Vector2/ShakerTypeSquareWave2D.gd" id="11_u0ygc"]
+[ext_resource type="Script" uid="uid://dd8rirfnf6tm" path="res://addons/shaker/data/Single/BaseShakerType1D.gd" id="13_6jybn"]
+[ext_resource type="Script" uid="uid://b0vrfrfqpq4al" path="res://addons/shaker/data/Single/ShakerTypeSineWave1D.gd" id="14_2jcla"]
+[ext_resource type="Script" uid="uid://cwkss1mgr7jhu" path="res://addons/shaker/data/Vector2/ShakerPreset2D.gd" id="14_84odl"]
+[ext_resource type="Script" uid="uid://c7b4uif626858" path="res://addons/shaker/data/Single/ShakerTypeRandom1D.gd" id="15_m35m6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wr18j"]
 shader = ExtResource("10_jo72c")
 shader_parameter/palette = ExtResource("11_h8riy")
 
-[node name="Node3D" type="Node3D" groups=["game_root"]]
-script = ExtResource("1_7ycvg")
+[sub_resource type="Curve" id="Curve_ak604"]
+_limits = [0.0, 2.0, 0.0, 15.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(12.0304575, 1.1184776), 0.17522442, 0.17522442, 0, 0, Vector2(15, 2), 0.106419705, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_66tet"]
+shader = ExtResource("7_nfk4m")
+shader_parameter/color = Color(0.06879826, 0.06879829, 0.068798244, 1)
+shader_parameter/speed = 1.4999999664719998
+shader_parameter/density = 500.0
+shader_parameter/compression = 0.10000000149012
+shader_parameter/trail_size = 50.0
+shader_parameter/brightness = 10.0
+
+[sub_resource type="Resource" id="Resource_ak604"]
+script = ExtResource("10_m35m6")
+frequency = Vector2(17.89, 23.84)
+metadata/_custom_type_script = "uid://dxnalig1b7nm4"
+
+[sub_resource type="Resource" id="Resource_vimvf"]
+script = ExtResource("11_u0ygc")
+metadata/_custom_type_script = "uid://dd7ox1dvjmocd"
+
+[sub_resource type="Resource" id="Resource_m35m6"]
+script = ExtResource("14_2jcla")
+frequency = 8.0
+amplitude = 0.01
+metadata/_custom_type_script = "uid://b0vrfrfqpq4al"
+
+[sub_resource type="Resource" id="Resource_u0ygc"]
+script = ExtResource("15_m35m6")
+amplitude = 0.02
+BlendingMode = 4
+metadata/_custom_type_script = "uid://c7b4uif626858"
+
+[sub_resource type="Resource" id="Resource_4wqms"]
+script = ExtResource("10_m35m6")
+frequency = Vector2(2, 2.5)
+amplitude = Vector2(0.025, 0.025)
+metadata/_custom_type_script = "uid://dxnalig1b7nm4"
+
+[sub_resource type="Resource" id="Resource_fv2he"]
+script = ExtResource("14_84odl")
+PositionShake = Array[ExtResource("9_2jcla")]([SubResource("Resource_ak604"), SubResource("Resource_vimvf"), null])
+RotationShake = Array[ExtResource("13_6jybn")]([SubResource("Resource_m35m6"), SubResource("Resource_u0ygc")])
+ScaleShake = Array[ExtResource("9_2jcla")]([SubResource("Resource_4wqms")])
+metadata/_custom_type_script = "uid://cwkss1mgr7jhu"
+
+[sub_resource type="Resource" id="Resource_7th4q"]
+script = ExtResource("14_84odl")
+PositionShake = Array[ExtResource("9_2jcla")]([SubResource("Resource_ak604"), SubResource("Resource_vimvf"), null])
+RotationShake = Array[ExtResource("13_6jybn")]([SubResource("Resource_m35m6"), SubResource("Resource_u0ygc")])
+ScaleShake = Array[ExtResource("9_2jcla")]([SubResource("Resource_4wqms")])
+metadata/_custom_type_script = "uid://cwkss1mgr7jhu"
+
+[sub_resource type="Resource" id="Resource_6jybn"]
+script = ExtResource("14_84odl")
+PositionShake = Array[ExtResource("9_2jcla")]([SubResource("Resource_ak604"), SubResource("Resource_vimvf"), null])
+RotationShake = Array[ExtResource("13_6jybn")]([SubResource("Resource_m35m6"), SubResource("Resource_u0ygc")])
+ScaleShake = Array[ExtResource("9_2jcla")]([SubResource("Resource_4wqms")])
+metadata/_custom_type_script = "uid://cwkss1mgr7jhu"
+
+[node name="Node2D" type="Node2D" groups=["game_root"]]
 
 [node name="ModifierCaller" parent="." instance=ExtResource("1_66tet")]
 
-[node name="Spawner" parent="." instance=ExtResource("2_7ycvg")]
+[node name="Spawner" parent="." node_paths=PackedStringArray("spawn_points") instance=ExtResource("2_7ycvg")]
+spawn_points = [NodePath("Marker2D5"), NodePath("Marker2D3"), NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D4"), null, null]
+
+[node name="MusicSetter" type="Node" parent="."]
+script = ExtResource("3_m35m6")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Control" parent="CanvasLayer" instance=ExtResource("6_fd1kl")]
+[node name="Control" parent="CanvasLayer" node_paths=PackedStringArray("camera_shake") instance=ExtResource("6_fd1kl")]
+camera_shake = NodePath("../../Camera2D/ShakerComponent2D")
 
-[node name="Camera3D2" type="Camera3D" parent="." groups=["camera"]]
-transform = Transform3D(-1, -8.74228e-08, 4.37114e-08, 4.37114e-08, 1.91069e-15, 1, -8.74228e-08, 1, 1.91069e-15, 0, 4, 0)
-projection = 1
-size = 9.29751
-script = ExtResource("5_wr18j")
-
-[node name="CharacterBody3D" parent="." instance=ExtResource("7_42yoh")]
-move_speed = 600.0
-shooting_move_speed = 400.0
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_0f027")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, -0.000105183, -0.00010178, 0.000105183, 1, -9.50741e-05, 0.00010178, 9.50741e-05, 1, 0.00960159, -7.28319, 0.0177956)
-mesh = SubResource("PlaneMesh_hq1ik")
-metadata/_edit_lock_ = true
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-1, 6.70699e-09, -8.71651e-08, 0, 0.997053, 0.076719, 8.74228e-08, 0.076719, -0.997053, 0, 2.14119, -4.24151)
-light_energy = 11.548
-light_indirect_energy = 3.189
-light_negative = true
-light_specular = 0.0
-metadata/_edit_lock_ = true
-
-[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.14119, -4.24151)
-light_energy = 0.794
-light_indirect_energy = 3.189
-light_specular = 0.0
-metadata/_edit_lock_ = true
-
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_wr18j")
 anchors_preset = 15
 anchor_right = 1.0
@@ -131,9 +108,81 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer2"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("7_42yoh")]
+position = Vector2(213, 120)
+move_speed = 15000.0
+shooting_move_speed = 10000.0
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." node_paths=PackedStringArray("background")]
+layer = -10
+follow_viewport_enabled = true
+script = ExtResource("8_7th4q")
+background_scenes = Dictionary[PackedScene, Curve]({
+ExtResource("11_84odl"): SubResource("Curve_ak604")
+})
+background = NodePath("ColorRect")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
+material = SubResource("ShaderMaterial_66tet")
+custom_minimum_size = Vector2(852, 480)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -426.0
+offset_top = -240.0
+offset_right = 426.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Camera2D" type="Camera2D" parent="." groups=["camera"]]
+position = Vector2(212.99997, 120.00012)
+scale = Vector2(1.0000186, 1.000005)
+ignore_rotation = false
+
+[node name="ShakerComponent2D" type="Node2D" parent="Camera2D"]
+script = ExtResource("8_42l1d")
+intensity = 2.0
+duration = 0.3
+fade_in = 1e-05
+fade_out = 1.6245047
+shakerPreset = SubResource("Resource_fv2he")
+metadata/_custom_type_script = "uid://b5fqudd1ivpc4"
+
+[node name="EnemyDamageShake" type="Node2D" parent="Camera2D"]
+script = ExtResource("8_42l1d")
+intensity = 1.5
+duration = 0.15
+fade_in = 1e-05
+fade_out = 1.6245047
+shakerPreset = SubResource("Resource_fv2he")
+metadata/_custom_type_script = "uid://b5fqudd1ivpc4"
+
+[node name="EnemyDieShake" type="Node2D" parent="Camera2D"]
+script = ExtResource("8_42l1d")
+intensity = 3.0
+duration = 0.4
+fade_in = 1e-05
+fade_out = 1.6245047
+shakerPreset = SubResource("Resource_7th4q")
+metadata/_custom_type_script = "uid://b5fqudd1ivpc4"
+
+[node name="ShootShake" type="Node2D" parent="Camera2D"]
+position = Vector2(3.0517009e-05, -0.0001220697)
+script = ExtResource("8_42l1d")
+intensity = 0.5
+duration = 0.2
+fade_in = 1e-05
+fade_out = 1.6245047
+shakerPreset = SubResource("Resource_6jybn")
+metadata/_custom_type_script = "uid://b5fqudd1ivpc4"

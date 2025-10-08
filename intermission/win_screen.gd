@@ -23,13 +23,14 @@ func _ready() -> void:
 	name_select_box.show()
 	leaderboard_box.hide()
 	leaderboard.fetch_top(25)
+	if Settings.get("demo mode") == false:
+			Settings.set("tutorial enabled", false)
 
 
 func _on_name_submit_button_pressed() -> void:
 	if text_input.text.strip_edges() == "" or text_input.text == "":
 		return
 
-	print("Name submitted: ", text_input.text)
 	player_name = text_input.text
 	var name_tween := create_tween()
 	name_tween.tween_property(name_select_box, "modulate:a", 0.0, 0.5)

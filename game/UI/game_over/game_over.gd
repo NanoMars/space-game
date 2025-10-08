@@ -19,8 +19,9 @@ func _ready() -> void:
 			sm.set_shader_parameter("opacity", 0.0)
 	await animate_text()
 	await animate_buttons()
-	print("Finished animating text and buttons")
 	buttons[0].grab_focus()
+	if Settings.get("demo mode") == false:
+			Settings.set("tutorial enabled", false)
 
 
 
@@ -62,7 +63,6 @@ func animate_text() -> void:
 		var label_text = t.text.format(ctx)
 		label_to_write.visible_characters = 0
 		label_to_write.text = label_text
-		print("label_text: " + label_text)
 
 		var goal_characters := label_text.length()
 		var char_time_in := t.write_in_time / float(goal_characters)

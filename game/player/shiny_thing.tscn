@@ -19,8 +19,8 @@ shader_parameter/rota_speed = 1.0
 shader_parameter/curve_ci = 0.3
 shader_parameter/playhead = 0.0
 
-[node name="Sprite3D" type="Sprite3D" node_paths=PackedStringArray("rect_with_material")]
-billboard = 1
+[node name="Sprite2D" type="Sprite2D" node_paths=PackedStringArray("rect_with_material")]
+scale = Vector2(0.333, 0.333)
 texture = SubResource("ViewportTexture_1ato2")
 script = ExtResource("1_ae2jx")
 transition_scene = ExtResource("2_1ato2")

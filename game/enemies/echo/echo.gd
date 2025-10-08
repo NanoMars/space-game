@@ -1,32 +1,46 @@
 extends Enemy
 
-@onready var player: Node = get_tree().get_first_node_in_group("player")
+@onready var player: Node2D = get_tree().get_first_node_in_group("player") as Node2D
+
 @export var speed: float = 3.0
 @export var damage_dealt: float = 20.0
-@export var zspeed: float = 1.5
-@export var z_goal_pos: float = 4
-@export var sine_size: float = 0.5
+
+# 2D vertical oscillation settings
+@export var vertical_osc_period: float = 1.5  # seconds per cycle
+@export var target_y: float = 4.0             # baseline Y position to hover around
+@export var vertical_sine_amplitude: float = 0.5
+
+var hit_count: int = 0
+
+@export var shoot_every_n_hits: int = 5
+
 var sine_time: float = 0.0
 
-@export var weapon_node: Marker3D
+@export var weapon_node: Marker2D
 
 func _ready() -> void:
 	super._ready()
-	
 	contact_monitor = true
 	max_contacts_reported = 8
 	body_entered.connect(_on_body_entered)
 
 func _physics_process(delta: float) -> void:
-	sine_time += delta / zspeed
-	if player:
-		var dx: float = player.position.x - position.x
-		var dz: float = z_goal_pos - position.z + ( sin(sine_time) * sine_size )
-		if absf(dx) > 0.001:
-			var dir := Vector3(signf(dx), 0.0, signf(dz)).normalized()
-			apply_force(dir * speed * delta)
+	if not player:
+		return
 
-	
+	# Advance vertical oscillation time
+	var period: float = max(vertical_osc_period, 0.0001)
+	sine_time += delta / period
+	var desired_y: float = target_y + sin(sine_time) * vertical_sine_amplitude
+
+	# Seek player.x while oscillating on Y around target_y
+	var dx: float = player.position.x - position.x
+	var dy: float = desired_y - position.y
+	var to_target: Vector2 = Vector2(dx, dy)
+
+	if to_target.length_squared() > 1e-6:
+		var dir := to_target.normalized()
+		apply_force(dir * speed * delta)
 
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):
@@ -35,8 +49,12 @@ func _on_body_entered(body: Node) -> void:
 			if health and health.has_method("die"):
 				health.die(self)
 
+func damage(_amount: float, _from: Node = null) -> void:
+	# Call Enemy.damage(...) first
+	super(_amount, _from)
+	hit_count += 1
 
-
-
-func _on_health_damaged(amount:float, from:Node) -> void:
-	weapon_node.fire_once()
+	if weapon_node and weapon_node.has_method("fire_once") and hit_count >= shoot_every_n_hits:
+		hit_count = 0
+		print("Echo shooting in response to hit ", hit_count)
+		weapon_node.fire_once()
