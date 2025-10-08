@@ -6,6 +6,8 @@ extends CanvasLayer
 @export var use_z_rotation := true
 @export var noise: FastNoiseLite
 
+@export var use_mouse_pos: bool = true
+
 
 
 signal controller_connection_changed(connected: bool)
@@ -16,6 +18,8 @@ var _current_rot := Vector2.ZERO
 var _target_pos := Vector2.ZERO
 var _current_pos := Vector2.ZERO
 var time: float = 0.0
+
+
 
 
 
@@ -33,19 +37,31 @@ func _process(delta: float) -> void:
 	var mouse := get_viewport().get_mouse_position()
 
 	var n: Vector2
-	if controller_connected:
-		n.x = noise.get_noise_2d(time, 0.0)
-		n.y = noise.get_noise_2d(0.0, time)
-	else:
-		var part_1: Vector2 = Vector2(
-			((mouse.x / max(size.x, 1.0)) * 2.0) - 1.0,
-			((mouse.y / max(size.y, 1.0)) * 2.0) - 1.0
-		)
+	if not use_mouse_pos and is_instance_valid(get_tree().get_first_node_in_group("player") ):
+		var player: Node2D = get_tree().get_first_node_in_group("player")
+		var player_pos = player.global_position
+		var screen_size = get_viewport().get_visible_rect().size
+		
+		var part_1 = player_pos / screen_size
 		var part_2 = Vector2(
-			noise.get_noise_2d(time, 0.0),
-			noise.get_noise_2d(0.0, time)
+				noise.get_noise_2d(time, 0.0),
+				noise.get_noise_2d(0.0, time)
 		)
 		n = (part_1 + part_2) * 0.5
+	else:
+		if controller_connected:
+			n.x = noise.get_noise_2d(time, 0.0)
+			n.y = noise.get_noise_2d(0.0, time)
+		else:
+			var part_1: Vector2 = Vector2(
+				((mouse.x / max(size.x, 1.0)) * 2.0) - 1.0,
+				((mouse.y / max(size.y, 1.0)) * 2.0) - 1.0
+			)
+			var part_2 = Vector2(
+				noise.get_noise_2d(time, 0.0),
+				noise.get_noise_2d(0.0, time)
+			)
+			n = (part_1 + part_2) * 0.5
 	n = n.clamp(Vector2(-1, -1), Vector2(1, 1))
 	
 
