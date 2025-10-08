@@ -1,30 +1,46 @@
-[gd_scene load_steps=4 format=3 uid="uid://ss4fpfqvx68y"]
+[gd_scene load_steps=9 format=3 uid="uid://ss4fpfqvx68y"]
+
+[ext_resource type="Texture2D" uid="uid://dn3ro0k2iohp6" path="res://game/assets/Asteroid_1e.png" id="1_yn1hu"]
+[ext_resource type="Texture2D" uid="uid://cg63kycybtnkm" path="res://game/assets/Asteroid_2a.png" id="2_wid1e"]
+[ext_resource type="Texture2D" uid="uid://bisc5rb08vlsx" path="res://game/assets/Asteroid_2b.png" id="3_5ga7v"]
 
 [sub_resource type="Animation" id="Animation_7th4q"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:rotation")
+tracks/0/path = NodePath("GPUParticles2D:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
+"update": 1,
+"values": [true]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../..:offset")
+tracks/1/path = NodePath("GPUParticles2D2:emitting")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(95, 200)]
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GPUParticles2D3:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_u0ygc"]
@@ -34,26 +50,38 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:rotation")
+tracks/0/path = NodePath("GPUParticles2D:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 120),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 6.2831855, 0)]
+"times": PackedFloat32Array(0, 9.9, 10),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../..:offset")
+tracks/1/path = NodePath("GPUParticles2D2:emitting")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 11.604289, 120),
+"times": PackedFloat32Array(0, 9.9, 10),
 "transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(95, 200), Vector2(95, 500), Vector2(95, 500)]
+"update": 1,
+"values": [true, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GPUParticles2D3:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 9.9, 10),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6jybn"]
@@ -61,6 +89,27 @@ _data = {
 &"RESET": SubResource("Animation_7th4q"),
 &"animation": SubResource("Animation_u0ygc")
 }
+
+[sub_resource type="CurveTexture" id="CurveTexture_l7gr3"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ylnai"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(280, 1, 1)
+angle_min = -720.0
+angle_max = 720.0
+angle_curve = SubResource("CurveTexture_l7gr3")
+direction = Vector3(0, 1, 0)
+spread = 5.0
+initial_velocity_min = 15.0
+initial_velocity_max = 20.0
+angular_velocity_min = -15.000016
+angular_velocity_max = 14.999984
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = -2.2351742e-05
+gravity = Vector3(0, 0, 0)
+scale_min = 0.07
+scale_max = 0.099999994
 
 [node name="Node2D" type="Node2D"]
 
@@ -71,3 +120,22 @@ libraries = {
 autoplay = "animation"
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(213, -80)
+amount = 10
+texture = ExtResource("1_yn1hu")
+lifetime = 35.0
+process_material = SubResource("ParticleProcessMaterial_ylnai")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+position = Vector2(213, -80)
+amount = 10
+texture = ExtResource("2_wid1e")
+lifetime = 35.0
+process_material = SubResource("ParticleProcessMaterial_ylnai")
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="."]
+position = Vector2(213, -80)
+amount = 10
+texture = ExtResource("3_5ga7v")
+lifetime = 35.0
+process_material = SubResource("ParticleProcessMaterial_ylnai")
