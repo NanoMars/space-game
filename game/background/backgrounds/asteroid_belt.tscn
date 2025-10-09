@@ -1,0 +1,192 @@
+[gd_scene load_steps=14 format=3 uid="uid://ci73gs5od06cx"]
+
+[ext_resource type="Texture2D" uid="uid://dn3ro0k2iohp6" path="res://game/assets/Asteroid_1e.png" id="1_74j2y"]
+[ext_resource type="Texture2D" uid="uid://cg63kycybtnkm" path="res://game/assets/Asteroid_2a.png" id="2_ryl40"]
+[ext_resource type="Texture2D" uid="uid://bisc5rb08vlsx" path="res://game/assets/Asteroid_2b.png" id="3_pulhw"]
+[ext_resource type="Texture2D" uid="uid://csan31rj8bi86" path="res://game/assets/Volcanic.png" id="4_ryl40"]
+
+[sub_resource type="Animation" id="Animation_7th4q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/GPUParticles2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0009999999),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/GPUParticles2D2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0009999999),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D/GPUParticles2D3:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0009999999),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_u0ygc"]
+resource_name = "earth_spin"
+length = 120.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/GPUParticles2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 120),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.283185307179586]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/GPUParticles2D2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 120),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 18.84955592153876]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D/GPUParticles2D3:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 120),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 12.566370614359172]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6jybn"]
+_data = {
+&"RESET": SubResource("Animation_7th4q"),
+&"animation": SubResource("Animation_u0ygc")
+}
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_pulhw"]
+viewport_path = NodePath("Sprite2D/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8p3id"]
+albedo_texture = ExtResource("4_ryl40")
+emission_enabled = true
+emission_texture = ExtResource("4_ryl40")
+
+[sub_resource type="SphereMesh" id="SphereMesh_tncb4"]
+material = SubResource("StandardMaterial3D_8p3id")
+
+[sub_resource type="Curve" id="Curve_ryl40"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_pulhw"]
+curve = SubResource("Curve_ryl40")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8p3id"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 357.35
+emission_ring_inner_radius = 287.75
+emission_ring_cone_angle = 90.0
+angle_min = -720.0
+angle_max = 720.0
+angle_curve = SubResource("CurveTexture_pulhw")
+direction = Vector3(0, 1, 0)
+spread = 5.0
+angular_velocity_min = -15.000016
+angular_velocity_max = 14.999984
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = -2.2351742e-05
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = -2.2351742e-06
+radial_accel_min = -2.2351742e-06
+radial_accel_max = -2.2351742e-06
+tangential_accel_min = -2.2351742e-06
+tangential_accel_max = -2.2351742e-06
+scale_min = 0.049999997
+scale_max = 0.049999997
+
+[node name="Node2D" type="Node2D"]
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_6jybn")
+}
+autoplay = "animation"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-10, 154)
+texture = SubResource("ViewportTexture_pulhw")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite2D"]
+transparent_bg = true
+
+[node name="Node3D" type="Node3D" parent="Sprite2D/SubViewport"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite2D/SubViewport/Node3D"]
+mesh = SubResource("SphereMesh_tncb4")
+skeleton = NodePath("../../../../..")
+
+[node name="Camera3D" type="Camera3D" parent="Sprite2D/SubViewport/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+projection = 1
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Sprite2D"]
+show_behind_parent = true
+amount = 32
+texture = ExtResource("1_74j2y")
+lifetime = 10000.0
+preprocess = 32.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_8p3id")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="Sprite2D"]
+show_behind_parent = true
+emitting = false
+amount = 32
+texture = ExtResource("2_ryl40")
+lifetime = 10000.0
+preprocess = 32.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_8p3id")
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="Sprite2D"]
+show_behind_parent = true
+emitting = false
+amount = 32
+texture = ExtResource("3_pulhw")
+lifetime = 10000.0
+preprocess = 32.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_8p3id")
