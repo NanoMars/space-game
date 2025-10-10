@@ -36,6 +36,17 @@ var _total_kills: int = 10
 var concurrent_cap: int = 3
 
 var currentRound: int = 1
+enum ActionType {
+    Round,
+    Upgrade,
+    Downgrade
+}
+
+var action_types: Array = [
+    ActionType.Round,
+    ActionType.Upgrade,
+    ActionType.Downgrade
+]
 
 var enemy_types: Array[EnemyType] = []
 
