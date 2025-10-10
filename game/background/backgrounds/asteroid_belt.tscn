@@ -43,6 +43,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-10, 154)]
+}
 
 [sub_resource type="Animation" id="Animation_u0ygc"]
 resource_name = "earth_spin"
@@ -83,6 +95,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 12.566370614359172]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 120),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-10, 154), Vector2(-10, 650)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6jybn"]
@@ -134,7 +158,7 @@ radial_accel_min = -2.2351742e-06
 radial_accel_max = -2.2351742e-06
 tangential_accel_min = -2.2351742e-06
 tangential_accel_max = -2.2351742e-06
-scale_min = 0.049999997
+scale_min = 0.03
 scale_max = 0.049999997
 
 [node name="Node2D" type="Node2D"]
@@ -164,29 +188,32 @@ projection = 1
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Sprite2D"]
 show_behind_parent = true
-amount = 32
+amount = 256
 texture = ExtResource("1_74j2y")
-lifetime = 10000.0
+lifetime = 128.0
 preprocess = 32.0
+explosiveness = 1.0
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_8p3id")
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="Sprite2D"]
 show_behind_parent = true
 emitting = false
-amount = 32
+amount = 256
 texture = ExtResource("2_ryl40")
-lifetime = 10000.0
+lifetime = 128.0
 preprocess = 32.0
+explosiveness = 1.0
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_8p3id")
 
 [node name="GPUParticles2D3" type="GPUParticles2D" parent="Sprite2D"]
 show_behind_parent = true
 emitting = false
-amount = 32
+amount = 256
 texture = ExtResource("3_pulhw")
-lifetime = 10000.0
+lifetime = 128.0
 preprocess = 32.0
+explosiveness = 1.0
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_8p3id")

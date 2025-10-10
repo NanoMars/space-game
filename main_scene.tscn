@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=36 format=3 uid="uid://s488jtj1i4ci"]
 
 [ext_resource type="PackedScene" uid="uid://c0utlmtqcar20" path="res://game/modifier/modifier_caller.tscn" id="1_66tet"]
 [ext_resource type="PackedScene" uid="uid://tt1rrpyhclj1" path="res://game/enemyspawning/spawner.tscn" id="2_7ycvg"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://ci73gs5od06cx" path="res://game/background/backgrounds/asteroid_belt.tscn" id="13_vimvf"]
 [ext_resource type="Script" uid="uid://b0vrfrfqpq4al" path="res://addons/shaker/data/Single/ShakerTypeSineWave1D.gd" id="14_2jcla"]
 [ext_resource type="Script" uid="uid://cwkss1mgr7jhu" path="res://addons/shaker/data/Vector2/ShakerPreset2D.gd" id="14_84odl"]
+[ext_resource type="PackedScene" uid="uid://c7hvmxa26cov7" path="res://game/background/backgrounds/galaxy.tscn" id="14_ghshe"]
 [ext_resource type="Script" uid="uid://c7b4uif626858" path="res://addons/shaker/data/Single/ShakerTypeRandom1D.gd" id="15_m35m6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wr18j"]
@@ -134,7 +135,8 @@ script = ExtResource("8_7th4q")
 background_scenes = Dictionary[PackedScene, Curve]({
 ExtResource("11_84odl"): SubResource("Curve_ak604"),
 ExtResource("10_6jybn"): SubResource("Curve_ak604"),
-ExtResource("13_vimvf"): SubResource("Curve_ghshe")
+ExtResource("13_vimvf"): SubResource("Curve_ghshe"),
+ExtResource("14_ghshe"): SubResource("Curve_ak604")
 })
 background = NodePath("ColorRect")
 
