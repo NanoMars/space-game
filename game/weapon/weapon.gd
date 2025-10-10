@@ -96,7 +96,7 @@ func fire_once() -> void:
 		projectile_instance.global_rotation = (g_dir.rotated(PI * 0.5)).angle()
 
 		projectile_instance.weapon_stats = weapon_stats
-		container.add_child(projectile_instance)
+		container.call_deferred("add_child", projectile_instance)
 
 func get_projectile_container() -> Node:
 	if display_mode:

@@ -31,11 +31,9 @@ func _process(delta: float) -> void:
 		return
 	time_passed += delta
 	var speed = clamp(speed_curve.sample(clamp(time_passed, speed_curve.min_domain, speed_curve.max_domain)), 0.0, 2.0)
-	print(speed)
 	background.material.set_shader_parameter("speed", (speed / 2) + 0.5)
 	var compression = clamp(2 - speed, 0.1, 2.0)
 	background.material.set_shader_parameter("compression", compression)
-	print("compression", compression)
 	# var trail_size = -29.41 * speed + 108.82
 	# background.material.set_shader_parameter("trail_size", trail_size)
 

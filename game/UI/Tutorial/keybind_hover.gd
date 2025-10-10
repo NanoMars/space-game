@@ -35,7 +35,7 @@ func _ready() -> void:
 
 
 func _process(_delta):
-	if Settings.get("tutorial enabled") == false and Settings.get("demo mode") == false and not spawner.run_started and not ui_hidden or ScoreManager.keybinds_shown == true:
+	if sprite_2d and Settings.get("tutorial enabled") == false and Settings.get("demo mode") == false and not spawner.run_started and not ui_hidden or ScoreManager.keybinds_shown == true:
 		sprite_2d.queue_free()
 
 	if Input.is_action_just_pressed("shoot"):

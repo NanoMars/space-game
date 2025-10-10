@@ -7,6 +7,7 @@ extends Control
 @onready var score_label: Label = $ScoreLabel
 @onready var multiplier_label: Label = $MultiplierLabel
 @onready var enemy_count_label: Label = $EnemyCountLabel
+@onready var round_label: Label = $RoundLabel
 # Cache vignette material
 @onready var vignette_mat: ShaderMaterial = $Vignette.material
 
@@ -49,6 +50,19 @@ func _ready() -> void:
 		_base_angle_deg = vignette_mat.get_shader_parameter("angle_deg")
 		vignette_mat.set_shader_parameter("power_px", _base_power_px)
 		vignette_mat.set_shader_parameter("angle_deg", _base_angle_deg)
+
+	ScoreManager.reset_spawner.connect(_on_reset_spawner)
+	_on_reset_spawner()
+
+func _on_reset_spawner() -> void:
+	round_label.visible = true
+	round_label.modulate.a = 1.0
+	round_label.text = "Round " + str(ScoreManager.currentRound)
+	var tween: Tween = create_tween()
+	tween.tween_property(round_label, "modulate:a", 0.0, 0.5).set_delay(2.0)
+	await tween.finished
+	round_label.visible = false
+	_enemy_count_changed(spawner._enemies_left)
 
 func _on_health_changed(new_health: float) -> void:
 	health_bar.value = new_health / player_health.max_health * health_bar.max_value

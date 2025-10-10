@@ -6,6 +6,9 @@ signal total_kills_changed(new_total: int)
 
 var player_weapon: WeaponStats
 
+var intermission_scene: PackedScene = preload("res://intermission/intermission_menu.tscn")
+var game_scene: PackedScene = preload("res://main_scene.tscn")
+
 var score: int:
 	set(value):
 		if value != _score:
@@ -36,17 +39,22 @@ var _total_kills: int = 10
 var concurrent_cap: int = 3
 
 var currentRound: int = 1
-enum ActionType {
-    Round,
-    Upgrade,
-    Downgrade
+
+enum round_types {
+	Round,
+	# Upgrade,
+	Downgrade
 }
 
-var action_types: Array = [
-    ActionType.Round,
-    ActionType.Upgrade,
-    ActionType.Downgrade
+var current_round_type: int = round_types.Round
+
+var rounds: Array = [
 ]
+var previous_rounds: Array = []
+
+var always_have_x_rounds: int = 4
+
+signal reset_spawner()
 
 var enemy_types: Array[EnemyType] = []
 
@@ -72,3 +80,37 @@ func reset() -> void:
 	score = 0
 	enemies_seen.clear()
 	keybinds_shown = false
+	current_round_type = round_types.Round
+	previous_rounds.clear()
+	rounds.clear()
+	
+	for i in range(always_have_x_rounds):
+		var rt = round_types.values()[randi() % round_types.size()]
+		rounds.append(rt)
+
+func next_round() -> void:
+	var nr = rounds.pop_front()
+	previous_rounds.append(nr)
+
+	var rt = round_types.values()[randi() % round_types.size()]
+	rounds.append(rt)
+	
+	match nr:
+		round_types.Round:
+			print("roundtype is round")
+			print("nr: ", nr)
+			print("currentRound_type: ", current_round_type)
+			currentRound += 1
+			if current_round_type == round_types.Round:
+				reset_spawner.emit()
+				print("emitted reset spawner")
+			else:
+				SceneManager.change_scene(game_scene)
+
+		# round_types.Upgrade:
+		# 	print("roundtype is upgrade")
+		round_types.Downgrade:
+			print("roundtype is downgrade")
+			SceneManager.change_scene(intermission_scene)
+
+	current_round_type = nr

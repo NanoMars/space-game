@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dlgvodlq4gicv"]
+[gd_scene load_steps=7 format=3 uid="uid://dlgvodlq4gicv"]
 
 [ext_resource type="Script" uid="uid://bdqhv1vauenlf" path="res://game/gameui.gd" id="1_ogh4a"]
 [ext_resource type="Theme" uid="uid://c6mssg2ngmqpk" path="res://game/game_ui_theme.tres" id="2_brkp5"]
 [ext_resource type="FontFile" uid="uid://d3xv2jvjnv25p" path="res://game/assets/TinyUnicode.ttf" id="3_juvnx"]
 [ext_resource type="Shader" uid="uid://km40hei07ndf" path="res://game/UI/healthVignette.gdshader" id="3_pjh2a"]
+[ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://intermission/button_theme.tres" id="5_r2x2w"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_juvnx"]
 shader = ExtResource("3_pjh2a")
@@ -99,3 +100,21 @@ offset_right = -2.0
 offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="RoundLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.5
+offset_top = -35.0
+offset_right = 30.5
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_r2x2w")
+theme_override_font_sizes/font_size = 16
+text = "round 1"
+horizontal_alignment = 1

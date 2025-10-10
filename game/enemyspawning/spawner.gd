@@ -39,11 +39,12 @@ func _ready() -> void:
 		print("Delaying run start for tutorial or demo mode")
 		return
 	var timer := Timer.new()
-	timer.wait_time = 1.0
+	timer.wait_time = 2.5
 	timer.one_shot = true
 	timer.autostart = true
 	add_child(timer)
 	timer.timeout.connect(_on_start_run)
+	ScoreManager.reset_spawner.connect(_reset_spawner)
 
 func _on_start_run() -> void:
 	if run_started:
@@ -166,15 +167,32 @@ func _on_enemy_died(transform: Transform2D) -> void:
 	if _killed >= ScoreManager.total_kills:
 		_wave_prepared = false
 	if _enemies_left <= 0:
-		change_scene_to_intermission()
+		next_round()
 
-func change_scene_to_intermission() -> void:
+func next_round() -> void:
 	# detect if player doesn't exist or is dead
 	if not player:
 		return
 	if player.dead == true:
 		return
-	if _changing_scenes:
-		return
 	_changing_scenes = true
-	SceneManager.change_scene(intermission, {"transition": "fade"})
+	ScoreManager.next_round()
+
+func _reset_spawner() -> void:
+	# Reset all spawner state to beginning of round
+	_alive = 0
+	_enemies_spawned = 0
+	_killed = 0
+	_spawn_timer = 0.0
+	_next_delay = 0.4
+	_wave_prepared = false
+	_changing_scenes = false
+	
+	# Clear any existing spawn bag
+	_spawn_bag.clear()
+	
+	# Prepare the wave again with current settings
+	_prepare_wave()
+	
+	# Add a small delay before spawning resumes
+	_spawn_timer = 2.0  # 2 second delay before first spawn after reset
