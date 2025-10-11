@@ -35,8 +35,13 @@ func _ready() -> void:
 
 
 func _process(_delta):
-	if sprite_2d and Settings.get("tutorial enabled") == false and Settings.get("demo mode") == false and not spawner.run_started and not ui_hidden or ScoreManager.keybinds_shown == true:
-		sprite_2d.queue_free()
+	if not _ensure_spawner_reference():
+		return
+
+	var tutorial_disabled: bool = Settings.get("tutorial enabled") == false and Settings.get("demo mode") == false
+	if sprite_2d and tutorial_disabled and not spawner.run_started and not ui_hidden or ScoreManager.keybinds_shown == true:
+		if is_instance_valid(sprite_2d):
+			sprite_2d.queue_free()
 
 	if Input.is_action_just_pressed("shoot"):
 		spacebar_pressed = true
@@ -53,19 +58,28 @@ func _process(_delta):
 			all_pressed = false
 	if all_pressed and spacebar_pressed:
 		ui_hidden = true
-		spawner._on_start_run()
+		if is_instance_valid(spawner) and spawner.has_method("_on_start_run"):
+			spawner._on_start_run()
 
 		var tween: Tween = create_tween()
 		tween.tween_property(self, "modulate:a", 0.0, 0.5)
 		await tween.finished
 		ScoreManager.keybinds_shown = true
-		sprite_2d.queue_free()
+		if is_instance_valid(sprite_2d):
+			sprite_2d.queue_free()
 		
 
 func _on_timer_timeout() -> void:
 	if not use_timer:
 		return
 	showing_wasd = not showing_wasd
+
+
+func _ensure_spawner_reference() -> bool:
+	if is_instance_valid(spawner):
+		return true
+	spawner = get_tree().get_first_node_in_group("spawner")
+	return is_instance_valid(spawner)
 
 
 

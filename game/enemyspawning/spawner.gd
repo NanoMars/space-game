@@ -23,6 +23,8 @@ var _enemies_left: int:
 	get:
 		return ScoreManager.total_kills - _killed
 
+const DEBUG_LOG := false
+
 @onready var player: Node2D = get_tree().get_first_node_in_group("player") as Node2D
 
 signal enemies_left(value: int)
@@ -32,6 +34,7 @@ signal enemy_spawned(enemy: Node)
 func _ready() -> void:
 	_rng.randomize()
 	if auto_prepare_on_ready:
+		_debug("ready", "auto prepare")
 		_prepare_wave()
 
 	print("tutorial enabled: ", Settings.get("tutorial enabled") == true, "demo mode: ", Settings.get("demo mode") == true, "keybinds shown: ", ScoreManager.keybinds_shown == true, " ")
@@ -71,6 +74,7 @@ func _process(delta: float) -> void:
 
 func _prepare_wave():
 	if ScoreManager.enemy_types.is_empty():
+		_debug("prepare_wave", "enemy types empty")
 		return
 
 	var sum_w := 0.0
@@ -110,19 +114,26 @@ func _prepare_wave():
 	_remaining_to_spawn = _spawn_bag.size()
 	_alive = 0
 	_killed = 0
+	_enemies_spawned = 0
 	_wave_prepared = true
+	_debug("prepare_wave", "prepared %d enemies" % _remaining_to_spawn)
 	
 
 func _try_spawn_tick():
 	if not run_started:
-		return
-	if _enemies_spawned >= ScoreManager.total_kills:
+		_debug("try_spawn", "run not started")
 		return
 	if _remaining_to_spawn <= 0:
+		_debug("try_spawn", "no remaining to spawn", true)
+		return
+	if _enemies_spawned >= ScoreManager.total_kills:
+		_debug("try_spawn", "spawned >= total", true)
 		return
 	if _alive >= ScoreManager.concurrent_cap:
+		_debug("try_spawn", "alive >= cap", true)
 		return
 	if spawn_points.is_empty():
+		_debug("try_spawn", "no spawn points")
 		return
 
 	var pt := _pick_spawn_point()
@@ -131,15 +142,19 @@ func _try_spawn_tick():
 
 	var bag_index := _spawn_bag.size() - _remaining_to_spawn
 	if bag_index < 0 or bag_index >= _spawn_bag.size():
+		_debug("try_spawn", "bag index out of range %d" % bag_index, true)
 		return
 	var enemy_type: EnemyType = _spawn_bag[bag_index]
 	if enemy_type == null:
+		_debug("try_spawn", "enemy type null", true)
 		return
 	if enemy_type.scene == null:
+		_debug("try_spawn", "enemy scene null", true)
 		return
 
 	var inst: Node2D = enemy_type.scene.instantiate()
 	if inst == null:
+		_debug("try_spawn", "instantiation failed", true)
 		return
 
 	_enemies_spawned += 1
@@ -147,6 +162,7 @@ func _try_spawn_tick():
 	self.add_child(inst)
 	inst.global_position = pt.global_position
 	enemy_spawned.emit(inst)
+	_debug("try_spawn", "spawned %s" % inst.name)
 	
 	inst.tree_exited.connect(_on_enemy_died.bind(inst.global_transform))
 	_alive += 1
@@ -164,18 +180,23 @@ func _on_enemy_died(transform: Transform2D) -> void:
 	_killed += 1
 	enemies_left.emit(_enemies_left)
 	enemy_died.emit(transform)
+	_debug("enemy_died", "killed=%d left=%d" % [_killed, _enemies_left])
 	if _killed >= ScoreManager.total_kills:
 		_wave_prepared = false
 	if _enemies_left <= 0:
+		_debug("enemy_died", "triggering next round")
 		next_round()
 
 func next_round() -> void:
 	# detect if player doesn't exist or is dead
-	if not player:
+	if not _ensure_player_reference():
+		_debug("next_round", "player missing")
 		return
 	if player.dead == true:
+		_debug("next_round", "player dead")
 		return
 	_changing_scenes = true
+	_debug("next_round", "advancing")
 	ScoreManager.next_round()
 
 func _reset_spawner() -> void:
@@ -187,6 +208,7 @@ func _reset_spawner() -> void:
 	_next_delay = 0.4
 	_wave_prepared = false
 	_changing_scenes = false
+	_debug("reset", "state cleared")
 	
 	# Clear any existing spawn bag
 	_spawn_bag.clear()
@@ -196,3 +218,27 @@ func _reset_spawner() -> void:
 	
 	# Add a small delay before spawning resumes
 	_spawn_timer = 2.0  # 2 second delay before first spawn after reset
+	_debug("reset", "spawn timer delay set to %f" % _spawn_timer)
+
+
+func _debug(context: String, message: String, include_state: bool = false) -> void:
+	if not DEBUG_LOG:
+		return
+	var state := ""
+	if include_state:
+		state = " | alive=%d remaining=%d spawned=%d killed=%d total=%d wave_prepared=%s" % [
+			_alive,
+			_remaining_to_spawn,
+			_enemies_spawned,
+			_killed,
+			ScoreManager.total_kills,
+			str(_wave_prepared)
+		]
+	print("[Spawner][%s] %s%s" % [context, message, state])
+
+
+func _ensure_player_reference() -> bool:
+	if is_instance_valid(player):
+		return true
+	player = get_tree().get_first_node_in_group("player") as Node2D
+	return is_instance_valid(player)

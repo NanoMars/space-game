@@ -1,7 +1,7 @@
 extends Control
 
 @onready var player: Node = get_tree().get_first_node_in_group("player")
-@onready var player_health: Health = player.get_node("Health")
+@onready var player_health: Health = player.get_node("Health") if is_instance_valid(player) else null
 @onready var spawner: Spawner = get_tree().get_first_node_in_group("spawner")
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var score_label: Label = $ScoreLabel
@@ -31,18 +31,8 @@ var _base_angle_deg: float = 0.0
 var _rot_angle_offset: float = 0.0
 
 func _ready() -> void:
-	player_health.health_changed.connect(_on_health_changed)
-	health_bar.value = player_health.health / player_health.max_health * health_bar.max_value
-	spawner.enemies_left.connect(_enemy_count_changed)
-
-	ScoreManager.score_changed.connect(_on_score_changed)
-	score_label.text = str(ScoreManager.score)
-
-	ScoreManager.score_multiplier_changed.connect(_on_score_multiplier_changed)
-	multiplier_label.text = "X" + str(ScoreManager.score_multiplier)
-
-	enemy_count_label.text = str(spawner._enemies_left) + " left"
-	old_health = player_health.health
+	_ensure_references()
+	_connect_signals()
 
 	# Cache base shader values
 	if vignette_mat:
@@ -51,10 +41,14 @@ func _ready() -> void:
 		vignette_mat.set_shader_parameter("power_px", _base_power_px)
 		vignette_mat.set_shader_parameter("angle_deg", _base_angle_deg)
 
-	ScoreManager.reset_spawner.connect(_on_reset_spawner)
+	var reset_callable := Callable(self, "_on_reset_spawner")
+	if not ScoreManager.reset_spawner.is_connected(reset_callable):
+		ScoreManager.reset_spawner.connect(reset_callable)
 	_on_reset_spawner()
 
 func _on_reset_spawner() -> void:
+	_ensure_spawner()
+	_connect_signals()
 	round_label.visible = true
 	round_label.modulate.a = 1.0
 	round_label.text = "Round " + str(ScoreManager.currentRound)
@@ -62,7 +56,8 @@ func _on_reset_spawner() -> void:
 	tween.tween_property(round_label, "modulate:a", 0.0, 0.5).set_delay(2.0)
 	await tween.finished
 	round_label.visible = false
-	_enemy_count_changed(spawner._enemies_left)
+	if is_instance_valid(spawner):
+		_enemy_count_changed(spawner._enemies_left)
 
 func _on_health_changed(new_health: float) -> void:
 	health_bar.value = new_health / player_health.max_health * health_bar.max_value
@@ -84,7 +79,50 @@ func _on_score_multiplier_changed(new_multiplier: float) -> void:
 func _enemy_count_changed(new_count: int) -> void:
 	enemy_count_label.text = str(new_count) + " left"
 
+func _connect_signals() -> void:
+	_ensure_references()
+
+	var score_callable := Callable(self, "_on_score_changed")
+	if not ScoreManager.score_changed.is_connected(score_callable):
+		ScoreManager.score_changed.connect(score_callable)
+		_on_score_changed(ScoreManager.score)
+
+	var multiplier_callable := Callable(self, "_on_score_multiplier_changed")
+	if not ScoreManager.score_multiplier_changed.is_connected(multiplier_callable):
+		ScoreManager.score_multiplier_changed.connect(multiplier_callable)
+		_on_score_multiplier_changed(ScoreManager.score_multiplier)
+
+	if is_instance_valid(player_health):
+		var health_callable := Callable(self, "_on_health_changed")
+		if not player_health.health_changed.is_connected(health_callable):
+			player_health.health_changed.connect(health_callable)
+		health_bar.value = player_health.health / player_health.max_health * health_bar.max_value
+		old_health = player_health.health
+	else:
+		health_bar.value = 0.0
+
+	if is_instance_valid(spawner):
+		var enemy_callable := Callable(self, "_enemy_count_changed")
+		if not spawner.enemies_left.is_connected(enemy_callable):
+			spawner.enemies_left.connect(enemy_callable)
+		_enemy_count_changed(spawner._enemies_left)
+	else:
+		enemy_count_label.text = "--"
+
+func _ensure_references() -> void:
+	if not is_instance_valid(player):
+		player = get_tree().get_first_node_in_group("player")
+	if is_instance_valid(player) and not is_instance_valid(player_health):
+		player_health = player.get_node("Health")
+	if not is_instance_valid(spawner):
+		spawner = get_tree().get_first_node_in_group("spawner")
+
+func _ensure_spawner() -> void:
+	if not is_instance_valid(spawner):
+		spawner = get_tree().get_first_node_in_group("spawner")
+
 func _process(delta: float) -> void:
+	_connect_signals()
 	# Decay rotation speed, integrate angle, then set absolute angle
 	if vignette_rot_speed > 0.0:
 		vignette_rot_speed = max(vignette_rot_speed - vignette_rot_decay * delta, 0.0)

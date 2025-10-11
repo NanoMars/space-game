@@ -7,6 +7,7 @@ extends Control
 @export_file("*.tscn") var game_scene: String
 @export_file("*.tscn") var main_menu_scene: String
 var ctx: Dictionary[String, int] = {}
+var _left_click_was_pressed: bool = false
 
 
 func _ready() -> void:
@@ -52,9 +53,13 @@ func wait_or_skip(seconds: float) -> bool:
 	var time_left := seconds
 	while time_left > 0.0:
 		await get_tree().process_frame
-		if Input.is_action_just_pressed("shoot"):
+		var left_down := Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
+		var left_just_pressed := left_down and not _left_click_was_pressed
+		_left_click_was_pressed = left_down
+		if Input.is_action_just_pressed("shoot") or left_just_pressed:
 			return true
 		time_left -= get_process_delta_time()
+	_left_click_was_pressed = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 	return false
 
 func animate_text() -> void:
