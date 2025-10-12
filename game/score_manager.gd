@@ -50,9 +50,10 @@ var current_round_type: int = round_types.Round
 
 var rounds: Array = [
 ]
+signal on_round_complete()
 
-var min_rounds_before_intermission: int = 0
-var max_rounds_before_intermission: int = 1
+var min_rounds_before_intermission: int = 1
+var max_rounds_before_intermission: int = 2
 
 var rounds_since_intermission: int = 0
 var previous_rounds: Array = []
@@ -93,6 +94,7 @@ func reset() -> void:
 	
 	while rounds.size() < always_have_x_rounds:
 		generate_rounds()
+	previous_rounds.append(round_types.Round)
 
 func next_round() -> void:
 	var nr = rounds.pop_front()
@@ -123,6 +125,7 @@ func next_round() -> void:
 			rounds_since_intermission = 0
 
 	current_round_type = nr
+	on_round_complete.emit()
 
 func generate_rounds() -> void:
 	var round_count: int = int(randi_range(min_rounds_before_intermission, max_rounds_before_intermission))

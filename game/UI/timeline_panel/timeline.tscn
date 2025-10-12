@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://io2xm657xi7l"]
+
+[ext_resource type="Texture2D" uid="uid://xyd731nte2fa" path="res://game/assets/reflected bw gradient.png" id="1_nnisx"]
+[ext_resource type="PackedScene" uid="uid://b8nkjvuu3sco8" path="res://game/UI/timeline_panel/round.tscn" id="2_kby65"]
+[ext_resource type="Script" uid="uid://coj4t1q50owa2" path="res://game/UI/timeline_panel/timeline.gd" id="2_yandp"]
+[ext_resource type="PackedScene" uid="uid://b6sljwfp8gs1d" path="res://game/UI/timeline_panel/upgrade.tscn" id="3_yandp"]
+[ext_resource type="PackedScene" uid="uid://csjwbdqrsuw6i" path="res://game/UI/timeline_panel/downgrade.tscn" id="4_f8tgi"]
+[ext_resource type="Texture2D" uid="uid://c3nd3og52aks7" path="res://game/assets/up_arrow.png" id="4_kby65"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f8tgi"]
+texture = ExtResource("1_nnisx")
+
+[node name="Timeline" type="Panel" node_paths=PackedStringArray("timeline_container")]
+self_modulate = Color(0, 0, 0, 1)
+clip_children = 2
+custom_minimum_size = Vector2(50, 19)
+offset_right = 50.0
+offset_bottom = 19.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_f8tgi")
+script = ExtResource("2_yandp")
+upgrade_scene = ExtResource("3_yandp")
+downgrade_scene = ExtResource("4_f8tgi")
+round_scene = ExtResource("2_kby65")
+timeline_container = NodePath("HBoxContainer")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_top = 4.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_f8tgi")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 10.0
+grow_horizontal = 2
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -7.9999924
+offset_right = 4.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("4_kby65")
+expand_mode = 1
+stretch_mode = 5

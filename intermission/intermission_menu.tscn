@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://c5151n8v6645w"]
+[gd_scene load_steps=35 format=3 uid="uid://c5151n8v6645w"]
 
 [ext_resource type="Script" uid="uid://h531hpff7fyb" path="res://intermission_background.gd" id="1_3b4nm"]
 [ext_resource type="Script" uid="uid://bsste0045nkbd" path="res://intermission/intermission_menu.gd" id="1_yvdn4"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://bba4cdnn4qmm6" path="res://game/enemies/line_enemy/line_enemy.tscn" id="15_fbdnw"]
 [ext_resource type="Theme" uid="uid://c6mssg2ngmqpk" path="res://game/game_ui_theme.tres" id="16_4jr5q"]
 [ext_resource type="FontFile" uid="uid://d3xv2jvjnv25p" path="res://game/assets/TinyUnicode.ttf" id="17_fbdnw"]
+[ext_resource type="PackedScene" uid="uid://io2xm657xi7l" path="res://game/UI/timeline_panel/timeline.tscn" id="19_kfo7d"]
 
 [sub_resource type="Gradient" id="Gradient_0i6aa"]
 offsets = PackedFloat32Array(0.00551724, 0.41853, 0.571885, 0.728435, 1)
@@ -235,6 +236,13 @@ theme_override_fonts/font = ExtResource("17_fbdnw")
 theme_override_font_sizes/font_size = 16
 text = "X1.0"
 horizontal_alignment = 2
+
+[node name="Panel2" parent="CanvasLayer" instance=ExtResource("19_kfo7d")]
+anchors_preset = -1
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 116.0
+offset_bottom = 35.0
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_d7pyx")

@@ -197,3 +197,5 @@ fade_in = 1e-05
 fade_out = 1.6245047
 shakerPreset = SubResource("Resource_6jybn")
 metadata/_custom_type_script = "uid://b5fqudd1ivpc4"
+
+[editable path="CanvasLayer/Control"]

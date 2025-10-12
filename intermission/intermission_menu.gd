@@ -47,7 +47,7 @@ func _ready() -> void:
 			
 
 func _on_mod_button_pressed(button: Button) -> void:
-	ScoreManager.currentRound += 1
+	ScoreManager.next_round()
 	SceneManager.change_scene("res://main_scene.tscn", {"transition": "fade"})
 
 
