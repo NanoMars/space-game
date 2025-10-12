@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://s488jtj1i4ci"]
+[gd_scene load_steps=33 format=3 uid="uid://s488jtj1i4ci"]
 
 [ext_resource type="PackedScene" uid="uid://c0utlmtqcar20" path="res://game/modifier/modifier_caller.tscn" id="1_66tet"]
 [ext_resource type="PackedScene" uid="uid://tt1rrpyhclj1" path="res://game/enemyspawning/spawner.tscn" id="2_7ycvg"]
@@ -12,10 +12,8 @@
 [ext_resource type="Script" uid="uid://b5fqudd1ivpc4" path="res://addons/shaker/src/Vector2/shaker_component2D.gd" id="8_42l1d"]
 [ext_resource type="Script" uid="uid://bfm6pj5ivbxmw" path="res://addons/shaker/data/Vector2/BaseShakerType2D.gd" id="9_2jcla"]
 [ext_resource type="PackedScene" uid="uid://ss4fpfqvx68y" path="res://game/background/backgrounds/asteroids.tscn" id="10_6jybn"]
-[ext_resource type="Shader" uid="uid://dawlanyidv1xr" path="res://intermission/test.gdshader" id="10_jo72c"]
 [ext_resource type="Script" uid="uid://dxnalig1b7nm4" path="res://addons/shaker/data/Vector2/ShakerTypeSineWave2D.gd" id="10_m35m6"]
 [ext_resource type="PackedScene" uid="uid://de3vo8dv04q1i" path="res://game/background/backgrounds/earth.tscn" id="11_84odl"]
-[ext_resource type="Texture2D" uid="uid://cjdxiqij7aekk" path="res://game/assets/pallette.png" id="11_h8riy"]
 [ext_resource type="Script" uid="uid://dd7ox1dvjmocd" path="res://addons/shaker/data/Vector2/ShakerTypeSquareWave2D.gd" id="11_u0ygc"]
 [ext_resource type="Script" uid="uid://dd8rirfnf6tm" path="res://addons/shaker/data/Single/BaseShakerType1D.gd" id="13_6jybn"]
 [ext_resource type="PackedScene" uid="uid://ci73gs5od06cx" path="res://game/background/backgrounds/asteroid_belt.tscn" id="13_vimvf"]
@@ -23,10 +21,6 @@
 [ext_resource type="Script" uid="uid://cwkss1mgr7jhu" path="res://addons/shaker/data/Vector2/ShakerPreset2D.gd" id="14_84odl"]
 [ext_resource type="PackedScene" uid="uid://c7hvmxa26cov7" path="res://game/background/backgrounds/galaxy.tscn" id="14_ghshe"]
 [ext_resource type="Script" uid="uid://c7b4uif626858" path="res://addons/shaker/data/Single/ShakerTypeRandom1D.gd" id="15_m35m6"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wr18j"]
-shader = ExtResource("10_jo72c")
-shader_parameter/palette = ExtResource("11_h8riy")
 
 [sub_resource type="Curve" id="Curve_ak604"]
 _limits = [0.0, 2.0, 0.0, 15.0]
@@ -105,18 +99,9 @@ spawn_points = [NodePath("Marker2D5"), NodePath("Marker2D3"), NodePath("Marker2D
 [node name="MusicSetter" type="Node" parent="."]
 script = ExtResource("3_m35m6")
 
-[node name="CanvasLayer3" type="CanvasLayer" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer3"]
-material = SubResource("ShaderMaterial_wr18j")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("4_84odl")
+ease_speed = 2.5
 noise = ExtResource("7_ak604")
 use_mouse_pos = false
 

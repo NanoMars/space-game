@@ -71,6 +71,7 @@ var keybinds_shown: bool = false
 
 func _ready() -> void:
 	reset()
+	
 
 
 func reset() -> void:
@@ -95,6 +96,7 @@ func reset() -> void:
 	while rounds.size() < always_have_x_rounds:
 		generate_rounds()
 	previous_rounds.append(round_types.Round)
+	print("rounds: ", rounds)
 
 func next_round() -> void:
 	var nr = rounds.pop_front()
@@ -126,6 +128,8 @@ func next_round() -> void:
 
 	current_round_type = nr
 	on_round_complete.emit()
+	print("rounds: ", rounds)
+	
 
 func generate_rounds() -> void:
 	var round_count: int = int(randi_range(min_rounds_before_intermission, max_rounds_before_intermission))

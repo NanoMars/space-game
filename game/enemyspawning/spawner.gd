@@ -240,5 +240,15 @@ func _debug(context: String, message: String, include_state: bool = false) -> vo
 func _ensure_player_reference() -> bool:
 	if is_instance_valid(player):
 		return true
-	player = get_tree().get_first_node_in_group("player") as Node2D
+	if not is_inside_tree():
+		return false
+	var tree := get_tree()
+	if tree == null:
+		return false
+	var found_player := tree.get_first_node_in_group("player")
+	if found_player == null:
+		return false
+	if not (found_player is Node2D):
+		return false
+	player = found_player as Node2D
 	return is_instance_valid(player)

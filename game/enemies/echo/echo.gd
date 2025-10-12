@@ -56,5 +56,4 @@ func damage(_amount: float, _from: Node = null) -> void:
 
 	if weapon_node and weapon_node.has_method("fire_once") and hit_count >= shoot_every_n_hits:
 		hit_count = 0
-		print("Echo shooting in response to hit ", hit_count)
 		weapon_node.fire_once()

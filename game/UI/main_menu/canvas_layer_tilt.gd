@@ -39,10 +39,9 @@ func _process(delta: float) -> void:
 	var n: Vector2
 	if not use_mouse_pos and is_instance_valid(get_tree().get_first_node_in_group("player") ):
 		var player: Node2D = get_tree().get_first_node_in_group("player")
-		var player_pos = player.global_position
-		var screen_size = get_viewport().get_visible_rect().size
-		
-		var part_1 = player_pos / screen_size
+		var player_velocity = player.velocity.normalized()
+
+		var part_1 = player_velocity
 		var part_2 = Vector2(
 				noise.get_noise_2d(time, 0.0),
 				noise.get_noise_2d(0.0, time)

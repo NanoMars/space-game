@@ -17,6 +17,7 @@ func _ready() -> void:
 		display.weapon_stats = weapon
 		weapon_display_container.add_child(display)
 		display.pressed.connect(_on_weapon_display_pressed.bind(display))
+	weapon_display_container.get_children()[0].grab_focus()
 
 
 

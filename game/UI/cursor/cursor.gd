@@ -1,6 +1,7 @@
 extends Node
 
 var cursor_scene: PackedScene = preload("res://game/UI/cursor/cursor.tscn")
+var overlay_scene: PackedScene = preload("res://game/UI/filter_overlay.tscn")
 var cursor_instance: CanvasLayer
 var panel_instance: Panel
 
@@ -25,6 +26,8 @@ func _ready() -> void:
 	panel_instance = cursor_instance.get_node("Panel") as Panel
 	Settings.settings_changed.connect(_on_settings_changed)
 	_on_settings_changed()
+	var overlay_instance: CanvasLayer = overlay_scene.instantiate()
+	add_child(overlay_instance)
 
 func _on_settings_changed() -> void:
 	enabled = Settings.get("custom cursor")

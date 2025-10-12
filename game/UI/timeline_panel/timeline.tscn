@@ -57,3 +57,9 @@ grow_vertical = 0
 texture = ExtResource("4_kby65")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(50, 19)
+anchors_preset = 0
+offset_right = 50.0
+offset_bottom = 40.0
