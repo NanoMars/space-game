@@ -51,8 +51,8 @@ var current_round_type: int = round_types.Round
 var rounds: Array = [
 ]
 
-var min_rounds_before_intermission: int = 1
-var max_rounds_before_intermission: int = 3
+var min_rounds_before_intermission: int = 0
+var max_rounds_before_intermission: int = 1
 
 var rounds_since_intermission: int = 0
 var previous_rounds: Array = []
@@ -91,23 +91,15 @@ func reset() -> void:
 	previous_rounds.clear()
 	rounds.clear()
 	
-	for i in range(always_have_x_rounds):
-		var rt = round_types.values()[randi() % round_types.size()]
-		rounds.append(rt)
+	while rounds.size() < always_have_x_rounds:
+		generate_rounds()
 
 func next_round() -> void:
 	var nr = rounds.pop_front()
 	previous_rounds.append(nr)
 
-	var rt: int
-	if rounds_since_intermission < min_rounds_before_intermission:
-		rt = round_types.Round
-	elif rounds_since_intermission >= max_rounds_before_intermission:
-		rt = round_types.Downgrade
-	else:
-		rt = round_types.values()[randi() % round_types.size()]
-	
-	rounds.append(rt)
+	while rounds.size() < always_have_x_rounds:
+		generate_rounds()
 	
 	match nr:
 		round_types.Round:
@@ -117,7 +109,7 @@ func next_round() -> void:
 			print("currentRound_type: ", current_round_type)
 			currentRound += 1
 			rounds_since_intermission += 1
-			if current_round_type == round_types.Round:
+			if nr == round_types.Round:
 				reset_spawner.emit()
 				print("emitted reset spawner")
 			else:
@@ -131,3 +123,10 @@ func next_round() -> void:
 			rounds_since_intermission = 0
 
 	current_round_type = nr
+
+func generate_rounds() -> void:
+	var round_count: int = int(randi_range(min_rounds_before_intermission, max_rounds_before_intermission))
+	for i in range(round_count):
+		rounds.append(round_types.Round)
+	rounds.append(round_types.Downgrade)
+	
