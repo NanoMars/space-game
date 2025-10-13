@@ -11,6 +11,8 @@ var normal_move_speed: float
 @export var tilt_speed: float = 5.0
 @export var tilt_object: Node3D
 
+@export var jetstream_nodes: Array[Line2D]
+
 var weapon_stats: WeaponStats:
 	set(value):
 		if weapon:
@@ -69,8 +71,10 @@ func _physics_process(delta: float) -> void:
 	print("target_tilt: ", target_tilt, " velocity: ", velocity, " normal_move_speed: ", normal_move_speed)
 	tilt_object.rotation_degrees = lerp(tilt_object.rotation_degrees, Vector3(target_tilt.y, 180, -target_tilt.x), tilt_speed * delta)
 
+	for node in jetstream_nodes:
+		if node:
+			node.active = velocity.y < 0
 
-	
 
 func get_camera_visible_world_rect() -> Rect2:
 	# Uses Camera2D center and zoom to compute the world-space rect that is currently on screen.

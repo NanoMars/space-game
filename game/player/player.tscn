@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://dkf7mjen6nt18"]
+[gd_scene load_steps=59 format=3 uid="uid://dkf7mjen6nt18"]
 
 [ext_resource type="Script" uid="uid://bsg0au27h3f7j" path="res://game/player/player.gd" id="1_obar5"]
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_b2mth"]
@@ -28,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://bdmqd8yyyc44e" path="res://game/assets/keys/S_Outline.png" id="23_qfwia"]
 [ext_resource type="Script" uid="uid://u0bxia362hua" path="res://game/player/enemy_arrows.gd" id="24_brh81"]
 [ext_resource type="PackedScene" uid="uid://745fwpgx24q3" path="res://game/player/enemy_arrows/enemy_arrow.tscn" id="25_ib3u0"]
+[ext_resource type="Script" uid="uid://dalqbb0ohx8i4" path="res://game/player/jetstream.gd" id="29_w24bm"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ib3u0"]
 viewport_path = NodePath("PlayerSprite/SubViewport")
@@ -259,7 +260,8 @@ metadata/_custom_type_script = "uid://6gxmi8526yn1"
 [sub_resource type="ViewportTexture" id="ViewportTexture_cgi3i"]
 viewport_path = NodePath("Sprite2D3/SubViewport")
 
-[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("tilt_object", "shaker_component") groups=["player"]]
+[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("tilt_object", "jetstream_nodes", "shaker_component") groups=["player"]]
+position = Vector2(166, 0)
 collision_layer = 5
 script = ExtResource("1_obar5")
 move_speed = 1250.0
@@ -267,6 +269,7 @@ shooting_move_speed = 250.0
 tilt_angle_deg = Vector2(70, 25)
 tilt_speed = 10.0
 tilt_object = NodePath("PlayerSprite/SubViewport/MeshInstance3D")
+jetstream_nodes = [NodePath("Marker2D/Line2D")]
 shiny_thing_scene = ExtResource("2_bp242")
 shaker_component = NodePath("PlayerSprite/SubViewport/MeshInstance3D/ShakerComponent3D")
 
@@ -367,3 +370,12 @@ size = Vector2i(161, 161)
 
 [node name="Node2D" type="Node2D" parent="Sprite2D3/SubViewport"]
 position = Vector2(80, 80)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(13, 14)
+
+[node name="Line2D" type="Line2D" parent="Marker2D"]
+top_level = true
+width = 2.0
+default_color = Color(17.400091, 17.400091, 17.400091, 1)
+script = ExtResource("29_w24bm")
