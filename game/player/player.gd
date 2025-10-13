@@ -11,7 +11,7 @@ var normal_move_speed: float
 @export var tilt_speed: float = 5.0
 @export var tilt_object: Node3D
 
-@export var jetstream_nodes: Array[Line2D]
+@export var jetstream_nodes: Array[Marker2D]
 
 var weapon_stats: WeaponStats:
 	set(value):
