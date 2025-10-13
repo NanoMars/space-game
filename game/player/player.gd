@@ -1,10 +1,16 @@
 extends CharacterBody2D
 
 @export var move_speed: float = 5.0
+var normal_move_speed: float
 @export var shooting_move_speed: float = 2.5
 
 @onready var health: Health = $Health
 @onready var weapon: Weapon = $Weapon
+
+@export var tilt_angle_deg: Vector2 = Vector2(10.0, 5.0)
+@export var tilt_speed: float = 5.0
+@export var tilt_object: Node3D
+
 var weapon_stats: WeaponStats:
 	set(value):
 		if weapon:
@@ -29,6 +35,7 @@ func _ready() -> void:
 		health.died.connect(_on_died)
 	weapon_stats = ScoreManager.player_weapon
 	weapon.weapon_stats = weapon_stats
+	normal_move_speed = move_speed / 60
 
 func _physics_process(delta: float) -> void:
 	var input_vector: Vector2 = Vector2(
@@ -56,6 +63,14 @@ func _physics_process(delta: float) -> void:
 	var shoot_pressed := Input.is_action_pressed("shoot") 
 	if weapon:
 		weapon.firing = shoot_pressed
+	
+	# Handle tilt based on movement
+	var target_tilt: Vector2 = (velocity / normal_move_speed) * tilt_angle_deg
+	print("target_tilt: ", target_tilt, " velocity: ", velocity, " normal_move_speed: ", normal_move_speed)
+	tilt_object.rotation_degrees = lerp(tilt_object.rotation_degrees, Vector3(target_tilt.y, 180, -target_tilt.x), tilt_speed * delta)
+
+
+	
 
 func get_camera_visible_world_rect() -> Rect2:
 	# Uses Camera2D center and zoom to compute the world-space rect that is currently on screen.
