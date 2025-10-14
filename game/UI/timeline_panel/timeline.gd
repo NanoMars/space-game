@@ -39,15 +39,15 @@ func _instantiate_round(round_type) -> Control:
 			inst = downgrade_scene.instantiate()
 		ScoreManager.round_types.Round:
 			inst = round_scene.instantiate()
-		# ScoreManager.round_types.Upgrade:
-		# 	inst = upgrade_scene.instantiate()
+		ScoreManager.round_types.Upgrade:
+			inst = upgrade_scene.instantiate()
 	return inst
 
 func animate_new_round(round_type) -> Control:
 	var inst: Control
 	match round_type:
-		#ScoreManager.round_types.Upgrade:
-		#	inst = upgrade_scene.instantiate()
+		ScoreManager.round_types.Upgrade:
+			inst = upgrade_scene.instantiate()
 		ScoreManager.round_types.Downgrade:
 			inst = downgrade_scene.instantiate()
 		ScoreManager.round_types.Round:

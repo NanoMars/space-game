@@ -1,0 +1,203 @@
+[gd_scene load_steps=21 format=3 uid="uid://pdjlya8m3emp"]
+
+[ext_resource type="Script" uid="uid://bsste0045nkbd" path="res://game/UI/intermission/intermission_menu.gd" id="1_ima4g"]
+[ext_resource type="Shader" uid="uid://cqmwery73hf88" path="res://game/UI/intermission/upgrade/upgrade_screen.gdshader" id="2_rnnoo"]
+[ext_resource type="AudioStream" uid="uid://brpis3oee1lgf" path="res://game/sound/tunnel.wav" id="3_70l7h"]
+[ext_resource type="Script" uid="uid://c75u2713r4bxx" path="res://game/UI/main_menu/canvas_layer_tilt.gd" id="4_ayn17"]
+[ext_resource type="FastNoiseLite" uid="uid://bg65nvcq4fe05" path="res://game/UI/main_menu/canvas_layer_tilt_noise.tres" id="5_fsyld"]
+[ext_resource type="Shader" uid="uid://s4clk6hl5ixd" path="res://game/UI/intermission/buttonshader.gdshader" id="6_80mcw"]
+[ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://game/UI/intermission/button_theme.tres" id="7_q5xn5"]
+[ext_resource type="Script" uid="uid://3scsxn16mp8e" path="res://game/UI/intermission/mod_select.gd" id="8_3t68n"]
+[ext_resource type="Script" uid="uid://bkeoml7x3rkuu" path="res://game/modifier/Modifier.gd" id="9_n38w7"]
+[ext_resource type="Shader" uid="uid://cuejqmse7fsm1" path="res://game/UI/intermission/dissolve.gdshader" id="16_5am3u"]
+[ext_resource type="Theme" uid="uid://c6mssg2ngmqpk" path="res://game/game_ui_theme.tres" id="17_yy1hg"]
+[ext_resource type="FontFile" uid="uid://d3xv2jvjnv25p" path="res://game/assets/TinyUnicode.ttf" id="18_p81wk"]
+[ext_resource type="PackedScene" uid="uid://io2xm657xi7l" path="res://game/UI/timeline_panel/timeline.tscn" id="19_tpd2b"]
+[ext_resource type="Shader" uid="uid://b66latbe5eymd" path="res://game/UI/intermission/vignette.gdshader" id="20_hufht"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vabir"]
+shader = ExtResource("2_rnnoo")
+shader_parameter/time_speed = 1.0
+shader_parameter/flip_y = false
+shader_parameter/sea_color_dark = Color(0.55, 0.55, 0.55, 1)
+shader_parameter/sea_color_light = Color(0.6, 0.6, 0.6, 1)
+shader_parameter/refraction_color = Color(0.8624, 0.93492, 0.98, 1)
+shader_parameter/light_shaft_color = Color(0.81420004, 0.783, 0.9, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1heoq"]
+shader = ExtResource("6_80mcw")
+shader_parameter/normal_offset = 1.5
+shader_parameter/time_influence = 2.5
+shader_parameter/y_div = 5.6
+shader_parameter/opacity = 1.0
+shader_parameter/seed = 0.0
+shader_parameter/tint_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_dmros"]
+script = ExtResource("9_n38w7")
+display_name = "homing bullets"
+max_stacks = 3
+score_multiplier = -1.5
+metadata/_custom_type_script = "uid://bkeoml7x3rkuu"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yvdn4"]
+shader = ExtResource("6_80mcw")
+shader_parameter/normal_offset = 1.5
+shader_parameter/time_influence = 2.5
+shader_parameter/y_div = 5.6
+shader_parameter/opacity = 1.0
+shader_parameter/seed = 0.0
+shader_parameter/tint_color = Color(0.21410304, 0.21410304, 0.21410301, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s5603"]
+shader = ExtResource("16_5am3u")
+shader_parameter/opacity = 0.0
+shader_parameter/seed = 0.0
+shader_parameter/dissolve_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d7pyx"]
+shader = ExtResource("20_hufht")
+shader_parameter/outerRadius = -0.17
+shader_parameter/fadeDistance = 2.106
+shader_parameter/MainAlpha = 0.779
+shader_parameter/effect_color = Color(0.16, 0.022399997, 0.022399997, 0.7294118)
+
+[node name="Control" type="Control" node_paths=PackedStringArray("mod_list", "decision_list", "score_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ima4g")
+mod_list = NodePath("CanvasLayer/mod_select")
+decision_list = NodePath("CanvasLayer/decisions")
+score_label = NodePath("CanvasLayer/ScoreLabel")
+win_screen_scene = "uid://dat7srefm4ijx"
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_vabir")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_70l7h")
+volume_db = -11.49
+autoplay = true
+bus = &"Music"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("4_ayn17")
+noise = ExtResource("5_fsyld")
+
+[node name="mod_select" type="VBoxContainer" parent="CanvasLayer" node_paths=PackedStringArray("mult_label")]
+material = SubResource("ShaderMaterial_1heoq")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -39.0
+offset_top = -35.5
+offset_right = 39.0
+offset_bottom = 35.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_q5xn5")
+script = ExtResource("8_3t68n")
+mod_list = Array[ExtResource("9_n38w7")]([SubResource("Resource_dmros")])
+mult_label = NodePath("../MultiplierLabel")
+
+[node name="decisions" type="VBoxContainer" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_yvdn4")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.0
+offset_top = -23.0
+offset_right = 54.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_q5xn5")
+theme_override_constants/separation = 16
+
+[node name="ContinueButton" type="Button" parent="CanvasLayer/decisions"]
+use_parent_material = true
+layout_mode = 2
+theme = ExtResource("7_q5xn5")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "continue"
+
+[node name="EndButton" type="Button" parent="CanvasLayer/decisions"]
+use_parent_material = true
+layout_mode = 2
+theme = ExtResource("7_q5xn5")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "end it here
+(submit your score)"
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_s5603")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -122.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 28.0
+grow_horizontal = 0
+theme = ExtResource("17_yy1hg")
+text = "124523"
+horizontal_alignment = 2
+
+[node name="MultiplierLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -121.0
+offset_top = 19.0
+offset_right = -15.0
+offset_bottom = 32.0
+grow_horizontal = 0
+theme = ExtResource("17_yy1hg")
+theme_override_fonts/font = ExtResource("18_p81wk")
+theme_override_font_sizes/font_size = 16
+text = "X1.0"
+horizontal_alignment = 2
+
+[node name="Panel2" parent="CanvasLayer" instance=ExtResource("19_tpd2b")]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 116.0
+offset_bottom = 35.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_d7pyx")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.00152)
+mouse_filter = 2
+
+[connection signal="pressed" from="CanvasLayer/decisions/ContinueButton" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="CanvasLayer/decisions/EndButton" to="." method="_on_end_button_pressed"]

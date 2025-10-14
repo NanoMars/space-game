@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://tt1rrpyhclj1"]
 
 [ext_resource type="Script" uid="uid://c8wg56r7a643h" path="res://game/enemyspawning/spawner.gd" id="1_21c48"]
-[ext_resource type="PackedScene" uid="uid://c5151n8v6645w" path="res://intermission/intermission_menu.tscn" id="2_nanre"]
+[ext_resource type="PackedScene" uid="uid://c5151n8v6645w" path="res://game/UI/intermission/downgrade/downgrade_screen.tscn" id="2_nanre"]
 
 [node name="Spawner" type="Node" node_paths=PackedStringArray("spawn_points") groups=["spawner"]]
 script = ExtResource("1_21c48")

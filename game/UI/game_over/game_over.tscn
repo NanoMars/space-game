@@ -2,12 +2,12 @@
 
 [ext_resource type="FontFile" uid="uid://c34mefa01f57l" path="res://game/assets/Awexbmp.ttf" id="1_5g7am"]
 [ext_resource type="Script" uid="uid://dmnqr71057txj" path="res://game/UI/game_over/game_over.gd" id="1_iuany"]
-[ext_resource type="Shader" uid="uid://s4clk6hl5ixd" path="res://intermission/buttonshader.gdshader" id="1_uf6er"]
+[ext_resource type="Shader" uid="uid://s4clk6hl5ixd" path="res://game/UI/intermission/buttonshader.gdshader" id="1_uf6er"]
 [ext_resource type="Script" uid="uid://dasomuhj8owef" path="res://game/UI/game_over/text_defenition.gd" id="2_1nprd"]
 [ext_resource type="Script" uid="uid://biqxkgtmda56e" path="res://game/sound/music/music_setter.gd" id="3_uf6er"]
 [ext_resource type="Script" uid="uid://c75u2713r4bxx" path="res://game/UI/main_menu/canvas_layer_tilt.gd" id="4_pkkeu"]
 [ext_resource type="FastNoiseLite" uid="uid://bg65nvcq4fe05" path="res://game/UI/main_menu/canvas_layer_tilt_noise.tres" id="5_smeeh"]
-[ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://intermission/button_theme.tres" id="6_1nprd"]
+[ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://game/UI/intermission/button_theme.tres" id="6_1nprd"]
 
 [sub_resource type="Resource" id="Resource_xejjg"]
 script = ExtResource("2_1nprd")

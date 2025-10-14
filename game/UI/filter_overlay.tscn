@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dj1ac46bqnvir"]
 
-[ext_resource type="Shader" uid="uid://dawlanyidv1xr" path="res://intermission/test.gdshader" id="1_2blya"]
+[ext_resource type="Shader" uid="uid://dawlanyidv1xr" path="res://game/UI/intermission/test.gdshader" id="1_2blya"]
 [ext_resource type="Texture2D" uid="uid://dtko2m2nstc58" path="res://game/assets/palettes/joker-6-1x.png" id="2_tgmn2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wr18j"]

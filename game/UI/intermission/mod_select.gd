@@ -17,7 +17,7 @@ func _ready() -> void:
 	for i in range(min(button_count, available_mods.size())):
 		var button := Button.new()
 		var mod: Modifier = available_mods[i]
-		var text = mod.display_name + " + X" + str(mod.score_multiplier)
+		var text := "%s %s" % [mod.display_name, _format_multiplier(mod.score_multiplier)]
 		if ScoreManager.active_modifiers.has(mod):
 			text += " (" + str(mod.stacks) + "/" + str(mod.max_stacks) + ")"
 		button.text = text
@@ -27,6 +27,12 @@ func _ready() -> void:
 		button.theme = button_theme
 		button.use_parent_material = true
 		add_child(button)
+
+func _format_multiplier(delta: float) -> String:
+	if is_zero_approx(delta):
+		return "+ X0"
+	var sign_text := "+" if delta > 0.0 else "-"
+	return "%s X%s" % [sign_text, str(absf(delta))]
 
 func _on_mod_button_pressed(mod: Modifier, _button: Button) -> void:
 	if ScoreManager.active_modifiers.has(mod):
@@ -54,7 +60,7 @@ func _on_mod_button_pressed(mod: Modifier, _button: Button) -> void:
 
 func _on_mod_button_mouse_entered(mod: Modifier, button: Button) -> void:
 	button.grab_focus()
-	mult_label.text = "X" + str(ScoreManager.score_multiplier) + " + X" + str(mod.score_multiplier)
+	mult_label.text = "%s %s" % ["X" + str(ScoreManager.score_multiplier), _format_multiplier(mod.score_multiplier)]
 
 func _on_mod_button_mouse_exited(_mod: Modifier) -> void:
 	mult_label.text = "X" + str(ScoreManager.score_multiplier)

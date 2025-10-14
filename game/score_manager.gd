@@ -6,7 +6,8 @@ signal total_kills_changed(new_total: int)
 
 var player_weapon: WeaponStats
 
-var intermission_scene: PackedScene = preload("res://intermission/intermission_menu.tscn")
+var downgrade_scene: PackedScene = preload("res://game/UI/intermission/downgrade/downgrade_screen.tscn")
+var upgrade_scene: PackedScene = preload("res://game/UI/intermission/upgrade/upgrade_screen.tscn")
 var game_scene: PackedScene = preload("res://main_scene.tscn")
 
 var score: int:
@@ -39,10 +40,11 @@ var _total_kills: int = 10
 var concurrent_cap: int = 3
 
 var currentRound: int = 1
+var last_downgrade: bool = false
 
 enum round_types {
 	Round,
-	# Upgrade,
+	Upgrade,
 	Downgrade
 }
 
@@ -119,11 +121,13 @@ func next_round() -> void:
 			else:
 				SceneManager.change_scene(game_scene)
 
-		# round_types.Upgrade:
-		# 	print("roundtype is upgrade")
+		round_types.Upgrade:
+			print("roundtype is upgrade")
+			SceneManager.change_scene(upgrade_scene)
+			rounds_since_intermission = 0
 		round_types.Downgrade:
 			print("roundtype is downgrade")
-			SceneManager.change_scene(intermission_scene)
+			SceneManager.change_scene(downgrade_scene)
 			rounds_since_intermission = 0
 
 	current_round_type = nr
@@ -135,5 +139,9 @@ func generate_rounds() -> void:
 	var round_count: int = int(randi_range(min_rounds_before_intermission, max_rounds_before_intermission))
 	for i in range(round_count):
 		rounds.append(round_types.Round)
-	rounds.append(round_types.Downgrade)
-	
+	if last_downgrade:
+		rounds.append(round_types.Upgrade)
+		last_downgrade = false
+	else:
+		rounds.append(round_types.Downgrade)
+		last_downgrade = true

@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://5efbb5kecqr" path="res://game/UI/weapon_select/weapon_select.gd" id="1_i0fii"]
 [ext_resource type="FastNoiseLite" uid="uid://bg65nvcq4fe05" path="res://game/UI/main_menu/canvas_layer_tilt_noise.tres" id="2_48vym"]
 [ext_resource type="Script" uid="uid://bypy263lii80f" path="res://game/weapon/weapon_stats.gd" id="2_rblcg"]
-[ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://intermission/button_theme.tres" id="3_48vym"]
+[ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://game/UI/intermission/button_theme.tres" id="3_48vym"]
 [ext_resource type="Resource" uid="uid://blxmdv45ssyxh" path="res://game/weapon/weapons/narrow_sine.tres" id="3_jkg8q"]
 [ext_resource type="Resource" uid="uid://c58aaj1af0oat" path="res://game/weapon/weapons/spread1.tres" id="4_yvvyg"]
 [ext_resource type="PackedScene" uid="uid://j07bpalk35bp" path="res://game/UI/weapon_select/weapon_display/weapon_display.tscn" id="5_aeawi"]

@@ -1,10 +1,10 @@
 [gd_scene load_steps=15 format=3 uid="uid://dat7srefm4ijx"]
 
-[ext_resource type="Script" uid="uid://dinrl2uwugftt" path="res://intermission/win_screen.gd" id="1_0awbx"]
+[ext_resource type="Script" uid="uid://dinrl2uwugftt" path="res://game/UI/intermission/win_screen.gd" id="1_0awbx"]
 [ext_resource type="Script" uid="uid://h531hpff7fyb" path="res://intermission_background.gd" id="1_pkd2t"]
-[ext_resource type="Shader" uid="uid://ctwajixa25p54" path="res://intermission/dither.gdshader" id="2_4qxri"]
+[ext_resource type="Shader" uid="uid://ctwajixa25p54" path="res://game/UI/intermission/dither.gdshader" id="2_4qxri"]
 [ext_resource type="Script" uid="uid://cd5831ay70ftd" path="res://game/UI/win_screen/leaderboard.gd" id="3_tc2mx"]
-[ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://intermission/button_theme.tres" id="4_dyldh"]
+[ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://game/UI/intermission/button_theme.tres" id="4_dyldh"]
 [ext_resource type="Script" uid="uid://c75u2713r4bxx" path="res://game/UI/main_menu/canvas_layer_tilt.gd" id="5_eeew3"]
 [ext_resource type="Theme" uid="uid://ceyly33t3q6sf" path="res://game/UI/win_screen/win_screen_theme.tres" id="6_0c3qt"]
 [ext_resource type="FastNoiseLite" uid="uid://bg65nvcq4fe05" path="res://game/UI/main_menu/canvas_layer_tilt_noise.tres" id="6_yqo6m"]
