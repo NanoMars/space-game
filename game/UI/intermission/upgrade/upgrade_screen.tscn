@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://pdjlya8m3emp"]
+[gd_scene load_steps=22 format=3 uid="uid://pdjlya8m3emp"]
 
 [ext_resource type="Script" uid="uid://bsste0045nkbd" path="res://game/UI/intermission/intermission_menu.gd" id="1_ima4g"]
 [ext_resource type="Shader" uid="uid://cqmwery73hf88" path="res://game/UI/intermission/upgrade/upgrade_screen.gdshader" id="2_rnnoo"]
@@ -38,6 +38,13 @@ script = ExtResource("9_n38w7")
 display_name = "homing bullets"
 max_stacks = 3
 score_multiplier = -1.5
+metadata/_custom_type_script = "uid://bkeoml7x3rkuu"
+
+[sub_resource type="Resource" id="Resource_vptxr"]
+script = ExtResource("9_n38w7")
+display_name = "heal between rounds"
+max_stacks = 3
+score_multiplier = -0.7
 metadata/_custom_type_script = "uid://bkeoml7x3rkuu"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yvdn4"]
@@ -109,7 +116,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("7_q5xn5")
 script = ExtResource("8_3t68n")
-mod_list = Array[ExtResource("9_n38w7")]([SubResource("Resource_dmros")])
+mod_list = Array[ExtResource("9_n38w7")]([SubResource("Resource_dmros"), SubResource("Resource_vptxr")])
 mult_label = NodePath("../MultiplierLabel")
 
 [node name="decisions" type="VBoxContainer" parent="CanvasLayer"]

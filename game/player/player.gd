@@ -38,6 +38,13 @@ func _ready() -> void:
 	weapon_stats = ScoreManager.player_weapon
 	weapon.weapon_stats = weapon_stats
 	normal_move_speed = move_speed / 60
+	
+	ScoreManager.on_round_complete.connect(_on_round_complete)
+func _on_round_complete() -> void:
+	for modifier in ScoreManager.active_modifiers:
+		if modifier.display_name == "heal between rounds":
+			if health:
+				health.health += health.max_health / 3
 
 func _physics_process(delta: float) -> void:
 	var input_vector: Vector2 = Vector2(
