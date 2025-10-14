@@ -68,7 +68,6 @@ func _physics_process(delta: float) -> void:
 	
 	# Handle tilt based on movement
 	var target_tilt: Vector2 = (velocity / normal_move_speed) * tilt_angle_deg
-	print("target_tilt: ", target_tilt, " velocity: ", velocity, " normal_move_speed: ", normal_move_speed)
 	tilt_object.rotation_degrees = lerp(tilt_object.rotation_degrees, Vector3(target_tilt.y, 180, -target_tilt.x), tilt_speed * delta)
 
 	for node in jetstream_nodes:

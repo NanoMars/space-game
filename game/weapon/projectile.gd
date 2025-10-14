@@ -16,6 +16,8 @@ var trail_log: Array[Vector2] = []
 var trail_age: float = 0.0
 var homing_level: int = 0
 
+@export var enemy_projectile: bool = false
+
 @export var homing_strength_per_level: float = 100.0
 
 func _ready() -> void:
@@ -46,8 +48,6 @@ func _on_body_entered(body: Node) -> void:
 
 func _physics_process(_delta: float) -> void:
 
-	
-
 	# Raycast from the last position to the current position to catch fast hits
 	var current_pos: Vector2 = global_position
 	if last_position.distance_to(current_pos) > 0.0001:
@@ -65,9 +65,6 @@ func _physics_process(_delta: float) -> void:
 
 	# Update for next frame
 	last_position = global_position
-
-
-	
 
 	# Despawn if outside viewport bounds + exterior padding (no camera)
 	var vp_size := get_viewport().get_visible_rect().size
@@ -94,7 +91,9 @@ func _physics_process(_delta: float) -> void:
 	var velocity_length = v.length()
 	trail_age += _delta
 	trail.scale.y = trail_1px * velocity_length * min(trail_age, trail_size_seconds)
-	if homing_level > 0:
+
+
+	if homing_level > 0 and not enemy_projectile:
 		var nearest_enemy: Node2D = null
 		var nearest_dist: float = 1e10
 		for enemy in get_tree().get_nodes_in_group("enemies"):
@@ -103,14 +102,26 @@ func _physics_process(_delta: float) -> void:
 				if dist < nearest_dist:
 					nearest_dist = dist
 					nearest_enemy = enemy
-
 		if nearest_enemy:
 			var to_enemy: Vector2 = (nearest_enemy.global_position - global_position).normalized()
-			var current_dir: Vector2 = linear_velocity.normalized()
+			var current_speed: float = velocity_length
+			if current_speed <= 0.0001:
+				current_speed = weapon_stats.projectile_speed if weapon_stats else homing_strength_per_level
+			var current_dir: Vector2 = linear_velocity.normalized() if velocity_length > 0.0001 else to_enemy
 			var angle_diff: float = current_dir.angle_to(to_enemy)
-			var angle_change: float = homing_strength_per_level * homing_level * _delta / max(velocity_length, 0.0001)
-			angle_change = min(abs(angle_diff), angle_change) * sign(angle_diff)
-			var new_dir: Vector2 = current_dir.rotated(angle_change).normalized()
-			linear_velocity = new_dir * velocity_length
-
-
+			var max_turn: float = homing_strength_per_level * homing_level * _delta / max(current_speed, 0.0001)
+			var clamped_turn: float = clamp(angle_diff, -max_turn, max_turn)
+			var new_dir: Vector2 = current_dir.rotated(clamped_turn).normalized()
+			linear_velocity = new_dir * current_speed
+		
+		if nearest_enemy:
+			var to_enemy: Vector2 = (nearest_enemy.global_position - global_position).normalized()
+			var current_speed: float = velocity_length
+			if current_speed <= 0.0001:
+				current_speed = weapon_stats.projectile_speed if weapon_stats else homing_strength_per_level
+			var current_dir: Vector2 = linear_velocity.normalized() if velocity_length > 0.0001 else to_enemy
+			var angle_diff: float = current_dir.angle_to(to_enemy)
+			var max_turn: float = homing_strength_per_level * homing_level * _delta / max(current_speed, 0.0001)
+			var clamped_turn: float = clamp(angle_diff, -max_turn, max_turn)
+			var new_dir: Vector2 = current_dir.rotated(clamped_turn).normalized()
+			linear_velocity = new_dir * current_speed

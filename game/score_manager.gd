@@ -40,7 +40,7 @@ var _total_kills: int = 10
 var concurrent_cap: int = 3
 
 var currentRound: int = 1
-var last_downgrade: bool = false
+var last_downgrade: bool = true
 
 enum round_types {
 	Round,
@@ -94,6 +94,7 @@ func reset() -> void:
 	current_round_type = round_types.Round
 	previous_rounds.clear()
 	rounds.clear()
+	last_downgrade = true
 	
 	while rounds.size() < always_have_x_rounds:
 		generate_rounds()

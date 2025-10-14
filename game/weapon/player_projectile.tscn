@@ -12,6 +12,7 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_w3f7m")
 trail = NodePath("trail")
+homing_strength_per_level = 1500.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_h3368")
