@@ -54,6 +54,7 @@ func _on_died(from: Node) -> void:
 	SoundManager.play_sound(SoundManager.enemy_death)
 	if camera_die_shake:
 		camera_die_shake.play_shake()
+	FreezeFrameManager.freeze_short()
 	
 	queue_free()
 

@@ -44,7 +44,7 @@ var last_downgrade: bool = true
 
 enum round_types {
 	Round,
-	Upgrade,
+	#Upgrade,
 	Downgrade
 }
 
@@ -122,10 +122,10 @@ func next_round() -> void:
 			else:
 				SceneManager.change_scene(game_scene)
 
-		round_types.Upgrade:
-			print("roundtype is upgrade")
-			SceneManager.change_scene(upgrade_scene)
-			rounds_since_intermission = 0
+		# round_types.Upgrade:
+		# 	print("roundtype is upgrade")
+		# 	SceneManager.change_scene(upgrade_scene)
+		# 	rounds_since_intermission = 0
 		round_types.Downgrade:
 			print("roundtype is downgrade")
 			SceneManager.change_scene(downgrade_scene)
@@ -141,7 +141,7 @@ func generate_rounds() -> void:
 	for i in range(round_count):
 		rounds.append(round_types.Round)
 	if last_downgrade:
-		rounds.append(round_types.Upgrade)
+		# rounds.append(round_types.Upgrade)
 		last_downgrade = false
 	else:
 		rounds.append(round_types.Downgrade)

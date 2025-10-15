@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://c5151n8v6645w"]
+[gd_scene load_steps=37 format=3 uid="uid://c5151n8v6645w"]
 
 [ext_resource type="Script" uid="uid://h531hpff7fyb" path="res://intermission_background.gd" id="1_3b4nm"]
 [ext_resource type="Script" uid="uid://bsste0045nkbd" path="res://game/UI/intermission/intermission_menu.gd" id="1_yvdn4"]
@@ -48,6 +48,7 @@ shader_parameter/time_influence = 2.5
 shader_parameter/y_div = 5.6
 shader_parameter/opacity = 1.0
 shader_parameter/seed = 0.0
+shader_parameter/tint_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Resource" id="Resource_7pqxr"]
 script = ExtResource("7_s5603")
@@ -97,6 +98,20 @@ score_multiplier = 0.4
 enemy_to_spawn = SubResource("Resource_kfo7d")
 metadata/_custom_type_script = "uid://bkeoml7x3rkuu"
 
+[sub_resource type="Resource" id="Resource_tyfs1"]
+script = ExtResource("6_dt5tg")
+display_name = "homing bullets"
+max_stacks = 3
+score_multiplier = -1.5
+metadata/_custom_type_script = "uid://bkeoml7x3rkuu"
+
+[sub_resource type="Resource" id="Resource_i7dui"]
+script = ExtResource("6_dt5tg")
+display_name = "heal between rounds"
+max_stacks = 3
+score_multiplier = -0.7
+metadata/_custom_type_script = "uid://bkeoml7x3rkuu"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yvdn4"]
 shader = ExtResource("2_d7pyx")
 shader_parameter/normal_offset = 1.5
@@ -104,6 +119,7 @@ shader_parameter/time_influence = 2.5
 shader_parameter/y_div = 5.6
 shader_parameter/opacity = 1.0
 shader_parameter/seed = 0.0
+shader_parameter/tint_color = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s5603"]
 shader = ExtResource("9_dpipn")
@@ -168,6 +184,7 @@ grow_vertical = 2
 theme = ExtResource("2_0i6aa")
 script = ExtResource("5_vmbcd")
 mod_list = Array[ExtResource("6_dt5tg")]([SubResource("Resource_dpipn"), SubResource("Resource_nel6a"), SubResource("Resource_1vesd"), SubResource("Resource_4jr5q")])
+upgrade_list = Array[ExtResource("6_dt5tg")]([SubResource("Resource_tyfs1"), SubResource("Resource_i7dui")])
 mult_label = NodePath("../MultiplierLabel")
 
 [node name="decisions" type="VBoxContainer" parent="CanvasLayer"]

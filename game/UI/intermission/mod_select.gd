@@ -1,5 +1,6 @@
 extends VBoxContainer
 @export var mod_list: Array[Modifier] = []
+@export var upgrade_list: Array[Modifier] = []
 @export var button_theme: Theme
 @export var button_count: int = 3
 @export var mult_label: Label
@@ -12,21 +13,41 @@ func _ready() -> void:
 		if mod.stackable and ScoreManager.active_modifiers.has(mod) and mod.stacks >= mod.max_stacks:
 			continue
 		available_mods.append(mod)
+	var available_upgrades: Array[Modifier] = []
+	for mod in upgrade_list:
+		if not mod.stackable and ScoreManager.active_modifiers.has(mod):
+			continue
+		if mod.stackable and ScoreManager.active_modifiers.has(mod) and mod.stacks >= mod.max_stacks:
+			continue
+		available_upgrades.append(mod)
 	
 	available_mods.shuffle()
-	for i in range(min(button_count, available_mods.size())):
-		var button := Button.new()
+	for i in range(min(button_count - 1, available_mods.size())):
 		var mod: Modifier = available_mods[i]
-		var text := "%s %s" % [mod.display_name, _format_multiplier(mod.score_multiplier)]
-		if ScoreManager.active_modifiers.has(mod):
-			text += " (" + str(mod.stacks) + "/" + str(mod.max_stacks) + ")"
-		button.text = text
-		button.pressed.connect(_on_mod_button_pressed.bind(mod, button))
-		button.mouse_entered.connect(_on_mod_button_mouse_entered.bind(mod, button))
-		button.mouse_exited.connect(_on_mod_button_mouse_exited.bind(mod))
-		button.theme = button_theme
-		button.use_parent_material = true
-		add_child(button)
+		add_modifier_button(mod)
+	if available_upgrades.size() > 0:
+		available_upgrades.shuffle()
+		var upgrade: Modifier = available_upgrades[0]
+		add_modifier_button(upgrade)
+
+func add_modifier_button(mod: Modifier) -> void:
+	
+		
+	var button := Button.new()
+	
+	var text := "%s %s" % [mod.display_name, _format_multiplier(mod.score_multiplier)]
+	if ScoreManager.active_modifiers.has(mod):
+		text += " (" + str(mod.stacks) + "/" + str(mod.max_stacks) + ")"
+	if mod.score_multiplier + ScoreManager.score_multiplier < 0.0:
+		button.disabled = true
+		text += " too expensive!"
+	button.text = text
+	button.pressed.connect(_on_mod_button_pressed.bind(mod, button))
+	button.mouse_entered.connect(_on_mod_button_mouse_entered.bind(mod, button))
+	button.mouse_exited.connect(_on_mod_button_mouse_exited.bind(mod))
+	button.theme = button_theme
+	button.use_parent_material = true
+	add_child(button)
 
 func _format_multiplier(delta: float) -> String:
 	if is_zero_approx(delta):

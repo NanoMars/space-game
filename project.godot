@@ -24,6 +24,7 @@ SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 Settings="*res://game/UI/main_menu/settings/settings_autoload.gd"
 Cursor="*res://game/UI/cursor/cursor.gd"
 Shaker="*res://addons/shaker/src/Shaker.gd"
+FreezeFrameManager="*res://game/freeze_frame_manager.gd"
 
 [display]
 
