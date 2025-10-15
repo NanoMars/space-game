@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dat7srefm4ijx"]
+[gd_scene load_steps=18 format=3 uid="uid://dat7srefm4ijx"]
 
 [ext_resource type="Script" uid="uid://dinrl2uwugftt" path="res://game/UI/intermission/win_screen.gd" id="1_0awbx"]
 [ext_resource type="Script" uid="uid://h531hpff7fyb" path="res://intermission_background.gd" id="1_pkd2t"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://c75u2713r4bxx" path="res://game/UI/main_menu/canvas_layer_tilt.gd" id="5_eeew3"]
 [ext_resource type="Theme" uid="uid://ceyly33t3q6sf" path="res://game/UI/win_screen/win_screen_theme.tres" id="6_0c3qt"]
 [ext_resource type="FastNoiseLite" uid="uid://bg65nvcq4fe05" path="res://game/UI/main_menu/canvas_layer_tilt_noise.tres" id="6_yqo6m"]
+[ext_resource type="Shader" uid="uid://dawlanyidv1xr" path="res://game/UI/intermission/test.gdshader" id="9_bu3ou"]
+[ext_resource type="Texture2D" uid="uid://cxyr3bp8q5ahx" path="res://game/assets/palettes/New Project(3).png" id="10_p2cn3"]
 
 [sub_resource type="Gradient" id="Gradient_4qxri"]
 interpolation_mode = 1
@@ -42,6 +44,10 @@ expand_margin_top = 8.0
 expand_margin_right = 32.0
 expand_margin_bottom = 8.0
 modulate_color = Color(0, 0, 0, 0.5882353)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ie5vs"]
+shader = ExtResource("9_bu3ou")
+shader_parameter/palette = ExtResource("10_p2cn3")
 
 [node name="Control" type="Control" node_paths=PackedStringArray("text_input", "name_select_box", "leaderboard", "leaderboard_box", "name_container", "score_container", "round_container") groups=["leaderboard_item"]]
 layout_mode = 3
@@ -223,6 +229,21 @@ size_flags_horizontal = 6
 theme = ExtResource("6_0c3qt")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "play again"
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = 3
+visible = false
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+z_index = 4096
+material = SubResource("ShaderMaterial_ie5vs")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [connection signal="pressed" from="CanvasLayer/NameSelectBox/NameSubmitButton" to="." method="_on_name_submit_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/LeaderboardBox/HBoxContainer/ReturnButton" to="." method="_on_return_button_pressed"]
