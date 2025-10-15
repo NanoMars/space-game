@@ -7,7 +7,7 @@
 shader = ExtResource("1_2blya")
 shader_parameter/palette = ExtResource("2_tgmn2")
 
-[node name="CanvasLayer3" type="CanvasLayer"]
+[node name="FilterOverlay" type="CanvasLayer"]
 layer = 1000
 
 [node name="ColorRect" type="ColorRect" parent="."]
