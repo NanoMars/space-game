@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dlgvodlq4gicv"]
+[gd_scene load_steps=9 format=3 uid="uid://dlgvodlq4gicv"]
 
 [ext_resource type="Script" uid="uid://bdqhv1vauenlf" path="res://game/gameui.gd" id="1_ogh4a"]
 [ext_resource type="Theme" uid="uid://c6mssg2ngmqpk" path="res://game/game_ui_theme.tres" id="2_brkp5"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" uid="uid://km40hei07ndf" path="res://game/UI/healthVignette.gdshader" id="3_pjh2a"]
 [ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://game/UI/intermission/button_theme.tres" id="5_r2x2w"]
 [ext_resource type="PackedScene" uid="uid://io2xm657xi7l" path="res://game/UI/timeline_panel/timeline.tscn" id="6_iejap"]
+[ext_resource type="PackedScene" uid="uid://c5k85or5lb48" path="res://game/UI/healthbar/healthbar.tscn" id="7_cfuqe"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_juvnx"]
 shader = ExtResource("3_pjh2a")
@@ -75,6 +76,7 @@ text = "30 left"
 horizontal_alignment = 1
 
 [node name="HealthBar" type="ProgressBar" parent="."]
+visible = false
 self_modulate = Color(1, 1, 1, 0.490196)
 layout_mode = 1
 anchors_preset = -1
@@ -121,9 +123,14 @@ text = "round 1"
 horizontal_alignment = 1
 
 [node name="Panel2" parent="." instance=ExtResource("6_iejap")]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 116.0
 offset_bottom = 35.0
+
+[node name="Healthbar" parent="." instance=ExtResource("7_cfuqe")]
+layout_mode = 0
+anchors_preset = 0
