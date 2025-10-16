@@ -3,7 +3,7 @@ extends Control
 @onready var player: Node = get_tree().get_first_node_in_group("player")
 @onready var player_health: Health = player.get_node("Health") if is_instance_valid(player) else null
 @onready var spawner: Spawner = get_tree().get_first_node_in_group("spawner")
-@onready var health_bar: ProgressBar = $HealthBar
+@onready var health_bar: Panel = $HealthBar
 @onready var score_label: Label = $ScoreLabel
 @onready var multiplier_label: Label = $MultiplierLabel
 @onready var enemy_count_label: Label = $EnemyCountLabel
@@ -60,7 +60,7 @@ func _on_reset_spawner() -> void:
 		_enemy_count_changed(spawner._enemies_left)
 
 func _on_health_changed(new_health: float) -> void:
-	health_bar.value = new_health / player_health.max_health * health_bar.max_value
+	health_bar.value = new_health / player_health.max_health
 	if new_health < old_health:
 		var health_lost = old_health - new_health
 		vignette_rot_speed = clamp(vignette_rot_speed + health_lost * vignette_rot_speed_per_health_lost, 0.0, vignette_max_rot_speed)
@@ -96,7 +96,7 @@ func _connect_signals() -> void:
 		var health_callable := Callable(self, "_on_health_changed")
 		if not player_health.health_changed.is_connected(health_callable):
 			player_health.health_changed.connect(health_callable)
-		health_bar.value = player_health.health / player_health.max_health * health_bar.max_value
+		health_bar.value = player_health.health / player_health.max_health
 		old_health = player_health.health
 	else:
 		health_bar.value = 0.0

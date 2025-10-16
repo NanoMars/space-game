@@ -6,17 +6,18 @@
 bg_color = Color(0, 0, 0, 1)
 skew = Vector2(0.3, 0)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cfuqe"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhufb"]
 content_margin_left = 1163.0
 bg_color = Color(1, 1, 1, 1)
 skew = Vector2(0.3, 0)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhufb"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cfuqe"]
 content_margin_left = 1163.0
 bg_color = Color(1, 0, 0, 1)
 skew = Vector2(0.3, 0)
 
-[node name="Healthbar" type="Panel"]
+[node name="Healthbar" type="Panel" node_paths=PackedStringArray("health_bar", "health_bar_sibling", "delayed_health_bar", "delayed_health_bar_sibling")]
+process_mode = 3
 custom_minimum_size = Vector2(200, 11)
 anchors_preset = 2
 anchor_top = 1.0
@@ -28,6 +29,11 @@ offset_bottom = -16.0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_iejap")
 script = ExtResource("1_trs5e")
+value = 0.43
+health_bar = NodePath("MarginContainer/HBoxContainer/Panel")
+health_bar_sibling = NodePath("MarginContainer/HBoxContainer/Control")
+delayed_health_bar = NodePath("MarginContainer/HBoxContainer2/Panel")
+delayed_health_bar_sibling = NodePath("MarginContainer/HBoxContainer2/Control")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -41,21 +47,6 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.5
-theme_override_styles/panel = SubResource("StyleBoxFlat_cfuqe")
-
-[node name="Control" type="Control" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.5
-
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
@@ -63,10 +54,25 @@ theme_override_constants/separation = 0
 [node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
+size_flags_stretch_ratio = 0.43
 theme_override_styles/panel = SubResource("StyleBoxFlat_rhufb")
 
 [node name="Control" type="Control" parent="MarginContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.5
+size_flags_stretch_ratio = 0.57
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.43
+theme_override_styles/panel = SubResource("StyleBoxFlat_cfuqe")
+
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.57

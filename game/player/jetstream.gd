@@ -16,6 +16,8 @@ var lines: Array[Line2D] = []
 var current_line: Line2D = null
 
 var timer: Timer
+
+var starfield: ColorRect
 	
 func _ready() -> void:
 	timer = Timer.new()
@@ -23,6 +25,7 @@ func _ready() -> void:
 	timer.wait_time = update_speed
 	timer.timeout.connect(_on_timeout)
 	add_child(timer)
+	starfield = get_tree().get_first_node_in_group("starfield")
 	
 	
 
@@ -40,6 +43,8 @@ func _on_timeout() -> void:
 	
 
 func _process(delta: float) -> void:
+	if starfield:
+		speed = (starfield.material.get_shader_parameter("speed") / starfield.material.get_shader_parameter("compression")) * 1500
 	if active and not last_frame_active:
 		current_line = null
 	elif not active and last_frame_active:
@@ -48,7 +53,7 @@ func _process(delta: float) -> void:
 		current_line.add_point(global_position)
 		return
 	var last_index: int
-	
+
 	if active:
 		if current_line != null and current_line.get_point_count() > 1:
 			last_index = current_line.get_point_count() - 1

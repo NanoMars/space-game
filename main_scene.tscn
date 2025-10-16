@@ -125,7 +125,7 @@ ExtResource("14_ghshe"): SubResource("Curve_ak604")
 })
 background = NodePath("ColorRect")
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer2" groups=["starfield"]]
 material = SubResource("ShaderMaterial_66tet")
 custom_minimum_size = Vector2(852, 480)
 anchors_preset = 8

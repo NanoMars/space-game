@@ -75,22 +75,6 @@ theme = ExtResource("2_brkp5")
 text = "30 left"
 horizontal_alignment = 1
 
-[node name="HealthBar" type="ProgressBar" parent="."]
-visible = false
-self_modulate = Color(1, 1, 1, 0.490196)
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 6.0
-offset_top = -32.0
-offset_right = 4.0
-offset_bottom = -16.0
-grow_vertical = 0
-theme = ExtResource("2_brkp5")
-show_percentage = false
-
 [node name="Vignette" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_juvnx")
 layout_mode = 1
@@ -122,15 +106,19 @@ theme_override_font_sizes/font_size = 16
 text = "round 1"
 horizontal_alignment = 1
 
-[node name="Panel2" parent="." instance=ExtResource("6_iejap")]
-visible = false
+[node name="HealthBar" parent="." instance=ExtResource("7_cfuqe")]
+modulate = Color(1, 1, 1, 0.78431374)
+layout_mode = 1
+anchors_preset = -1
+offset_left = 16.0
+offset_top = -11.0
+offset_right = 200.0
+value = 1.0
+
+[node name="Timeline" parent="." instance=ExtResource("6_iejap")]
 layout_mode = 1
 anchors_preset = -1
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 116.0
 offset_bottom = 35.0
-
-[node name="Healthbar" parent="." instance=ExtResource("7_cfuqe")]
-layout_mode = 0
-anchors_preset = 0
