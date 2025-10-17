@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://dkf7mjen6nt18"]
+[gd_scene load_steps=69 format=3 uid="uid://dkf7mjen6nt18"]
 
 [ext_resource type="Script" uid="uid://bsg0au27h3f7j" path="res://game/player/player.gd" id="1_obar5"]
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_b2mth"]
@@ -333,6 +333,9 @@ metadata/_custom_type_script = "uid://6gxmi8526yn1"
 [sub_resource type="ViewportTexture" id="ViewportTexture_cgi3i"]
 viewport_path = NodePath("Sprite2D3/SubViewport")
 
+[sub_resource type="Gradient" id="Gradient_22cju"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.5882353)
+
 [node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("tilt_object", "jetstream_nodes", "shaker_component") groups=["player"]]
 collision_layer = 5
 script = ExtResource("1_obar5")
@@ -462,8 +465,14 @@ right_jetstream = NodePath("Marker2D")
 position = Vector2(-13, 0)
 script = ExtResource("29_w24bm")
 speed = 300.0
+trail_gradient = SubResource("Gradient_22cju")
+max_lifetime_sec = 0.1
+max_distance = 150.0
 
 [node name="Marker2D" type="Marker2D" parent="Node2D"]
 position = Vector2(13, 0)
 script = ExtResource("29_w24bm")
 speed = 300.0
+trail_gradient = SubResource("Gradient_22cju")
+max_lifetime_sec = 0.1
+max_distance = 150.0

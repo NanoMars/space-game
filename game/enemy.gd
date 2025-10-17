@@ -5,6 +5,7 @@ class_name Enemy
 @export var point_value: int = 100
 var dead: bool = false
 signal died
+var enemy_death_particles: PackedScene = preload("res://game/enemies/enemy_death_particles/enemy_death_particles.tscn")
 
 @export var shaker_component: ShakerComponent2D
 var camera: Camera2D
@@ -51,10 +52,15 @@ func _on_died(from: Node) -> void:
 	dead = true	
 	if from != self:
 		ScoreManager.score += point_value
-	SoundManager.play_sound(SoundManager.enemy_death)
+		var death_particles: GPUParticles2D = enemy_death_particles.instantiate() as GPUParticles2D
+		death_particles.global_position = global_position
+		get_parent().add_child(death_particles)
+		
 	if camera_die_shake:
 		camera_die_shake.play_shake()
 	FreezeFrameManager.freeze_short()
+	
+
 	
 	queue_free()
 

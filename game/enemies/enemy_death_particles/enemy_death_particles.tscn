@@ -1,0 +1,63 @@
+[gd_scene load_steps=11 format=3 uid="uid://1nsyg48e115k"]
+
+[ext_resource type="Texture2D" uid="uid://bp5g0a3fh1knm" path="res://game/assets/smallcircle.png" id="1_22ncp"]
+[ext_resource type="Script" uid="uid://djg7attsw3xgi" path="res://game/enemies/enemy_death_particles/enemy_death_particles.gd" id="2_4i33i"]
+
+[sub_resource type="Curve" id="Curve_4i33i"]
+_data = [Vector2(0, 1), 0.0, -0.5153041, 0, 0, Vector2(0.6, 0), -3.2848647, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_uacit"]
+curve = SubResource("Curve_4i33i")
+
+[sub_resource type="Curve" id="Curve_mvl6l"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0.0071428567, 0), 0.0, 97.483795, 0, 0, Vector2(1, 100), 101.91487, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_85scl"]
+curve = SubResource("Curve_mvl6l")
+
+[sub_resource type="Curve" id="Curve_umxs5"]
+_data = [Vector2(0, 0.50561804), 0.0, 1.7228464, 0, 0, Vector2(0.70714283, 0), -3.8911905, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_xq0lg"]
+_data = [Vector2(0, 1), 0.0, 0.6292136, 0, 0, Vector2(0.70714283, 0), -3.8911905, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_x8j3a"]
+curve_x = SubResource("Curve_umxs5")
+curve_y = SubResource("Curve_xq0lg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_36off"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 180.0
+initial_velocity_min = 237.56999
+initial_velocity_max = 411.49
+gravity = Vector3(0, 0, 0)
+damping_min = 20.0
+damping_max = 20.0
+damping_curve = SubResource("CurveTexture_85scl")
+scale_curve = SubResource("CurveXYZTexture_x8j3a")
+color = Color(1, 0, 0, 1)
+alpha_curve = SubResource("CurveTexture_uacit")
+hue_variation_min = 0.009999977
+hue_variation_max = 0.009999977
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+scale = Vector2(0.3, 0.3)
+emitting = false
+amount = 32
+texture = ExtResource("1_22ncp")
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_36off")
+script = ExtResource("2_4i33i")
+
+[connection signal="finished" from="." to="." method="_on_finished"]
