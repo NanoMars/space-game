@@ -78,10 +78,10 @@ func _ready() -> void:
 
 func reset() -> void:
 	
-	concurrent_cap = 3
+	concurrent_cap = 50
 	score_multiplier = 1.0
 	active_modifiers.clear()
-	total_kills = 10
+	total_kills = 100
 	currentRound = 1
 	enemy_types.clear()
 	var basic_enemy := EnemyType.new()

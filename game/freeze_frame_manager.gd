@@ -9,14 +9,14 @@ var freeze_count: int = 0
 func freeze_short() -> void:
 	freeze_count += 1
 	update_freeze_state()
-	await get_tree().create_timer(0.07, true).timeout
+	await get_tree().create_timer(0.02, true).timeout
 	freeze_count -= 1
 	update_freeze_state()
 
 func freeze_long() -> void:
 	freeze_count += 1
 	update_freeze_state()
-	await get_tree().create_timer(0.25, true).timeout
+	await get_tree().create_timer(0.04, true).timeout
 	freeze_count -= 1
 	update_freeze_state()
 

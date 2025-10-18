@@ -7,15 +7,15 @@
 
 [sub_resource type="Resource" id="Resource_anr75"]
 script = ExtResource("1_kkqhp")
-sine_step = 0.075
-sin_angle = 5.0
+sine_step = 0.045
+sin_angle = 8.0
 metadata/_custom_type_script = "uid://tr3qy35bjgd2"
 
 [resource]
 script = ExtResource("3_8tmc7")
-damage = 1.75
+damage = 2.5
 fire_rate = 60.0
-projectile_speed = 2000.0
+projectile_speed = 3000.0
 projectile_scene = ExtResource("2_t4eyu")
 fire_pattern = SubResource("Resource_anr75")
 sound_effect = ExtResource("4_t4eyu")

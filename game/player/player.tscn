@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://dkf7mjen6nt18"]
+[gd_scene load_steps=88 format=3 uid="uid://dkf7mjen6nt18"]
 
 [ext_resource type="Script" uid="uid://bsg0au27h3f7j" path="res://game/player/player.gd" id="1_obar5"]
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_b2mth"]
@@ -43,6 +43,24 @@
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ib3u0"]
 viewport_path = NodePath("PlayerSprite/SubViewport")
+
+[sub_resource type="Curve" id="Curve_gyg5y"]
+_data = [Vector2(0, 0.22037852), 0.0, -0.6464874, 0, 0, Vector2(1, 0), -0.07889516, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_7dece"]
+curve = SubResource("Curve_gyg5y")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_25nor"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 3.0
+spread = 180.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 0.5
+alpha_curve = SubResource("CurveTexture_7dece")
 
 [sub_resource type="World3D" id="World3D_ib3u0"]
 
@@ -414,6 +432,13 @@ shaker_component = NodePath("PlayerSprite/SubViewport/MeshInstance3D/ShakerCompo
 
 [node name="Health" parent="." instance=ExtResource("2_b2mth")]
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+scale = Vector2(0.5, 0.5)
+amount = 64
+texture = SubResource("ViewportTexture_ib3u0")
+lifetime = 0.3
+process_material = SubResource("ParticleProcessMaterial_25nor")
+
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 position = Vector2(-9.313226e-08, 1.15484e-07)
 scale = Vector2(0.50000006, 0.50000006)
@@ -449,6 +474,7 @@ position = Vector2(0, 2)
 shape = SubResource("ConvexPolygonShape2D_y6drd")
 
 [node name="Weapon" type="Marker2D" parent="."]
+position = Vector2(0, -12.72)
 script = ExtResource("3_8soms")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." node_paths=PackedStringArray("goal_node")]

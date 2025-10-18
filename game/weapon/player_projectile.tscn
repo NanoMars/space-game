@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://dr4rk40x0vonb" path="res://game/modifier/ModifierComponents/homing_component.gd" id="4_1au6m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h3368"]
-radius = 2.0
+radius = 7.0
 
 [node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("trail")]
 collision_layer = 0
@@ -18,12 +18,24 @@ trail = NodePath("trail")
 shape = SubResource("CircleShape2D_h3368")
 
 [node name="head" type="Sprite2D" parent="."]
-scale = Vector2(0.15, 0.15)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_pnwyh")
+offset = Vector2(0, -6)
+
+[node name="head" type="Sprite2D" parent="head"]
+modulate = Color(1, 1, 1, 0.49803922)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_pnwyh")
 offset = Vector2(0, -6)
 
 [node name="trail" type="Sprite2D" parent="."]
-scale = Vector2(0.15, 0.09)
+scale = Vector2(0.4, 0.24)
+texture = ExtResource("3_1au6m")
+offset = Vector2(0, 11)
+
+[node name="trail" type="Sprite2D" parent="trail"]
+modulate = Color(1, 1, 1, 0.49803922)
+scale = Vector2(1.5, 0.9)
 texture = ExtResource("3_1au6m")
 offset = Vector2(0, 11)
 

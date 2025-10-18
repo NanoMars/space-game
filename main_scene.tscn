@@ -94,12 +94,15 @@ metadata/_custom_type_script = "uid://cwkss1mgr7jhu"
 [node name="ModifierCaller" parent="." instance=ExtResource("1_66tet")]
 
 [node name="Spawner" parent="." node_paths=PackedStringArray("spawn_points") instance=ExtResource("2_7ycvg")]
+min_spawn_delay = 0.01
+max_spawn_delay = 0.1
 spawn_points = [NodePath("Marker2D5"), NodePath("Marker2D3"), NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D4"), null, null]
 
 [node name="MusicSetter" type="Node" parent="."]
 script = ExtResource("3_m35m6")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
 script = ExtResource("4_84odl")
 ease_speed = 2.5
 noise = ExtResource("7_ak604")
@@ -148,7 +151,7 @@ ignore_rotation = false
 
 [node name="ShakerComponent2D" type="Node2D" parent="Camera2D"]
 script = ExtResource("8_42l1d")
-intensity = 2.0
+intensity = 3.0
 duration = 0.3
 fade_in = 1e-05
 fade_out = 1.6245047
@@ -157,7 +160,7 @@ metadata/_custom_type_script = "uid://b5fqudd1ivpc4"
 
 [node name="EnemyDamageShake" type="Node2D" parent="Camera2D"]
 script = ExtResource("8_42l1d")
-intensity = 1.5
+intensity = 3.0
 duration = 0.15
 fade_in = 1e-05
 fade_out = 1.6245047
@@ -166,7 +169,7 @@ metadata/_custom_type_script = "uid://b5fqudd1ivpc4"
 
 [node name="EnemyDieShake" type="Node2D" parent="Camera2D"]
 script = ExtResource("8_42l1d")
-intensity = 3.0
+intensity = 5.0
 duration = 0.4
 fade_in = 1e-05
 fade_out = 1.6245047
@@ -176,7 +179,7 @@ metadata/_custom_type_script = "uid://b5fqudd1ivpc4"
 [node name="ShootShake" type="Node2D" parent="Camera2D"]
 position = Vector2(3.0517009e-05, -0.0001220697)
 script = ExtResource("8_42l1d")
-intensity = 0.5
+intensity = 1.5
 duration = 0.2
 fade_in = 1e-05
 fade_out = 1.6245047

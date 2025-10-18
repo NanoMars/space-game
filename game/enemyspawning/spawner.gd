@@ -1,13 +1,14 @@
 extends Node
 class_name Spawner
 
-@export var min_spawn_delay: float = 1.0
-@export var max_spawn_delay: float = 5.0
+@export var min_spawn_delay: float = 0.3  # Reduced from 1.0
+@export var max_spawn_delay: float = 2.0  # Reduced from 5.0
 @export var spawn_points: Array[Marker2D] = []
 @export var auto_prepare_on_ready: bool = true
 @export var intermission: PackedScene
 @export var spooky_riser: AudioStream
 @export var warning_sound: AudioStreamPlayer
+@export var spawner_time_seconds: float = 0.001
 
 var run_started: bool = false
 var _alive := 0
@@ -43,7 +44,7 @@ func _ready() -> void:
 		print("Delaying run start for tutorial or demo mode")
 		return
 	var timer := Timer.new()
-	timer.wait_time = 2.5
+	timer.wait_time = spawner_time_seconds
 	timer.one_shot = true
 	timer.autostart = true
 	add_child(timer)

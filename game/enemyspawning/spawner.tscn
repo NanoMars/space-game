@@ -37,5 +37,7 @@ position = Vector2(426, -22)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_21c48")
+volume_db = -15.0
+pitch_scale = 2.1
 max_polyphony = 10
 bus = &"SFX"
