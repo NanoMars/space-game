@@ -11,6 +11,8 @@ var enemy_death_particles: PackedScene = preload("res://game/enemies/enemy_death
 var camera: Camera2D
 var camera_damage_shake: ShakerComponent2D
 var camera_die_shake: ShakerComponent2D
+@export var hurt_sound: AudioStreamPlayer
+@export var death_sound: AudioStreamPlayer
 
 var enemy_name_display_path: String = "res://game/enemies/enemy_name_display/EnemyNameDisplay.tscn"
 
@@ -33,6 +35,22 @@ func _ready() -> void:
 		camera_die_shake = camera.get_node("EnemyDieShake") as ShakerComponent2D
 
 	camera = get_tree().get_first_node_in_group("camera") as Camera2D
+	if not hurt_sound:
+		hurt_sound = AudioStreamPlayer.new()
+		add_child(hurt_sound)
+		hurt_sound.stream = preload("res://game/enemies/Hit25.wav")
+		hurt_sound.max_polyphony = 10
+		hurt_sound.volume_db = -10
+	if not death_sound:
+		death_sound = AudioStreamPlayer.new()
+		add_child(death_sound)
+		death_sound.stream = preload("res://game/sound/enemydeath.wav")
+		death_sound.max_polyphony = 5
+		death_sound.volume_db = -10
+
+	hurt_sound.bus = "SFX"
+	death_sound.bus = "SFX"
+
 
 func damage(amount: float, from: Node = null) -> void:
 	if health and health.has_method("damage"):
@@ -48,6 +66,7 @@ func damage(amount: float, from: Node = null) -> void:
 func _on_died(from: Node) -> void:
 	if dead:
 		return
+	
 	died.emit(self)
 	dead = true	
 	if from != self:
@@ -55,6 +74,8 @@ func _on_died(from: Node) -> void:
 		var death_particles: GPUParticles2D = enemy_death_particles.instantiate() as GPUParticles2D
 		death_particles.global_position = global_position
 		get_parent().add_child(death_particles)
+		if death_sound:
+			SoundManager.play_sound(death_sound)
 		
 	if camera_die_shake:
 		camera_die_shake.play_shake()
@@ -65,4 +86,5 @@ func _on_died(from: Node) -> void:
 	queue_free()
 
 func _damaged(_amount: float, _source: Node) -> void:
-	SoundManager.play_sound(SoundManager.damage_sound_2)
+	if hurt_sound:
+		hurt_sound.play()

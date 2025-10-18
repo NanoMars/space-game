@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://bcgsulpljcd4w"
-path="res://.godot/imported/damage2.wav-daa4244eac4a46076a08cd7f903f031f.sample"
+uid="uid://cb7qbg0mftat8"
+path="res://.godot/imported/Boom56.wav-14bcdbce2e2c294899107625c71b59a3.sample"
 
 [deps]
 
-source_file="res://game/sound/damage2.wav"
-dest_files=["res://.godot/imported/damage2.wav-daa4244eac4a46076a08cd7f903f031f.sample"]
+source_file="res://game/enemies/Boom56.wav"
+dest_files=["res://.godot/imported/Boom56.wav-14bcdbce2e2c294899107625c71b59a3.sample"]
 
 [params]
 

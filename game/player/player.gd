@@ -12,6 +12,8 @@ var normal_move_speed: float
 @export var tilt_object: Node3D
 
 @export var jetstream_nodes: Array[Marker2D]
+@export var hit_light_sound: AudioStreamPlayer
+@export var hit_normal_sound: AudioStreamPlayer
 
 var weapon_stats: WeaponStats:
 	set(value):
@@ -106,10 +108,11 @@ func _on_died(_from: Node) -> void:
 	queue_free()
 
 func damage(amount: float, from: Node = null) -> void:
-	SoundManager.play_sound(SoundManager.player_hurt)
 	if amount > 30.0:
 		FreezeFrameManager.freeze_long()
+		hit_normal_sound.play()
 	else:
+		hit_light_sound.play()
 		FreezeFrameManager.freeze_short()
 	if health and health.has_method("damage"):
 		health.damage(amount, from)

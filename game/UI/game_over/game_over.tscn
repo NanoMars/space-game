@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://srqfibyqkhj6"]
+[gd_scene load_steps=19 format=3 uid="uid://srqfibyqkhj6"]
 
 [ext_resource type="FontFile" uid="uid://c34mefa01f57l" path="res://game/assets/Awexbmp.ttf" id="1_5g7am"]
 [ext_resource type="Script" uid="uid://dmnqr71057txj" path="res://game/UI/game_over/game_over.gd" id="1_iuany"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://c75u2713r4bxx" path="res://game/UI/main_menu/canvas_layer_tilt.gd" id="4_pkkeu"]
 [ext_resource type="FastNoiseLite" uid="uid://bg65nvcq4fe05" path="res://game/UI/main_menu/canvas_layer_tilt_noise.tres" id="5_smeeh"]
 [ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://game/UI/intermission/button_theme.tres" id="6_1nprd"]
+[ext_resource type="AudioStream" uid="uid://cdwe5ktl837k5" path="res://game/sound/talk1.wav" id="9_x2y4k"]
+[ext_resource type="AudioStream" uid="uid://c3ir1ahg2a4bh" path="res://game/sound/talk2.wav" id="10_i8xu8"]
 
 [sub_resource type="Resource" id="Resource_xejjg"]
 script = ExtResource("2_1nprd")
@@ -50,6 +52,7 @@ shader_parameter/time_influence = 3.0
 shader_parameter/y_div = 1.8
 shader_parameter/opacity = 1.0
 shader_parameter/seed = 0.0
+shader_parameter/tint_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Theme" id="Theme_4yg3d"]
 default_font = ExtResource("1_5g7am")
@@ -63,8 +66,9 @@ shader_parameter/time_influence = 3.0
 shader_parameter/y_div = 1.8
 shader_parameter/opacity = 1.0
 shader_parameter/seed = 0.0
+shader_parameter/tint_color = Color(1, 1, 1, 1)
 
-[node name="Control" type="Control" node_paths=PackedStringArray("label_to_write", "buttons", "button_container")]
+[node name="Control" type="Control" node_paths=PackedStringArray("label_to_write", "buttons", "button_container", "talk1", "talk2")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -78,6 +82,8 @@ buttons = [NodePath("CanvasLayer/HBoxContainer/TryAgain"), NodePath("CanvasLayer
 button_container = NodePath("CanvasLayer/HBoxContainer")
 game_scene = "uid://s488jtj1i4ci"
 main_menu_scene = "uid://cwhe2iy3exa36"
+talk1 = NodePath("talk1")
+talk2 = NodePath("talk2")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -146,6 +152,16 @@ layout_mode = 2
 focus_neighbor_left = NodePath("../TryAgain")
 theme = ExtResource("6_1nprd")
 text = "give up"
+
+[node name="talk1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_x2y4k")
+max_polyphony = 10
+bus = &"SFX"
+
+[node name="talk2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_i8xu8")
+max_polyphony = 10
+bus = &"SFX"
 
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/TryAgain" to="." method="_on_try_again_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/GiveUp" to="." method="_on_give_up_pressed"]

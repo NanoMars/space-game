@@ -7,3 +7,5 @@ class_name WeaponStats
 @export var projectile_speed: float = 60.0
 @export var projectile_scene: PackedScene
 @export var fire_pattern: FirePattern
+@export var sound_effect: AudioStream
+@export var sound_volume_db: float = 0.0

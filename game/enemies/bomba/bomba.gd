@@ -36,7 +36,6 @@ func _ready() -> void:
 
 func _on_timer_timeout() -> void:
 	beeps_to_explode -= 1
-	SoundManager.play_sound(SoundManager.bomb_beep)
 	if beeps_to_explode <= 0:
 		explode()
 	else:

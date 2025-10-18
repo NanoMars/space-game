@@ -32,6 +32,7 @@ var _time: float = 0.0
 var can_shoot: bool = true
 var camera: Camera2D
 var camera_shake: ShakerComponent2D
+var sound_player: AudioStreamPlayer
 	
 func setup_weapon() -> void:
 	call_deferred("get_projectile_container")
@@ -45,6 +46,17 @@ func setup_weapon() -> void:
 		add_child(shot_timer)
 		shot_timer.timeout.connect(_shot_timer_timeout)
 	call_deferred("_setup_camera")
+	if not sound_player:
+		sound_player = AudioStreamPlayer.new()
+		add_child(sound_player)
+		sound_player.bus = "SFX"
+	if weapon_stats and weapon_stats.sound_effect:
+		sound_player.stream = weapon_stats.sound_effect
+		var stream_length = sound_player.stream.get_length()
+		var interval = 1.0 / weapon_stats.fire_rate
+		sound_player.max_polyphony = ceil(stream_length / interval)
+		sound_player.volume_db = weapon_stats.sound_volume_db
+		
 
 func _setup_camera() -> void:
 	camera = get_tree().get_first_node_in_group("camera") as Camera2D
@@ -62,7 +74,8 @@ func _shot_timer_timeout() -> void:
 func fire_once() -> void:
 	can_shoot = false
 	if not display_mode:
-		SoundManager.play_sound(SoundManager.player_gunshot)
+		if sound_player and sound_player.stream:
+			sound_player.play()
 		if camera_shake:
 			camera_shake.play_shake()
 	if not weapon_stats or not fire_pattern:

@@ -8,7 +8,8 @@ extends Control
 @export_file("*.tscn") var main_menu_scene: String
 var ctx: Dictionary[String, int] = {}
 var _left_click_was_pressed: bool = false
-
+@export var talk1: AudioStreamPlayer
+@export var talk2: AudioStreamPlayer
 
 func _ready() -> void:
 	ctx["Score"] = ScoreManager.score
@@ -75,8 +76,8 @@ func animate_text() -> void:
 
 		# Type-in animation (skip completes the line instantly)
 		for i in range(goal_characters + 1):
-			SoundManager.play_sound(SoundManager.talk_1)
 			label_to_write.visible_characters = i
+			talk1.play()
 			if await wait_or_skip(char_time_in):
 				label_to_write.visible_characters = goal_characters
 				break
@@ -88,8 +89,8 @@ func animate_text() -> void:
 
 			# Type-out animation (skip clears the line instantly)
 			for i in range(goal_characters, -1, -1):
-				SoundManager.play_sound(SoundManager.talk_2)
 				label_to_write.visible_characters = i
+				talk2.play()
 				if await wait_or_skip(char_time_out):
 					label_to_write.visible_characters = 0
 					break

@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://ea7kv5lf5kqx"
-path="res://.godot/imported/bomb_beep.wav-4f883e584faa2a7d4418332f4231bcc9.sample"
+uid="uid://dxgqliyiwun3m"
+path="res://.godot/imported/Hit12.wav-c3711900eb581ef6c46cbc823e296db5.sample"
 
 [deps]
 
-source_file="res://game/sound/bomb_beep.wav"
-dest_files=["res://.godot/imported/bomb_beep.wav-4f883e584faa2a7d4418332f4231bcc9.sample"]
+source_file="res://game/UI/weapon_select/Hit12.wav"
+dest_files=["res://.godot/imported/Hit12.wav-c3711900eb581ef6c46cbc823e296db5.sample"]
 
 [params]
 

@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="WeaponStats" load_steps=5 format=3 uid="uid://blxmdv45ssyxh"]
+[gd_resource type="Resource" script_class="WeaponStats" load_steps=6 format=3 uid="uid://blxmdv45ssyxh"]
 
 [ext_resource type="Script" uid="uid://tr3qy35bjgd2" path="res://game/weapon/sine_pattern.gd" id="1_kkqhp"]
 [ext_resource type="PackedScene" uid="uid://ce8lm1647q0xr" path="res://game/weapon/player_projectile.tscn" id="2_t4eyu"]
 [ext_resource type="Script" uid="uid://bypy263lii80f" path="res://game/weapon/weapon_stats.gd" id="3_8tmc7"]
+[ext_resource type="AudioStream" uid="uid://dxgqliyiwun3m" path="res://game/UI/weapon_select/Hit12.wav" id="4_t4eyu"]
 
 [sub_resource type="Resource" id="Resource_anr75"]
 script = ExtResource("1_kkqhp")
@@ -17,4 +18,6 @@ fire_rate = 60.0
 projectile_speed = 2000.0
 projectile_scene = ExtResource("2_t4eyu")
 fire_pattern = SubResource("Resource_anr75")
+sound_effect = ExtResource("4_t4eyu")
+sound_volume_db = -10.0
 metadata/_custom_type_script = "uid://bypy263lii80f"
