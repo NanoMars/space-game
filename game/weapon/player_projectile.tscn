@@ -33,4 +33,4 @@ hit_from_inside = true
 
 [node name="HomingComponent" type="Node2D" parent="."]
 script = ExtResource("4_1au6m")
-homing_level = 1
+homing_strength_per_level = 1000.0

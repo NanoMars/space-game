@@ -1,14 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://tt1rrpyhclj1"]
+[gd_scene load_steps=4 format=3 uid="uid://tt1rrpyhclj1"]
 
 [ext_resource type="Script" uid="uid://c8wg56r7a643h" path="res://game/enemyspawning/spawner.gd" id="1_21c48"]
 [ext_resource type="PackedScene" uid="uid://c5151n8v6645w" path="res://game/UI/intermission/downgrade/downgrade_screen.tscn" id="2_nanre"]
+[ext_resource type="AudioStream" uid="uid://x5dvlq7mxyxi" path="res://game/sound/warning.mp3" id="3_21c48"]
 
-[node name="Spawner" type="Node" node_paths=PackedStringArray("spawn_points") groups=["spawner"]]
+[node name="Spawner" type="Node" node_paths=PackedStringArray("spawn_points", "warning_sound") groups=["spawner"]]
 script = ExtResource("1_21c48")
 min_spawn_delay = 0.4
 max_spawn_delay = 0.8
-spawn_points = [NodePath("Marker2D5"), NodePath("Marker2D3"), NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D4"), NodePath(""), NodePath("")]
+spawn_points = [NodePath("Marker2D5"), NodePath("Marker2D3"), NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D4")]
 intermission = ExtResource("2_nanre")
+warning_sound = NodePath("AudioStreamPlayer")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
@@ -32,3 +34,8 @@ position = Vector2(319, -22)
 
 [node name="Marker2D4" type="Marker2D" parent="."]
 position = Vector2(426, -22)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_21c48")
+max_polyphony = 10
+bus = &"SFX"

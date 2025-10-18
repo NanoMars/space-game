@@ -14,6 +14,7 @@ var normal_move_speed: float
 @export var jetstream_nodes: Array[Marker2D]
 @export var hit_light_sound: AudioStreamPlayer
 @export var hit_normal_sound: AudioStreamPlayer
+@export var death_sound: AudioStreamPlayer
 
 var weapon_stats: WeaponStats:
 	set(value):
@@ -105,6 +106,7 @@ func _on_died(_from: Node) -> void:
 	var shiny_thing_instance = shiny_thing_scene.instantiate()
 	shiny_thing_instance.global_position = self.global_position
 	get_parent().add_child(shiny_thing_instance)
+	SoundManager.play_sound(death_sound)
 	queue_free()
 
 func damage(amount: float, from: Node = null) -> void:

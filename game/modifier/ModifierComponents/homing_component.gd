@@ -16,10 +16,10 @@ func _ready() -> void:
 		return
 	
 	# Check for homing modifier stacks
-	for modifier in ScoreManager.active_modifiers:
-		if modifier.display_name == "homing bullets":
-			homing_level = modifier.stacks
-			break
+	# for modifier in ScoreManager.active_modifiers:
+	# 	if modifier.display_name == "homing bullets":
+	# 		homing_level = modifier.stacks
+	# 		break
 	process_priority = 10
 	
 
@@ -55,5 +55,6 @@ func _physics_process(_delta: float) -> void:
 	var clamped_turn: float = clamp(angle_diff, -max_turn, max_turn)
 	var new_dir: Vector2 = current_dir.rotated(clamped_turn).normalized()
 	print("changing velocity to ", new_dir * current_speed)
+	await get_tree().process_frame
 	projectile.linear_velocity = new_dir * current_speed
 	print("New projectile velocity: ", projectile.linear_velocity)

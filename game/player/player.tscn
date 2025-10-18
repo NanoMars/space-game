@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://dkf7mjen6nt18"]
+[gd_scene load_steps=85 format=3 uid="uid://dkf7mjen6nt18"]
 
 [ext_resource type="Script" uid="uid://bsg0au27h3f7j" path="res://game/player/player.gd" id="1_obar5"]
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_b2mth"]
@@ -39,6 +39,7 @@
 [ext_resource type="AudioStream" uid="uid://4wqr0s8me3jk" path="res://game/player/sound/impactPlate_medium_003.ogg" id="34_25nor"]
 [ext_resource type="AudioStream" uid="uid://dvlfknh5ish3e" path="res://game/player/sound/impactPlate_light_003.ogg" id="34_p3uph"]
 [ext_resource type="AudioStream" uid="uid://3wigfdn6gm22" path="res://game/player/sound/impactPlate_light_004.ogg" id="35_qfwia"]
+[ext_resource type="AudioStream" uid="uid://djg5o6tqv6wam" path="res://game/sound/542024__rob_marion__gasp_explosion_3.wav" id="40_gyg5y"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ib3u0"]
 viewport_path = NodePath("PlayerSprite/SubViewport")
@@ -396,7 +397,7 @@ stream_2/stream = ExtResource("33_bdb11")
 stream_3/stream = ExtResource("34_p3uph")
 stream_4/stream = ExtResource("35_qfwia")
 
-[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("tilt_object", "jetstream_nodes", "hit_light_sound", "hit_normal_sound", "shaker_component") groups=["player"]]
+[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("tilt_object", "jetstream_nodes", "hit_light_sound", "hit_normal_sound", "death_sound", "shaker_component") groups=["player"]]
 collision_layer = 5
 script = ExtResource("1_obar5")
 move_speed = 1250.0
@@ -407,6 +408,7 @@ tilt_object = NodePath("PlayerSprite/SubViewport/MeshInstance3D")
 jetstream_nodes = [NodePath("Node2D/Marker2D2"), NodePath("Node2D/Marker2D")]
 hit_light_sound = NodePath("hitsoundlight")
 hit_normal_sound = NodePath("hitsound")
+death_sound = NodePath("deathsound")
 shiny_thing_scene = ExtResource("2_bp242")
 shaker_component = NodePath("PlayerSprite/SubViewport/MeshInstance3D/ShakerComponent3D")
 
@@ -553,3 +555,6 @@ bus = &"SFX"
 stream = SubResource("AudioStreamRandomizer_cy4e0")
 max_polyphony = 15
 bus = &"SFX"
+
+[node name="deathsound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("40_gyg5y")

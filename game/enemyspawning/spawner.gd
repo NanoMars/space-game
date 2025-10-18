@@ -7,6 +7,7 @@ class_name Spawner
 @export var auto_prepare_on_ready: bool = true
 @export var intermission: PackedScene
 @export var spooky_riser: AudioStream
+@export var warning_sound: AudioStreamPlayer
 
 var run_started: bool = false
 var _alive := 0
@@ -163,6 +164,8 @@ func _try_spawn_tick():
 	inst.global_position = pt.global_position
 	enemy_spawned.emit(inst)
 	_debug("try_spawn", "spawned %s" % inst.name)
+	if warning_sound:
+		warning_sound.play()
 	
 	inst.tree_exited.connect(_on_enemy_died.bind(inst.global_transform))
 	_alive += 1
