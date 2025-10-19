@@ -98,7 +98,7 @@ func reset() -> void:
 	
 	while rounds.size() < always_have_x_rounds:
 		generate_rounds()
-	previous_rounds.append(round_types.Round)
+	previous_rounds.append(rounds.pop_front())
 	print("rounds: ", rounds)
 
 func next_round() -> void:
@@ -140,9 +140,5 @@ func generate_rounds() -> void:
 	var round_count: int = int(randi_range(min_rounds_before_intermission, max_rounds_before_intermission))
 	for i in range(round_count):
 		rounds.append(round_types.Round)
-	if last_downgrade:
-		# rounds.append(round_types.Upgrade)
-		last_downgrade = false
-	else:
-		rounds.append(round_types.Downgrade)
-		last_downgrade = true
+
+	rounds.append(round_types.Downgrade)

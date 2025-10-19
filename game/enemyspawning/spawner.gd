@@ -187,7 +187,7 @@ func _on_enemy_died(transform: Transform2D) -> void:
 	_debug("enemy_died", "killed=%d left=%d" % [_killed, _enemies_left])
 	if _killed >= ScoreManager.total_kills:
 		_wave_prepared = false
-	if _enemies_left <= 0:
+	if _enemies_left <= 5:
 		_debug("enemy_died", "triggering next round")
 		next_round()
 

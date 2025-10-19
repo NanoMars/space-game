@@ -130,7 +130,7 @@ size = Vector2i(64, 64)
 [node name="Node2D" type="Node2D" parent="SubViewport"]
 
 [node name="Camera2D" type="Camera2D" parent="SubViewport/Node2D"]
-zoom = Vector2(0.75, 0.75)
+zoom = Vector2(0.545, 0.545)
 
 [node name="Weapon" type="Marker2D" parent="SubViewport/Node2D"]
 position = Vector2(0, 30)

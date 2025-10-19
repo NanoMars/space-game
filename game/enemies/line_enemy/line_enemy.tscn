@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://w21rtvb6lh8k" path="res://game/enemies/line_enemy/target.png" id="7_f2688"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m2fxr"]
-radius = 16.0
+radius = 20.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t0mac"]
 shader = ExtResource("5_s80nr")
@@ -96,18 +96,16 @@ collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_s80nr")
 speed = 12500.0
-damage_dealt = 6.0
 idle_time = 4.0
 overshoot_distance = 32.0
 goal_display = NodePath("Line2D")
 temp_target = NodePath("Sprite2D4")
 aiming_speed = 2.0
 enemy_name = "Smiler"
-point_value = 150
+point_value = 1500
 shaker_component = NodePath("Sprite2D/ShakerComponent2D")
 
 [node name="Health" parent="." instance=ExtResource("2_s80nr")]
-max_health = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_m2fxr")
@@ -128,7 +126,7 @@ end_cap_mode = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0.5, 0)
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.12499999, 0.125)
 texture = ExtResource("4_cko2a")
 
 [node name="ShakerComponent2D" parent="Sprite2D" instance=ExtResource("4_f2688")]

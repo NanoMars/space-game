@@ -22,13 +22,13 @@ func _ready() -> void:
 		available_upgrades.append(mod)
 	
 	available_mods.shuffle()
-	for i in range(min(button_count - 1, available_mods.size())):
+	for i in range(min(button_count, available_mods.size())):
 		var mod: Modifier = available_mods[i]
 		add_modifier_button(mod)
-	if available_upgrades.size() > 0:
-		available_upgrades.shuffle()
-		var upgrade: Modifier = available_upgrades[0]
-		add_modifier_button(upgrade)
+	# if available_upgrades.size() > 0:
+	# 	available_upgrades.shuffle()
+	# 	var upgrade: Modifier = available_upgrades[0]
+	# 	add_modifier_button(upgrade)
 
 func add_modifier_button(mod: Modifier) -> void:
 	
