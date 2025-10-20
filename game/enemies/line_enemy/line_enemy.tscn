@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bba4cdnn4qmm6"]
+[gd_scene load_steps=16 format=3 uid="uid://bba4cdnn4qmm6"]
 
 [ext_resource type="Script" uid="uid://c2grberfd3ysn" path="res://game/enemies/line_enemy/line_enemy.gd" id="1_s80nr"]
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_s80nr"]
@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://cf62rds3mrey6" path="res://game/enemies/line_enemy/line.gdshader" id="5_s80nr"]
 [ext_resource type="Texture2D" uid="uid://1ajk10keexwp" path="res://game/assets/circleblur.png" id="6_t0mac"]
 [ext_resource type="Texture2D" uid="uid://w21rtvb6lh8k" path="res://game/enemies/line_enemy/target.png" id="7_f2688"]
+[ext_resource type="AudioStream" uid="uid://bqpcbu3wxdwwa" path="res://game/enemies/line_enemy/eerie_scream.mp3" id="8_cko2a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m2fxr"]
 radius = 20.0
@@ -91,7 +92,7 @@ _data = {
 &"locked": SubResource("Animation_cko2a")
 }
 
-[node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("goal_display", "temp_target", "shaker_component") groups=["enemies"]]
+[node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("goal_display", "temp_target", "shaker_component", "death_sound") groups=["enemies"]]
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_s80nr")
@@ -104,6 +105,7 @@ aiming_speed = 2.0
 enemy_name = "Smiler"
 point_value = 1500
 shaker_component = NodePath("Sprite2D/ShakerComponent2D")
+death_sound = NodePath("AudioStreamPlayer")
 
 [node name="Health" parent="." instance=ExtResource("2_s80nr")]
 
@@ -151,3 +153,9 @@ texture = ExtResource("6_t0mac")
 [node name="Sprite2D4" type="Sprite2D" parent="."]
 top_level = true
 texture = ExtResource("7_f2688")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_cko2a")
+volume_db = 2.773
+pitch_scale = 1.32
+bus = &"SFX"
