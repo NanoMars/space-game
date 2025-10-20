@@ -15,3 +15,4 @@ func _ready() -> void:
 
 func _on_settings_changed() -> void:
 	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("SFX"), Settings._get("sfx volume"))
+	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Master"), Settings._get("master volume"))

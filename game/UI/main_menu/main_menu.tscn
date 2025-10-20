@@ -16,6 +16,7 @@ shader_parameter/time_influence = 3.0
 shader_parameter/y_div = 2.87
 shader_parameter/opacity = 1.0
 shader_parameter/seed = 0.0
+shader_parameter/tint_color = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t4kx0"]
 shader = ExtResource("2_o7bun")
@@ -24,6 +25,7 @@ shader_parameter/time_influence = 3.0
 shader_parameter/y_div = 2.87
 shader_parameter/opacity = 1.0
 shader_parameter/seed = 100.0
+shader_parameter/tint_color = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ab5y6"]
 shader = ExtResource("2_o7bun")
@@ -32,6 +34,7 @@ shader_parameter/time_influence = 3.0
 shader_parameter/y_div = 2.87
 shader_parameter/opacity = 1.0
 shader_parameter/seed = 100.0
+shader_parameter/tint_color = Color(1, 1, 1, 1)
 
 [node name="Control" type="Control" node_paths=PackedStringArray("default_focus")]
 layout_mode = 3
@@ -76,8 +79,9 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/VBoxContainer2"]
 material = SubResource("ShaderMaterial_o7bun")
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(122, 100)
 layout_mode = 2
+size_flags_horizontal = 0
 texture = ExtResource("1_eh0q4")
 expand_mode = 1
 stretch_mode = 4

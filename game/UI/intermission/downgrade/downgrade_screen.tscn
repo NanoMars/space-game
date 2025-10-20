@@ -52,6 +52,7 @@ shader_parameter/tint_color = Color(1, 1, 1, 1)
 [sub_resource type="Resource" id="Resource_7pqxr"]
 script = ExtResource("7_s5603")
 scene = ExtResource("7_gldry")
+weight = 0.35
 metadata/_custom_type_script = "uid://b5htysbr1cbiw"
 
 [sub_resource type="Resource" id="Resource_dpipn"]

@@ -73,7 +73,6 @@ func _on_request_completed(result, response_code, _headers, body):
 	var kind := _request_kind
 	_request_kind = RequestKind.NONE
 	if result != HTTPRequest.RESULT_SUCCESS:
-		print("HTTP failed, code:", response_code)
 		# If a fetch was queued, try it now even after failure.
 		if _queued_fetch:
 			_queued_fetch = false
@@ -82,7 +81,6 @@ func _on_request_completed(result, response_code, _headers, body):
 
 	var text: String = body.get_string_from_utf8()
 	if text.is_empty():
-		print("No content")
 		# Still allow a queued fetch.
 		if _queued_fetch:
 			_queued_fetch = false

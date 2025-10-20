@@ -78,10 +78,10 @@ func _ready() -> void:
 
 func reset() -> void:
 	
-	concurrent_cap = 50
+	concurrent_cap = 35
 	score_multiplier = 1.0
 	active_modifiers.clear()
-	total_kills = 100
+	total_kills = 65
 	currentRound = 1
 	enemy_types.clear()
 	var basic_enemy := EnemyType.new()
@@ -99,7 +99,6 @@ func reset() -> void:
 	while rounds.size() < always_have_x_rounds:
 		generate_rounds()
 	previous_rounds.append(rounds.pop_front())
-	print("rounds: ", rounds)
 
 func next_round() -> void:
 	var nr = rounds.pop_front()
@@ -111,14 +110,10 @@ func next_round() -> void:
 	match nr:
 		round_types.Round:
 
-			print("roundtype is round")
-			print("nr: ", nr)
-			print("currentRound_type: ", current_round_type)
 			currentRound += 1
 			rounds_since_intermission += 1
 			if nr == round_types.Round:
 				reset_spawner.emit()
-				print("emitted reset spawner")
 			else:
 				SceneManager.change_scene(game_scene)
 
@@ -127,13 +122,11 @@ func next_round() -> void:
 		# 	SceneManager.change_scene(upgrade_scene)
 		# 	rounds_since_intermission = 0
 		round_types.Downgrade:
-			print("roundtype is downgrade")
 			SceneManager.change_scene(downgrade_scene)
 			rounds_since_intermission = 0
 
 	current_round_type = nr
 	on_round_complete.emit()
-	print("rounds: ", rounds)
 	
 
 func generate_rounds() -> void:

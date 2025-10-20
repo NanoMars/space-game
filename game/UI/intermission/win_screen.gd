@@ -62,24 +62,20 @@ func display_leaderboard(data) -> void:
 			child.queue_free()
 	for row in data:
 		for column in row:
-			print("  Column: ", column)
 			match column:
 				"name":
-					print("Adding name: ", row[column])
 					var name_label := Label.new()
 					name_label.text = str(row[column])
 					name_label.theme = label_theme
 					name_label.add_to_group("leaderboard_item")
 					name_container.add_child(name_label)
 				"score":
-					print("Adding score: ", row[column])
 					var score_label := Label.new()
 					score_label.text = str(int(row[column]))
 					score_label.theme = label_theme
 					score_label.add_to_group("leaderboard_item")
 					score_container.add_child(score_label)
 				"round":
-					print("Adding round: ", row[column])
 					var round_label := Label.new()
 					round_label.text = str(int(row[column]))
 					round_label.theme = label_theme
@@ -92,7 +88,6 @@ func display_leaderboard(data) -> void:
 		leaderboard_box.show()
 		await leaderboard_tween.finished
 		leaderboard_tweened = true
-	print("Leaderboard data received: ", data)
 	
 				
 

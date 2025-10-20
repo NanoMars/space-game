@@ -40,7 +40,6 @@ func _physics_process(_delta: float) -> void:
 	if not nearest_enemy:
 		return
 	
-	print("Homing towards enemy at distance: ", nearest_dist)
 	# Apply homing behavior
 	var to_enemy: Vector2 = (nearest_enemy.global_position - projectile.global_position).normalized()
 	var velocity_length: float = projectile.linear_velocity.length()
@@ -54,7 +53,5 @@ func _physics_process(_delta: float) -> void:
 	var max_turn: float = homing_strength_per_level * homing_level * _delta / max(current_speed, 0.0001)
 	var clamped_turn: float = clamp(angle_diff, -max_turn, max_turn)
 	var new_dir: Vector2 = current_dir.rotated(clamped_turn).normalized()
-	print("changing velocity to ", new_dir * current_speed)
 	await get_tree().process_frame
 	projectile.linear_velocity = new_dir * current_speed
-	print("New projectile velocity: ", projectile.linear_velocity)

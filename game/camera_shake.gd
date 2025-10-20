@@ -32,7 +32,6 @@ func _physics_process(delta: float) -> void:
 		shake_offset_velocity = Vector2.ZERO
 		offset = Vector2.ZERO
 		rotation_degrees = 0.0
-	print("Offset: ", offset, " Rotation: ", rotation_degrees, " Velocity: ", shake_offset_velocity, " Shake Offset: ", shake_offset)
 
 func asymptotic_function(value: float, max_value: float, k: float) -> float:
 	# var signasf = 1.0 if value >= 0.0 else -1.0

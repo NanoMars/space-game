@@ -25,6 +25,10 @@ func _ready() -> void:
 	if Settings.get("demo mode") == false:
 			Settings.set("tutorial enabled", false)
 
+	await get_tree().create_timer(15.0).timeout
+	ScoreManager.reset()
+	SceneManager.change_scene(main_menu_scene, {"transition": "fade"})
+
 
 
 	

@@ -15,6 +15,7 @@ var normal_move_speed: float
 @export var hit_light_sound: AudioStreamPlayer
 @export var hit_normal_sound: AudioStreamPlayer
 @export var death_sound: AudioStreamPlayer
+@export var damage_shake: ShakerComponent2D
 
 var weapon_stats: WeaponStats:
 	set(value):

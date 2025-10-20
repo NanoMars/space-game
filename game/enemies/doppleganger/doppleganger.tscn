@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dhrvl7mrmdym7"]
+[gd_scene load_steps=11 format=3 uid="uid://dhrvl7mrmdym7"]
 
 [ext_resource type="Script" uid="uid://d2qfgtw21oyxx" path="res://game/enemies/doppleganger/doppleganger.gd" id="1_nokfo"]
 [ext_resource type="ArrayMesh" uid="uid://80nhwrfxwbca" path="res://game/player/player_mesh.tres" id="2_7wyts"]
+[ext_resource type="Script" uid="uid://c8018vmdqbhdj" path="res://game/health.gd" id="3_tckfg"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_7wyts"]
 viewport_path = NodePath("PlayerSprite/SubViewport")
@@ -37,12 +38,13 @@ viewport_path = NodePath("PlayerSprite/SubViewport")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7wyts"]
 
-[node name="RigidBody2D" type="RigidBody2D"]
-position = Vector2(89, 0)
-collision_layer = 0
+[node name="RigidBody2D" type="RigidBody2D" groups=["enemies"]]
+collision_layer = 2
+collision_mask = 4
 script = ExtResource("1_nokfo")
 delay = 1.5
 enemy_name = "doppel"
+point_value = 10000
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 modulate = Color(1, 0, 0, 1)
@@ -76,3 +78,8 @@ size = 1.25
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_7wyts")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("3_tckfg")
+max_health = 1000.0
+metadata/_custom_type_script = "uid://c8018vmdqbhdj"

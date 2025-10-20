@@ -37,7 +37,7 @@ script = ExtResource("1_1sskn")
 damage_dealt = 50.0
 amplitude = 150.0
 frequency_hz = 0.2
-vertical_speed = 20.0
+vertical_speed = 16.5
 raycast_l = NodePath("RayCastL")
 raycast_r = NodePath("RayCastR")
 enemy_name = "Laser"
@@ -48,6 +48,7 @@ shaker_component = NodePath("Sprite2D/ShakerComponent2D")
 shape = SubResource("RectangleShape2D_43rru")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_43rru")
 
