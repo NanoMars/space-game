@@ -171,9 +171,12 @@ func _on_enemy_died(transform: Transform2D) -> void:
 	enemy_died.emit(transform)
 	if _killed >= ScoreManager.total_kills:
 		_wave_prepared = false
+	
 	if _enemies_left <= 10 and ScoreManager.rounds[0] != ScoreManager.round_types.Downgrade:
+		print("Enemies left: ", _enemies_left, " rounds[0]: ", ScoreManager.rounds[0], " downgrade: ", ScoreManager.round_types.Downgrade)
 		next_round()
 	elif _enemies_left <= 0:
+		print("Enemies left: ", _enemies_left, " rounds[0]: ", ScoreManager.rounds[0], " downgrade: ", ScoreManager.round_types.Downgrade)
 		next_round()
 
 func next_round() -> void:
@@ -186,6 +189,10 @@ func next_round() -> void:
 	ScoreManager.next_round()
 
 func _reset_spawner() -> void:
+	# If there are enemies still alive, add them to the next round's count
+	if _alive > 0:
+		ScoreManager.total_kills += _alive
+	
 	# Reset all spawner state to beginning of round
 	_alive = 0
 	_enemies_spawned = 0

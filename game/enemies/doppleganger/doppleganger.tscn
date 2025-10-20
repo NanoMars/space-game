@@ -1,8 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://dhrvl7mrmdym7"]
+[gd_scene load_steps=18 format=3 uid="uid://dhrvl7mrmdym7"]
 
 [ext_resource type="Script" uid="uid://d2qfgtw21oyxx" path="res://game/enemies/doppleganger/doppleganger.gd" id="1_nokfo"]
 [ext_resource type="ArrayMesh" uid="uid://80nhwrfxwbca" path="res://game/player/player_mesh.tres" id="2_7wyts"]
+[ext_resource type="PackedScene" uid="uid://d36xrvxjoyniq" path="res://game/enemies/enemy_shaker_component.tscn" id="2_grw57"]
 [ext_resource type="Script" uid="uid://c8018vmdqbhdj" path="res://game/health.gd" id="3_tckfg"]
+[ext_resource type="AudioStream" uid="uid://reh01g2t3s7p" path="res://game/enemies/doppleganger/mp3/qubodup-GhostMoan01.mp3" id="4_lbk1b"]
+[ext_resource type="AudioStream" uid="uid://cseokpqqj62ab" path="res://game/enemies/doppleganger/mp3/qubodup-GhostMoan02.mp3" id="5_grw57"]
+[ext_resource type="AudioStream" uid="uid://6n3w7hg1g64a" path="res://game/enemies/doppleganger/mp3/qubodup-GhostMoan03.mp3" id="6_nrf62"]
+[ext_resource type="AudioStream" uid="uid://dx1l27qhq7euo" path="res://game/enemies/doppleganger/mp3/qubodup-GhostMoan04.mp3" id="7_4ng4u"]
+[ext_resource type="AudioStream" uid="uid://snlm85p71401" path="res://game/enemies/doppleganger/mp3/qubodup-GhostMoan05.mp3" id="8_aax3r"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_7wyts"]
 viewport_path = NodePath("PlayerSprite/SubViewport")
@@ -38,13 +44,24 @@ viewport_path = NodePath("PlayerSprite/SubViewport")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7wyts"]
 
-[node name="RigidBody2D" type="RigidBody2D" groups=["enemies"]]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_sc1cg"]
+streams_count = 5
+stream_0/stream = ExtResource("4_lbk1b")
+stream_1/stream = ExtResource("5_grw57")
+stream_2/stream = ExtResource("6_nrf62")
+stream_3/stream = ExtResource("7_4ng4u")
+stream_4/stream = ExtResource("8_aax3r")
+
+[node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("ambient_sound", "shaker_component") groups=["enemies"]]
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_nokfo")
 delay = 1.5
+ambient_sound = NodePath("AudioStreamPlayer")
+random_range = Vector2(1, 3)
 enemy_name = "doppel"
 point_value = 10000
+shaker_component = NodePath("GPUParticles2D/ShakerComponent2D")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 modulate = Color(1, 0, 0, 1)
@@ -53,6 +70,8 @@ amount = 64
 texture = SubResource("ViewportTexture_7wyts")
 lifetime = 0.3
 process_material = SubResource("ParticleProcessMaterial_53dlk")
+
+[node name="ShakerComponent2D" parent="GPUParticles2D" instance=ExtResource("2_grw57")]
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 visible = false
@@ -81,5 +100,10 @@ shape = SubResource("CircleShape2D_7wyts")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("3_tckfg")
-max_health = 1000.0
+max_health = 500.0
 metadata/_custom_type_script = "uid://c8018vmdqbhdj"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_sc1cg")
+volume_db = -5.0
+bus = &"SFX"

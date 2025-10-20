@@ -76,8 +76,10 @@ func _on_mod_button_pressed(mod: Modifier, _button: Button) -> void:
 			ScoreManager.enemy_types.append(mod.enemy_to_spawn)
 
 	# always increase difficulty when picking a modifier
-	ScoreManager.total_kills = int(ScoreManager.total_kills * 1.5)
-	ScoreManager.concurrent_cap = int(ScoreManager.concurrent_cap * 1.5)
+	if mod.enemy_to_spawn != null:
+		var weight = mod.enemy_to_spawn.weight
+		ScoreManager.total_kills = int(ScoreManager.total_kills * (1.0 + weight))
+	ScoreManager.concurrent_cap = int(ScoreManager.concurrent_cap * 1.3)
 
 func _on_mod_button_mouse_entered(mod: Modifier, button: Button) -> void:
 	button.grab_focus()

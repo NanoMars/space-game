@@ -66,7 +66,7 @@ metadata/_custom_type_script = "uid://bkeoml7x3rkuu"
 [sub_resource type="Resource" id="Resource_nel6a"]
 script = ExtResource("10_diied")
 doppleganger_scene = ExtResource("9_gldry")
-display_name = "Add Dopple"
+display_name = "Add Doppel"
 stackable = false
 score_multiplier = 0.8
 metadata/_custom_type_script = "uid://br7ayqjve2drn"

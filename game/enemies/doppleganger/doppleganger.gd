@@ -4,8 +4,10 @@ extends Enemy
 @export var delay: float = 1.0
 @export var damage_dealt: float = 50.0
 @export var update_frequency: float = 0.1
+@export var ambient_sound: AudioStreamPlayer
 
 var transform_history: Array[Transform2D] = []
+@export var random_range: Vector2
 
 func _ready() -> void:
 	super._ready()
@@ -25,6 +27,12 @@ func _ready() -> void:
 	if player:
 		var tween: Tween = create_tween().set_trans(Tween.TRANS_LINEAR)
 		tween.tween_property(self, "global_transform", player.global_transform, delay)
+	ambient_sound.finished.connect(ambient_sound_timeout)
+	ambient_sound.play()
+
+func ambient_sound_timeout() -> void:
+	await get_tree().create_timer(randf_range(random_range.x, random_range.y)).timeout
+	ambient_sound.play()
 
 func _timer_timeout() -> void:
 	if player:
@@ -40,7 +48,3 @@ func _on_body_entered(body: Node) -> void:
 		if body.has_method("damage"):
 			body.damage(damage_dealt, self)
 		queue_free()
-
-
-
-

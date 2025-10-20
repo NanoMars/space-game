@@ -34,7 +34,7 @@ offset = Vector2(0, 11)
 
 [node name="trail" type="Sprite2D" parent="trail"]
 modulate = Color(1, 1, 1, 0.49803922)
-scale = Vector2(1.5, 0.9)
+scale = Vector2(1.5, 1.5151515)
 texture = ExtResource("3_1au6m")
 offset = Vector2(0, 11)
 
