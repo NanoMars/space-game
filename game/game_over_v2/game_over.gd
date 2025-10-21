@@ -17,6 +17,11 @@ extends Control
 @export var tick_sound: AudioStreamPlayer
 @export var small_event_sound: AudioStreamPlayer
 @export var large_event_sound: AudioStreamPlayer
+@export var final_event_sound: AudioStreamPlayer
+
+@export_group("particles")
+@export var large_particles: GPUParticles2D
+@export var final_particles: GPUParticles2D
 
 @export var leagues: Dictionary[int, String] = {}
 @onready var score: int = ScoreManager.score
@@ -26,6 +31,7 @@ var time: float = 0
 var last_tick_score: int = 0
 var last_small_event_score: int = 0
 var last_large_event_score: int = 0
+var final_event_played: bool = false
 
 func _ready() -> void:
 	score = 35000
@@ -39,15 +45,19 @@ func _process(delta: float) -> void:
 	if calculated_score - last_tick_score >= tick_every_x_points:
 		tick_sound.play()
 		last_tick_score = calculated_score
-		print("Tick sound played")
 	if calculated_score - last_small_event_score >= small_event_every_x_points:
 		small_event_sound.play()
 		last_small_event_score = calculated_score
-		print("Small event sound played")
 	if calculated_score - last_large_event_score >= large_event_every_x_points:
 		large_event_sound.play()
 		last_large_event_score = calculated_score
-		print("Large event sound played")
+		large_particles.emitting = true
+
+	#print("calculated_score: ", calculated_score, " score: ", score)
+	if not final_event_played and calculated_score >= score:
+		final_event_sound.play()
+		final_particles.emitting = true
+		final_event_played = true
 	
 	var calculated_font_size = lerp(score_label_small_font_size, score_label_large_font_size, progress)
 	score_label.add_theme_font_size_override("font_size", int(calculated_font_size))

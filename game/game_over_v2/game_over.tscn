@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://0v55e684r5o8"]
+[gd_scene load_steps=19 format=3 uid="uid://0v55e684r5o8"]
 
 [ext_resource type="Script" uid="uid://cy6ndxvfnrlhl" path="res://game/game_over_v2/game_over.gd" id="1_ebh32"]
 [ext_resource type="AudioStream" uid="uid://b3f2cmcddbx4c" path="res://game/game_over_v2/bfh1_glass_breaking_02.ogg" id="2_0iqku"]
@@ -31,7 +31,28 @@ stream_2/stream = ExtResource("4_ucpgr")
 stream_3/stream = ExtResource("5_e2gvr")
 stream_4/stream = ExtResource("6_rjbny")
 
-[node name="Control" type="Control" node_paths=PackedStringArray("score_label", "tick_sound", "small_event_sound", "large_event_sound")]
+[sub_resource type="Curve" id="Curve_rjbny"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.26548672, 1), 0.0, 0.0, 0, 0, Vector2(0.3923304, 0), -16.41043, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_3yww4"]
+curve = SubResource("Curve_rjbny")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rjbny"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 32.34
+initial_velocity_max = 139.8
+gravity = Vector3(0, 196, 0)
+damping_min = 2.381
+damping_max = 2.381
+scale_min = 2.0
+scale_max = 8.0
+alpha_curve = SubResource("CurveTexture_3yww4")
+
+[node name="Control" type="Control" node_paths=PackedStringArray("score_label", "tick_sound", "small_event_sound", "large_event_sound", "final_event_sound", "large_particles", "final_particles")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -45,6 +66,9 @@ score_label = NodePath("CenterContainer/ScoreLabel")
 tick_sound = NodePath("TickSound")
 small_event_sound = NodePath("SmallSound")
 large_event_sound = NodePath("BigSound")
+final_event_sound = NodePath("FinalSound")
+large_particles = NodePath("BigParticles")
+final_particles = NodePath("FinalParticles")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -56,6 +80,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="LeagueLabel" type="Label" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 159.0
 offset_top = 49.0
@@ -99,3 +124,24 @@ grow_vertical = 2
 layout_mode = 2
 text = "asdfasdf"
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FinalParticles" type="GPUParticles2D" parent="."]
+position = Vector2(213, 120)
+emitting = false
+amount = 64
+lifetime = 10.0
+one_shot = true
+speed_scale = 5.0
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_rjbny")
+
+[node name="BigParticles" type="GPUParticles2D" parent="."]
+position = Vector2(213, 120)
+emitting = false
+amount = 3
+lifetime = 3.0
+one_shot = true
+speed_scale = 5.0
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_rjbny")
