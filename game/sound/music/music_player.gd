@@ -25,11 +25,7 @@ func _ready() -> void:
 	audio_player.stream = preload("res://game/sound/music/TORRENTIAL DEPTHS.wav")
 	audio_player.bus = "Music"
 	audio_player.play()
-	Settings.settings_changed.connect(_on_settings_changed)
-	_on_settings_changed()
-
-func _on_settings_changed() -> void:
-	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Music"), Settings._get("music volume"))
+	
 	
 func _process(delta: float) -> void:
 	if playing_music:

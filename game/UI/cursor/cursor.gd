@@ -30,7 +30,8 @@ func _ready() -> void:
 	add_child(overlay_instance)
 
 func _on_settings_changed() -> void:
-	enabled = Settings.get("custom cursor")
+	var custom_cursor = Settings.get("custom cursor")
+	enabled = custom_cursor if custom_cursor != null else true
 
 func _process(delta: float) -> void:
 	if is_visible:

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c88px0rk20o4w"
+path="res://.godot/imported/metal pipe.mp3-681a32ba299b1c864e670d0912ba2824.mp3str"
+
+[deps]
+
+source_file="res://game/game_over_v2/metal pipe.mp3"
+dest_files=["res://.godot/imported/metal pipe.mp3-681a32ba299b1c864e670d0912ba2824.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
