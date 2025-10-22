@@ -1,9 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://0v55e684r5o8"]
+[gd_scene load_steps=25 format=3 uid="uid://0v55e684r5o8"]
 
 [ext_resource type="Script" uid="uid://cy6ndxvfnrlhl" path="res://game/game_over_v2/game_over.gd" id="1_ebh32"]
+[ext_resource type="Script" uid="uid://c75u2713r4bxx" path="res://game/UI/main_menu/canvas_layer_tilt.gd" id="1_vcier"]
 [ext_resource type="AudioStream" uid="uid://b3f2cmcddbx4c" path="res://game/game_over_v2/bfh1_glass_breaking_02.ogg" id="2_0iqku"]
 [ext_resource type="AudioStream" uid="uid://c88px0rk20o4w" path="res://game/game_over_v2/metal pipe.mp3" id="2_5na4d"]
 [ext_resource type="AudioStream" uid="uid://bkf72s2js033s" path="res://game/game_over_v2/glass_01.ogg" id="2_e2gvr"]
+[ext_resource type="FastNoiseLite" uid="uid://bg65nvcq4fe05" path="res://game/UI/main_menu/canvas_layer_tilt_noise.tres" id="2_gial7"]
 [ext_resource type="AudioStream" uid="uid://bvxnrpdcgulv6" path="res://game/game_over_v2/bfh1_glass_breaking_03.ogg" id="3_ctg3b"]
 [ext_resource type="Script" uid="uid://biqxkgtmda56e" path="res://game/sound/music/music_setter.gd" id="3_ic0y4"]
 [ext_resource type="AudioStream" uid="uid://74jur2r2567r" path="res://game/game_over_v2/glass_02.ogg" id="3_rjbny"]
@@ -12,10 +14,24 @@
 [ext_resource type="AudioStream" uid="uid://dl4be7ruve4m7" path="res://game/game_over_v2/bfh1_glass_breaking_05.ogg" id="5_e2gvr"]
 [ext_resource type="AudioStream" uid="uid://c44snkjv8g81y" path="res://game/game_over_v2/bfh1_glass_breaking_06.ogg" id="6_rjbny"]
 [ext_resource type="AudioStream" uid="uid://cp0vybt0e0jyv" path="res://game/game_over_v2/Bottle Break.wav" id="7_0iqku"]
+[ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://game/UI/intermission/button_theme.tres" id="13_3yww4"]
 
 [sub_resource type="Curve" id="Curve_ebh32"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.9207161, 0.9486167), 2.092802, 2.092802, 0, 0, Vector2(1, 1), -1.1097818e-06, 0.0, 0, 0]
 point_count = 3
+
+[sub_resource type="Curve" id="Curve_vcier"]
+_limits = [0.0, 30.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.99999, 30), 68.988205, 0.0, 0, 0, Vector2(1, 2.9540234), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_gial7"]
+_limits = [1.0, 30.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 30), 68.988205, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wcldx"]
+frequency = 1.0
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ogfor"]
 streams_count = 3
@@ -52,34 +68,53 @@ scale_min = 2.0
 scale_max = 8.0
 alpha_curve = SubResource("CurveTexture_3yww4")
 
-[node name="Control" type="Control" node_paths=PackedStringArray("score_label", "tick_sound", "small_event_sound", "large_event_sound", "final_event_sound", "large_particles", "final_particles")]
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_vcier")
+noise = ExtResource("2_gial7")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(852, 480)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -430.0
+offset_top = -245.0
+offset_right = 422.0
+offset_bottom = 235.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Control" type="Control" parent="." node_paths=PackedStringArray("score_label", "tick_sound", "small_event_sound", "large_event_sound", "final_event_sound", "large_particles", "final_particles")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -8.0
+offset_right = -1.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ebh32")
 score_value_curve = SubResource("Curve_ebh32")
 score_animation_time_sec = 5.0
-score_label = NodePath("CenterContainer/ScoreLabel")
+score_label_small_font_size = 0.0
+score_label_large_font_size = 2.0
+score_label = NodePath("ScoreLabel")
 tick_sound = NodePath("TickSound")
 small_event_sound = NodePath("SmallSound")
 large_event_sound = NodePath("BigSound")
 final_event_sound = NodePath("FinalSound")
 large_particles = NodePath("BigParticles")
 final_particles = NodePath("FinalParticles")
+shake_magnitude = SubResource("Curve_vcier")
+shake_speed = SubResource("Curve_gial7")
+shake_noise = SubResource("FastNoiseLite_wcldx")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
-[node name="LeagueLabel" type="Label" parent="."]
+[node name="LeagueLabel" type="Label" parent="Control"]
 visible = false
 layout_mode = 0
 offset_left = 159.0
@@ -88,60 +123,61 @@ offset_right = 252.0
 offset_bottom = 72.0
 text = "LEGENDARY"
 
-[node name="TickSound" type="AudioStreamPlayer" parent="."]
+[node name="TickSound" type="AudioStreamPlayer" parent="Control"]
 stream = SubResource("AudioStreamRandomizer_ogfor")
 volume_db = -10.0
 pitch_scale = 6.0
 max_polyphony = 64
 
-[node name="SmallSound" type="AudioStreamPlayer" parent="."]
+[node name="SmallSound" type="AudioStreamPlayer" parent="Control"]
 stream = SubResource("AudioStreamRandomizer_3yww4")
 pitch_scale = 2.0
 max_polyphony = 23
 
-[node name="BigSound" type="AudioStreamPlayer" parent="."]
+[node name="BigSound" type="AudioStreamPlayer" parent="Control"]
 stream = ExtResource("7_0iqku")
 max_polyphony = 16
 
-[node name="FinalSound" type="AudioStreamPlayer" parent="."]
+[node name="FinalSound" type="AudioStreamPlayer" parent="Control"]
 stream = ExtResource("2_5na4d")
 max_polyphony = 16
 
-[node name="Node" type="Node" parent="."]
+[node name="Node" type="Node" parent="Control"]
 script = ExtResource("3_ic0y4")
 lowpass_enabled = true
 playing_music = false
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ScoreLabel" type="Label" parent="CenterContainer"]
-layout_mode = 2
-text = "asdfasdf"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="FinalParticles" type="GPUParticles2D" parent="."]
+[node name="FinalParticles" type="GPUParticles2D" parent="Control"]
+visible = false
 position = Vector2(213, 120)
 emitting = false
 amount = 64
 lifetime = 10.0
 one_shot = true
-speed_scale = 5.0
+speed_scale = 10.0
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_rjbny")
 
-[node name="BigParticles" type="GPUParticles2D" parent="."]
+[node name="BigParticles" type="GPUParticles2D" parent="Control"]
+visible = false
 position = Vector2(213, 120)
 emitting = false
 amount = 3
 lifetime = 3.0
 one_shot = true
-speed_scale = 5.0
+speed_scale = 10.0
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_rjbny")
+
+[node name="ScoreLabel" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 108.0
+offset_right = 250.00003
+offset_bottom = 131.0
+scale = Vector2(1.42, 1.42)
+pivot_offset = Vector2(33, 11.5)
+theme = ExtResource("13_3yww4")
+text = "asdfasdf"
+horizontal_alignment = 1
+vertical_alignment = 1
