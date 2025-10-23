@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://0v55e684r5o8"]
+[gd_scene load_steps=38 format=3 uid="uid://0v55e684r5o8"]
 
 [ext_resource type="Script" uid="uid://cy6ndxvfnrlhl" path="res://game/game_over_v2/game_over.gd" id="1_ebh32"]
 [ext_resource type="Script" uid="uid://c75u2713r4bxx" path="res://game/UI/main_menu/canvas_layer_tilt.gd" id="1_vcier"]
@@ -15,7 +15,9 @@
 [ext_resource type="AudioStream" uid="uid://c44snkjv8g81y" path="res://game/game_over_v2/bfh1_glass_breaking_06.ogg" id="6_rjbny"]
 [ext_resource type="AudioStream" uid="uid://cp0vybt0e0jyv" path="res://game/game_over_v2/Bottle Break.wav" id="7_0iqku"]
 [ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://game/UI/intermission/button_theme.tres" id="13_3yww4"]
+[ext_resource type="Shader" uid="uid://s4clk6hl5ixd" path="res://game/UI/intermission/buttonshader.gdshader" id="15_r0i0f"]
 [ext_resource type="Shader" uid="uid://ewwvkjh2f7hq" path="res://game/game_over_v2/invert.gdshader" id="16_gial7"]
+[ext_resource type="Script" uid="uid://bjsycyr7mijoh" path="res://game/game_over_v2/letter_input.gd" id="17_wcldx"]
 
 [sub_resource type="Curve" id="Curve_ebh32"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.9207161, 0.9486167), 2.092802, 2.092802, 0, 0, Vector2(1, 1), -1.1097818e-06, 0.0, 0, 0]
@@ -69,6 +71,108 @@ scale_min = 2.0
 scale_max = 8.0
 alpha_curve = SubResource("CurveTexture_3yww4")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xwud8"]
+shader = ExtResource("15_r0i0f")
+shader_parameter/normal_offset = 0.5000000074506
+shader_parameter/time_influence = 49.36400234479
+shader_parameter/y_div = 2.87
+shader_parameter/opacity = 1.0
+shader_parameter/seed = 0.0
+shader_parameter/tint_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r0i0f"]
+shader = ExtResource("15_r0i0f")
+shader_parameter/normal_offset = 0.5000000074506
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 2.87
+shader_parameter/opacity = 1.0
+shader_parameter/seed = 0.0
+shader_parameter/tint_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_r0i0f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ScoreLabel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(180, 108)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HBoxContainer:material:shader_parameter/opacity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HBoxContainer:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(157, 100)]
+}
+
+[sub_resource type="Animation" id="Animation_6ec8a"]
+resource_name = "show text input"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ScoreLabel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(180, 108), Vector2(180, 76)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HBoxContainer:material:shader_parameter/opacity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HBoxContainer:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(157, 100), Vector2(157, 132)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d7odc"]
+_data = {
+&"RESET": SubResource("Animation_r0i0f"),
+&"animation": SubResource("Animation_6ec8a")
+}
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wcldx"]
 shader = ExtResource("16_gial7")
 shader_parameter/strength = 1.0
@@ -86,7 +190,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Panel:size")
+tracks/0/path = NodePath("../Panel:size")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -98,7 +202,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Panel:position")
+tracks/1/path = NodePath("../Panel:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -114,7 +218,7 @@ length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Panel:size")
+tracks/0/path = NodePath("../Panel:size")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -126,7 +230,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Panel:position")
+tracks/1/path = NodePath("../Panel:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -139,7 +243,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wcldx"]
 _data = {
 &"RESET": SubResource("Animation_wcldx"),
-&"invert_animation": SubResource("Animation_gial7")
+&"animation": SubResource("Animation_gial7")
 }
 
 [node name="CanvasLayer" type="CanvasLayer"]
@@ -161,15 +265,11 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Control" type="Control" parent="." node_paths=PackedStringArray("score_label", "final_animation", "tick_sound", "small_event_sound", "large_event_sound", "final_event_sound", "large_particles", "final_particles")]
+[node name="Control" type="Control" parent="." node_paths=PackedStringArray("score_label", "final_animations", "tick_sound", "small_event_sound", "large_event_sound", "final_event_sound", "large_particles", "final_particles")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1.0
-offset_top = -8.0
-offset_right = -1.0
-offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ebh32")
@@ -177,8 +277,8 @@ score_value_curve = SubResource("Curve_ebh32")
 score_animation_time_sec = 5.0
 score_label_small_font_size = 0.0
 score_label_large_font_size = 2.0
-score_label = NodePath("ScoreLabel")
-final_animation = NodePath("AnimationPlayer")
+score_label = NodePath("Control/ScoreLabel")
+final_animations = [NodePath("AnimationPlayer"), NodePath("../Panel/AnimationPlayer")]
 tick_sound = NodePath("TickSound")
 small_event_sound = NodePath("SmallSound")
 large_event_sound = NodePath("BigSound")
@@ -244,12 +344,30 @@ speed_scale = 10.0
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_rjbny")
 
-[node name="ScoreLabel" type="Label" parent="Control"]
-layout_mode = 0
+[node name="Control" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreLabel" type="Label" parent="Control/Control"]
+material = SubResource("ShaderMaterial_xwud8")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = 180.0
 offset_top = 108.0
 offset_right = 250.00003
-offset_bottom = 131.0
+offset_bottom = 131.00005
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(1.42, 1.42)
 pivot_offset = Vector2(33, 11.5)
 theme = ExtResource("13_3yww4")
@@ -257,9 +375,31 @@ text = "asdfasdf"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel" type="Panel" parent="Control"]
-material = SubResource("ShaderMaterial_wcldx")
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+material = SubResource("ShaderMaterial_r0i0f")
 layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -20.0
+offset_right = 80.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+script = ExtResource("17_wcldx")
+letter_count = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control"]
+libraries = {
+&"": SubResource("AnimationLibrary_d7odc")
+}
+
+[node name="Panel" type="Panel" parent="."]
+material = SubResource("ShaderMaterial_wcldx")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -271,9 +411,18 @@ offset_right = -507.0
 offset_bottom = -507.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_vcier")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Control"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel"]
+root_node = NodePath("../../Control")
 libraries = {
 &"": SubResource("AnimationLibrary_wcldx")
 }
+
+[connection signal="focus_entered" from="Control/HBoxContainer/Button" to="Control/HBoxContainer/Button" method="_on_focus_entered"]
+[connection signal="focus_exited" from="Control/HBoxContainer/Button" to="Control/HBoxContainer/Button" method="_on_focus_exited"]
+[connection signal="focus_entered" from="Control/HBoxContainer/@Button@92780" to="Control/HBoxContainer/@Button@92780" method="_on_focus_entered"]
+[connection signal="focus_exited" from="Control/HBoxContainer/@Button@92780" to="Control/HBoxContainer/@Button@92780" method="_on_focus_exited"]
+[connection signal="focus_entered" from="Control/HBoxContainer/@Button@92781" to="Control/HBoxContainer/@Button@92781" method="_on_focus_entered"]
+[connection signal="focus_exited" from="Control/HBoxContainer/@Button@92781" to="Control/HBoxContainer/@Button@92781" method="_on_focus_exited"]

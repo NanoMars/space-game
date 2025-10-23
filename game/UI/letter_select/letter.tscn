@@ -1,9 +1,8 @@
-[gd_scene load_steps=51 format=3 uid="uid://3gnpc0j2qsbb"]
+[gd_scene load_steps=50 format=3 uid="uid://3gnpc0j2qsbb"]
 
 [ext_resource type="FontFile" uid="uid://c34mefa01f57l" path="res://game/assets/Awexbmp.ttf" id="1_6hkoo"]
 [ext_resource type="Texture2D" uid="uid://cn58rauv07lmj" path="res://game/UI/letter_select/character_arrow.png" id="2_6hkoo"]
 [ext_resource type="Script" uid="uid://by0u21px82mk" path="res://game/UI/letter_select/letter_select.gd" id="2_ohi1y"]
-[ext_resource type="Texture2D" uid="uid://1ajk10keexwp" path="res://game/assets/circleblur.png" id="4_ohi1y"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6hkoo"]
 
@@ -170,32 +169,6 @@ VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_oolrq")
 VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_huwwt")
 VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_1fydn")
 
-[sub_resource type="Animation" id="Animation_6hkoo"]
-resource_name = "up_pressed"
-length = 0.1333
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = false
-tracks/0/path = NodePath("TextureRect:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.025000002, 0, 0.025000002, 0, 0, -0.050000004, 0, 0, 0),
-"times": PackedFloat32Array(0, 0.06666667, 0.13333334)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TextureRect:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(-11.5, -0.25, 0, 0.25, 0, -16, -0.025000002, 0, 0.025000002, 0, -11.5, -0.050000004, 0, 0, 0),
-"times": PackedFloat32Array(0, 0.06666667, 0.1333)
-}
-
 [sub_resource type="Animation" id="Animation_ohi1y"]
 length = 0.001
 tracks/0/type = "bezier"
@@ -269,6 +242,32 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.0667, 0.1333)
 }
 
+[sub_resource type="Animation" id="Animation_6hkoo"]
+resource_name = "up_pressed"
+length = 0.1333
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("TextureRect:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.025000002, 0, 0.025000002, 0, 0, -0.050000004, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(-11.5, -0.25, 0, 0.25, 0, -16, -0.025000002, 0, 0.025000002, 0, -11.5, -0.050000004, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.06666667, 0.1333)
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8hfja"]
 _data = {
 &"RESET": SubResource("Animation_ohi1y"),
@@ -277,10 +276,21 @@ _data = {
 }
 
 [node name="Button" type="Button"]
-offset_left = 31.0
-offset_top = 25.0
-offset_right = 76.0
-offset_bottom = 48.0
+use_parent_material = true
+custom_minimum_size = Vector2(24, 23)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -11.5
+offset_right = 12.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_top = NodePath("UpButton")
+focus_neighbor_bottom = NodePath("DownButton")
 theme = SubResource("Theme_s6p7f")
 text = "A"
 flat = true
@@ -288,6 +298,7 @@ script = ExtResource("2_ohi1y")
 
 [node name="Highlight" type="TextureRect" parent="."]
 visible = false
+use_parent_material = true
 layout_mode = 1
 anchors_preset = -1
 anchor_top = -1.0
@@ -296,10 +307,10 @@ anchor_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("4_ohi1y")
 expand_mode = 1
 
 [node name="TextureRect" type="TextureRect" parent="."]
+use_parent_material = true
 layout_mode = 1
 anchors_preset = -1
 anchor_top = -0.5
@@ -313,6 +324,7 @@ stretch_mode = 3
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect2" type="TextureRect" parent="."]
+use_parent_material = true
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.0
@@ -328,6 +340,7 @@ flip_v = true
 metadata/_edit_use_anchors_ = true
 
 [node name="DownButton" type="Button" parent="."]
+use_parent_material = true
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.0
@@ -338,6 +351,7 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="UpButton" type="Button" parent="."]
+use_parent_material = true
 layout_mode = 1
 anchors_preset = -1
 anchor_top = -1.0
@@ -353,5 +367,5 @@ libraries = {
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
-[connection signal="pressed" from="DownButton" to="." method="_on_down_button_pressed"]
-[connection signal="pressed" from="UpButton" to="." method="_on_up_button_pressed"]
+[connection signal="focus_entered" from="DownButton" to="." method="_on_down_button_pressed"]
+[connection signal="focus_entered" from="UpButton" to="." method="_on_up_button_pressed"]

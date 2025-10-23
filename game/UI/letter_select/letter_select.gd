@@ -1,4 +1,5 @@
 extends Button
+class_name Letter
 
 var focused: bool = false
 
@@ -16,10 +17,6 @@ var letters: Array[String] = [
 	"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
 	"N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
 ]
-
-func _ready() -> void:
-	grab_focus()
-	print(focused)
 
 func _on_focus_exited() -> void:
 	focused = false

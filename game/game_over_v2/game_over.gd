@@ -12,7 +12,7 @@ extends Control
 
 @export_group("objects")
 @export var score_label: Label
-@export var final_animation: AnimationPlayer
+@export var final_animations: Array[AnimationPlayer]
 
 @export_group("sounds")
 @export var tick_sound: AudioStreamPlayer
@@ -67,7 +67,8 @@ func _process(delta: float) -> void:
 	if not final_event_played and calculated_score >= score:
 		final_event_sound.play()
 		final_particles.emitting = true
-		final_animation.play("invert_animation")
+		for final_animation in final_animations:
+			final_animation.play("animation")
 		final_event_played = true
 	
 	var shake_magnitude_value = shake_magnitude.sample(progress)
