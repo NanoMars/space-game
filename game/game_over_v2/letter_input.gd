@@ -26,3 +26,4 @@ var value: String:
 			if letter_node is Letter:
 				result += letter_node.character
 		return result
+

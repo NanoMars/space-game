@@ -35,6 +35,9 @@ func _ready():
 
 # Submit a score, then automatically fetch the top results when done.
 func submit_score(score_name: String, score: int, round_num: int) -> void:
+	if not http or not is_instance_valid(http):
+		push_error("HTTPRequest not ready yet.")
+		return
 	if _request_kind != RequestKind.NONE:
 		push_error("Leaderboard busy; please wait for current request to finish.")
 		return
@@ -56,6 +59,9 @@ func submit_score(score_name: String, score: int, round_num: int) -> void:
 
 # Queue or perform a fetch of top scores.
 func fetch_top(limit: int = 50) -> void:
+	if not http or not is_instance_valid(http):
+		push_error("HTTPRequest not ready yet.")
+		return
 	_pending_limit = limit
 	if _request_kind != RequestKind.NONE:
 		# Defer until current request completes.

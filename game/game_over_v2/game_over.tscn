@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://0v55e684r5o8"]
+[gd_scene load_steps=48 format=3 uid="uid://0v55e684r5o8"]
 
 [ext_resource type="Script" uid="uid://cy6ndxvfnrlhl" path="res://game/game_over_v2/game_over.gd" id="1_ebh32"]
 [ext_resource type="Script" uid="uid://c75u2713r4bxx" path="res://game/UI/main_menu/canvas_layer_tilt.gd" id="1_vcier"]
@@ -18,6 +18,9 @@
 [ext_resource type="Shader" uid="uid://s4clk6hl5ixd" path="res://game/UI/intermission/buttonshader.gdshader" id="15_r0i0f"]
 [ext_resource type="Shader" uid="uid://ewwvkjh2f7hq" path="res://game/game_over_v2/invert.gdshader" id="16_gial7"]
 [ext_resource type="Script" uid="uid://bjsycyr7mijoh" path="res://game/game_over_v2/letter_input.gd" id="17_wcldx"]
+[ext_resource type="Script" uid="uid://cpsu7b41o8v1w" path="res://game/game_over_v2/submit_button.gd" id="18_xwud8"]
+[ext_resource type="Script" uid="uid://u07jl8ei2plg" path="res://game/game_over_v2/game_over_leaderboard.gd" id="19_d7odc"]
+[ext_resource type="Script" uid="uid://cd5831ay70ftd" path="res://game/UI/win_screen/leaderboard.gd" id="20_6ec8a"]
 
 [sub_resource type="Curve" id="Curve_ebh32"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.9207161, 0.9486167), 2.092802, 2.092802, 0, 0, Vector2(1, 1), -1.1097818e-06, 0.0, 0, 0]
@@ -80,6 +83,114 @@ shader_parameter/opacity = 1.0
 shader_parameter/seed = 0.0
 shader_parameter/tint_color = Color(1, 1, 1, 1)
 
+[sub_resource type="Animation" id="Animation_r0i0f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/HBoxContainer:material:shader_parameter/opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(213, 120)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CenterContainer:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(145, 100)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CenterContainer/HBoxContainer:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_6ec8a"]
+resource_name = "show text input"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/HBoxContainer:material:shader_parameter/opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(213, 120), Vector2(213, 88)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CenterContainer:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(145, 100), Vector2(145, 132)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CenterContainer/HBoxContainer:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d7odc"]
+_data = {
+&"RESET": SubResource("Animation_r0i0f"),
+&"animation": SubResource("Animation_6ec8a")
+}
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r0i0f"]
 shader = ExtResource("15_r0i0f")
 shader_parameter/normal_offset = 0.5000000074506
@@ -89,89 +200,193 @@ shader_parameter/opacity = 1.0
 shader_parameter/seed = 0.0
 shader_parameter/tint_color = Color(1, 1, 1, 1)
 
-[sub_resource type="Animation" id="Animation_r0i0f"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Control/ScoreLabel:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(180, 108)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("HBoxContainer:material:shader_parameter/opacity")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("HBoxContainer:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(157, 100)]
+[sub_resource type="Shader" id="Shader_6ec8a"]
+code = "shader_type canvas_item;
+
+uniform float normal_offset : hint_range(0, 2, .1) = 1.5;
+uniform float time_influence : hint_range(0, 50) = 3;
+uniform float y_div : hint_range(0, 10, .1) = 2.87;
+
+uniform float opacity : hint_range(0.0, 1.0) = 1.0;
+uniform float seed = 0.0;
+
+uniform vec4 tint_color : source_color = vec4(1.0, 1.0, 1.0, 1.0); // ← added color control
+
+// Random number generator based on pixel position
+float rand(vec2 co) {
+    return fract(sin(dot(co.xy, vec2(12.9898, 78.233)) + seed) * 43758.5453);
 }
 
-[sub_resource type="Animation" id="Animation_6ec8a"]
-resource_name = "show text input"
+void vertex() {
+    VERTEX.x += sin(VERTEX.y * y_div + round(TIME * time_influence)) * normal_offset;
+    VERTEX.y += sin(VERTEX.x * y_div + round(TIME * time_influence)) * normal_offset;
+}
+
+void fragment() {
+    vec4 tex = texture(TEXTURE, UV);
+    float noise = rand(FRAGCOORD.xy);
+
+    if (noise < opacity) {
+        COLOR = tex * tint_color; // ← applies tint to texture color
+    } else {
+        COLOR = vec4(0.0, 0.0, 0.0, 0.0);
+    }
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d7odc"]
+shader = SubResource("Shader_6ec8a")
+shader_parameter/normal_offset = 0.5000000074506
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 2.87
+shader_parameter/opacity = 0.0
+shader_parameter/seed = 0.0
+shader_parameter/tint_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_aibh3"]
+resource_name = "animation"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Control/ScoreLabel:position")
+tracks/0/path = NodePath(".:material:shader_parameter/opacity")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(180, 108), Vector2(180, 76)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("HBoxContainer:material:shader_parameter/opacity")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 1.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_elgsy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("HBoxContainer:position")
+tracks/2/path = NodePath("../Control/ScoreLabel:material:shader_parameter/opacity")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../LeaderboardBox:material:shader_parameter/opacity")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_d7odc"]
+resource_name = "pressed_animation"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Control/ScoreLabel:material:shader_parameter/opacity")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(157, 100), Vector2(157, 132)]
+"values": [1.0, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../LeaderboardBox:material:shader_parameter/opacity")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_d7odc"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7tb5i"]
 _data = {
-&"RESET": SubResource("Animation_r0i0f"),
-&"animation": SubResource("Animation_6ec8a")
+&"RESET": SubResource("Animation_elgsy"),
+&"animation": SubResource("Animation_aibh3"),
+&"pressed_animation": SubResource("Animation_d7odc")
 }
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aibh3"]
+shader = ExtResource("15_r0i0f")
+shader_parameter/normal_offset = 0.40000000596048
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 2.87
+shader_parameter/opacity = 0.0
+shader_parameter/seed = 0.0
+shader_parameter/tint_color = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wcldx"]
 shader = ExtResource("16_gial7")
@@ -362,10 +577,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 180.0
-offset_top = 108.0
-offset_right = 250.00003
-offset_bottom = 131.00005
+offset_left = -35.000015
+offset_top = -11.500023
+offset_right = 35.000015
+offset_bottom = 11.500023
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.42, 1.42)
@@ -375,28 +590,188 @@ text = "asdfasdf"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
-material = SubResource("ShaderMaterial_r0i0f")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control"]
+libraries = {
+&"": SubResource("AnimationLibrary_d7odc")
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -56.0
+offset_left = -68.0
 offset_top = -20.0
-offset_right = 80.0
-offset_bottom = 3.0
+offset_right = 68.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/CenterContainer"]
+visible = false
+material = SubResource("ShaderMaterial_r0i0f")
+layout_mode = 2
 theme_override_constants/separation = 32
 script = ExtResource("17_wcldx")
 letter_count = 3
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Control"]
+[node name="Button" type="Button" parent="Control" node_paths=PackedStringArray("letter_container")]
+visible = false
+material = SubResource("ShaderMaterial_d7odc")
+layout_mode = 0
+offset_left = 293.0
+offset_top = 159.0
+offset_right = 356.0
+offset_bottom = 181.0
+theme = ExtResource("13_3yww4")
+text = "submit"
+script = ExtResource("18_xwud8")
+letter_container = NodePath("../CenterContainer/HBoxContainer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Button"]
 libraries = {
-&"": SubResource("AnimationLibrary_d7odc")
+&"": SubResource("AnimationLibrary_7tb5i")
 }
+
+[node name="LeaderboardBox" type="VBoxContainer" parent="Control" node_paths=PackedStringArray("leaderboard", "leaderboard_box", "name_container", "score_container", "round_container")]
+material = SubResource("ShaderMaterial_aibh3")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -106.0
+offset_right = 150.0
+offset_bottom = 106.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("13_3yww4")
+theme_override_constants/separation = 16
+script = ExtResource("19_d7odc")
+leaderboard = NodePath("../../Leaderboard")
+leaderboard_box = NodePath(".")
+name_container = NodePath("ScrollContainer/HBoxContainer/NameContainer")
+score_container = NodePath("ScrollContainer/HBoxContainer/ScoreContainer")
+round_container = NodePath("ScrollContainer/HBoxContainer/RoundContainer")
+label_theme = ExtResource("13_3yww4")
+main_menu_scene = "uid://cwhe2iy3exa36"
+game_scene = "uid://s488jtj1i4ci"
+
+[node name="Label" type="Label" parent="Control/LeaderboardBox"]
+use_parent_material = true
+layout_mode = 2
+theme = ExtResource("13_3yww4")
+text = "Leaderboard"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/LeaderboardBox"]
+use_parent_material = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("13_3yww4")
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/LeaderboardBox/ScrollContainer"]
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("13_3yww4")
+theme_override_constants/separation = 0
+
+[node name="NameContainer" type="VBoxContainer" parent="Control/LeaderboardBox/ScrollContainer/HBoxContainer"]
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("13_3yww4")
+
+[node name="Label" type="Label" parent="Control/LeaderboardBox/ScrollContainer/HBoxContainer/NameContainer"]
+use_parent_material = true
+layout_mode = 2
+theme = ExtResource("13_3yww4")
+text = "name"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Control/LeaderboardBox/ScrollContainer/HBoxContainer/NameContainer"]
+use_parent_material = true
+layout_mode = 2
+theme = ExtResource("13_3yww4")
+
+[node name="VSeparator" type="VSeparator" parent="Control/LeaderboardBox/ScrollContainer/HBoxContainer"]
+use_parent_material = true
+layout_mode = 2
+theme = ExtResource("13_3yww4")
+
+[node name="ScoreContainer" type="VBoxContainer" parent="Control/LeaderboardBox/ScrollContainer/HBoxContainer"]
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("13_3yww4")
+
+[node name="Label" type="Label" parent="Control/LeaderboardBox/ScrollContainer/HBoxContainer/ScoreContainer"]
+use_parent_material = true
+layout_mode = 2
+theme = ExtResource("13_3yww4")
+text = "score"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Control/LeaderboardBox/ScrollContainer/HBoxContainer/ScoreContainer"]
+use_parent_material = true
+layout_mode = 2
+theme = ExtResource("13_3yww4")
+
+[node name="VSeparator2" type="VSeparator" parent="Control/LeaderboardBox/ScrollContainer/HBoxContainer"]
+use_parent_material = true
+layout_mode = 2
+theme = ExtResource("13_3yww4")
+
+[node name="RoundContainer" type="VBoxContainer" parent="Control/LeaderboardBox/ScrollContainer/HBoxContainer"]
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("13_3yww4")
+
+[node name="Label" type="Label" parent="Control/LeaderboardBox/ScrollContainer/HBoxContainer/RoundContainer"]
+use_parent_material = true
+layout_mode = 2
+theme = ExtResource("13_3yww4")
+text = "round"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Control/LeaderboardBox/ScrollContainer/HBoxContainer/RoundContainer"]
+use_parent_material = true
+layout_mode = 2
+theme = ExtResource("13_3yww4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/LeaderboardBox"]
+use_parent_material = true
+layout_mode = 2
+
+[node name="ReturnButton" type="Button" parent="Control/LeaderboardBox/HBoxContainer"]
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 6
+theme = ExtResource("13_3yww4")
+text = "return to main menu"
+
+[node name="VSeparator" type="VSeparator" parent="Control/LeaderboardBox/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayButton" type="Button" parent="Control/LeaderboardBox/HBoxContainer"]
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 6
+theme = ExtResource("13_3yww4")
+text = "play again"
 
 [node name="Panel" type="Panel" parent="."]
 material = SubResource("ShaderMaterial_wcldx")
@@ -420,9 +795,14 @@ libraries = {
 &"": SubResource("AnimationLibrary_wcldx")
 }
 
-[connection signal="focus_entered" from="Control/HBoxContainer/Button" to="Control/HBoxContainer/Button" method="_on_focus_entered"]
-[connection signal="focus_exited" from="Control/HBoxContainer/Button" to="Control/HBoxContainer/Button" method="_on_focus_exited"]
-[connection signal="focus_entered" from="Control/HBoxContainer/@Button@92780" to="Control/HBoxContainer/@Button@92780" method="_on_focus_entered"]
-[connection signal="focus_exited" from="Control/HBoxContainer/@Button@92780" to="Control/HBoxContainer/@Button@92780" method="_on_focus_exited"]
-[connection signal="focus_entered" from="Control/HBoxContainer/@Button@92781" to="Control/HBoxContainer/@Button@92781" method="_on_focus_entered"]
-[connection signal="focus_exited" from="Control/HBoxContainer/@Button@92781" to="Control/HBoxContainer/@Button@92781" method="_on_focus_exited"]
+[node name="Leaderboard" type="Node" parent="."]
+script = ExtResource("20_6ec8a")
+
+[connection signal="focus_entered" from="Control/CenterContainer/HBoxContainer/Button" to="Control/CenterContainer/HBoxContainer/Button" method="_on_focus_entered"]
+[connection signal="focus_exited" from="Control/CenterContainer/HBoxContainer/Button" to="Control/CenterContainer/HBoxContainer/Button" method="_on_focus_exited"]
+[connection signal="focus_entered" from="Control/CenterContainer/HBoxContainer/@Button@21157" to="Control/CenterContainer/HBoxContainer/@Button@21157" method="_on_focus_entered"]
+[connection signal="focus_exited" from="Control/CenterContainer/HBoxContainer/@Button@21157" to="Control/CenterContainer/HBoxContainer/@Button@21157" method="_on_focus_exited"]
+[connection signal="focus_entered" from="Control/CenterContainer/HBoxContainer/@Button@21158" to="Control/CenterContainer/HBoxContainer/@Button@21158" method="_on_focus_entered"]
+[connection signal="focus_exited" from="Control/CenterContainer/HBoxContainer/@Button@21158" to="Control/CenterContainer/HBoxContainer/@Button@21158" method="_on_focus_exited"]
+[connection signal="pressed" from="Control/Button" to="Control/Button" method="_on_pressed"]
+[connection signal="pressed" from="Control/Button" to="Control/LeaderboardBox" method="fetch_and_display_leaderboard"]
