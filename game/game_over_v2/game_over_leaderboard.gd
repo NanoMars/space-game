@@ -8,6 +8,7 @@ var player_name: String = "TestPlayer"
 @export var score_container: Container
 @export var round_container: Container
 @export var label_theme: Theme
+@export var letter_input: LetterInput
 @export_file("*.tscn") var main_menu_scene: String
 @export_file("*.tscn") var game_scene: String
 
@@ -34,6 +35,8 @@ func _on_leaderboard_request_completed(data):
 	display_leaderboard(data)
 
 func fetch_and_display_leaderboard() -> void:
+	player_name = letter_input.value
+	leaderboard.submit_score(player_name, ScoreManager.score, ScoreManager.currentRound)
 	leaderboard.fetch_top(25)
 
 func display_leaderboard(data = []) -> void:
@@ -56,18 +59,21 @@ func display_leaderboard(data = []) -> void:
 					var name_label := Label.new()
 					name_label.text = str(row[column])
 					name_label.theme = label_theme
+					name_label.use_parent_material = true
 					name_label.add_to_group("leaderboard_item")
 					name_container.add_child(name_label)
 				"score":
 					var score_label := Label.new()
 					score_label.text = str(int(row[column]))
 					score_label.theme = label_theme
+					score_label.use_parent_material = true
 					score_label.add_to_group("leaderboard_item")
 					score_container.add_child(score_label)
 				"round":
 					var round_label := Label.new()
 					round_label.text = str(int(row[column]))
 					round_label.theme = label_theme
+					round_label.use_parent_material = true
 					round_label.add_to_group("leaderboard_item")
 					round_container.add_child(round_label)
 	leaderboard_box.show()

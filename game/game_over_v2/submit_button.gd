@@ -12,7 +12,7 @@ func _ready() -> void:
 var animation_played: bool = false
 
 func _on_last_letter_focused() -> void:
-	if not visible:
+	if not visible and not animation_played:
 		$AnimationPlayer.play("animation")
 
 

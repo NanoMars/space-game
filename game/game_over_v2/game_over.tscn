@@ -319,6 +319,54 @@ tracks/3/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../LeaderboardBox:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../LeaderboardBox:mouse_filter")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../LeaderboardBox:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(999999, 14)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../CenterContainer/HBoxContainer:material:shader_parameter/opacity")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
 
 [sub_resource type="Animation" id="Animation_d7odc"]
 resource_name = "pressed_animation"
@@ -370,6 +418,54 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 1.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../LeaderboardBox:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../LeaderboardBox:mouse_filter")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 1]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../LeaderboardBox:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(9999999, 14), Vector2(63, 14)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../CenterContainer/HBoxContainer:material:shader_parameter/opacity")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7tb5i"]
@@ -635,7 +731,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_7tb5i")
 }
 
-[node name="LeaderboardBox" type="VBoxContainer" parent="Control" node_paths=PackedStringArray("leaderboard", "leaderboard_box", "name_container", "score_container", "round_container")]
+[node name="LeaderboardBox" type="VBoxContainer" parent="Control" node_paths=PackedStringArray("leaderboard", "leaderboard_box", "name_container", "score_container", "round_container", "letter_input")]
+visible = false
 material = SubResource("ShaderMaterial_aibh3")
 layout_mode = 1
 anchors_preset = 8
@@ -643,12 +740,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -150.0
+offset_left = 999786.0
 offset_top = -106.0
-offset_right = 150.0
+offset_right = 1000086.0
 offset_bottom = 106.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("13_3yww4")
 theme_override_constants/separation = 16
 script = ExtResource("19_d7odc")
@@ -658,6 +756,7 @@ name_container = NodePath("ScrollContainer/HBoxContainer/NameContainer")
 score_container = NodePath("ScrollContainer/HBoxContainer/ScoreContainer")
 round_container = NodePath("ScrollContainer/HBoxContainer/RoundContainer")
 label_theme = ExtResource("13_3yww4")
+letter_input = NodePath("../CenterContainer/HBoxContainer")
 main_menu_scene = "uid://cwhe2iy3exa36"
 game_scene = "uid://s488jtj1i4ci"
 

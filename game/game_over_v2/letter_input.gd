@@ -1,5 +1,6 @@
 @tool
 extends HBoxContainer
+class_name LetterInput
 
 var letter_scene = preload("res://game/UI/letter_select/letter.tscn")
 @export var letter_count: int:
