@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dp4udr6fnulne" path="res://game/player/shiny_thing.gd" id="1_ae2jx"]
 [ext_resource type="Shader" uid="uid://c4csiqhftg1wq" path="res://game/player/sparkle.gdshader" id="1_ixrx6"]
-[ext_resource type="PackedScene" uid="uid://srqfibyqkhj6" path="res://game/UI/game_over/game_over.tscn" id="2_1ato2"]
+[ext_resource type="PackedScene" uid="uid://0v55e684r5o8" path="res://game/game_over_v2/game_over.tscn" id="2_1ato2"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_1ato2"]
 viewport_path = NodePath("SubViewport")

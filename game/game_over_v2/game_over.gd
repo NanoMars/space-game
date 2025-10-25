@@ -44,7 +44,7 @@ var final_event_played: bool = false
 @onready var score_label_original_position: Vector2 = score_label.position
 
 func _ready() -> void:
-	score = 150
+	score = ScoreManager.score
 
 func _process(delta: float) -> void:
 	time += delta

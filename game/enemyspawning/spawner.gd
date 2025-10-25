@@ -21,6 +21,7 @@ var _killed: int = 0
 var _rng := RandomNumberGenerator.new()
 var _wave_prepared := false
 var _changing_scenes := false
+var _next_round_triggered := false
 var _enemies_left: int:
 	get:
 		return ScoreManager.total_kills - _killed
@@ -172,11 +173,19 @@ func _on_enemy_died(transform: Transform2D) -> void:
 	if _killed >= ScoreManager.total_kills:
 		_wave_prepared = false
 	
-	if _enemies_left <= 10 and ScoreManager.rounds[0] != ScoreManager.round_types.Downgrade:
+	# Prevent triggering next_round multiple times
+	if _next_round_triggered:
+		return
+	
+	# Trigger next round early (at 10 enemies) only for non-Downgrade rounds
+	# AND only when we've killed enough enemies (not just spawned fewer)
+	if _enemies_left <= 10 and _alive <= 10 and ScoreManager.rounds[0] != ScoreManager.round_types.Downgrade:
 		print("Enemies left: ", _enemies_left, " rounds[0]: ", ScoreManager.rounds[0], " downgrade: ", ScoreManager.round_types.Downgrade)
+		_next_round_triggered = true
 		next_round()
 	elif _enemies_left <= 0:
 		print("Enemies left: ", _enemies_left, " rounds[0]: ", ScoreManager.rounds[0], " downgrade: ", ScoreManager.round_types.Downgrade)
+		_next_round_triggered = true
 		next_round()
 
 func next_round() -> void:
@@ -201,6 +210,7 @@ func _reset_spawner() -> void:
 	_next_delay = 0.4
 	_wave_prepared = false
 	_changing_scenes = false
+	_next_round_triggered = false
 	
 	# Clear any existing spawn bag
 	_spawn_bag.clear()

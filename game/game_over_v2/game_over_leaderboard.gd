@@ -1,6 +1,5 @@
 extends Control
 
-var player_name: String = "TestPlayer"
 
 @export var leaderboard: Leaderboard
 @export var leaderboard_box: Container
@@ -20,7 +19,6 @@ func _ready() -> void:
 	leaderboard.leaderboard_request_completed.connect(_on_leaderboard_request_completed)
 	leaderboard_box.show()
 	await get_tree().process_frame
-	leaderboard.submit_score(player_name, ScoreManager.score, ScoreManager.currentRound)
 	leaderboard.fetch_top(25)
 	if Settings.get("demo mode") == false:
 			Settings.set("tutorial enabled", false)
@@ -35,7 +33,7 @@ func _on_leaderboard_request_completed(data):
 	display_leaderboard(data)
 
 func fetch_and_display_leaderboard() -> void:
-	player_name = letter_input.value
+	var player_name = letter_input.value
 	leaderboard.submit_score(player_name, ScoreManager.score, ScoreManager.currentRound)
 	leaderboard.fetch_top(25)
 
@@ -77,3 +75,11 @@ func display_leaderboard(data = []) -> void:
 					round_label.add_to_group("leaderboard_item")
 					round_container.add_child(round_label)
 	leaderboard_box.show()
+
+
+
+func _on_play_button_pressed() -> void:
+	SceneManager.change_scene(game_scene)
+
+func _on_return_button_pressed() -> void:
+	SceneManager.change_scene(main_menu_scene)
