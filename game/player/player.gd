@@ -19,9 +19,11 @@ var normal_move_speed: float
 
 var weapon_stats: WeaponStats:
 	set(value):
-		if weapon:
-			weapon.weapon_stats = value
-		_weapon_stats = value
+		if value != null:
+			if weapon:
+				weapon.weapon_stats = value
+			
+			_weapon_stats = value
 	get:
 		return _weapon_stats
 

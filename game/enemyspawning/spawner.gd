@@ -22,9 +22,11 @@ var _rng := RandomNumberGenerator.new()
 var _wave_prepared := false
 var _changing_scenes := false
 var _next_round_triggered := false
+var _carryover_enemies: int = 0  # Track enemies from previous round
 var _enemies_left: int:
 	get:
-		return ScoreManager.total_kills - _killed
+		# Account for carryover enemies in the total
+		return ScoreManager.total_kills - (_killed - _carryover_enemies)
 
 const DEBUG_LOG := false
 
@@ -168,6 +170,11 @@ func _pick_spawn_point() -> Marker2D:
 func _on_enemy_died(transform: Transform2D) -> void:
 	_alive = max(0, _alive - 1)
 	_killed += 1
+	
+	# If we have carryover enemies, count this death against them first
+	if _carryover_enemies > 0:
+		_carryover_enemies -= 1
+	
 	enemies_left.emit(_enemies_left)
 	enemy_died.emit(transform)
 	if _killed >= ScoreManager.total_kills:
@@ -180,11 +187,11 @@ func _on_enemy_died(transform: Transform2D) -> void:
 	# Trigger next round early (at 10 enemies) only for non-Downgrade rounds
 	# AND only when we've killed enough enemies (not just spawned fewer)
 	if _enemies_left <= 10 and _alive <= 10 and ScoreManager.rounds[0] != ScoreManager.round_types.Downgrade:
-		print("Enemies left: ", _enemies_left, " rounds[0]: ", ScoreManager.rounds[0], " downgrade: ", ScoreManager.round_types.Downgrade)
+		print("next round cause enemies left <= 10: ", "Enemies left: ", _enemies_left, " rounds[0]: ", ScoreManager.rounds[0], " downgrade: ", ScoreManager.round_types.Downgrade)
 		_next_round_triggered = true
 		next_round()
 	elif _enemies_left <= 0:
-		print("Enemies left: ", _enemies_left, " rounds[0]: ", ScoreManager.rounds[0], " downgrade: ", ScoreManager.round_types.Downgrade)
+		print("next round cause enemies left <= 0: ", "Enemies left: ", _enemies_left, " rounds[0]: ", ScoreManager.rounds[0], " downgrade: ", ScoreManager.round_types.Downgrade)
 		_next_round_triggered = true
 		next_round()
 
@@ -198,14 +205,16 @@ func next_round() -> void:
 	ScoreManager.next_round()
 
 func _reset_spawner() -> void:
+	# Track how many enemies are still alive from the previous round
+	_carryover_enemies = _alive
+	
 	# If there are enemies still alive, add them to the next round's count
 	if _alive > 0:
 		ScoreManager.total_kills += _alive
 	
-	# Reset all spawner state to beginning of round
-	_alive = 0
+	# Reset most spawner state but keep _alive and adjust _killed
 	_enemies_spawned = 0
-	_killed = 0
+	_killed = 0  # Reset kill counter, carryover enemies will be tracked separately
 	_spawn_timer = 0.0
 	_next_delay = 0.4
 	_wave_prepared = false

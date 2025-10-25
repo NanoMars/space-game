@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://c5151n8v6645w"]
+[gd_scene load_steps=35 format=3 uid="uid://c5151n8v6645w"]
 
 [ext_resource type="Script" uid="uid://h531hpff7fyb" path="res://intermission_background.gd" id="1_3b4nm"]
 [ext_resource type="Script" uid="uid://bsste0045nkbd" path="res://game/UI/intermission/intermission_menu.gd" id="1_yvdn4"]
@@ -112,15 +112,6 @@ max_stacks = 3
 score_multiplier = -0.7
 metadata/_custom_type_script = "uid://bkeoml7x3rkuu"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yvdn4"]
-shader = ExtResource("2_d7pyx")
-shader_parameter/normal_offset = 1.5
-shader_parameter/time_influence = 2.5
-shader_parameter/y_div = 5.6
-shader_parameter/opacity = 1.0
-shader_parameter/seed = 0.0
-shader_parameter/tint_color = Color(1, 1, 1, 1)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s5603"]
 shader = ExtResource("9_dpipn")
 shader_parameter/opacity = 0.0
@@ -134,7 +125,7 @@ shader_parameter/fadeDistance = 2.106
 shader_parameter/MainAlpha = 0.779
 shader_parameter/effect_color = Color(0.16, 0.022399997, 0.022399997, 0.7294118)
 
-[node name="Control" type="Control" node_paths=PackedStringArray("mod_list", "decision_list", "score_label")]
+[node name="Control" type="Control" node_paths=PackedStringArray("mod_list", "score_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -143,9 +134,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yvdn4")
 mod_list = NodePath("CanvasLayer/mod_select")
-decision_list = NodePath("CanvasLayer/decisions")
 score_label = NodePath("CanvasLayer/ScoreLabel")
-win_screen_scene = "uid://dat7srefm4ijx"
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -185,35 +174,6 @@ script = ExtResource("5_vmbcd")
 mod_list = Array[ExtResource("6_dt5tg")]([SubResource("Resource_dpipn"), SubResource("Resource_nel6a"), SubResource("Resource_1vesd"), SubResource("Resource_4jr5q")])
 upgrade_list = Array[ExtResource("6_dt5tg")]([SubResource("Resource_tyfs1"), SubResource("Resource_i7dui")])
 mult_label = NodePath("../MultiplierLabel")
-
-[node name="decisions" type="VBoxContainer" parent="CanvasLayer"]
-material = SubResource("ShaderMaterial_yvdn4")
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -54.0
-offset_top = -23.0
-offset_right = 54.0
-offset_bottom = 23.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("2_0i6aa")
-theme_override_constants/separation = 16
-
-[node name="ContinueButton" type="Button" parent="CanvasLayer/decisions"]
-use_parent_material = true
-layout_mode = 2
-theme = ExtResource("2_0i6aa")
-text = "continue"
-
-[node name="EndButton" type="Button" parent="CanvasLayer/decisions"]
-use_parent_material = true
-layout_mode = 2
-theme = ExtResource("2_0i6aa")
-text = "end it here
-(submit your score)"
 
 [node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_s5603")
@@ -269,6 +229,3 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1, 1.00152)
 mouse_filter = 2
-
-[connection signal="pressed" from="CanvasLayer/decisions/ContinueButton" to="." method="_on_continue_pressed"]
-[connection signal="pressed" from="CanvasLayer/decisions/EndButton" to="." method="_on_end_button_pressed"]

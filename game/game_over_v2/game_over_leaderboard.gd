@@ -22,7 +22,7 @@ func _ready() -> void:
 	leaderboard.fetch_top(25)
 	if Settings.get("demo mode") == false:
 			Settings.set("tutorial enabled", false)
-	get_tree().get_root().get_node("Cursor").get_node("FilterOverlay").visible = false
+	#get_tree().get_root().get_node("Cursor").get_node("FilterOverlay").visible = false
 
 
 
@@ -80,6 +80,8 @@ func display_leaderboard(data = []) -> void:
 
 func _on_play_button_pressed() -> void:
 	SceneManager.change_scene(game_scene)
+	ScoreManager.reset()
 
 func _on_return_button_pressed() -> void:
 	SceneManager.change_scene(main_menu_scene)
+	ScoreManager.reset()
