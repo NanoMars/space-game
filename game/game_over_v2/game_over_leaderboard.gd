@@ -24,6 +24,9 @@ func _ready() -> void:
 			Settings.set("tutorial enabled", false)
 	#get_tree().get_root().get_node("Cursor").get_node("FilterOverlay").visible = false
 
+	await get_tree().create_timer(120.0).timeout
+	_on_return_button_pressed()
+
 
 
 func _on_leaderboard_request_completed(data):
@@ -36,9 +39,6 @@ func fetch_and_display_leaderboard() -> void:
 	var player_name = letter_input.value
 	leaderboard.submit_score(player_name, ScoreManager.score, ScoreManager.currentRound)
 	leaderboard.fetch_top(25)
-
-	await get_tree().create_timer(30.0).timeout
-	_on_return_button_pressed()
 
 func display_leaderboard(data = []) -> void:
 	if not has_leaderboard_data:
