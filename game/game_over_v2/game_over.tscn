@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://0v55e684r5o8"]
+[gd_scene load_steps=51 format=3 uid="uid://0v55e684r5o8"]
 
 [ext_resource type="Script" uid="uid://cy6ndxvfnrlhl" path="res://game/game_over_v2/game_over.gd" id="1_ebh32"]
 [ext_resource type="Script" uid="uid://c75u2713r4bxx" path="res://game/UI/main_menu/canvas_layer_tilt.gd" id="1_vcier"]
@@ -557,6 +557,17 @@ _data = {
 &"animation": SubResource("Animation_gial7")
 }
 
+[sub_resource type="AudioStream" id="AudioStream_d7odc"]
+
+[sub_resource type="AudioStream" id="AudioStream_aibh3"]
+
+[sub_resource type="AudioStreamSynchronized" id="AudioStreamSynchronized_elgsy"]
+stream_count = 2
+stream_0/stream = SubResource("AudioStream_d7odc")
+stream_0/volume = 0.0
+stream_1/stream = SubResource("AudioStream_aibh3")
+stream_1/volume = 0.0
+
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_vcier")
 noise = ExtResource("2_gial7")
@@ -896,6 +907,9 @@ libraries = {
 
 [node name="Leaderboard" type="Node" parent="."]
 script = ExtResource("20_6ec8a")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamSynchronized_elgsy")
 
 [connection signal="focus_entered" from="Control/CenterContainer/HBoxContainer/Button" to="Control/CenterContainer/HBoxContainer/Button" method="_on_focus_entered"]
 [connection signal="focus_exited" from="Control/CenterContainer/HBoxContainer/Button" to="Control/CenterContainer/HBoxContainer/Button" method="_on_focus_exited"]

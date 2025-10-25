@@ -24,13 +24,14 @@ func _ready() -> void:
 	add_child(audio_player)
 	audio_player.stream = preload("res://game/sound/music/TORRENTIAL DEPTHS.wav")
 	audio_player.bus = "Music"
+	audio_player.process_mode = PROCESS_MODE_ALWAYS
 	audio_player.play()
 	
 	
 func _process(delta: float) -> void:
 	if playing_music:
 		playing_volume_target = 1.0
-	else:
+	else:	
 		playing_volume_target = 0.0
 
 	if lowpass_enabled:

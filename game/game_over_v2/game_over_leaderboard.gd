@@ -37,6 +37,9 @@ func fetch_and_display_leaderboard() -> void:
 	leaderboard.submit_score(player_name, ScoreManager.score, ScoreManager.currentRound)
 	leaderboard.fetch_top(25)
 
+	await get_tree().create_timer(30.0).timeout
+	_on_return_button_pressed()
+
 func display_leaderboard(data = []) -> void:
 	if not has_leaderboard_data:
 		return

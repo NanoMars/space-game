@@ -13,7 +13,6 @@ collision_mask = 4
 script = ExtResource("1_128we")
 trail = NodePath("trail")
 enemy_projectile = true
-homing_strength_per_level = 0.3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_128we")
@@ -24,12 +23,24 @@ hit_from_inside = true
 
 [node name="head" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)
-scale = Vector2(0.15, 0.15)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_lurep")
+offset = Vector2(0, -6)
+
+[node name="head" type="Sprite2D" parent="head"]
+modulate = Color(1, 0, 0, 0.4)
+scale = Vector2(1.1, 1.1)
 texture = ExtResource("2_lurep")
 offset = Vector2(0, -6)
 
 [node name="trail" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)
-scale = Vector2(0.15, 0.09)
+scale = Vector2(0.2, 0.12)
+texture = ExtResource("3_shplk")
+offset = Vector2(0, 11)
+
+[node name="trail" type="Sprite2D" parent="trail"]
+modulate = Color(1, 0, 0, 0.4)
+scale = Vector2(1.1, 1.1)
 texture = ExtResource("3_shplk")
 offset = Vector2(0, 11)

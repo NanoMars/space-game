@@ -59,6 +59,7 @@ func _on_mod_button_pressed(mod: Modifier, _button: Button) -> void:
 	if ScoreManager.active_modifiers.has(mod):
 		if mod.stackable and mod.stacks < mod.max_stacks:
 			mod.stacks += 1
+			ScoreManager.score_multiplier += mod.score_multiplier
 	else:
 		ScoreManager.active_modifiers.append(mod)
 		ScoreManager.score_multiplier += mod.score_multiplier
