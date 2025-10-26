@@ -15,7 +15,7 @@
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_355u3"]
 texture = ExtResource("2_hkhih")
-modulate_color = Color(1, 1, 1, 0.117647)
+modulate_color = Color(1, 1, 1, 0.7490196)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_22a63"]
 load_path = "res://.godot/imported/circleblur.png-c975c87a170c000641d2a0292e8ee06c.ctex"
@@ -95,6 +95,8 @@ CheckButton/icons/checked_disabled = ExtResource("4_p3lul")
 CheckButton/icons/checked_disabled_mirrored = null
 CheckButton/icons/unchecked = ExtResource("5_4u88v")
 CheckButton/icons/unchecked_disabled = ExtResource("6_yn6tg")
+CheckButton/styles/focus = SubResource("StyleBoxTexture_355u3")
+CheckButton/styles/hover = SubResource("StyleBoxTexture_yewcr")
 HSeparator/constants/separation = 8
 HSeparator/styles/separator = SubResource("StyleBoxEmpty_yewcr")
 HSlider/icons/grabber = ExtResource("7_yn6tg")

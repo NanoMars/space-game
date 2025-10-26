@@ -6,6 +6,7 @@ extends Control
 @export var name_container: Container
 @export var score_container: Container
 @export var round_container: Container
+@export var scroll_container: ScrollContainer
 @export var label_theme: Theme
 @export var letter_input: LetterInput
 @export_file("*.tscn") var main_menu_scene: String
@@ -13,6 +14,7 @@ extends Control
 
 var has_leaderboard_data: bool = false
 var leaderboard_data = null
+var scroll_speed: float = 200.0  # Pixels per second
 
 
 func _ready() -> void:
@@ -88,3 +90,8 @@ func _on_play_button_pressed() -> void:
 func _on_return_button_pressed() -> void:
 	SceneManager.change_scene(main_menu_scene)
 	ScoreManager.reset()
+
+func _process(delta: float) -> void:
+	var scroll_input := Input.get_axis("ui_up", "ui_down")
+	if scroll_input != 0:
+		scroll_container.scroll_vertical += int(scroll_input * scroll_speed * delta)

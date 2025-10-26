@@ -127,7 +127,7 @@ shader_parameter/y_div = 1.8
 shader_parameter/opacity = 1.0
 shader_parameter/seed = 0.0
 
-[node name="Control2" type="Control" node_paths=PackedStringArray("weapon_display_container")]
+[node name="Control2" type="Control" node_paths=PackedStringArray("weapon_display_container", "return_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -140,6 +140,7 @@ weapon_display_container = NodePath("CanvasLayer/VBoxContainer/HBoxContainer")
 weapon_display_scene = ExtResource("5_aeawi")
 main_menu = ExtResource("6_yvvyg")
 game_scene = "uid://s488jtj1i4ci"
+return_button = NodePath("CanvasLayer/ReturnButton")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -189,6 +190,7 @@ material = SubResource("ShaderMaterial_6jfhd")
 offset_left = 16.0
 offset_top = 16.0
 size_flags_horizontal = 4
+focus_neighbor_bottom = NodePath("../VBoxContainer/HBoxContainer")
 theme = ExtResource("3_48vym")
 text = "back"
 

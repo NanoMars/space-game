@@ -5,6 +5,7 @@ extends Control
 @export var weapon_display_scene: PackedScene
 @export var main_menu: PackedScene
 @export_file("*.tscn") var game_scene: String
+@export var return_button: Button
 
 var selected_weapon: WeaponStats = null
 
@@ -16,8 +17,13 @@ func _ready() -> void:
 		display.id = id
 		display.weapon_stats = weapon
 		weapon_display_container.add_child(display)
+		display.focus_neighbor_top = return_button.get_path()
 		display.pressed.connect(_on_weapon_display_pressed.bind(display))
 	weapon_display_container.get_children()[0].grab_focus()
+	weapon_display_container.get_children()[0].focus_neighbor_left = return_button.get_path()
+
+	return_button.focus_neighbor_bottom = weapon_display_container.get_children()[0].get_path()
+	return_button.focus_neighbor_right = weapon_display_container.get_children()[0].get_path()
 
 
 

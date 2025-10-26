@@ -33,8 +33,8 @@ func _ready() -> void:
 					slider.step = 1
 					slider.theme = custom_theme
 					slider.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-					slider.drag_ended.connect(func(_value_changed: bool, setting_name=setting.name, slider_ref=slider):
-						Settings._set(setting_name, int(slider_ref.value))
+					slider.value_changed.connect(func(value: float, setting_name=setting.name):
+						Settings._set(setting_name, int(value))
 					)
 					vbox.add_child(label)
 					vbox.add_child(slider)
@@ -68,11 +68,11 @@ func _ready() -> void:
 					var slider_f: HSlider = HSlider.new()
 					slider_f.min_value = setting.lower_limit
 					slider_f.max_value = setting.upper_limit
-					slider_f.step = 0.01
+					slider_f.step = 0.1
 					slider_f.theme = custom_theme
 					slider_f.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-					slider_f.drag_ended.connect(func(_value_changed: bool, setting_name=setting.name, slider_ref=slider_f):
-						Settings._set(setting_name, slider_ref.value) 
+					slider_f.value_changed.connect(func(value: float, setting_name=setting.name):
+						Settings._set(setting_name, value)
 					)
 					vbox_f.add_child(label_f)
 					vbox_f.add_child(slider_f)
