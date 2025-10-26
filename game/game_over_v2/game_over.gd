@@ -13,6 +13,7 @@ extends Control
 @export_group("objects")
 @export var score_label: Label
 @export var final_animations: Array[AnimationPlayer]
+@export var object_to_focus_after_animation: Control
 
 @export_group("sounds")
 @export var tick_sound: AudioStreamPlayer
@@ -65,11 +66,24 @@ func _process(delta: float) -> void:
 
 	#print("calculated_score: ", calculated_score, " score: ", score)
 	if not final_event_played and calculated_score >= score:
+		final_event_played = true
 		final_event_sound.play()
 		final_particles.emitting = true
+		var longest_time: float = 0.0
+		var longest_animation: AnimationPlayer = null
 		for final_animation in final_animations:
 			final_animation.play("animation")
-		final_event_played = true
+			var anim_length = final_animation.current_animation_length
+			if anim_length > longest_time:
+				longest_time = anim_length
+				longest_animation = final_animation
+		if longest_animation != null:
+			await longest_animation.animation_finished
+			object_to_focus_after_animation.get_children()[0].grab_focus()
+			
+
+		
+		
 	
 	var shake_magnitude_value = shake_magnitude.sample(progress)
 	var shake_speed_value = shake_speed.sample(progress)

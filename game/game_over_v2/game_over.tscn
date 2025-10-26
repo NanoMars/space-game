@@ -16,7 +16,7 @@
 [ext_resource type="AudioStream" uid="uid://cp0vybt0e0jyv" path="res://game/game_over_v2/Bottle Break.wav" id="7_0iqku"]
 [ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://game/UI/intermission/button_theme.tres" id="13_3yww4"]
 [ext_resource type="Shader" uid="uid://s4clk6hl5ixd" path="res://game/UI/intermission/buttonshader.gdshader" id="15_r0i0f"]
-[ext_resource type="Shader" path="res://game/game_over_v2/invert.gdshader" id="16_gial7"]
+[ext_resource type="Shader" uid="uid://ewwvkjh2f7hq" path="res://game/game_over_v2/invert.gdshader" id="16_gial7"]
 [ext_resource type="Script" uid="uid://bjsycyr7mijoh" path="res://game/game_over_v2/letter_input.gd" id="17_wcldx"]
 [ext_resource type="Script" uid="uid://cpsu7b41o8v1w" path="res://game/game_over_v2/submit_button.gd" id="18_xwud8"]
 [ext_resource type="Script" uid="uid://u07jl8ei2plg" path="res://game/game_over_v2/game_over_leaderboard.gd" id="19_d7odc"]
@@ -340,6 +340,18 @@ tracks/7/keys = {
 "update": 0,
 "values": [1.0]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../CenterContainer/HBoxContainer:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_aibh3"]
 resource_name = "animation"
@@ -467,6 +479,18 @@ tracks/7/keys = {
 "update": 0,
 "values": [1.0, 0.0]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../CenterContainer/HBoxContainer:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7tb5i"]
 _data = {
@@ -587,7 +611,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Control" type="Control" parent="." node_paths=PackedStringArray("score_label", "final_animations", "tick_sound", "small_event_sound", "large_event_sound", "final_event_sound", "large_particles", "final_particles")]
+[node name="Control" type="Control" parent="." node_paths=PackedStringArray("score_label", "final_animations", "object_to_focus_after_animation", "tick_sound", "small_event_sound", "large_event_sound", "final_event_sound", "large_particles", "final_particles")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -601,6 +625,7 @@ score_label_small_font_size = 0.0
 score_label_large_font_size = 2.0
 score_label = NodePath("Control/ScoreLabel")
 final_animations = [NodePath("AnimationPlayer"), NodePath("../Panel/AnimationPlayer")]
+object_to_focus_after_animation = NodePath("CenterContainer/HBoxContainer")
 tick_sound = NodePath("TickSound")
 small_event_sound = NodePath("SmallSound")
 large_event_sound = NodePath("BigSound")
@@ -717,7 +742,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/CenterContainer"]
-visible = false
 material = SubResource("ShaderMaterial_r0i0f")
 layout_mode = 2
 theme_override_constants/separation = 32
@@ -867,6 +891,7 @@ layout_mode = 2
 use_parent_material = true
 layout_mode = 2
 size_flags_horizontal = 6
+focus_neighbor_right = NodePath("../PlayButton")
 theme = ExtResource("13_3yww4")
 text = "return to main menu"
 
@@ -880,6 +905,7 @@ size_flags_horizontal = 3
 use_parent_material = true
 layout_mode = 2
 size_flags_horizontal = 6
+focus_neighbor_left = NodePath("../ReturnButton")
 theme = ExtResource("13_3yww4")
 text = "play again"
 
@@ -913,10 +939,10 @@ stream = SubResource("AudioStreamSynchronized_elgsy")
 
 [connection signal="focus_entered" from="Control/CenterContainer/HBoxContainer/Button" to="Control/CenterContainer/HBoxContainer/Button" method="_on_focus_entered"]
 [connection signal="focus_exited" from="Control/CenterContainer/HBoxContainer/Button" to="Control/CenterContainer/HBoxContainer/Button" method="_on_focus_exited"]
-[connection signal="focus_entered" from="Control/CenterContainer/HBoxContainer/@Button@21111" to="Control/CenterContainer/HBoxContainer/@Button@21111" method="_on_focus_entered"]
-[connection signal="focus_exited" from="Control/CenterContainer/HBoxContainer/@Button@21111" to="Control/CenterContainer/HBoxContainer/@Button@21111" method="_on_focus_exited"]
-[connection signal="focus_entered" from="Control/CenterContainer/HBoxContainer/@Button@21112" to="Control/CenterContainer/HBoxContainer/@Button@21112" method="_on_focus_entered"]
-[connection signal="focus_exited" from="Control/CenterContainer/HBoxContainer/@Button@21112" to="Control/CenterContainer/HBoxContainer/@Button@21112" method="_on_focus_exited"]
+[connection signal="focus_entered" from="Control/CenterContainer/HBoxContainer/@Button@21157" to="Control/CenterContainer/HBoxContainer/@Button@21157" method="_on_focus_entered"]
+[connection signal="focus_exited" from="Control/CenterContainer/HBoxContainer/@Button@21157" to="Control/CenterContainer/HBoxContainer/@Button@21157" method="_on_focus_exited"]
+[connection signal="focus_entered" from="Control/CenterContainer/HBoxContainer/@Button@21158" to="Control/CenterContainer/HBoxContainer/@Button@21158" method="_on_focus_entered"]
+[connection signal="focus_exited" from="Control/CenterContainer/HBoxContainer/@Button@21158" to="Control/CenterContainer/HBoxContainer/@Button@21158" method="_on_focus_exited"]
 [connection signal="pressed" from="Control/Button" to="Control/Button" method="_on_pressed"]
 [connection signal="pressed" from="Control/Button" to="Control/LeaderboardBox" method="fetch_and_display_leaderboard"]
 [connection signal="pressed" from="Control/LeaderboardBox/HBoxContainer/ReturnButton" to="Control/LeaderboardBox" method="_on_return_button_pressed"]

@@ -25,6 +25,7 @@ Settings="*res://game/UI/main_menu/settings/settings_autoload.gd"
 Cursor="*res://game/UI/cursor/cursor.gd"
 Shaker="*res://addons/shaker/src/Shaker.gd"
 FreezeFrameManager="*res://game/freeze_frame_manager.gd"
+AlwaysHaveUiSelected="*res://game/UI/always_have_ui_selected.gd"
 
 [display]
 

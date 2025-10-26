@@ -127,7 +127,7 @@ shader_parameter/y_div = 1.8
 shader_parameter/opacity = 1.0
 shader_parameter/seed = 0.0
 
-[node name="Control" type="Control" node_paths=PackedStringArray("weapon_display_container")]
+[node name="Control2" type="Control" node_paths=PackedStringArray("weapon_display_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
