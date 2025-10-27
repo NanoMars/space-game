@@ -72,9 +72,21 @@ var enemies_seen: Array[String] = []
 var keybinds_shown: bool = false
 
 var super_progress: float = 0.0
+var super_ready: bool:
+	set(value):
+		_super_ready = value
+		emit_signal("super_ready_changed", _super_ready)
+	get:
+		return _super_ready
+var _super_ready: bool = false
+signal super_ready_changed(new_ready: bool)
 
-const super_progress_decay_rate: float = 0.25
+const super_progress_decay_rate: float = 0.20
+const super_ready_decay_rate: float = 0.075
 const super_progress_per_point: float = 0.0005
+const super_ready_threshold: float = 0.975
+const super_unready_threshold: float = 0.0
+
 
 func _ready() -> void:
 	reset()
@@ -108,7 +120,17 @@ func reset() -> void:
 
 func _process(delta: float) -> void:
 	if super_progress > 0.0 and current_round_type == round_types.Round:
-		super_progress = max(super_progress - super_progress_decay_rate * delta, 0.0)
+		if super_progress < super_unready_threshold and super_ready:
+			super_ready = false
+			print("super unready")
+		elif super_progress >= super_ready_threshold and not super_ready:
+			super_ready = true
+			print("super ready")
+
+		if super_ready:
+			super_progress = max(super_progress - super_progress_decay_rate * delta, 0.0)
+		else:
+			super_progress = max(super_progress - super_ready_decay_rate * delta, 0.0)
 
 
 func next_round() -> void:

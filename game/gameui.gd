@@ -9,6 +9,7 @@ extends Control
 @onready var enemy_count_label: Label = $EnemyCountLabel
 @onready var round_label: Label = $RoundLabel
 @onready var super_progress_bar: ProgressBar = $SuperProgressBar
+@onready var super_ready: Control = $SuperReady
 # Cache vignette material
 @onready var vignette_mat: ShaderMaterial = $Vignette.material
 
@@ -46,9 +47,13 @@ func _ready() -> void:
 	var reset_callable := Callable(self, "_on_reset_spawner")
 	if not ScoreManager.reset_spawner.is_connected(reset_callable):
 		ScoreManager.reset_spawner.connect(reset_callable)
+	if not ScoreManager.super_ready_changed.is_connected(_on_super_ready_changed):
+		ScoreManager.super_ready_changed.connect(_on_super_ready_changed)
+	super_ready.visible = ScoreManager.super_ready
 	_on_reset_spawner()
 
-	
+func _on_super_ready_changed(new_ready: bool) -> void:
+	super_ready.visible = new_ready
 
 func _on_reset_spawner() -> void:
 	_ensure_spawner()

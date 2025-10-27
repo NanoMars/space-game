@@ -104,7 +104,7 @@ vertical_speed = 16.5
 raycast_l = NodePath("RayCastL")
 raycast_r = NodePath("RayCastR")
 enemy_name = "Laser"
-point_value = 4000
+point_value = 800
 shaker_component = NodePath("Sprite2D/ShakerComponent2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

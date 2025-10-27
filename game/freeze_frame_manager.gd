@@ -21,7 +21,7 @@ func freeze_short() -> void:
 	update_freeze_state()
 
 func freeze_long() -> void:
-	freeze_time_remaining += 0.06
+	freeze_time_remaining += 0.15
 	update_freeze_state()
 
 func update_freeze_state() -> void:
