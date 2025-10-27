@@ -16,6 +16,8 @@ var score: int:
 			var difference = value - _score
 			_score = _score + (difference * score_multiplier)
 			emit_signal("score_changed", _score)
+			if difference > 0:
+				super_progress = min(super_progress + float(difference) * super_progress_per_point, 1.0)
 	get:
 		return int(_score)
 var _score: float = 0
@@ -60,8 +62,6 @@ var max_rounds_before_intermission: int = 2
 var rounds_since_intermission: int = 0
 var previous_rounds: Array = []
 
-
-
 var always_have_x_rounds: int = 4
 
 signal reset_spawner()
@@ -70,6 +70,11 @@ var enemy_types: Array[EnemyType] = []
 
 var enemies_seen: Array[String] = []
 var keybinds_shown: bool = false
+
+var super_progress: float = 0.0
+
+const super_progress_decay_rate: float = 0.25
+const super_progress_per_point: float = 0.0005
 
 func _ready() -> void:
 	reset()
@@ -89,6 +94,7 @@ func reset() -> void:
 	basic_enemy.weight = 1.0
 	enemy_types.append(basic_enemy)
 	score = 0
+	super_progress = 0.0
 	enemies_seen.clear()
 	keybinds_shown = false
 	current_round_type = round_types.Round
@@ -99,6 +105,11 @@ func reset() -> void:
 	while rounds.size() < always_have_x_rounds:
 		generate_rounds()
 	previous_rounds.append(rounds.pop_front())
+
+func _process(delta: float) -> void:
+	if super_progress > 0.0 and current_round_type == round_types.Round:
+		super_progress = max(super_progress - super_progress_decay_rate * delta, 0.0)
+
 
 func next_round() -> void:
 	var nr = rounds.pop_front()

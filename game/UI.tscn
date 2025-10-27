@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dlgvodlq4gicv"]
+[gd_scene load_steps=12 format=3 uid="uid://dlgvodlq4gicv"]
 
 [ext_resource type="Script" uid="uid://bdqhv1vauenlf" path="res://game/gameui.gd" id="1_ogh4a"]
 [ext_resource type="Theme" uid="uid://c6mssg2ngmqpk" path="res://game/game_ui_theme.tres" id="2_brkp5"]
@@ -8,6 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://io2xm657xi7l" path="res://game/UI/timeline_panel/timeline.tscn" id="6_iejap"]
 [ext_resource type="PackedScene" uid="uid://c5k85or5lb48" path="res://game/UI/healthbar/healthbar.tscn" id="7_cfuqe"]
 
+[sub_resource type="Curve" id="Curve_cfuqe"]
+_data = [Vector2(0, 0), 0.0, 0.049626205, 0, 0, Vector2(1, 1), 3.1530936, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_juvnx"]
 shader = ExtResource("3_pjh2a")
 shader_parameter/angle_deg = 0.0
@@ -16,6 +20,14 @@ shader_parameter/green_ratio = 0.0
 shader_parameter/height = 0.5
 shader_parameter/width = 0.5
 shader_parameter/fade = 0.7
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cfuqe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhufb"]
+draw_center = false
+border_width_left = 8
+border_width_right = 8
+border_color = Color(0.8, 0, 0, 1)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -30,6 +42,7 @@ vignette_rot_decay = 180.0
 vignette_rot_speed_per_health_lost = 30.0
 vignette_scale_decay = 12.5
 vignette_scale_per_health_lost = 0.5
+super_interpolate = SubResource("Curve_cfuqe")
 
 [node name="ScoreLabel" type="Label" parent="."]
 layout_mode = 1
@@ -122,3 +135,16 @@ offset_left = 16.0
 offset_top = 16.0
 offset_right = 116.0
 offset_bottom = 35.0
+
+[node name="SuperProgressBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_cfuqe")
+theme_override_styles/fill = SubResource("StyleBoxFlat_rhufb")
+value = 42.87
+fill_mode = 3
+show_percentage = false

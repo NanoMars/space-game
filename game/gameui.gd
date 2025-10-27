@@ -8,6 +8,7 @@ extends Control
 @onready var multiplier_label: Label = $MultiplierLabel
 @onready var enemy_count_label: Label = $EnemyCountLabel
 @onready var round_label: Label = $RoundLabel
+@onready var super_progress_bar: ProgressBar = $SuperProgressBar
 # Cache vignette material
 @onready var vignette_mat: ShaderMaterial = $Vignette.material
 
@@ -24,6 +25,7 @@ var vignette_scale: float = 0.0
 @export var vignette_scale_per_health_lost: float = 5.0
 
 @export var camera_shake: ShakerComponent2D
+@export var super_interpolate: Curve
 
 # Baselines and rotation offset
 var _base_power_px: float = 0.0
@@ -45,6 +47,8 @@ func _ready() -> void:
 	if not ScoreManager.reset_spawner.is_connected(reset_callable):
 		ScoreManager.reset_spawner.connect(reset_callable)
 	_on_reset_spawner()
+
+	
 
 func _on_reset_spawner() -> void:
 	_ensure_spawner()
@@ -129,6 +133,8 @@ func _process(delta: float) -> void:
 	_rot_angle_offset += vignette_rot_speed * delta
 	if vignette_mat:
 		vignette_mat.set_shader_parameter("angle_deg", _base_angle_deg + _rot_angle_offset)
+	var super_interpolated_progress = super_interpolate.sample(ScoreManager.super_progress)
+	super_progress_bar.value = super_interpolated_progress * (super_progress_bar.max_value - super_progress_bar.min_value) + super_progress_bar.min_value
 
 	# Decay intensity back to base, then set absolute power (no accumulation)
 	if vignette_scale > 0.0:
@@ -138,3 +144,5 @@ func _process(delta: float) -> void:
 
 	if Engine.time_scale < 1.0:
 		Engine.time_scale = lerp(Engine.time_scale, 1.0, delta * 2)
+
+	

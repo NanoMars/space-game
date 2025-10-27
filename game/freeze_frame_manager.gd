@@ -2,28 +2,34 @@ extends Node
 
 var frozen: bool:
 	get:
-		return freeze_count > 0
+		return freeze_time_remaining > 0
 
-var freeze_count: int = 0
+var freeze_time_remaining: float = 0.0
+
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
+func _physics_process(delta: float) -> void:
+	if freeze_time_remaining > 0:
+		freeze_time_remaining -= delta
+		if freeze_time_remaining <= 0:
+			freeze_time_remaining = 0
+			update_freeze_state()
 
 func freeze_short() -> void:
-	freeze_count += 1
-	update_freeze_state()
-	await get_tree().create_timer(0.02, true).timeout
-	freeze_count -= 1
+	freeze_time_remaining += 0.04
 	update_freeze_state()
 
 func freeze_long() -> void:
-	freeze_count += 1
-	update_freeze_state()
-	await get_tree().create_timer(0.04, true).timeout
-	freeze_count -= 1
+	freeze_time_remaining += 0.06
 	update_freeze_state()
 
 func update_freeze_state() -> void:
 	if frozen:
+		await get_tree().process_frame
 		get_tree().paused = true
 		get_tree().get_first_node_in_group("invert_rect").visible = true
 	else:
+		await get_tree().process_frame
 		get_tree().paused = false
 		get_tree().get_first_node_in_group("invert_rect").visible = false

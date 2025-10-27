@@ -5,11 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://dtko2m2nstc58" path="res://game/assets/palettes/joker-6-1x.png" id="2_tgmn2"]
 [ext_resource type="Shader" uid="uid://ewwvkjh2f7hq" path="res://game/game_over_v2/invert.gdshader" id="4_37sf3"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vlrml"]
-shader = ExtResource("4_37sf3")
-shader_parameter/strength = 1.0
-shader_parameter/use_sprite_alpha = true
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wr18j"]
 shader = ExtResource("1_kr5c2")
 shader_parameter/levels = 4
@@ -19,17 +14,13 @@ shader_parameter/dither_texture = ExtResource("2_2blya")
 shader_parameter/palette = ExtResource("2_tgmn2")
 shader_parameter/palette_size = 6
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vlrml"]
+shader = ExtResource("4_37sf3")
+shader_parameter/strength = 1.0
+shader_parameter/use_sprite_alpha = true
+
 [node name="FilterOverlay" type="CanvasLayer"]
 layer = 1000
-
-[node name="ColorRect2" type="ColorRect" parent="." groups=["invert_rect"]]
-visible = false
-material = SubResource("ShaderMaterial_vlrml")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_wr18j")
@@ -41,3 +32,12 @@ offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="ColorRect2" type="ColorRect" parent="." groups=["invert_rect"]]
+visible = false
+material = SubResource("ShaderMaterial_vlrml")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
