@@ -47,6 +47,7 @@ camera=""
 spawner=""
 game_root=""
 starfield=""
+invert_rect=""
 
 [input]
 

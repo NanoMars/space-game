@@ -23,5 +23,7 @@ func freeze_long() -> void:
 func update_freeze_state() -> void:
 	if frozen:
 		get_tree().paused = true
+		get_tree().get_first_node_in_group("invert_rect").visible = true
 	else:
 		get_tree().paused = false
+		get_tree().get_first_node_in_group("invert_rect").visible = false
