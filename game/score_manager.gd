@@ -79,7 +79,16 @@ var super_ready: bool:
 	get:
 		return _super_ready
 var _super_ready: bool = false
+var super_active: bool:
+	set(value):
+		_super_active = value
+		emit_signal("super_activation_changed", _super_active)
+	get:
+		return _super_active
+
+var _super_active: bool = false
 signal super_ready_changed(new_ready: bool)
+signal super_activation_changed(is_active: bool)
 
 const super_progress_decay_rate: float = 0.20
 const super_ready_decay_rate: float = 0.075
@@ -122,6 +131,7 @@ func _process(delta: float) -> void:
 	if super_progress > 0.0 and current_round_type == round_types.Round:
 		if super_progress < super_unready_threshold and super_ready:
 			super_ready = false
+			super_active = false
 			print("super unready")
 		elif super_progress >= super_ready_threshold and not super_ready:
 			super_ready = true
@@ -168,3 +178,9 @@ func generate_rounds() -> void:
 		rounds.append(round_types.Round)
 
 	rounds.append(round_types.Downgrade)
+
+func _input(event) -> void:
+	if event.is_action_pressed("super"):
+		if super_ready and not super_active:
+			super_active = true
+			print("super activated")

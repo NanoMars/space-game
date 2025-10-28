@@ -53,6 +53,12 @@ func _ready() -> void:
 
 
 func damage(amount: float, from: Node = null) -> void:
+	if ScoreManager.super_active:
+		var player: Node = get_tree().get_first_node_in_group("player")
+		if player:
+			health.die(player)
+		else:
+			health.die(self)
 	if health and health.has_method("damage"):
 		health.damage(amount, from)
 		if shaker_component:

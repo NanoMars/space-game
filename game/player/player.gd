@@ -113,6 +113,8 @@ func _on_died(_from: Node) -> void:
 	queue_free()
 
 func damage(amount: float, from: Node = null) -> void:
+	if ScoreManager.super_active:
+		return
 	if amount > 30.0:
 		FreezeFrameManager.freeze_long()
 		hit_normal_sound.play()

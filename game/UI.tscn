@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dlgvodlq4gicv"]
+[gd_scene load_steps=14 format=3 uid="uid://dlgvodlq4gicv"]
 
 [ext_resource type="Script" uid="uid://bdqhv1vauenlf" path="res://game/gameui.gd" id="1_ogh4a"]
 [ext_resource type="Theme" uid="uid://c6mssg2ngmqpk" path="res://game/game_ui_theme.tres" id="2_brkp5"]
@@ -7,6 +7,7 @@
 [ext_resource type="Theme" uid="uid://3cudps0p8v2w" path="res://game/UI/intermission/button_theme.tres" id="5_r2x2w"]
 [ext_resource type="PackedScene" uid="uid://io2xm657xi7l" path="res://game/UI/timeline_panel/timeline.tscn" id="6_iejap"]
 [ext_resource type="PackedScene" uid="uid://c5k85or5lb48" path="res://game/UI/healthbar/healthbar.tscn" id="7_cfuqe"]
+[ext_resource type="Shader" uid="uid://4m3muob22l6w" path="res://game/UI/super_fire.gdshader" id="8_rhufb"]
 
 [sub_resource type="Curve" id="Curve_cfuqe"]
 _data = [Vector2(0, 0), 0.0, 0.27449784, 0, 0, Vector2(0.98616236, 1), 2.5346963, 0.0, 0, 0]
@@ -28,6 +29,12 @@ draw_center = false
 border_width_left = 8
 border_width_right = 8
 border_color = Color(0.8, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fqnwy"]
+shader = ExtResource("8_rhufb")
+shader_parameter/radius = 1.675
+shader_parameter/speed = 0.2090000099275
+shader_parameter/effect_color = Color(1, 1, 1, 0.7607843)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -157,3 +164,14 @@ offset_right = 388.00003
 offset_bottom = 218.00002
 rotation = -0.06981317
 text = "SUPER READY!"
+
+[node name="SuperFlame" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_fqnwy")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.0
+anchor_top = -1.0
+anchor_right = 2.0
+anchor_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2

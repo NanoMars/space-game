@@ -12,6 +12,7 @@ extends Control
 @onready var super_ready: Control = $SuperReady
 # Cache vignette material
 @onready var vignette_mat: ShaderMaterial = $Vignette.material
+@onready var super_flame: ColorRect = $SuperFlame
 
 var old_health: float = 100.0
 var vignette_rot_speed: float = 0.0
@@ -27,6 +28,11 @@ var vignette_scale: float = 0.0
 
 @export var camera_shake: ShakerComponent2D
 @export var super_interpolate: Curve
+@export var super_fire_interpolate: Curve
+var super_fire_max_radius: float = 2.0
+var super_fire_min_radius: float = 1.385
+var super_fire_hidden_radius: float = 0.0
+
 
 # Baselines and rotation offset
 var _base_power_px: float = 0.0
@@ -149,5 +155,9 @@ func _process(delta: float) -> void:
 
 	if Engine.time_scale < 1.0:
 		Engine.time_scale = lerp(Engine.time_scale, 1.0, delta * 2)
+	
+	
+
+	
 
 	
