@@ -39,7 +39,13 @@ var total_kills: int:
 		_total_kills = value
 		emit_signal("total_kills_changed", _total_kills)
 var _total_kills: int = 10
-var concurrent_cap: int = 3
+var concurrent_cap: int:
+	get:
+		if super_active:
+			return _concurrent_cap * 3
+		else:
+			return concurrent_cap
+var _concurrent_cap: int = 3
 
 var currentRound: int = 1
 var last_downgrade: bool = true
@@ -90,11 +96,12 @@ var _super_active: bool = false
 signal super_ready_changed(new_ready: bool)
 signal super_activation_changed(is_active: bool)
 
-const super_progress_decay_rate: float = 0.20
+const super_progress_decay_rate: float = 0.2
 const super_ready_decay_rate: float = 0.075
+const super_active_decay_rate: float = 0.25
 const super_progress_per_point: float = 0.0005
 const super_ready_threshold: float = 0.975
-const super_unready_threshold: float = 0.0
+const super_unready_threshold: float = 0.5
 
 
 func _ready() -> void:
@@ -128,8 +135,8 @@ func reset() -> void:
 	previous_rounds.append(rounds.pop_front())
 
 func _process(delta: float) -> void:
-	if super_progress > 0.0 and current_round_type == round_types.Round:
-		if super_progress < super_unready_threshold and super_ready:
+	if current_round_type == round_types.Round:
+		if super_progress <= super_unready_threshold and super_ready:
 			super_ready = false
 			super_active = false
 			print("super unready")
@@ -137,9 +144,12 @@ func _process(delta: float) -> void:
 			super_ready = true
 			print("super ready")
 
-		if super_ready:
+		if super_ready and not super_active:
 			super_progress = max(super_progress - super_progress_decay_rate * delta, 0.0)
-		else:
+			#print("super_ready: ", super_ready, "super_active: ", super_active, "super_progress: ", super_progress, "unready threshold: ", super_unready_threshold)
+		elif super_active:
+			super_progress = max(super_progress - super_active_decay_rate * delta, 0.0)
+		elif not super_ready:
 			super_progress = max(super_progress - super_ready_decay_rate * delta, 0.0)
 
 

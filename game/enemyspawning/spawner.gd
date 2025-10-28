@@ -190,7 +190,7 @@ func _on_enemy_died(transform: Transform2D) -> void:
 		print("next round cause enemies left <= 10: ", "Enemies left: ", _enemies_left, " rounds[0]: ", ScoreManager.rounds[0], " downgrade: ", ScoreManager.round_types.Downgrade)
 		_next_round_triggered = true
 		next_round()
-	elif _enemies_left <= 0:
+	elif _enemies_left <= 0 and not ScoreManager.super_active:
 		print("next round cause enemies left <= 0: ", "Enemies left: ", _enemies_left, " rounds[0]: ", ScoreManager.rounds[0], " downgrade: ", ScoreManager.round_types.Downgrade)
 		_next_round_triggered = true
 		next_round()

@@ -29,9 +29,10 @@ var vignette_scale: float = 0.0
 @export var camera_shake: ShakerComponent2D
 @export var super_interpolate: Curve
 @export var super_fire_interpolate: Curve
-var super_fire_max_radius: float = 2.0
-var super_fire_min_radius: float = 1.385
-var super_fire_hidden_radius: float = 0.0
+const super_fire_max_radius: float = 2.0
+const  super_fire_min_radius: float = 1.385
+const  super_fire_hidden_radius: float = 0.01
+var super_fire_animating: bool = false
 
 
 # Baselines and rotation offset
@@ -56,10 +57,49 @@ func _ready() -> void:
 	if not ScoreManager.super_ready_changed.is_connected(_on_super_ready_changed):
 		ScoreManager.super_ready_changed.connect(_on_super_ready_changed)
 	super_ready.visible = ScoreManager.super_ready
+	if not ScoreManager.super_activation_changed.is_connected(_on_super_activation_changed):
+		ScoreManager.super_activation_changed.connect(_on_super_activation_changed)
+	#_on_super_activation_changed(ScoreManager.super_active)
 	_on_reset_spawner()
 
+func _on_super_activation_changed(value) -> void:
+	super_ready.visible = ScoreManager.super_ready and not ScoreManager.super_active
+	if value:
+		var tween = get_tree().create_tween()
+		var sm := super_flame.material as ShaderMaterial
+
+		var super_flame_value: float = clamp(ScoreManager.super_progress, 0, 1)
+		var interpolated_thing: float = (super_fire_interpolate.sample(super_flame_value) * super_fire_max_radius - super_fire_min_radius) + super_fire_min_radius
+		
+		if sm:
+			super_fire_animating = true
+			tween.tween_method(
+				func(v): sm.set_shader_parameter("radius", v),
+				#func(v): print("hiding",v),
+				sm.get_shader_parameter("radius"), interpolated_thing, 1
+			)
+			await tween.finished
+			super_fire_animating = false
+	else:
+		var tween = get_tree().create_tween()
+		var sm := super_flame.material as ShaderMaterial
+
+		if sm:
+			super_fire_animating = true
+			tween.tween_method(
+				func(v): sm.set_shader_parameter("radius", v),
+				#func(v): print("showing",v),
+				sm.get_shader_parameter("radius"), super_fire_hidden_radius, 1
+			)
+			await tween.finished
+			super_fire_animating = false
+
+			
+
+
 func _on_super_ready_changed(new_ready: bool) -> void:
-	super_ready.visible = new_ready
+	super_ready.visible = new_ready and not ScoreManager.super_active
+
 
 func _on_reset_spawner() -> void:
 	_ensure_spawner()
@@ -124,6 +164,8 @@ func _connect_signals() -> void:
 	else:
 		enemy_count_label.text = "--"
 
+	
+
 func _ensure_references() -> void:
 	if not is_instance_valid(player):
 		player = get_tree().get_first_node_in_group("player")
@@ -155,6 +197,14 @@ func _process(delta: float) -> void:
 
 	if Engine.time_scale < 1.0:
 		Engine.time_scale = lerp(Engine.time_scale, 1.0, delta * 2)
+
+	if ScoreManager.super_active and not super_fire_animating:
+		var super_flame_value: float = clamp(ScoreManager.super_progress / ScoreManager.super_ready_threshold, 0, 1)
+		var interpolated_thing: float = (super_fire_interpolate.sample(super_flame_value) * super_fire_max_radius - super_fire_min_radius) + super_fire_min_radius
+		super_flame.material.set_shader_parameter("radius", interpolated_thing)
+
+
+
 	
 	
 

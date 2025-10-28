@@ -12,12 +12,8 @@ void fragment() {
     vec3 inverted = 1.0 - behind.rgb;
 
     float mask = 1.0;
-    #ifdef USE_TEXTURE
-    if (use_sprite_alpha) {
-        mask = texture(TEXTURE, UV).a;
-    }
-    #endif
 
+	mask = texture(TEXTURE, UV).a;
     vec3 mixed_rgb = mix(behind.rgb, inverted, strength * mask);
     COLOR = vec4(mixed_rgb, mask);
 }
