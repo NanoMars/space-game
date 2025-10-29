@@ -24,6 +24,10 @@ func freeze_long() -> void:
 	freeze_time_remaining += 0.15
 	update_freeze_state()
 
+func freeze_custom(length_sec) -> void:
+	freeze_time_remaining += length_sec
+	update_freeze_state()
+
 func update_freeze_state() -> void:
 	if frozen:
 		await get_tree().process_frame

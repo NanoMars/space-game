@@ -191,6 +191,8 @@ func generate_rounds() -> void:
 
 func _input(event) -> void:
 	if event.is_action_pressed("super"):
-		if super_ready and not super_active:
+		var player= get_tree().get_first_node_in_group("player")
+		if super_ready and not super_active and not player.dead:
 			super_active = true
+			FreezeFrameManager.freeze_custom(0.5)
 			print("super activated")

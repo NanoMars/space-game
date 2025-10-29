@@ -17,6 +17,7 @@ var normal_move_speed: float
 @export var hit_normal_sound: AudioStreamPlayer
 @export var death_sound: AudioStreamPlayer
 @export var damage_shake: ShakerComponent2D
+@export var super_weapon_movement: Array[Script]
 
 var weapon_stats: WeaponStats:
 	set(value):
@@ -36,6 +37,8 @@ var _weapon_stats: WeaponStats = null
 @export var shiny_thing_scene: PackedScene
 @export var shaker_component: ShakerComponent3D
 
+var default_weapon_movement
+
 var dead: bool = false
 signal died(from: Node)
 
@@ -46,7 +49,20 @@ func _ready() -> void:
 	weapon.weapon_stats = weapon_stats
 	normal_move_speed = move_speed / 60
 	
+	default_weapon_movement = weapon_stats.movement
+
+	
 	ScoreManager.on_round_complete.connect(_on_round_complete)
+	ScoreManager.super_activation_changed.connect(_super_activation_changed)
+
+func _super_activation_changed(value) -> void:
+	if value:
+		var new_movement: Script = super_weapon_movement.pick_random()
+		weapon_stats.movement = new_movement
+	else:
+		weapon_stats.movement = default_weapon_movement
+	
+
 func _on_round_complete() -> void:
 	for modifier in ScoreManager.active_modifiers:
 		if modifier.display_name == "heal between rounds":

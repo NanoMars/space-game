@@ -1,6 +1,7 @@
 extends ProjectileMover
 
-var homing_force: float = 10000
+var homing_strength: float = 5.0  # How aggressively it steers (0-10 is good range)
+var max_speed: float = 500.0  # Maximum velocity
 var target_enemy: Node2D
 
 func _ready() -> void:
@@ -15,8 +16,19 @@ func _physics_process(delta: float) -> void:
 		_find_new_enemy()
 		return
 
+	# Calculate desired direction and velocity
 	var direction_to_enemy: Vector2 = (target_enemy.global_position - projectile.global_position).normalized()
-	projectile.linear_velocity += direction_to_enemy * homing_force * delta
+	var desired_velocity: Vector2 = direction_to_enemy * max_speed
+	
+	# Calculate steering force (difference between desired and current velocity)
+	var steering: Vector2 = (desired_velocity - projectile.linear_velocity) * homing_strength * delta
+	
+	# Apply steering
+	projectile.linear_velocity += steering
+	
+	# Clamp to max speed (safety check)
+	if projectile.linear_velocity.length() > max_speed:
+		projectile.linear_velocity = projectile.linear_velocity.normalized() * max_speed
 
 func _find_new_enemy() -> void:
 	# Disconnect previous signal if target exists

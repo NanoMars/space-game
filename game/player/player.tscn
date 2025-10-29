@@ -1,8 +1,9 @@
-[gd_scene load_steps=117 format=3 uid="uid://dkf7mjen6nt18"]
+[gd_scene load_steps=118 format=3 uid="uid://dkf7mjen6nt18"]
 
 [ext_resource type="Script" uid="uid://bsg0au27h3f7j" path="res://game/player/player.gd" id="1_obar5"]
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="2_b2mth"]
 [ext_resource type="PackedScene" uid="uid://sitj6ff7jl6f" path="res://game/player/shiny_thing.tscn" id="2_bp242"]
+[ext_resource type="Script" uid="uid://b7prbar3tn6wv" path="res://game/weapon/ProjectileMoverHomingV2.gd" id="2_n6iff"]
 [ext_resource type="Script" uid="uid://dy1kcyvsje554" path="res://game/weapon/weapon.gd" id="3_8soms"]
 [ext_resource type="ArrayMesh" uid="uid://80nhwrfxwbca" path="res://game/player/player_mesh.tres" id="4_bp242"]
 [ext_resource type="Script" uid="uid://dyyvmbut202rb" path="res://addons/shaker/src/Vector3/shaker_component3D.gd" id="5_cgi3i"]
@@ -608,6 +609,7 @@ jetstream_nodes = [NodePath("Node2D/Marker2D2"), NodePath("Node2D/Marker2D")]
 hit_light_sound = NodePath("hitsoundlight")
 hit_normal_sound = NodePath("hitsound")
 death_sound = NodePath("deathsound")
+super_weapon_movement = Array[Script]([ExtResource("2_n6iff")])
 shiny_thing_scene = ExtResource("2_bp242")
 shaker_component = NodePath("PlayerSprite/SubViewport/MeshInstance3D/ShakerComponent3D")
 
