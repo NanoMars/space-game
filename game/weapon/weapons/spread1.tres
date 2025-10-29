@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="WeaponStats" load_steps=6 format=3 uid="uid://c58aaj1af0oat"]
+[gd_resource type="Resource" script_class="WeaponStats" load_steps=7 format=3 uid="uid://c58aaj1af0oat"]
 
 [ext_resource type="Script" uid="uid://b74jnsjx6ore1" path="res://game/weapon/cone_pattern.gd" id="1_ntgdr"]
+[ext_resource type="Script" uid="uid://chncen4cpafm1" path="res://game/weapon/ProjectileMover.gd" id="2_1r740"]
 [ext_resource type="PackedScene" uid="uid://ce8lm1647q0xr" path="res://game/weapon/player_projectile.tscn" id="2_psrau"]
 [ext_resource type="Script" uid="uid://bypy263lii80f" path="res://game/weapon/weapon_stats.gd" id="3_1r740"]
 [ext_resource type="AudioStream" uid="uid://dfoypx25rjn7e" path="res://game/UI/weapon_select/Random35.wav" id="4_psrau"]
@@ -17,6 +18,7 @@ damage = 7.0
 projectile_speed = 3000.0
 projectile_scene = ExtResource("2_psrau")
 fire_pattern = SubResource("Resource_ntgdr")
+movement = ExtResource("2_1r740")
 sound_effect = ExtResource("4_psrau")
 sound_volume_db = -10.0
 metadata/_custom_type_script = "uid://bypy263lii80f"

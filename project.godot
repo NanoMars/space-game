@@ -48,6 +48,7 @@ spawner=""
 game_root=""
 starfield=""
 invert_rect=""
+player_projectiles=""
 
 [input]
 

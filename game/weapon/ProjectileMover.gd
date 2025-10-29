@@ -1,5 +1,5 @@
 extends Node2D
-
+class_name ProjectileMover
 var projectile: Projectile
 
 func _ready() -> void:
@@ -36,6 +36,3 @@ func _physics_process(_delta: float) -> void:
 			projectile.queue_free()
 			return
 
-	# Rotate to face movement direction in 2D
-	var v: Vector2 = projectile.linear_velocity
-	projectile.rotation = v.angle() + PI / 2

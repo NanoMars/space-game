@@ -51,13 +51,16 @@ func _physics_process(_delta: float) -> void:
 				collider.damage((weapon_stats.damage if weapon_stats and typeof(weapon_stats.damage) == TYPE_FLOAT else 0.0), self)
 				queue_free()
 				return
+	
+	# Rotate to face movement direction in 2D
+	var v: Vector2 = linear_velocity
+	rotation = v.angle() + PI / 2
 
 	# Update for next frame
 	last_position = global_position
 	
 	# Update trail
 	if trail:
-		var v: Vector2 = linear_velocity
 		var velocity_length = v.length()
 		trail_age += _delta
 		trail.scale.y = trail_1px * velocity_length * min(trail_age, trail_size_seconds)

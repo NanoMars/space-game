@@ -88,6 +88,10 @@ func fire_once() -> void:
 		var projectile_instance: Node2D = weapon_stats.projectile_scene.instantiate()
 		projectile_instance.display_mode = display_mode
 
+		var movement_node: Node2D = Node2D.new()
+		movement_node.set_script(weapon_stats.movement)
+		projectile_instance.add_child(movement_node)
+
 		# Local spec -> world space
 		var local_dir: Vector2 = Vector2.UP
 		if shot and shot.has_method("get"):
@@ -103,6 +107,8 @@ func fire_once() -> void:
 
 		var g_dir := local_dir.rotated(global_rotation).normalized()
 		var g_pos := global_position + local_off.rotated(global_rotation)
+
+		
 
 		# Align projectile so that -Y faces g_dir (projectile.gd uses -global_transform.y)
 		projectile_instance.global_position = g_pos

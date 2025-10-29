@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://cqlucyg0ogdps"]
+[gd_scene load_steps=13 format=3 uid="uid://cqlucyg0ogdps"]
 
 [ext_resource type="PackedScene" uid="uid://dsephxhe2x30q" path="res://game/health.tscn" id="1_7yt0h"]
 [ext_resource type="Script" uid="uid://brckhxn4j3vh1" path="res://game/enemies/echo/echo.gd" id="1_aly6b"]
 [ext_resource type="Script" uid="uid://dy1kcyvsje554" path="res://game/weapon/weapon.gd" id="4_7ihf2"]
+[ext_resource type="Script" uid="uid://chncen4cpafm1" path="res://game/weapon/ProjectileMover.gd" id="5_fhode"]
 [ext_resource type="Script" uid="uid://b74jnsjx6ore1" path="res://game/weapon/cone_pattern.gd" id="5_fstwr"]
 [ext_resource type="PackedScene" uid="uid://dj40a3gnwqbyq" path="res://game/weapon/enemy_projectile.tscn" id="6_7ihf2"]
 [ext_resource type="Texture2D" uid="uid://8p4m1eucl2ax" path="res://game/assets/eyeball.png" id="7_7ihf2"]
@@ -21,6 +22,7 @@ damage = 5.0
 projectile_speed = -300.0
 projectile_scene = ExtResource("6_7ihf2")
 fire_pattern = SubResource("Resource_4ste8")
+movement = ExtResource("5_fhode")
 metadata/_custom_type_script = "uid://bypy263lii80f"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8e35v"]
