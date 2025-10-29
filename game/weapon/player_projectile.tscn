@@ -10,6 +10,7 @@ radius = 7.0
 [node name="RigidBody2D" type="RigidBody2D" node_paths=PackedStringArray("trail") groups=["player_projectiles"]]
 collision_layer = 0
 collision_mask = 2
+linear_damp = 1.833
 script = ExtResource("1_w3f7m")
 trail = NodePath("trail")
 
