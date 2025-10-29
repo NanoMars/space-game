@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://ce8lm1647q0xr"]
+[gd_scene load_steps=6 format=3 uid="uid://ce8lm1647q0xr"]
 
 [ext_resource type="Script" uid="uid://dv8s77c07mfnd" path="res://game/weapon/projectile.gd" id="1_w3f7m"]
 [ext_resource type="Texture2D" uid="uid://c1d1lr6ygqy16" path="res://game/weapon/TopProjectile.png" id="2_pnwyh"]
 [ext_resource type="Texture2D" uid="uid://dr7niae1ti5gs" path="res://game/weapon/BottomProjectile.png" id="3_1au6m"]
+[ext_resource type="Script" uid="uid://chncen4cpafm1" path="res://game/weapon/ProjectileMover.gd" id="4_1au6m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h3368"]
 radius = 7.0
@@ -41,3 +42,6 @@ offset = Vector2(0, 11)
 [node name="RayCast2D" type="RayCast2D" parent="."]
 collision_mask = 2
 hit_from_inside = true
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("4_1au6m")

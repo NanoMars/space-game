@@ -98,7 +98,7 @@ signal super_activation_changed(is_active: bool)
 
 const super_progress_decay_rate: float = 0.2
 const super_ready_decay_rate: float = 0.075
-const super_active_decay_rate: float = 0.25
+const super_active_decay_rate: float = 0.15
 const super_progress_per_point: float = 0.0005
 const super_ready_threshold: float = 0.975
 const super_unready_threshold: float = 0.5

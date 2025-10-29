@@ -44,7 +44,7 @@ shader_parameter/effect_color = Color(1, 1, 1, 0.7607843)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6huae"]
 shader = ExtResource("8_fqnwy")
-shader_parameter/strength = 1.0
+shader_parameter/strength = 0.400000019
 shader_parameter/use_sprite_alpha = true
 
 [node name="Control" type="Control"]
@@ -143,8 +143,7 @@ modulate = Color(1, 1, 1, 0.78431374)
 layout_mode = 1
 anchors_preset = -1
 offset_left = 16.0
-offset_top = -11.0
-offset_right = 200.0
+offset_right = 216.0
 value = 1.0
 
 [node name="Timeline" parent="." instance=ExtResource("6_iejap")]
@@ -183,11 +182,24 @@ grow_vertical = 2
 visible = false
 material = SubResource("ShaderMaterial_6huae")
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(213, 120)
 texture = ExtResource("11_ivbii")
 expand_mode = 1
-stretch_mode = 5
+
+[node name="Label" type="Label" parent="SuperReady"]
+use_parent_material = true
+layout_mode = 0
+offset_left = 128.0
+offset_top = 184.0
+offset_right = 407.0
+offset_bottom = 207.0
+text = "press E or left shift to activate super"

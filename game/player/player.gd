@@ -1,8 +1,9 @@
 extends CharacterBody2D
 
-@export var move_speed: float = 5.0
+@export var move_speed: float = 15000.0
 var normal_move_speed: float
-@export var shooting_move_speed: float = 2.5
+@export var shooting_move_speed: float = 10000.0
+@export var super_move_speed: float = 17000.0
 
 @onready var health: Health = $Health
 @onready var weapon: Weapon = $Weapon
@@ -60,7 +61,7 @@ func _physics_process(delta: float) -> void:
 	if input_vector.length() > 1.0:
 		input_vector = input_vector.normalized()
 
-	var current_move_speed = move_speed if weapon.can_shoot == true else shooting_move_speed
+	var current_move_speed = (move_speed if weapon.can_shoot == true else shooting_move_speed) if not ScoreManager.super_active else super_move_speed
 
 	velocity.x = -input_vector.x * current_move_speed * delta
 	velocity.y = -input_vector.y * current_move_speed * delta
